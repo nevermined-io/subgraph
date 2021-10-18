@@ -23,6 +23,7 @@ import {
   WasGeneratedBy
 } from "../generated/DIDRegistry/DIDRegistry"
 import { ExampleEntity } from "../generated/schema"
+import { DIDAttributeRegistered as DIDAttributeRegisteredEntity } from "../generated/schema"
 
 export function handleActedOnBehalf(event: ActedOnBehalf): void {
   // Entities can be loaded from the store using a string ID; this ID
@@ -101,7 +102,16 @@ export function handleApprovalForAll(event: ApprovalForAll): void {}
 
 export function handleDIDAttributeRegistered(
   event: DIDAttributeRegistered
-): void {}
+): void {
+  let entity = new DIDAttributeRegisteredEntity(event.params._did.toHex())
+  entity._did = event.params._did
+  entity._owner = event.params._owner
+  entity._checksum = event.params._checksum
+  entity._value = event.params._value
+  entity._lastUpdatedBy = event.params._lastUpdatedBy
+  entity._blockNumberUpdated = event.params._blockNumberUpdated
+  entity.save()
+}
 
 export function handleDIDOwnershipTransferred(
   event: DIDOwnershipTransferred

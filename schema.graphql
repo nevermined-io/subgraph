@@ -4,3 +4,15 @@ type ExampleEntity @entity {
   _entityDid: Bytes! # bytes32
   _delegateAgentId: Bytes! # address
 }
+
+type DIDAttributeRegistered @entity {
+  id: ID!
+  _did: Bytes!
+  _owner: Bytes!
+  _checksum: Bytes!
+  _value: String!
+  _lastUpdatedBy: Bytes!
+  _blockNumberUpdated: BigInt!
+  _entityDid: Bytes! # bytes32
+  _delegateAgentId: Bytes! # address
+}
