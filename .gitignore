@@ -42,4 +42,3 @@ yarn.lock
 
 # graph generated files
 build/
-generated/

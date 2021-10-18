@@ -10,7 +10,7 @@ dataSources:
       abi: DIDRegistry
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.1
       language: wasm/assemblyscript
       entities:
         - ActedOnBehalf
