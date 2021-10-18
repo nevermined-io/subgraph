@@ -35,3 +35,7 @@ jobs:
         ./scripts/wait-nevermined.sh
     - name: Test build
       run: yarn build
+    - name: Test create
+      run: yarn create-local
+    - name: Test deploy
+      run: yarn deploy-local

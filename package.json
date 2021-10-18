@@ -1,5 +1,5 @@
 {
-  "name": "nevermined-subgraph",
+  "name": "@nevermined-io/subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
@@ -7,7 +7,7 @@
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ nevermined",
     "create-local": "graph create --node http://localhost:9020/ nevermined",
     "remove-local": "graph remove --node http://localhost:9020/ nevermined",
-    "deploy-local": "graph deploy --node http://localhost:9020/ --ipfs http://localhost:5001 nevermined"
+    "deploy-local": "graph deploy -l v0.0.1 --node http://localhost:9020/ --ipfs http://localhost:5001 nevermined"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.22.3",

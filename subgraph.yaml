@@ -10,7 +10,7 @@ dataSources:
       abi: DIDRegistry
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.1
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - ActedOnBehalf
@@ -35,7 +35,7 @@ dataSources:
         - WasGeneratedBy
       abis:
         - name: DIDRegistry
-          file: ./abis/DIDRegistry.json
+          file: ./node_modules/@nevermined-io/contracts/artifacts/DIDRegistry.spree.json
       eventHandlers:
         - event: ActedOnBehalf(indexed bytes32,indexed address,indexed address,bytes32,bytes32,string,uint256)
           handler: handleActedOnBehalf
