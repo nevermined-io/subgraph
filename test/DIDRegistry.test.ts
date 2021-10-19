@@ -32,9 +32,9 @@ describe('DIDRegistry', () => {
         client = new ApolloClient({
             link: createHttpLink({
                 uri: 'http://localhost:9000/subgraphs/name/nevermined',
-                fetch: fetch
+                fetch: fetch,
             }),
-            cache: new InMemoryCache()
+            cache: new InMemoryCache(),
         })
 
         const subscriptionClient = new SubscriptionClient(
@@ -42,13 +42,13 @@ describe('DIDRegistry', () => {
             {
                 reconnect: true,
             },
-            ws
+            ws,
 
         )
         const webSocketLink = new WebSocketLink(subscriptionClient)
         wsClient = new ApolloClient({
             link: webSocketLink,
-            cache: new InMemoryCache()
+            cache: new InMemoryCache(),
         })
     })
 
@@ -63,7 +63,7 @@ describe('DIDRegistry', () => {
                 checksum,
                 [],
                 data,
-                account.getId()
+                account.getId(),
             )
             assert.isTrue(receipt.status)
             expectedEvent = receipt.events.DIDAttributeRegistered
@@ -85,8 +85,8 @@ describe('DIDRegistry', () => {
             const observable = wsClient.subscribe({
                 query: gql(query),
                 variables: {
-                    did: didZeroX(did)
-                }
+                    did: didZeroX(did),
+                },
             })
 
             const promise = new Promise((resolve, reject) => {
@@ -96,7 +96,8 @@ describe('DIDRegistry', () => {
                             resolve(x)
                         }
                     },
-                    err => reject(err)                )
+                    err => reject(err),
+                )
             })
             const result: any = await promise
             const eventData = result.data.didattributeRegistered
@@ -105,12 +106,12 @@ describe('DIDRegistry', () => {
             assert.strictEqual(eventData._did, expectedEventData._did)
             assert.strictEqual(
                 Web3.utils.toChecksumAddress(eventData._owner),
-                Web3.utils.toChecksumAddress(expectedEventData._owner)
+                Web3.utils.toChecksumAddress(expectedEventData._owner),
             )
             assert.strictEqual(eventData._checksum, expectedEventData._checksum)
             assert.strictEqual(
                 Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
-                Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy)
+                Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
             )
             assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
 
@@ -134,8 +135,8 @@ describe('DIDRegistry', () => {
             const result = await client.query({
                 query: gql(query),
                 variables: {
-                    did: didZeroX(did)
-                }
+                    did: didZeroX(did),
+                },
 
             })
             const eventData = result.data.didattributeRegistered
@@ -144,12 +145,12 @@ describe('DIDRegistry', () => {
             assert.strictEqual(eventData._did, expectedEventData._did)
             assert.strictEqual(
                 Web3.utils.toChecksumAddress(eventData._owner),
-                Web3.utils.toChecksumAddress(expectedEventData._owner)
+                Web3.utils.toChecksumAddress(expectedEventData._owner),
             )
             assert.strictEqual(eventData._checksum, expectedEventData._checksum)
             assert.strictEqual(
                 Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
-                Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy)
+                Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
             )
             assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
         })
