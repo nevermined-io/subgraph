@@ -12,6 +12,7 @@
   - [Requirements](#requirements)
   - [Developing](#developing)
   - [Testing](#testing)
+  - [References](#references)
   - [License](#license)
 
 ---
@@ -56,6 +57,11 @@ $ ./scripts/wait-nevermined.sh
 $ export SEED_WORDS="taxi music thumb unique chat sand crew more leg another off lamp"
 $ yarn test
 ```
+
+## References
+
+- [https://thegraph.com/docs/developer/create-subgraph-hosted](https://thegraph.com/docs/developer/create-subgraph-hosted)
+- [https://thegraph.academy/developers/local-development/](https://thegraph.academy/developers/local-development/)
 
 ## License
 
