@@ -1,10 +1,10 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: DIDRegistry
-    network: mainnet
+    network: spree
     source:
       address: "0x02175de5A7F168517688e3E93f55936C9c2C7A19"
       abi: DIDRegistry
@@ -35,7 +35,7 @@ dataSources:
         - WasGeneratedBy
       abis:
         - name: DIDRegistry
-          file: ./abis/DIDRegistry.json
+          file: ./node_modules/@nevermined-io/contracts/artifacts/DIDRegistry.spree.json
       eventHandlers:
         - event: ActedOnBehalf(indexed bytes32,indexed address,indexed address,bytes32,bytes32,string,uint256)
           handler: handleActedOnBehalf
