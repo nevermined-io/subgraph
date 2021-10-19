@@ -54,7 +54,7 @@ $ ./start_nevermined.sh --latest --no-marketplace --spree-embedded-contracts --g
 $ ./scripts/wait-nevermined.sh
 
 # run the tests
-$ export SEED_WORDS="taxi music thumb unique chat sand crew more leg another off lamp"
+$ export SEED_WORDS="<add your mnemonic here>"
 $ yarn test
 ```
 
@@ -67,8 +67,6 @@ $ yarn test
 
 ```
 Copyright 2020 Keyko GmbH
-This product includes software developed at
-BigchainDB GmbH and Ocean Protocol (https://www.oceanprotocol.com/)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
