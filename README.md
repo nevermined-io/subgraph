@@ -9,13 +9,53 @@
 ---
 
 - [Nevermined Subgraph](#nevermined-subgraph)
+  - [Requirements](#requirements)
+  - [Developing](#developing)
+  - [Testing](#testing)
   - [License](#license)
 
 ---
 
+## Requirements
 
-Note: The code generation must be performed again after every change to the GraphQL schema or the ABIs included in the manifest. It must also be performed at least once before building or deploying the subgraph.
+- Node v12.22+
+- yarn 1.22+
+- [Nevermined tools]([https://git](https://github.com/nevermined-io/tools)) with the `--graph` option
 
+## Developing
+
+```bash
+# install dependencies
+$ yarn
+
+# code generation
+$ yarn codegen
+
+# allocate subgraph name
+$ yarn create-local
+
+# local deployment of the subgraph
+$ yarn deploy-local
+```
+
+> Note: The code generation must be performed again after every change to the GraphQL schema or the ABIs included in the manifest. It must also be performed at least once before building or deploying the subgraph.
+
+## Testing
+
+```bash
+# check linting
+$ yarn lint
+
+# start nevermined tools
+$ ./start_nevermined.sh --latest --no-marketplace --spree-embedded-contracts --graph
+
+# wait and copy artifacts
+$ ./scripts/wait-nevermined.sh
+
+# run the tests
+$ export SEED_WORDS="taxi music thumb unique chat sand crew more leg another off lamp"
+$ yarn test
+```
 
 ## License
 
