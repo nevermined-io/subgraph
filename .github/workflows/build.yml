@@ -43,5 +43,5 @@ jobs:
       run: yarn deploy-local
     - name: Unit tests
       env:
-        SEED_WORDS: ${{ secrets.seedWords }}
+        SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
       run: yarn test
