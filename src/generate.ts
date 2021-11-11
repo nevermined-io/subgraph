@@ -7,7 +7,6 @@ import prettier from 'prettier'
 import yaml from 'js-yaml'
 
 import fs from 'fs-extra'
-import { ProvenanceAttributeRegistered } from '../generated/DIDRegistry/DIDRegistry'
 
 const ALLOWED_CONTRACTS = (network) => [
     `node_modules/@nevermined-io/contracts/artifacts/AccessCondition.${network}.json`,
@@ -30,6 +29,8 @@ const ALLOWED_CONTRACTS = (network) => [
     `node_modules/@nevermined-io/contracts/artifacts/WhitelistingCondition.${network}.json`,
 ]
 
+// contracts that have problems with the code generation
+// Waiting for help on discord
 const DISALLOWED_CONTRACTS = [
     // graph init
     // Failed to generate types for GraphQL schema: Conversion from 'AssemblyScript' to 'Value' for target type 'Array<BigInt | null>' is not supported
