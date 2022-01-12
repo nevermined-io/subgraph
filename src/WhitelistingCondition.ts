@@ -1,13 +1,13 @@
-import { OwnershipTransferred as WhitelistingConditionOwnershipTransferredEvent } from '../generated/WhitelistingCondition/WhitelistingCondition'
-import { WhitelistingConditionOwnershipTransferred } from '../generated/schema'
+import { OwnershipTransferred as OwnershipTransferredEvent } from "../generated/WhitelistingCondition/WhitelistingCondition"
+import { OwnershipTransferred } from "../generated/schema"
 
-export function handleWhitelistingConditionOwnershipTransferred(
-    event: WhitelistingConditionOwnershipTransferredEvent,
+export function handleOwnershipTransferred(
+  event: OwnershipTransferredEvent
 ): void {
-    const entity = new WhitelistingConditionOwnershipTransferred(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
-    )
-    entity.previousOwner = event.params.previousOwner
-    entity.newOwner = event.params.newOwner
-    entity.save()
+  let entity = new OwnershipTransferred(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
+  entity.save()
 }

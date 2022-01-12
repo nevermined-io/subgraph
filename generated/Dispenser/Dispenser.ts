@@ -100,21 +100,6 @@ export class Dispenser extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  token(): Address {
-    let result = super.call("token", "token():(address)", []);
-
-    return result[0].toAddress();
-  }
-
-  try_token(): ethereum.CallResult<Address> {
-    let result = super.tryCall("token", "token():(address)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
   requestTokens(amount: BigInt): boolean {
     let result = super.call("requestTokens", "requestTokens(uint256):(bool)", [
       ethereum.Value.fromUnsignedBigInt(amount)
@@ -135,61 +120,20 @@ export class Dispenser extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
-}
 
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
+  token(): Address {
+    let result = super.call("token", "token():(address)", []);
+
+    return result[0].toAddress();
   }
 
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
-  }
-}
-
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class TransferOwnershipCall extends ethereum.Call {
-  get inputs(): TransferOwnershipCall__Inputs {
-    return new TransferOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): TransferOwnershipCall__Outputs {
-    return new TransferOwnershipCall__Outputs(this);
-  }
-}
-
-export class TransferOwnershipCall__Inputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-
-  get newOwner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class TransferOwnershipCall__Outputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
+  try_token(): ethereum.CallResult<Address> {
+    let result = super.tryCall("token", "token():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 }
 
@@ -227,6 +171,32 @@ export class InitializeCall__Outputs {
   }
 }
 
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
 export class RequestTokensCall extends ethereum.Call {
   get inputs(): RequestTokensCall__Inputs {
     return new RequestTokensCall__Inputs(this);
@@ -258,36 +228,6 @@ export class RequestTokensCall__Outputs {
 
   get tokensTransferred(): boolean {
     return this._call.outputValues[0].value.toBoolean();
-  }
-}
-
-export class SetMinPeriodCall extends ethereum.Call {
-  get inputs(): SetMinPeriodCall__Inputs {
-    return new SetMinPeriodCall__Inputs(this);
-  }
-
-  get outputs(): SetMinPeriodCall__Outputs {
-    return new SetMinPeriodCall__Outputs(this);
-  }
-}
-
-export class SetMinPeriodCall__Inputs {
-  _call: SetMinPeriodCall;
-
-  constructor(call: SetMinPeriodCall) {
-    this._call = call;
-  }
-
-  get period(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class SetMinPeriodCall__Outputs {
-  _call: SetMinPeriodCall;
-
-  constructor(call: SetMinPeriodCall) {
-    this._call = call;
   }
 }
 
@@ -347,6 +287,66 @@ export class SetMaxMintAmountCall__Outputs {
   _call: SetMaxMintAmountCall;
 
   constructor(call: SetMaxMintAmountCall) {
+    this._call = call;
+  }
+}
+
+export class SetMinPeriodCall extends ethereum.Call {
+  get inputs(): SetMinPeriodCall__Inputs {
+    return new SetMinPeriodCall__Inputs(this);
+  }
+
+  get outputs(): SetMinPeriodCall__Outputs {
+    return new SetMinPeriodCall__Outputs(this);
+  }
+}
+
+export class SetMinPeriodCall__Inputs {
+  _call: SetMinPeriodCall;
+
+  constructor(call: SetMinPeriodCall) {
+    this._call = call;
+  }
+
+  get period(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class SetMinPeriodCall__Outputs {
+  _call: SetMinPeriodCall;
+
+  constructor(call: SetMinPeriodCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
     this._call = call;
   }
 }

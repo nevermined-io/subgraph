@@ -27,12 +27,38 @@ export class Approval__Params {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get spender(): Address {
+  get approved(): Address {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get value(): BigInt {
+  get tokenId(): BigInt {
     return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class ApprovalForAll extends ethereum.Event {
+  get params(): ApprovalForAll__Params {
+    return new ApprovalForAll__Params(this);
+  }
+}
+
+export class ApprovalForAll__Params {
+  _event: ApprovalForAll;
+
+  constructor(event: ApprovalForAll) {
+    this._event = event;
+  }
+
+  get owner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get operator(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get approved(): boolean {
+    return this._event.parameters[2].value.toBoolean();
   }
 }
 
@@ -55,6 +81,32 @@ export class OwnershipTransferred__Params {
 
   get newOwner(): Address {
     return this._event.parameters[1].value.toAddress();
+  }
+}
+
+export class ProxyApproval extends ethereum.Event {
+  get params(): ProxyApproval__Params {
+    return new ProxyApproval__Params(this);
+  }
+}
+
+export class ProxyApproval__Params {
+  _event: ProxyApproval;
+
+  constructor(event: ProxyApproval) {
+    this._event = event;
+  }
+
+  get sender(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get operator(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get approved(): boolean {
+    return this._event.parameters[2].value.toBoolean();
   }
 }
 
@@ -157,14 +209,14 @@ export class Transfer__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get value(): BigInt {
+  get tokenId(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 }
 
-export class NeverminedToken extends ethereum.SmartContract {
-  static bind(address: Address): NeverminedToken {
-    return new NeverminedToken("NeverminedToken", address);
+export class NFT721Upgradeable extends ethereum.SmartContract {
+  static bind(address: Address): NFT721Upgradeable {
+    return new NFT721Upgradeable("NFT721Upgradeable", address);
   }
 
   DEFAULT_ADMIN_ROLE(): Bytes {
@@ -190,61 +242,32 @@ export class NeverminedToken extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  allowance(owner: Address, spender: Address): BigInt {
-    let result = super.call(
-      "allowance",
-      "allowance(address,address):(uint256)",
-      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(spender)]
-    );
+  MINTER_ROLE(): Bytes {
+    let result = super.call("MINTER_ROLE", "MINTER_ROLE():(bytes32)", []);
 
-    return result[0].toBigInt();
+    return result[0].toBytes();
   }
 
-  try_allowance(owner: Address, spender: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "allowance",
-      "allowance(address,address):(uint256)",
-      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(spender)]
-    );
+  try_MINTER_ROLE(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall("MINTER_ROLE", "MINTER_ROLE():(bytes32)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  approve(spender: Address, amount: BigInt): boolean {
-    let result = super.call("approve", "approve(address,uint256):(bool)", [
-      ethereum.Value.fromAddress(spender),
-      ethereum.Value.fromUnsignedBigInt(amount)
-    ]);
-
-    return result[0].toBoolean();
-  }
-
-  try_approve(spender: Address, amount: BigInt): ethereum.CallResult<boolean> {
-    let result = super.tryCall("approve", "approve(address,uint256):(bool)", [
-      ethereum.Value.fromAddress(spender),
-      ethereum.Value.fromUnsignedBigInt(amount)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  balanceOf(account: Address): BigInt {
+  balanceOf(owner: Address): BigInt {
     let result = super.call("balanceOf", "balanceOf(address):(uint256)", [
-      ethereum.Value.fromAddress(account)
+      ethereum.Value.fromAddress(owner)
     ]);
 
     return result[0].toBigInt();
   }
 
-  try_balanceOf(account: Address): ethereum.CallResult<BigInt> {
+  try_balanceOf(owner: Address): ethereum.CallResult<BigInt> {
     let result = super.tryCall("balanceOf", "balanceOf(address):(uint256)", [
-      ethereum.Value.fromAddress(account)
+      ethereum.Value.fromAddress(owner)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -253,66 +276,25 @@ export class NeverminedToken extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  cap(): BigInt {
-    let result = super.call("cap", "cap():(uint256)", []);
+  getApproved(tokenId: BigInt): Address {
+    let result = super.call("getApproved", "getApproved(uint256):(address)", [
+      ethereum.Value.fromUnsignedBigInt(tokenId)
+    ]);
 
-    return result[0].toBigInt();
+    return result[0].toAddress();
   }
 
-  try_cap(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("cap", "cap():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  decimals(): i32 {
-    let result = super.call("decimals", "decimals():(uint8)", []);
-
-    return result[0].toI32();
-  }
-
-  try_decimals(): ethereum.CallResult<i32> {
-    let result = super.tryCall("decimals", "decimals():(uint8)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toI32());
-  }
-
-  decreaseAllowance(spender: Address, subtractedValue: BigInt): boolean {
-    let result = super.call(
-      "decreaseAllowance",
-      "decreaseAllowance(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(spender),
-        ethereum.Value.fromUnsignedBigInt(subtractedValue)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_decreaseAllowance(
-    spender: Address,
-    subtractedValue: BigInt
-  ): ethereum.CallResult<boolean> {
+  try_getApproved(tokenId: BigInt): ethereum.CallResult<Address> {
     let result = super.tryCall(
-      "decreaseAllowance",
-      "decreaseAllowance(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(spender),
-        ethereum.Value.fromUnsignedBigInt(subtractedValue)
-      ]
+      "getApproved",
+      "getApproved(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   getRoleAdmin(role: Bytes): Bytes {
@@ -357,52 +339,31 @@ export class NeverminedToken extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  increaseAllowance(spender: Address, addedValue: BigInt): boolean {
+  isApprovedForAll(account: Address, operator: Address): boolean {
     let result = super.call(
-      "increaseAllowance",
-      "increaseAllowance(address,uint256):(bool)",
+      "isApprovedForAll",
+      "isApprovedForAll(address,address):(bool)",
       [
-        ethereum.Value.fromAddress(spender),
-        ethereum.Value.fromUnsignedBigInt(addedValue)
+        ethereum.Value.fromAddress(account),
+        ethereum.Value.fromAddress(operator)
       ]
     );
 
     return result[0].toBoolean();
   }
 
-  try_increaseAllowance(
-    spender: Address,
-    addedValue: BigInt
+  try_isApprovedForAll(
+    account: Address,
+    operator: Address
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
-      "increaseAllowance",
-      "increaseAllowance(address,uint256):(bool)",
+      "isApprovedForAll",
+      "isApprovedForAll(address,address):(bool)",
       [
-        ethereum.Value.fromAddress(spender),
-        ethereum.Value.fromUnsignedBigInt(addedValue)
+        ethereum.Value.fromAddress(account),
+        ethereum.Value.fromAddress(operator)
       ]
     );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  mint(account: Address, amount: BigInt): boolean {
-    let result = super.call("mint", "mint(address,uint256):(bool)", [
-      ethereum.Value.fromAddress(account),
-      ethereum.Value.fromUnsignedBigInt(amount)
-    ]);
-
-    return result[0].toBoolean();
-  }
-
-  try_mint(account: Address, amount: BigInt): ethereum.CallResult<boolean> {
-    let result = super.tryCall("mint", "mint(address,uint256):(bool)", [
-      ethereum.Value.fromAddress(account),
-      ethereum.Value.fromUnsignedBigInt(amount)
-    ]);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -433,6 +394,25 @@ export class NeverminedToken extends ethereum.SmartContract {
 
   try_owner(): ethereum.CallResult<Address> {
     let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  ownerOf(tokenId: BigInt): Address {
+    let result = super.call("ownerOf", "ownerOf(uint256):(address)", [
+      ethereum.Value.fromUnsignedBigInt(tokenId)
+    ]);
+
+    return result[0].toAddress();
+  }
+
+  try_ownerOf(tokenId: BigInt): ethereum.CallResult<Address> {
+    let result = super.tryCall("ownerOf", "ownerOf(uint256):(address)", [
+      ethereum.Value.fromUnsignedBigInt(tokenId)
+    ]);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -478,78 +458,53 @@ export class NeverminedToken extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toString());
   }
 
-  totalSupply(): BigInt {
-    let result = super.call("totalSupply", "totalSupply():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_totalSupply(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("totalSupply", "totalSupply():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  transfer(recipient: Address, amount: BigInt): boolean {
-    let result = super.call("transfer", "transfer(address,uint256):(bool)", [
-      ethereum.Value.fromAddress(recipient),
-      ethereum.Value.fromUnsignedBigInt(amount)
+  tokenURI(tokenId: BigInt): string {
+    let result = super.call("tokenURI", "tokenURI(uint256):(string)", [
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
 
-    return result[0].toBoolean();
+    return result[0].toString();
   }
 
-  try_transfer(
-    recipient: Address,
-    amount: BigInt
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall("transfer", "transfer(address,uint256):(bool)", [
-      ethereum.Value.fromAddress(recipient),
-      ethereum.Value.fromUnsignedBigInt(amount)
+  try_tokenURI(tokenId: BigInt): ethereum.CallResult<string> {
+    let result = super.tryCall("tokenURI", "tokenURI(uint256):(string)", [
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+}
+
+export class AddMinterCall extends ethereum.Call {
+  get inputs(): AddMinterCall__Inputs {
+    return new AddMinterCall__Inputs(this);
   }
 
-  transferFrom(sender: Address, recipient: Address, amount: BigInt): boolean {
-    let result = super.call(
-      "transferFrom",
-      "transferFrom(address,address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(sender),
-        ethereum.Value.fromAddress(recipient),
-        ethereum.Value.fromUnsignedBigInt(amount)
-      ]
-    );
+  get outputs(): AddMinterCall__Outputs {
+    return new AddMinterCall__Outputs(this);
+  }
+}
 
-    return result[0].toBoolean();
+export class AddMinterCall__Inputs {
+  _call: AddMinterCall;
+
+  constructor(call: AddMinterCall) {
+    this._call = call;
   }
 
-  try_transferFrom(
-    sender: Address,
-    recipient: Address,
-    amount: BigInt
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "transferFrom",
-      "transferFrom(address,address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(sender),
-        ethereum.Value.fromAddress(recipient),
-        ethereum.Value.fromUnsignedBigInt(amount)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class AddMinterCall__Outputs {
+  _call: AddMinterCall;
+
+  constructor(call: AddMinterCall) {
+    this._call = call;
   }
 }
 
@@ -570,11 +525,11 @@ export class ApproveCall__Inputs {
     this._call = call;
   }
 
-  get spender(): Address {
+  get to(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get amount(): BigInt {
+  get tokenId(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 }
@@ -585,47 +540,35 @@ export class ApproveCall__Outputs {
   constructor(call: ApproveCall) {
     this._call = call;
   }
+}
 
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
+export class BurnCall extends ethereum.Call {
+  get inputs(): BurnCall__Inputs {
+    return new BurnCall__Inputs(this);
+  }
+
+  get outputs(): BurnCall__Outputs {
+    return new BurnCall__Outputs(this);
   }
 }
 
-export class DecreaseAllowanceCall extends ethereum.Call {
-  get inputs(): DecreaseAllowanceCall__Inputs {
-    return new DecreaseAllowanceCall__Inputs(this);
-  }
+export class BurnCall__Inputs {
+  _call: BurnCall;
 
-  get outputs(): DecreaseAllowanceCall__Outputs {
-    return new DecreaseAllowanceCall__Outputs(this);
-  }
-}
-
-export class DecreaseAllowanceCall__Inputs {
-  _call: DecreaseAllowanceCall;
-
-  constructor(call: DecreaseAllowanceCall) {
+  constructor(call: BurnCall) {
     this._call = call;
   }
 
-  get spender(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get subtractedValue(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get id(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 
-export class DecreaseAllowanceCall__Outputs {
-  _call: DecreaseAllowanceCall;
+export class BurnCall__Outputs {
+  _call: BurnCall;
 
-  constructor(call: DecreaseAllowanceCall) {
+  constructor(call: BurnCall) {
     this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
   }
 }
 
@@ -663,44 +606,6 @@ export class GrantRoleCall__Outputs {
   }
 }
 
-export class IncreaseAllowanceCall extends ethereum.Call {
-  get inputs(): IncreaseAllowanceCall__Inputs {
-    return new IncreaseAllowanceCall__Inputs(this);
-  }
-
-  get outputs(): IncreaseAllowanceCall__Outputs {
-    return new IncreaseAllowanceCall__Outputs(this);
-  }
-}
-
-export class IncreaseAllowanceCall__Inputs {
-  _call: IncreaseAllowanceCall;
-
-  constructor(call: IncreaseAllowanceCall) {
-    this._call = call;
-  }
-
-  get spender(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get addedValue(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class IncreaseAllowanceCall__Outputs {
-  _call: IncreaseAllowanceCall;
-
-  constructor(call: IncreaseAllowanceCall) {
-    this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
-  }
-}
-
 export class InitializeCall extends ethereum.Call {
   get inputs(): InitializeCall__Inputs {
     return new InitializeCall__Inputs(this);
@@ -716,14 +621,6 @@ export class InitializeCall__Inputs {
 
   constructor(call: InitializeCall) {
     this._call = call;
-  }
-
-  get _owner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _initialMinter(): Address {
-    return this._call.inputValues[1].value.toAddress();
   }
 }
 
@@ -752,11 +649,11 @@ export class MintCall__Inputs {
     this._call = call;
   }
 
-  get account(): Address {
+  get to(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get amount(): BigInt {
+  get id(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 }
@@ -766,10 +663,6 @@ export class MintCall__Outputs {
 
   constructor(call: MintCall) {
     this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
   }
 }
 
@@ -867,41 +760,151 @@ export class RevokeRoleCall__Outputs {
   }
 }
 
-export class TransferCall extends ethereum.Call {
-  get inputs(): TransferCall__Inputs {
-    return new TransferCall__Inputs(this);
+export class SafeTransferFromCall extends ethereum.Call {
+  get inputs(): SafeTransferFromCall__Inputs {
+    return new SafeTransferFromCall__Inputs(this);
   }
 
-  get outputs(): TransferCall__Outputs {
-    return new TransferCall__Outputs(this);
+  get outputs(): SafeTransferFromCall__Outputs {
+    return new SafeTransferFromCall__Outputs(this);
   }
 }
 
-export class TransferCall__Inputs {
-  _call: TransferCall;
+export class SafeTransferFromCall__Inputs {
+  _call: SafeTransferFromCall;
 
-  constructor(call: TransferCall) {
+  constructor(call: SafeTransferFromCall) {
     this._call = call;
   }
 
-  get recipient(): Address {
+  get from(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get to(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
   }
 }
 
-export class TransferCall__Outputs {
-  _call: TransferCall;
+export class SafeTransferFromCall__Outputs {
+  _call: SafeTransferFromCall;
 
-  constructor(call: TransferCall) {
+  constructor(call: SafeTransferFromCall) {
+    this._call = call;
+  }
+}
+
+export class SafeTransferFrom1Call extends ethereum.Call {
+  get inputs(): SafeTransferFrom1Call__Inputs {
+    return new SafeTransferFrom1Call__Inputs(this);
+  }
+
+  get outputs(): SafeTransferFrom1Call__Outputs {
+    return new SafeTransferFrom1Call__Outputs(this);
+  }
+}
+
+export class SafeTransferFrom1Call__Inputs {
+  _call: SafeTransferFrom1Call;
+
+  constructor(call: SafeTransferFrom1Call) {
     this._call = call;
   }
 
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
+  get from(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get to(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get _data(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+}
+
+export class SafeTransferFrom1Call__Outputs {
+  _call: SafeTransferFrom1Call;
+
+  constructor(call: SafeTransferFrom1Call) {
+    this._call = call;
+  }
+}
+
+export class SetApprovalForAllCall extends ethereum.Call {
+  get inputs(): SetApprovalForAllCall__Inputs {
+    return new SetApprovalForAllCall__Inputs(this);
+  }
+
+  get outputs(): SetApprovalForAllCall__Outputs {
+    return new SetApprovalForAllCall__Outputs(this);
+  }
+}
+
+export class SetApprovalForAllCall__Inputs {
+  _call: SetApprovalForAllCall;
+
+  constructor(call: SetApprovalForAllCall) {
+    this._call = call;
+  }
+
+  get operator(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get approved(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+}
+
+export class SetApprovalForAllCall__Outputs {
+  _call: SetApprovalForAllCall;
+
+  constructor(call: SetApprovalForAllCall) {
+    this._call = call;
+  }
+}
+
+export class SetProxyApprovalCall extends ethereum.Call {
+  get inputs(): SetProxyApprovalCall__Inputs {
+    return new SetProxyApprovalCall__Inputs(this);
+  }
+
+  get outputs(): SetProxyApprovalCall__Outputs {
+    return new SetProxyApprovalCall__Outputs(this);
+  }
+}
+
+export class SetProxyApprovalCall__Inputs {
+  _call: SetProxyApprovalCall;
+
+  constructor(call: SetProxyApprovalCall) {
+    this._call = call;
+  }
+
+  get operator(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get approved(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+}
+
+export class SetProxyApprovalCall__Outputs {
+  _call: SetProxyApprovalCall;
+
+  constructor(call: SetProxyApprovalCall) {
+    this._call = call;
   }
 }
 
@@ -922,15 +925,15 @@ export class TransferFromCall__Inputs {
     this._call = call;
   }
 
-  get sender(): Address {
+  get from(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get recipient(): Address {
+  get to(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get amount(): BigInt {
+  get tokenId(): BigInt {
     return this._call.inputValues[2].value.toBigInt();
   }
 }
@@ -940,10 +943,6 @@ export class TransferFromCall__Outputs {
 
   constructor(call: TransferFromCall) {
     this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
   }
 }
 

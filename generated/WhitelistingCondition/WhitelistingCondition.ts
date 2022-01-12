@@ -150,6 +150,41 @@ export class WhitelistingCondition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  fulfill(_agreementId: Bytes, _listAddress: Address, _item: Bytes): i32 {
+    let result = super.call(
+      "fulfill",
+      "fulfill(bytes32,address,bytes32):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromAddress(_listAddress),
+        ethereum.Value.fromFixedBytes(_item)
+      ]
+    );
+
+    return result[0].toI32();
+  }
+
+  try_fulfill(
+    _agreementId: Bytes,
+    _listAddress: Address,
+    _item: Bytes
+  ): ethereum.CallResult<i32> {
+    let result = super.tryCall(
+      "fulfill",
+      "fulfill(bytes32,address,bytes32):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromAddress(_listAddress),
+        ethereum.Value.fromFixedBytes(_item)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
   generateId(_agreementId: Bytes, _valueHash: Bytes): Bytes {
     let result = super.call(
       "generateId",
@@ -203,6 +238,38 @@ export class WhitelistingCondition extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  hashValues(_listAddress: Address, _item: Bytes): Bytes {
+    let result = super.call(
+      "hashValues",
+      "hashValues(address,bytes32):(bytes32)",
+      [
+        ethereum.Value.fromAddress(_listAddress),
+        ethereum.Value.fromFixedBytes(_item)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_hashValues(
+    _listAddress: Address,
+    _item: Bytes
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "hashValues",
+      "hashValues(address,bytes32):(bytes32)",
+      [
+        ethereum.Value.fromAddress(_listAddress),
+        ethereum.Value.fromFixedBytes(_item)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   isContract(addr: Address): boolean {
@@ -277,73 +344,6 @@ export class WhitelistingCondition extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
-
-  hashValues(_listAddress: Address, _item: Bytes): Bytes {
-    let result = super.call(
-      "hashValues",
-      "hashValues(address,bytes32):(bytes32)",
-      [
-        ethereum.Value.fromAddress(_listAddress),
-        ethereum.Value.fromFixedBytes(_item)
-      ]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_hashValues(
-    _listAddress: Address,
-    _item: Bytes
-  ): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "hashValues",
-      "hashValues(address,bytes32):(bytes32)",
-      [
-        ethereum.Value.fromAddress(_listAddress),
-        ethereum.Value.fromFixedBytes(_item)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  fulfill(_agreementId: Bytes, _listAddress: Address, _item: Bytes): i32 {
-    let result = super.call(
-      "fulfill",
-      "fulfill(bytes32,address,bytes32):(uint8)",
-      [
-        ethereum.Value.fromFixedBytes(_agreementId),
-        ethereum.Value.fromAddress(_listAddress),
-        ethereum.Value.fromFixedBytes(_item)
-      ]
-    );
-
-    return result[0].toI32();
-  }
-
-  try_fulfill(
-    _agreementId: Bytes,
-    _listAddress: Address,
-    _item: Bytes
-  ): ethereum.CallResult<i32> {
-    let result = super.tryCall(
-      "fulfill",
-      "fulfill(bytes32,address,bytes32):(uint8)",
-      [
-        ethereum.Value.fromFixedBytes(_agreementId),
-        ethereum.Value.fromAddress(_listAddress),
-        ethereum.Value.fromFixedBytes(_item)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toI32());
-  }
 }
 
 export class AbortByTimeOutCall extends ethereum.Call {
@@ -377,6 +377,82 @@ export class AbortByTimeOutCall__Outputs {
 
   get value0(): i32 {
     return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class FulfillCall extends ethereum.Call {
+  get inputs(): FulfillCall__Inputs {
+    return new FulfillCall__Inputs(this);
+  }
+
+  get outputs(): FulfillCall__Outputs {
+    return new FulfillCall__Outputs(this);
+  }
+}
+
+export class FulfillCall__Inputs {
+  _call: FulfillCall;
+
+  constructor(call: FulfillCall) {
+    this._call = call;
+  }
+
+  get _agreementId(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _listAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _item(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class FulfillCall__Outputs {
+  _call: FulfillCall;
+
+  constructor(call: FulfillCall) {
+    this._call = call;
+  }
+
+  get value0(): i32 {
+    return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class InitializeCall extends ethereum.Call {
+  get inputs(): InitializeCall__Inputs {
+    return new InitializeCall__Inputs(this);
+  }
+
+  get outputs(): InitializeCall__Outputs {
+    return new InitializeCall__Outputs(this);
+  }
+}
+
+export class InitializeCall__Inputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+
+  get _owner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _conditionStoreManagerAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class InitializeCall__Outputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
   }
 }
 
@@ -433,81 +509,5 @@ export class TransferOwnershipCall__Outputs {
 
   constructor(call: TransferOwnershipCall) {
     this._call = call;
-  }
-}
-
-export class InitializeCall extends ethereum.Call {
-  get inputs(): InitializeCall__Inputs {
-    return new InitializeCall__Inputs(this);
-  }
-
-  get outputs(): InitializeCall__Outputs {
-    return new InitializeCall__Outputs(this);
-  }
-}
-
-export class InitializeCall__Inputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
-  }
-
-  get _owner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _conditionStoreManagerAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class InitializeCall__Outputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
-  }
-}
-
-export class FulfillCall extends ethereum.Call {
-  get inputs(): FulfillCall__Inputs {
-    return new FulfillCall__Inputs(this);
-  }
-
-  get outputs(): FulfillCall__Outputs {
-    return new FulfillCall__Outputs(this);
-  }
-}
-
-export class FulfillCall__Inputs {
-  _call: FulfillCall;
-
-  constructor(call: FulfillCall) {
-    this._call = call;
-  }
-
-  get _agreementId(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get _listAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get _item(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-}
-
-export class FulfillCall__Outputs {
-  _call: FulfillCall;
-
-  constructor(call: FulfillCall) {
-    this._call = call;
-  }
-
-  get value0(): i32 {
-    return this._call.outputValues[0].value.toI32();
   }
 }

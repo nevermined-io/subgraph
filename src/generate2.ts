@@ -1,10 +1,19 @@
-import Scaffold from '@graphprotocol/graph-cli/src/scaffold'
-import { abiEvents, generateEventType } from '@graphprotocol/graph-cli/src/scaffold/schema'
-import Protocol from '@graphprotocol/graph-cli/src/protocols'
+import Scaffold from '@nevermined-io/graph-cli/src/scaffold'
+import { abiEvents, generateEventType } from '@nevermined-io/graph-cli/src/scaffold/schema'
+import Protocol from '@nevermined-io/graph-cli/src/protocols'
 import glob from 'glob'
 import fs from 'fs-extra'
 import yaml from 'js-yaml'
 import prettier from 'prettier'
+
+
+const ALLOWED_CONTRACTS = [
+    // 'node_modules/@nevermined-io/contracts/artifacts/DIDRegistry.spree.json',
+    // 'node_modules/@nevermined-io/contracts/artifacts/AccessCondition.spree.json',
+    'node_modules/@nevermined-io/contracts/artifacts/AccessProofCondition.spree.json',
+
+
+]
 
 type Manifest = {
     specVersion: string,
@@ -58,6 +67,8 @@ async function processFiles(err, files, network) {
         console.log(`Couldn't find artifacts for network ${network}`)
         process.exit(1)
     }
+
+    // files = files.filter(f => ALLOWED_CONTRACTS.includes(f))
     console.log(files)
 
     files.forEach(async file => {

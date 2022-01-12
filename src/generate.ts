@@ -1,7 +1,7 @@
 import { generateManifest, generateEventType, abiEvents } from '@graphprotocol/graph-cli/src/scaffold'
 import { ascTypeForEthereum, valueTypeForAsc } from '@graphprotocol/graph-cli/src/codegen/types'
 import * as util from '@graphprotocol/graph-cli/src/codegen/util'
-import ABI from '@graphprotocol/graph-cli/src/abi'
+import Protocol from '@graphprotocol/graph-cli/src/protocols'
 import glob from 'glob'
 import prettier from 'prettier'
 import yaml from 'js-yaml'
@@ -171,6 +171,9 @@ async function processFile(file, network) {
     const address = abiJson.address
 
     console.log(`Processing contract ${address} ${contractName}`)
+
+    const protocol = new Protocol('ethereum')
+    const ABI = protocol.getABI()
 
     const abi = await ABI.load(contractName, file)
     const events = abiEvents(abi).toJS()

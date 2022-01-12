@@ -1,28 +1,41 @@
 import {
-  Fulfilled as FulfilledEvent,
+  Approval as ApprovalEvent,
+  ApprovalForAll as ApprovalForAllEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
+  ProxyApproval as ProxyApprovalEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
-  RoleRevoked as RoleRevokedEvent
-} from "../generated/TransferNFTCondition/TransferNFTCondition"
+  RoleRevoked as RoleRevokedEvent,
+  Transfer as TransferEvent
+} from "../generated/NFT721Upgradeable/NFT721Upgradeable"
 import {
-  Fulfilled,
+  Approval,
+  ApprovalForAll,
   OwnershipTransferred,
+  ProxyApproval,
   RoleAdminChanged,
   RoleGranted,
-  RoleRevoked
+  RoleRevoked,
+  Transfer
 } from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleApproval(event: ApprovalEvent): void {
+  let entity = new Approval(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  entity._agreementId = event.params._agreementId
-  entity._did = event.params._did
-  entity._receiver = event.params._receiver
-  entity._amount = event.params._amount
-  entity._conditionId = event.params._conditionId
-  entity._contract = event.params._contract
+  entity.owner = event.params.owner
+  entity.approved = event.params.approved
+  entity.tokenId = event.params.tokenId
+  entity.save()
+}
+
+export function handleApprovalForAll(event: ApprovalForAllEvent): void {
+  let entity = new ApprovalForAll(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.owner = event.params.owner
+  entity.operator = event.params.operator
+  entity.approved = event.params.approved
   entity.save()
 }
 
@@ -34,6 +47,16 @@ export function handleOwnershipTransferred(
   )
   entity.previousOwner = event.params.previousOwner
   entity.newOwner = event.params.newOwner
+  entity.save()
+}
+
+export function handleProxyApproval(event: ProxyApprovalEvent): void {
+  let entity = new ProxyApproval(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.sender = event.params.sender
+  entity.operator = event.params.operator
+  entity.approved = event.params.approved
   entity.save()
 }
 
@@ -64,5 +87,15 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
   entity.role = event.params.role
   entity.account = event.params.account
   entity.sender = event.params.sender
+  entity.save()
+}
+
+export function handleTransfer(event: TransferEvent): void {
+  let entity = new Transfer(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.from = event.params.from
+  entity.to = event.params.to
+  entity.tokenId = event.params.tokenId
   entity.save()
 }

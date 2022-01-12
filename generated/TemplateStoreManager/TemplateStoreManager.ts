@@ -63,44 +63,6 @@ export class TemplateStoreManager extends ethereum.SmartContract {
     return new TemplateStoreManager("TemplateStoreManager", address);
   }
 
-  owner(): Address {
-    let result = super.call("owner", "owner():(address)", []);
-
-    return result[0].toAddress();
-  }
-
-  try_owner(): ethereum.CallResult<Address> {
-    let result = super.tryCall("owner", "owner():(address)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  proposeTemplate(_id: Address): BigInt {
-    let result = super.call(
-      "proposeTemplate",
-      "proposeTemplate(address):(uint256)",
-      [ethereum.Value.fromAddress(_id)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_proposeTemplate(_id: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "proposeTemplate",
-      "proposeTemplate(address):(uint256)",
-      [ethereum.Value.fromAddress(_id)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   getTemplate(_id: Address): TemplateStoreManager__getTemplateResult {
     let result = super.call(
       "getTemplate",
@@ -183,60 +145,72 @@ export class TemplateStoreManager extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
-}
 
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
   }
 
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  proposeTemplate(_id: Address): BigInt {
+    let result = super.call(
+      "proposeTemplate",
+      "proposeTemplate(address):(uint256)",
+      [ethereum.Value.fromAddress(_id)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_proposeTemplate(_id: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "proposeTemplate",
+      "proposeTemplate(address):(uint256)",
+      [ethereum.Value.fromAddress(_id)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 }
 
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
+export class ApproveTemplateCall extends ethereum.Call {
+  get inputs(): ApproveTemplateCall__Inputs {
+    return new ApproveTemplateCall__Inputs(this);
+  }
 
-  constructor(call: RenounceOwnershipCall) {
+  get outputs(): ApproveTemplateCall__Outputs {
+    return new ApproveTemplateCall__Outputs(this);
+  }
+}
+
+export class ApproveTemplateCall__Inputs {
+  _call: ApproveTemplateCall;
+
+  constructor(call: ApproveTemplateCall) {
     this._call = call;
   }
-}
 
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class TransferOwnershipCall extends ethereum.Call {
-  get inputs(): TransferOwnershipCall__Inputs {
-    return new TransferOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): TransferOwnershipCall__Outputs {
-    return new TransferOwnershipCall__Outputs(this);
-  }
-}
-
-export class TransferOwnershipCall__Inputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-
-  get newOwner(): Address {
+  get _id(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }
 
-export class TransferOwnershipCall__Outputs {
-  _call: TransferOwnershipCall;
+export class ApproveTemplateCall__Outputs {
+  _call: ApproveTemplateCall;
 
-  constructor(call: TransferOwnershipCall) {
+  constructor(call: ApproveTemplateCall) {
     this._call = call;
   }
 }
@@ -305,32 +279,28 @@ export class ProposeTemplateCall__Outputs {
   }
 }
 
-export class ApproveTemplateCall extends ethereum.Call {
-  get inputs(): ApproveTemplateCall__Inputs {
-    return new ApproveTemplateCall__Inputs(this);
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
   }
 
-  get outputs(): ApproveTemplateCall__Outputs {
-    return new ApproveTemplateCall__Outputs(this);
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
   }
 }
 
-export class ApproveTemplateCall__Inputs {
-  _call: ApproveTemplateCall;
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
 
-  constructor(call: ApproveTemplateCall) {
+  constructor(call: RenounceOwnershipCall) {
     this._call = call;
   }
-
-  get _id(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
 }
 
-export class ApproveTemplateCall__Outputs {
-  _call: ApproveTemplateCall;
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
 
-  constructor(call: ApproveTemplateCall) {
+  constructor(call: RenounceOwnershipCall) {
     this._call = call;
   }
 }
@@ -361,6 +331,36 @@ export class RevokeTemplateCall__Outputs {
   _call: RevokeTemplateCall;
 
   constructor(call: RevokeTemplateCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
     this._call = call;
   }
 }

@@ -1,13 +1,13 @@
-import { OwnershipTransferred as HashLockConditionOwnershipTransferredEvent } from '../generated/HashLockCondition/HashLockCondition'
-import { HashLockConditionOwnershipTransferred } from '../generated/schema'
+import { OwnershipTransferred as OwnershipTransferredEvent } from "../generated/HashLockCondition/HashLockCondition"
+import { OwnershipTransferred } from "../generated/schema"
 
-export function handleHashLockConditionOwnershipTransferred(
-    event: HashLockConditionOwnershipTransferredEvent,
+export function handleOwnershipTransferred(
+  event: OwnershipTransferredEvent
 ): void {
-    const entity = new HashLockConditionOwnershipTransferred(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
-    )
-    entity.previousOwner = event.params.previousOwner
-    entity.newOwner = event.params.newOwner
-    entity.save()
+  let entity = new OwnershipTransferred(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
+  entity.save()
 }

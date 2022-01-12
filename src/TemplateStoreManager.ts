@@ -1,13 +1,13 @@
-import { OwnershipTransferred as TemplateStoreManagerOwnershipTransferredEvent } from '../generated/TemplateStoreManager/TemplateStoreManager'
-import { TemplateStoreManagerOwnershipTransferred } from '../generated/schema'
+import { OwnershipTransferred as OwnershipTransferredEvent } from "../generated/TemplateStoreManager/TemplateStoreManager"
+import { OwnershipTransferred } from "../generated/schema"
 
-export function handleTemplateStoreManagerOwnershipTransferred(
-    event: TemplateStoreManagerOwnershipTransferredEvent,
+export function handleOwnershipTransferred(
+  event: OwnershipTransferredEvent
 ): void {
-    const entity = new TemplateStoreManagerOwnershipTransferred(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
-    )
-    entity.previousOwner = event.params.previousOwner
-    entity.newOwner = event.params.newOwner
-    entity.save()
+  let entity = new OwnershipTransferred(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
+  entity.save()
 }

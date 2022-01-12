@@ -190,6 +190,77 @@ export class NFTAccessTemplate extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  createAgreementAndPayEscrow(
+    _id: Bytes,
+    _did: Bytes,
+    _conditionIds: Array<Bytes>,
+    _timeLocks: Array<BigInt>,
+    _timeOuts: Array<BigInt>,
+    _accessConsumer: Address,
+    _idx: BigInt,
+    _rewardAddress: Address,
+    _tokenAddress: Address,
+    _amounts: Array<BigInt>,
+    _receivers: Array<Address>
+  ): BigInt {
+    let result = super.call(
+      "createAgreementAndPayEscrow",
+      "createAgreementAndPayEscrow(bytes32,bytes32,bytes32[],uint256[],uint256[],address,uint256,address,address,uint256[],address[]):(uint256)",
+      [
+        ethereum.Value.fromFixedBytes(_id),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromFixedBytesArray(_conditionIds),
+        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
+        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
+        ethereum.Value.fromAddress(_accessConsumer),
+        ethereum.Value.fromUnsignedBigInt(_idx),
+        ethereum.Value.fromAddress(_rewardAddress),
+        ethereum.Value.fromAddress(_tokenAddress),
+        ethereum.Value.fromUnsignedBigIntArray(_amounts),
+        ethereum.Value.fromAddressArray(_receivers)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_createAgreementAndPayEscrow(
+    _id: Bytes,
+    _did: Bytes,
+    _conditionIds: Array<Bytes>,
+    _timeLocks: Array<BigInt>,
+    _timeOuts: Array<BigInt>,
+    _accessConsumer: Address,
+    _idx: BigInt,
+    _rewardAddress: Address,
+    _tokenAddress: Address,
+    _amounts: Array<BigInt>,
+    _receivers: Array<Address>
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "createAgreementAndPayEscrow",
+      "createAgreementAndPayEscrow(bytes32,bytes32,bytes32[],uint256[],uint256[],address,uint256,address,address,uint256[],address[]):(uint256)",
+      [
+        ethereum.Value.fromFixedBytes(_id),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromFixedBytesArray(_conditionIds),
+        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
+        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
+        ethereum.Value.fromAddress(_accessConsumer),
+        ethereum.Value.fromUnsignedBigInt(_idx),
+        ethereum.Value.fromAddress(_rewardAddress),
+        ethereum.Value.fromAddress(_tokenAddress),
+        ethereum.Value.fromUnsignedBigIntArray(_amounts),
+        ethereum.Value.fromAddressArray(_receivers)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   getAgreementData(_id: Bytes): NFTAccessTemplate__getAgreementDataResult {
     let result = super.call(
       "getAgreementData",
@@ -366,6 +437,188 @@ export class CreateAgreement1Call__Outputs {
   }
 }
 
+export class CreateAgreementAndPayCall extends ethereum.Call {
+  get inputs(): CreateAgreementAndPayCall__Inputs {
+    return new CreateAgreementAndPayCall__Inputs(this);
+  }
+
+  get outputs(): CreateAgreementAndPayCall__Outputs {
+    return new CreateAgreementAndPayCall__Outputs(this);
+  }
+}
+
+export class CreateAgreementAndPayCall__Inputs {
+  _call: CreateAgreementAndPayCall;
+
+  constructor(call: CreateAgreementAndPayCall) {
+    this._call = call;
+  }
+
+  get _id(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _conditionIds(): Array<Bytes> {
+    return this._call.inputValues[2].value.toBytesArray();
+  }
+
+  get _timeLocks(): Array<BigInt> {
+    return this._call.inputValues[3].value.toBigIntArray();
+  }
+
+  get _timeOuts(): Array<BigInt> {
+    return this._call.inputValues[4].value.toBigIntArray();
+  }
+
+  get _idx(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+
+  get _rewardAddress(): Address {
+    return this._call.inputValues[6].value.toAddress();
+  }
+
+  get _tokenAddress(): Address {
+    return this._call.inputValues[7].value.toAddress();
+  }
+
+  get _amounts(): Array<BigInt> {
+    return this._call.inputValues[8].value.toBigIntArray();
+  }
+
+  get _receivers(): Array<Address> {
+    return this._call.inputValues[9].value.toAddressArray();
+  }
+}
+
+export class CreateAgreementAndPayCall__Outputs {
+  _call: CreateAgreementAndPayCall;
+
+  constructor(call: CreateAgreementAndPayCall) {
+    this._call = call;
+  }
+}
+
+export class CreateAgreementAndPayEscrowCall extends ethereum.Call {
+  get inputs(): CreateAgreementAndPayEscrowCall__Inputs {
+    return new CreateAgreementAndPayEscrowCall__Inputs(this);
+  }
+
+  get outputs(): CreateAgreementAndPayEscrowCall__Outputs {
+    return new CreateAgreementAndPayEscrowCall__Outputs(this);
+  }
+}
+
+export class CreateAgreementAndPayEscrowCall__Inputs {
+  _call: CreateAgreementAndPayEscrowCall;
+
+  constructor(call: CreateAgreementAndPayEscrowCall) {
+    this._call = call;
+  }
+
+  get _id(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _conditionIds(): Array<Bytes> {
+    return this._call.inputValues[2].value.toBytesArray();
+  }
+
+  get _timeLocks(): Array<BigInt> {
+    return this._call.inputValues[3].value.toBigIntArray();
+  }
+
+  get _timeOuts(): Array<BigInt> {
+    return this._call.inputValues[4].value.toBigIntArray();
+  }
+
+  get _accessConsumer(): Address {
+    return this._call.inputValues[5].value.toAddress();
+  }
+
+  get _idx(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
+  }
+
+  get _rewardAddress(): Address {
+    return this._call.inputValues[7].value.toAddress();
+  }
+
+  get _tokenAddress(): Address {
+    return this._call.inputValues[8].value.toAddress();
+  }
+
+  get _amounts(): Array<BigInt> {
+    return this._call.inputValues[9].value.toBigIntArray();
+  }
+
+  get _receivers(): Array<Address> {
+    return this._call.inputValues[10].value.toAddressArray();
+  }
+}
+
+export class CreateAgreementAndPayEscrowCall__Outputs {
+  _call: CreateAgreementAndPayEscrowCall;
+
+  constructor(call: CreateAgreementAndPayEscrowCall) {
+    this._call = call;
+  }
+
+  get size(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
+export class InitializeCall extends ethereum.Call {
+  get inputs(): InitializeCall__Inputs {
+    return new InitializeCall__Inputs(this);
+  }
+
+  get outputs(): InitializeCall__Outputs {
+    return new InitializeCall__Outputs(this);
+  }
+}
+
+export class InitializeCall__Inputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+
+  get _owner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _agreementStoreManagerAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _nftHolderConditionAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get _accessConditionAddress(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+}
+
+export class InitializeCall__Outputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+}
+
 export class RenounceOwnershipCall extends ethereum.Call {
   get inputs(): RenounceOwnershipCall__Inputs {
     return new RenounceOwnershipCall__Inputs(this);
@@ -418,48 +671,6 @@ export class TransferOwnershipCall__Outputs {
   _call: TransferOwnershipCall;
 
   constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class InitializeCall extends ethereum.Call {
-  get inputs(): InitializeCall__Inputs {
-    return new InitializeCall__Inputs(this);
-  }
-
-  get outputs(): InitializeCall__Outputs {
-    return new InitializeCall__Outputs(this);
-  }
-}
-
-export class InitializeCall__Inputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
-  }
-
-  get _owner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _agreementStoreManagerAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get _nftHolderConditionAddress(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
-  get _accessConditionAddress(): Address {
-    return this._call.inputValues[3].value.toAddress();
-  }
-}
-
-export class InitializeCall__Outputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
     this._call = call;
   }
 }

@@ -94,131 +94,6 @@ export class NFTHolderCondition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toI32());
   }
 
-  generateId(_agreementId: Bytes, _valueHash: Bytes): Bytes {
-    let result = super.call(
-      "generateId",
-      "generateId(bytes32,bytes32):(bytes32)",
-      [
-        ethereum.Value.fromFixedBytes(_agreementId),
-        ethereum.Value.fromFixedBytes(_valueHash)
-      ]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_generateId(
-    _agreementId: Bytes,
-    _valueHash: Bytes
-  ): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "generateId",
-      "generateId(bytes32,bytes32):(bytes32)",
-      [
-        ethereum.Value.fromFixedBytes(_agreementId),
-        ethereum.Value.fromFixedBytes(_valueHash)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  owner(): Address {
-    let result = super.call("owner", "owner():(address)", []);
-
-    return result[0].toAddress();
-  }
-
-  try_owner(): ethereum.CallResult<Address> {
-    let result = super.tryCall("owner", "owner():(address)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  hashValues(
-    _did: Bytes,
-    _holderAddress: Address,
-    _amount: BigInt,
-    _contractAddress: Address
-  ): Bytes {
-    let result = super.call(
-      "hashValues",
-      "hashValues(bytes32,address,uint256,address):(bytes32)",
-      [
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddress(_holderAddress),
-        ethereum.Value.fromUnsignedBigInt(_amount),
-        ethereum.Value.fromAddress(_contractAddress)
-      ]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_hashValues(
-    _did: Bytes,
-    _holderAddress: Address,
-    _amount: BigInt,
-    _contractAddress: Address
-  ): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "hashValues",
-      "hashValues(bytes32,address,uint256,address):(bytes32)",
-      [
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddress(_holderAddress),
-        ethereum.Value.fromUnsignedBigInt(_amount),
-        ethereum.Value.fromAddress(_contractAddress)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  hashValues1(_did: Bytes, _holderAddress: Address, _amount: BigInt): Bytes {
-    let result = super.call(
-      "hashValues",
-      "hashValues(bytes32,address,uint256):(bytes32)",
-      [
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddress(_holderAddress),
-        ethereum.Value.fromUnsignedBigInt(_amount)
-      ]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_hashValues1(
-    _did: Bytes,
-    _holderAddress: Address,
-    _amount: BigInt
-  ): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "hashValues",
-      "hashValues(bytes32,address,uint256):(bytes32)",
-      [
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddress(_holderAddress),
-        ethereum.Value.fromUnsignedBigInt(_amount)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
   fulfill(
     _agreementId: Bytes,
     _did: Bytes,
@@ -308,6 +183,131 @@ export class NFTHolderCondition extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toI32());
   }
+
+  generateId(_agreementId: Bytes, _valueHash: Bytes): Bytes {
+    let result = super.call(
+      "generateId",
+      "generateId(bytes32,bytes32):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromFixedBytes(_valueHash)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_generateId(
+    _agreementId: Bytes,
+    _valueHash: Bytes
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "generateId",
+      "generateId(bytes32,bytes32):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromFixedBytes(_valueHash)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  hashValues(
+    _did: Bytes,
+    _holderAddress: Address,
+    _amount: BigInt,
+    _contractAddress: Address
+  ): Bytes {
+    let result = super.call(
+      "hashValues",
+      "hashValues(bytes32,address,uint256,address):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_holderAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_contractAddress)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_hashValues(
+    _did: Bytes,
+    _holderAddress: Address,
+    _amount: BigInt,
+    _contractAddress: Address
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "hashValues",
+      "hashValues(bytes32,address,uint256,address):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_holderAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_contractAddress)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  hashValues1(_did: Bytes, _holderAddress: Address, _amount: BigInt): Bytes {
+    let result = super.call(
+      "hashValues",
+      "hashValues(bytes32,address,uint256):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_holderAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_hashValues1(
+    _did: Bytes,
+    _holderAddress: Address,
+    _amount: BigInt
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "hashValues",
+      "hashValues(bytes32,address,uint256):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_holderAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
 }
 
 export class AbortByTimeOutCall extends ethereum.Call {
@@ -341,100 +341,6 @@ export class AbortByTimeOutCall__Outputs {
 
   get value0(): i32 {
     return this._call.outputValues[0].value.toI32();
-  }
-}
-
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
-  }
-}
-
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class TransferOwnershipCall extends ethereum.Call {
-  get inputs(): TransferOwnershipCall__Inputs {
-    return new TransferOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): TransferOwnershipCall__Outputs {
-    return new TransferOwnershipCall__Outputs(this);
-  }
-}
-
-export class TransferOwnershipCall__Inputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-
-  get newOwner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class TransferOwnershipCall__Outputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class InitializeCall extends ethereum.Call {
-  get inputs(): InitializeCall__Inputs {
-    return new InitializeCall__Inputs(this);
-  }
-
-  get outputs(): InitializeCall__Outputs {
-    return new InitializeCall__Outputs(this);
-  }
-}
-
-export class InitializeCall__Inputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
-  }
-
-  get _owner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _conditionStoreManagerAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get _didRegistryAddress(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class InitializeCall__Outputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
   }
 }
 
@@ -531,5 +437,99 @@ export class Fulfill1Call__Outputs {
 
   get value0(): i32 {
     return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class InitializeCall extends ethereum.Call {
+  get inputs(): InitializeCall__Inputs {
+    return new InitializeCall__Inputs(this);
+  }
+
+  get outputs(): InitializeCall__Outputs {
+    return new InitializeCall__Outputs(this);
+  }
+}
+
+export class InitializeCall__Inputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+
+  get _owner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _conditionStoreManagerAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _ercAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class InitializeCall__Outputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
   }
 }

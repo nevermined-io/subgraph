@@ -1,27 +1,33 @@
 import {
-  Approval as ApprovalEvent,
+  ApprovalForAll as ApprovalForAllEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
+  ProxyApproval as ProxyApprovalEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
   RoleRevoked as RoleRevokedEvent,
-  Transfer as TransferEvent
-} from "../generated/NeverminedToken/NeverminedToken"
+  TransferBatch as TransferBatchEvent,
+  TransferSingle as TransferSingleEvent,
+  URI as URIEvent
+} from "../generated/NFTUpgradeable/NFTUpgradeable"
 import {
-  Approval,
+  ApprovalForAll,
   OwnershipTransferred,
+  ProxyApproval,
   RoleAdminChanged,
   RoleGranted,
   RoleRevoked,
-  Transfer
+  TransferBatch,
+  TransferSingle,
+  URI
 } from "../generated/schema"
 
-export function handleApproval(event: ApprovalEvent): void {
-  let entity = new Approval(
+export function handleApprovalForAll(event: ApprovalForAllEvent): void {
+  let entity = new ApprovalForAll(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  entity.owner = event.params.owner
-  entity.spender = event.params.spender
-  entity.value = event.params.value
+  entity.account = event.params.account
+  entity.operator = event.params.operator
+  entity.approved = event.params.approved
   entity.save()
 }
 
@@ -33,6 +39,16 @@ export function handleOwnershipTransferred(
   )
   entity.previousOwner = event.params.previousOwner
   entity.newOwner = event.params.newOwner
+  entity.save()
+}
+
+export function handleProxyApproval(event: ProxyApprovalEvent): void {
+  let entity = new ProxyApproval(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.sender = event.params.sender
+  entity.operator = event.params.operator
+  entity.approved = event.params.approved
   entity.save()
 }
 
@@ -66,12 +82,35 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
   entity.save()
 }
 
-export function handleTransfer(event: TransferEvent): void {
-  let entity = new Transfer(
+export function handleTransferBatch(event: TransferBatchEvent): void {
+  let entity = new TransferBatch(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
+  entity.operator = event.params.operator
   entity.from = event.params.from
   entity.to = event.params.to
+  entity.ids = event.params.ids
+  entity.values = event.params.values
+  entity.save()
+}
+
+export function handleTransferSingle(event: TransferSingleEvent): void {
+  let entity = new TransferSingle(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.operator = event.params.operator
+  entity.from = event.params.from
+  entity.to = event.params.to
+  entity.id = event.params.id
   entity.value = event.params.value
+  entity.save()
+}
+
+export function handleURI(event: URIEvent): void {
+  let entity = new URI(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.value = event.params.value
+  entity.id = event.params.id
   entity.save()
 }

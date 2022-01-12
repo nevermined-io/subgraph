@@ -1,44 +1,44 @@
 import {
-    OwnershipTransferred as DispenserOwnershipTransferredEvent,
-    RequestFrequencyExceeded as DispenserRequestFrequencyExceededEvent,
-    RequestLimitExceeded as DispenserRequestLimitExceededEvent,
-} from '../generated/Dispenser/Dispenser'
+  OwnershipTransferred as OwnershipTransferredEvent,
+  RequestFrequencyExceeded as RequestFrequencyExceededEvent,
+  RequestLimitExceeded as RequestLimitExceededEvent
+} from "../generated/Dispenser/Dispenser"
 import {
-    DispenserOwnershipTransferred,
-    DispenserRequestFrequencyExceeded,
-    DispenserRequestLimitExceeded,
-} from '../generated/schema'
+  OwnershipTransferred,
+  RequestFrequencyExceeded,
+  RequestLimitExceeded
+} from "../generated/schema"
 
-export function handleDispenserOwnershipTransferred(
-    event: DispenserOwnershipTransferredEvent,
+export function handleOwnershipTransferred(
+  event: OwnershipTransferredEvent
 ): void {
-    const entity = new DispenserOwnershipTransferred(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
-    )
-    entity.previousOwner = event.params.previousOwner
-    entity.newOwner = event.params.newOwner
-    entity.save()
+  let entity = new OwnershipTransferred(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
+  entity.save()
 }
 
-export function handleDispenserRequestFrequencyExceeded(
-    event: DispenserRequestFrequencyExceededEvent,
+export function handleRequestFrequencyExceeded(
+  event: RequestFrequencyExceededEvent
 ): void {
-    const entity = new DispenserRequestFrequencyExceeded(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
-    )
-    entity.requester = event.params.requester
-    entity.minPeriod = event.params.minPeriod
-    entity.save()
+  let entity = new RequestFrequencyExceeded(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.requester = event.params.requester
+  entity.minPeriod = event.params.minPeriod
+  entity.save()
 }
 
-export function handleDispenserRequestLimitExceeded(
-    event: DispenserRequestLimitExceededEvent,
+export function handleRequestLimitExceeded(
+  event: RequestLimitExceededEvent
 ): void {
-    const entity = new DispenserRequestLimitExceeded(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString(),
-    )
-    entity.requester = event.params.requester
-    entity.amount = event.params.amount
-    entity.maxAmount = event.params.maxAmount
-    entity.save()
+  let entity = new RequestLimitExceeded(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.requester = event.params.requester
+  entity.amount = event.params.amount
+  entity.maxAmount = event.params.maxAmount
+  entity.save()
 }
