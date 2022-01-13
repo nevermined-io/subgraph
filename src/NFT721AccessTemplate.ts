@@ -1,11 +1,16 @@
 import {
-  AgreementCreated as AgreementCreatedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  AgreementCreated as NFT721AccessTemplateAgreementCreatedEvent,
+  OwnershipTransferred as NFT721AccessTemplateOwnershipTransferredEvent,
 } from "../generated/NFT721AccessTemplate/NFT721AccessTemplate"
-import { AgreementCreated, OwnershipTransferred } from "../generated/schema"
+import {
+  NFT721AccessTemplateAgreementCreated,
+  NFT721AccessTemplateOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleAgreementCreated(event: AgreementCreatedEvent): void {
-  let entity = new AgreementCreated(
+export function handleNFT721AccessTemplateAgreementCreated(
+  event: NFT721AccessTemplateAgreementCreatedEvent
+): void {
+  let entity = new NFT721AccessTemplateAgreementCreated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -17,10 +22,10 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleNFT721AccessTemplateOwnershipTransferred(
+  event: NFT721AccessTemplateOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new NFT721AccessTemplateOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

@@ -1,40 +1,42 @@
 import {
-  ActedOnBehalf as ActedOnBehalfEvent,
-  DIDAttributeRegistered as DIDAttributeRegisteredEvent,
-  DIDOwnershipTransferred as DIDOwnershipTransferredEvent,
-  DIDPermissionGranted as DIDPermissionGrantedEvent,
-  DIDPermissionRevoked as DIDPermissionRevokedEvent,
-  DIDProvenanceDelegateAdded as DIDProvenanceDelegateAddedEvent,
-  DIDProvenanceDelegateRemoved as DIDProvenanceDelegateRemovedEvent,
-  DIDProviderAdded as DIDProviderAddedEvent,
-  DIDProviderRemoved as DIDProviderRemovedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent,
-  ProvenanceAttributeRegistered as ProvenanceAttributeRegisteredEvent,
-  Used as UsedEvent,
-  WasAssociatedWith as WasAssociatedWithEvent,
-  WasDerivedFrom as WasDerivedFromEvent,
-  WasGeneratedBy as WasGeneratedByEvent
+  ActedOnBehalf as DIDRegistryActedOnBehalfEvent,
+  DIDAttributeRegistered as DIDRegistryDIDAttributeRegisteredEvent,
+  DIDOwnershipTransferred as DIDRegistryDIDOwnershipTransferredEvent,
+  DIDPermissionGranted as DIDRegistryDIDPermissionGrantedEvent,
+  DIDPermissionRevoked as DIDRegistryDIDPermissionRevokedEvent,
+  DIDProvenanceDelegateAdded as DIDRegistryDIDProvenanceDelegateAddedEvent,
+  DIDProvenanceDelegateRemoved as DIDRegistryDIDProvenanceDelegateRemovedEvent,
+  DIDProviderAdded as DIDRegistryDIDProviderAddedEvent,
+  DIDProviderRemoved as DIDRegistryDIDProviderRemovedEvent,
+  OwnershipTransferred as DIDRegistryOwnershipTransferredEvent,
+  ProvenanceAttributeRegistered as DIDRegistryProvenanceAttributeRegisteredEvent,
+  Used as DIDRegistryUsedEvent,
+  WasAssociatedWith as DIDRegistryWasAssociatedWithEvent,
+  WasDerivedFrom as DIDRegistryWasDerivedFromEvent,
+  WasGeneratedBy as DIDRegistryWasGeneratedByEvent,
 } from "../generated/DIDRegistry/DIDRegistry"
 import {
-  ActedOnBehalf,
-  DIDAttributeRegistered,
-  DIDOwnershipTransferred,
-  DIDPermissionGranted,
-  DIDPermissionRevoked,
-  DIDProvenanceDelegateAdded,
-  DIDProvenanceDelegateRemoved,
-  DIDProviderAdded,
-  DIDProviderRemoved,
-  OwnershipTransferred,
-  ProvenanceAttributeRegistered,
-  Used,
-  WasAssociatedWith,
-  WasDerivedFrom,
-  WasGeneratedBy
+  DIDRegistryActedOnBehalf,
+  DIDRegistryDIDAttributeRegistered,
+  DIDRegistryDIDOwnershipTransferred,
+  DIDRegistryDIDPermissionGranted,
+  DIDRegistryDIDPermissionRevoked,
+  DIDRegistryDIDProvenanceDelegateAdded,
+  DIDRegistryDIDProvenanceDelegateRemoved,
+  DIDRegistryDIDProviderAdded,
+  DIDRegistryDIDProviderRemoved,
+  DIDRegistryOwnershipTransferred,
+  DIDRegistryProvenanceAttributeRegistered,
+  DIDRegistryUsed,
+  DIDRegistryWasAssociatedWith,
+  DIDRegistryWasDerivedFrom,
+  DIDRegistryWasGeneratedBy,
 } from "../generated/schema"
 
-export function handleActedOnBehalf(event: ActedOnBehalfEvent): void {
-  let entity = new ActedOnBehalf(
+export function handleDIDRegistryActedOnBehalf(
+  event: DIDRegistryActedOnBehalfEvent
+): void {
+  let entity = new DIDRegistryActedOnBehalf(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._entityDid = event.params._entityDid
@@ -47,10 +49,10 @@ export function handleActedOnBehalf(event: ActedOnBehalfEvent): void {
   entity.save()
 }
 
-export function handleDIDAttributeRegistered(
-  event: DIDAttributeRegisteredEvent
+export function handleDIDRegistryDIDAttributeRegistered(
+  event: DIDRegistryDIDAttributeRegisteredEvent
 ): void {
-  let entity = new DIDAttributeRegistered(
+  let entity = new DIDRegistryDIDAttributeRegistered(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -62,10 +64,10 @@ export function handleDIDAttributeRegistered(
   entity.save()
 }
 
-export function handleDIDOwnershipTransferred(
-  event: DIDOwnershipTransferredEvent
+export function handleDIDRegistryDIDOwnershipTransferred(
+  event: DIDRegistryDIDOwnershipTransferredEvent
 ): void {
-  let entity = new DIDOwnershipTransferred(
+  let entity = new DIDRegistryDIDOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -74,10 +76,10 @@ export function handleDIDOwnershipTransferred(
   entity.save()
 }
 
-export function handleDIDPermissionGranted(
-  event: DIDPermissionGrantedEvent
+export function handleDIDRegistryDIDPermissionGranted(
+  event: DIDRegistryDIDPermissionGrantedEvent
 ): void {
-  let entity = new DIDPermissionGranted(
+  let entity = new DIDRegistryDIDPermissionGranted(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -86,10 +88,10 @@ export function handleDIDPermissionGranted(
   entity.save()
 }
 
-export function handleDIDPermissionRevoked(
-  event: DIDPermissionRevokedEvent
+export function handleDIDRegistryDIDPermissionRevoked(
+  event: DIDRegistryDIDPermissionRevokedEvent
 ): void {
-  let entity = new DIDPermissionRevoked(
+  let entity = new DIDRegistryDIDPermissionRevoked(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -98,10 +100,10 @@ export function handleDIDPermissionRevoked(
   entity.save()
 }
 
-export function handleDIDProvenanceDelegateAdded(
-  event: DIDProvenanceDelegateAddedEvent
+export function handleDIDRegistryDIDProvenanceDelegateAdded(
+  event: DIDRegistryDIDProvenanceDelegateAddedEvent
 ): void {
-  let entity = new DIDProvenanceDelegateAdded(
+  let entity = new DIDRegistryDIDProvenanceDelegateAdded(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -109,10 +111,10 @@ export function handleDIDProvenanceDelegateAdded(
   entity.save()
 }
 
-export function handleDIDProvenanceDelegateRemoved(
-  event: DIDProvenanceDelegateRemovedEvent
+export function handleDIDRegistryDIDProvenanceDelegateRemoved(
+  event: DIDRegistryDIDProvenanceDelegateRemovedEvent
 ): void {
-  let entity = new DIDProvenanceDelegateRemoved(
+  let entity = new DIDRegistryDIDProvenanceDelegateRemoved(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -121,8 +123,10 @@ export function handleDIDProvenanceDelegateRemoved(
   entity.save()
 }
 
-export function handleDIDProviderAdded(event: DIDProviderAddedEvent): void {
-  let entity = new DIDProviderAdded(
+export function handleDIDRegistryDIDProviderAdded(
+  event: DIDRegistryDIDProviderAddedEvent
+): void {
+  let entity = new DIDRegistryDIDProviderAdded(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -130,8 +134,10 @@ export function handleDIDProviderAdded(event: DIDProviderAddedEvent): void {
   entity.save()
 }
 
-export function handleDIDProviderRemoved(event: DIDProviderRemovedEvent): void {
-  let entity = new DIDProviderRemoved(
+export function handleDIDRegistryDIDProviderRemoved(
+  event: DIDRegistryDIDProviderRemovedEvent
+): void {
+  let entity = new DIDRegistryDIDProviderRemoved(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -140,10 +146,10 @@ export function handleDIDProviderRemoved(event: DIDProviderRemovedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleDIDRegistryOwnershipTransferred(
+  event: DIDRegistryOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new DIDRegistryOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner
@@ -151,10 +157,10 @@ export function handleOwnershipTransferred(
   entity.save()
 }
 
-export function handleProvenanceAttributeRegistered(
-  event: ProvenanceAttributeRegisteredEvent
+export function handleDIDRegistryProvenanceAttributeRegistered(
+  event: DIDRegistryProvenanceAttributeRegisteredEvent
 ): void {
-  let entity = new ProvenanceAttributeRegistered(
+  let entity = new DIDRegistryProvenanceAttributeRegistered(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.provId = event.params.provId
@@ -169,8 +175,8 @@ export function handleProvenanceAttributeRegistered(
   entity.save()
 }
 
-export function handleUsed(event: UsedEvent): void {
-  let entity = new Used(
+export function handleDIDRegistryUsed(event: DIDRegistryUsedEvent): void {
+  let entity = new DIDRegistryUsed(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did
@@ -182,8 +188,10 @@ export function handleUsed(event: UsedEvent): void {
   entity.save()
 }
 
-export function handleWasAssociatedWith(event: WasAssociatedWithEvent): void {
-  let entity = new WasAssociatedWith(
+export function handleDIDRegistryWasAssociatedWith(
+  event: DIDRegistryWasAssociatedWithEvent
+): void {
+  let entity = new DIDRegistryWasAssociatedWith(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._entityDid = event.params._entityDid
@@ -195,8 +203,10 @@ export function handleWasAssociatedWith(event: WasAssociatedWithEvent): void {
   entity.save()
 }
 
-export function handleWasDerivedFrom(event: WasDerivedFromEvent): void {
-  let entity = new WasDerivedFrom(
+export function handleDIDRegistryWasDerivedFrom(
+  event: DIDRegistryWasDerivedFromEvent
+): void {
+  let entity = new DIDRegistryWasDerivedFrom(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._newEntityDid = event.params._newEntityDid
@@ -209,8 +219,10 @@ export function handleWasDerivedFrom(event: WasDerivedFromEvent): void {
   entity.save()
 }
 
-export function handleWasGeneratedBy(event: WasGeneratedByEvent): void {
-  let entity = new WasGeneratedBy(
+export function handleDIDRegistryWasGeneratedBy(
+  event: DIDRegistryWasGeneratedByEvent
+): void {
+  let entity = new DIDRegistryWasGeneratedBy(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._did = event.params._did

@@ -1,11 +1,16 @@
 import {
-  AgreementCreated as AgreementCreatedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  AgreementCreated as AccessProofTemplateAgreementCreatedEvent,
+  OwnershipTransferred as AccessProofTemplateOwnershipTransferredEvent,
 } from "../generated/AccessProofTemplate/AccessProofTemplate"
-import { AgreementCreated, OwnershipTransferred } from "../generated/schema"
+import {
+  AccessProofTemplateAgreementCreated,
+  AccessProofTemplateOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleAgreementCreated(event: AgreementCreatedEvent): void {
-  let entity = new AgreementCreated(
+export function handleAccessProofTemplateAgreementCreated(
+  event: AccessProofTemplateAgreementCreatedEvent
+): void {
+  let entity = new AccessProofTemplateAgreementCreated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -17,10 +22,10 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleAccessProofTemplateOwnershipTransferred(
+  event: AccessProofTemplateOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new AccessProofTemplateOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

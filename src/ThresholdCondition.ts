@@ -1,10 +1,10 @@
-import { OwnershipTransferred as OwnershipTransferredEvent } from "../generated/ThresholdCondition/ThresholdCondition"
-import { OwnershipTransferred } from "../generated/schema"
+import { OwnershipTransferred as ThresholdConditionOwnershipTransferredEvent } from "../generated/ThresholdCondition/ThresholdCondition"
+import { ThresholdConditionOwnershipTransferred } from "../generated/schema"
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleThresholdConditionOwnershipTransferred(
+  event: ThresholdConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new ThresholdConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

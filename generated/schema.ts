@@ -6361,7 +6361,7 @@ export class NFTUpgradeableTransferSingle extends Entity {
     this.set("operator", Value.fromBytes(Bytes.empty()));
     this.set("from", Value.fromBytes(Bytes.empty()));
     this.set("to", Value.fromBytes(Bytes.empty()));
-    this.set("id", Value.fromBigInt(BigInt.zero()));
+    this.set("_id", Value.fromBigInt(BigInt.zero()));
     this.set("value", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -6423,13 +6423,13 @@ export class NFTUpgradeableTransferSingle extends Entity {
     this.set("to", Value.fromBytes(value));
   }
 
-  get id(): BigInt {
-    let value = this.get("id");
+  get _id(): BigInt {
+    let value = this.get("_id");
     return value!.toBigInt();
   }
 
-  set id(value: BigInt) {
-    this.set("id", Value.fromBigInt(value));
+  set _id(value: BigInt) {
+    this.set("_id", Value.fromBigInt(value));
   }
 
   get value(): BigInt {
@@ -6448,7 +6448,7 @@ export class NFTUpgradeableURI extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("value", Value.fromString(""));
-    this.set("id", Value.fromBigInt(BigInt.zero()));
+    this.set("_id", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -6488,13 +6488,13 @@ export class NFTUpgradeableURI extends Entity {
     this.set("value", Value.fromString(value));
   }
 
-  get id(): BigInt {
-    let value = this.get("id");
+  get _id(): BigInt {
+    let value = this.get("_id");
     return value!.toBigInt();
   }
 
-  set id(value: BigInt) {
-    this.set("id", Value.fromBigInt(value));
+  set _id(value: BigInt) {
+    this.set("_id", Value.fromBigInt(value));
   }
 }
 

@@ -1,11 +1,16 @@
 import {
-  Fulfilled as FulfilledEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  Fulfilled as AccessProofConditionFulfilledEvent,
+  OwnershipTransferred as AccessProofConditionOwnershipTransferredEvent,
 } from "../generated/AccessProofCondition/AccessProofCondition"
-import { Fulfilled, OwnershipTransferred } from "../generated/schema"
+import {
+  AccessProofConditionFulfilled,
+  AccessProofConditionOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleAccessProofConditionFulfilled(
+  event: AccessProofConditionFulfilledEvent
+): void {
+  let entity = new AccessProofConditionFulfilled(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -18,10 +23,10 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleAccessProofConditionOwnershipTransferred(
+  event: AccessProofConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new AccessProofConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

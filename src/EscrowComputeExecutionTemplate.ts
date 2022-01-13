@@ -1,11 +1,16 @@
 import {
-  AgreementCreated as AgreementCreatedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  AgreementCreated as EscrowComputeExecutionTemplateAgreementCreatedEvent,
+  OwnershipTransferred as EscrowComputeExecutionTemplateOwnershipTransferredEvent,
 } from "../generated/EscrowComputeExecutionTemplate/EscrowComputeExecutionTemplate"
-import { AgreementCreated, OwnershipTransferred } from "../generated/schema"
+import {
+  EscrowComputeExecutionTemplateAgreementCreated,
+  EscrowComputeExecutionTemplateOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleAgreementCreated(event: AgreementCreatedEvent): void {
-  let entity = new AgreementCreated(
+export function handleEscrowComputeExecutionTemplateAgreementCreated(
+  event: EscrowComputeExecutionTemplateAgreementCreatedEvent
+): void {
+  let entity = new EscrowComputeExecutionTemplateAgreementCreated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -17,10 +22,10 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleEscrowComputeExecutionTemplateOwnershipTransferred(
+  event: EscrowComputeExecutionTemplateOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new EscrowComputeExecutionTemplateOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

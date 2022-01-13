@@ -618,14 +618,14 @@ type NFTUpgradeableTransferSingle @entity {
   operator: Bytes! # address
   from: Bytes! # address
   to: Bytes! # address
-  id: BigInt! # uint256
+  _id: BigInt! # uint256
   value: BigInt! # uint256
 }
 
 type NFTUpgradeableURI @entity {
   id: ID!
   value: String! # string
-  id: BigInt! # uint256
+  _id: BigInt! # uint256
 }
 type SignConditionOwnershipTransferred @entity {
   id: ID!

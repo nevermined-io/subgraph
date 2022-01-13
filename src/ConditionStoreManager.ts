@@ -1,16 +1,18 @@
 import {
-  ConditionCreated as ConditionCreatedEvent,
-  ConditionUpdated as ConditionUpdatedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  ConditionCreated as ConditionStoreManagerConditionCreatedEvent,
+  ConditionUpdated as ConditionStoreManagerConditionUpdatedEvent,
+  OwnershipTransferred as ConditionStoreManagerOwnershipTransferredEvent,
 } from "../generated/ConditionStoreManager/ConditionStoreManager"
 import {
-  ConditionCreated,
-  ConditionUpdated,
-  OwnershipTransferred
+  ConditionStoreManagerConditionCreated,
+  ConditionStoreManagerConditionUpdated,
+  ConditionStoreManagerOwnershipTransferred,
 } from "../generated/schema"
 
-export function handleConditionCreated(event: ConditionCreatedEvent): void {
-  let entity = new ConditionCreated(
+export function handleConditionStoreManagerConditionCreated(
+  event: ConditionStoreManagerConditionCreatedEvent
+): void {
+  let entity = new ConditionStoreManagerConditionCreated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._id = event.params._id
@@ -19,8 +21,10 @@ export function handleConditionCreated(event: ConditionCreatedEvent): void {
   entity.save()
 }
 
-export function handleConditionUpdated(event: ConditionUpdatedEvent): void {
-  let entity = new ConditionUpdated(
+export function handleConditionStoreManagerConditionUpdated(
+  event: ConditionStoreManagerConditionUpdatedEvent
+): void {
+  let entity = new ConditionStoreManagerConditionUpdated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._id = event.params._id
@@ -30,10 +34,10 @@ export function handleConditionUpdated(event: ConditionUpdatedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleConditionStoreManagerOwnershipTransferred(
+  event: ConditionStoreManagerOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new ConditionStoreManagerOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

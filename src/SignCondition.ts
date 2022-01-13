@@ -1,10 +1,10 @@
-import { OwnershipTransferred as OwnershipTransferredEvent } from "../generated/SignCondition/SignCondition"
-import { OwnershipTransferred } from "../generated/schema"
+import { OwnershipTransferred as SignConditionOwnershipTransferredEvent } from "../generated/SignCondition/SignCondition"
+import { SignConditionOwnershipTransferred } from "../generated/schema"
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleSignConditionOwnershipTransferred(
+  event: SignConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new SignConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

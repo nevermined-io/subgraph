@@ -1,11 +1,16 @@
 import {
-  Fulfilled as FulfilledEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  Fulfilled as ComputeExecutionConditionFulfilledEvent,
+  OwnershipTransferred as ComputeExecutionConditionOwnershipTransferredEvent,
 } from "../generated/ComputeExecutionCondition/ComputeExecutionCondition"
-import { Fulfilled, OwnershipTransferred } from "../generated/schema"
+import {
+  ComputeExecutionConditionFulfilled,
+  ComputeExecutionConditionOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleComputeExecutionConditionFulfilled(
+  event: ComputeExecutionConditionFulfilledEvent
+): void {
+  let entity = new ComputeExecutionConditionFulfilled(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -15,10 +20,10 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleComputeExecutionConditionOwnershipTransferred(
+  event: ComputeExecutionConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new ComputeExecutionConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

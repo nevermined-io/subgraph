@@ -1,11 +1,16 @@
 import {
-  Fulfilled as FulfilledEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  Fulfilled as NFTLockConditionFulfilledEvent,
+  OwnershipTransferred as NFTLockConditionOwnershipTransferredEvent,
 } from "../generated/NFTLockCondition/NFTLockCondition"
-import { Fulfilled, OwnershipTransferred } from "../generated/schema"
+import {
+  NFTLockConditionFulfilled,
+  NFTLockConditionOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleNFTLockConditionFulfilled(
+  event: NFTLockConditionFulfilledEvent
+): void {
+  let entity = new NFTLockConditionFulfilled(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -17,10 +22,10 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleNFTLockConditionOwnershipTransferred(
+  event: NFTLockConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new NFTLockConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

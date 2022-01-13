@@ -1,28 +1,30 @@
 import {
-  ApprovalForAll as ApprovalForAllEvent,
-  OwnershipTransferred as OwnershipTransferredEvent,
-  ProxyApproval as ProxyApprovalEvent,
-  RoleAdminChanged as RoleAdminChangedEvent,
-  RoleGranted as RoleGrantedEvent,
-  RoleRevoked as RoleRevokedEvent,
-  TransferBatch as TransferBatchEvent,
-  TransferSingle as TransferSingleEvent,
-  URI as URIEvent
+  ApprovalForAll as NFTUpgradeableApprovalForAllEvent,
+  OwnershipTransferred as NFTUpgradeableOwnershipTransferredEvent,
+  ProxyApproval as NFTUpgradeableProxyApprovalEvent,
+  RoleAdminChanged as NFTUpgradeableRoleAdminChangedEvent,
+  RoleGranted as NFTUpgradeableRoleGrantedEvent,
+  RoleRevoked as NFTUpgradeableRoleRevokedEvent,
+  TransferBatch as NFTUpgradeableTransferBatchEvent,
+  TransferSingle as NFTUpgradeableTransferSingleEvent,
+  URI as NFTUpgradeableURIEvent,
 } from "../generated/NFTUpgradeable/NFTUpgradeable"
 import {
-  ApprovalForAll,
-  OwnershipTransferred,
-  ProxyApproval,
-  RoleAdminChanged,
-  RoleGranted,
-  RoleRevoked,
-  TransferBatch,
-  TransferSingle,
-  URI
+  NFTUpgradeableApprovalForAll,
+  NFTUpgradeableOwnershipTransferred,
+  NFTUpgradeableProxyApproval,
+  NFTUpgradeableRoleAdminChanged,
+  NFTUpgradeableRoleGranted,
+  NFTUpgradeableRoleRevoked,
+  NFTUpgradeableTransferBatch,
+  NFTUpgradeableTransferSingle,
+  NFTUpgradeableURI,
 } from "../generated/schema"
 
-export function handleApprovalForAll(event: ApprovalForAllEvent): void {
-  let entity = new ApprovalForAll(
+export function handleNFTUpgradeableApprovalForAll(
+  event: NFTUpgradeableApprovalForAllEvent
+): void {
+  let entity = new NFTUpgradeableApprovalForAll(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.account = event.params.account
@@ -31,10 +33,10 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleNFTUpgradeableOwnershipTransferred(
+  event: NFTUpgradeableOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new NFTUpgradeableOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner
@@ -42,8 +44,10 @@ export function handleOwnershipTransferred(
   entity.save()
 }
 
-export function handleProxyApproval(event: ProxyApprovalEvent): void {
-  let entity = new ProxyApproval(
+export function handleNFTUpgradeableProxyApproval(
+  event: NFTUpgradeableProxyApprovalEvent
+): void {
+  let entity = new NFTUpgradeableProxyApproval(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.sender = event.params.sender
@@ -52,8 +56,10 @@ export function handleProxyApproval(event: ProxyApprovalEvent): void {
   entity.save()
 }
 
-export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
-  let entity = new RoleAdminChanged(
+export function handleNFTUpgradeableRoleAdminChanged(
+  event: NFTUpgradeableRoleAdminChangedEvent
+): void {
+  let entity = new NFTUpgradeableRoleAdminChanged(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -62,8 +68,10 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   entity.save()
 }
 
-export function handleRoleGranted(event: RoleGrantedEvent): void {
-  let entity = new RoleGranted(
+export function handleNFTUpgradeableRoleGranted(
+  event: NFTUpgradeableRoleGrantedEvent
+): void {
+  let entity = new NFTUpgradeableRoleGranted(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -72,8 +80,10 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
   entity.save()
 }
 
-export function handleRoleRevoked(event: RoleRevokedEvent): void {
-  let entity = new RoleRevoked(
+export function handleNFTUpgradeableRoleRevoked(
+  event: NFTUpgradeableRoleRevokedEvent
+): void {
+  let entity = new NFTUpgradeableRoleRevoked(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -82,8 +92,10 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
   entity.save()
 }
 
-export function handleTransferBatch(event: TransferBatchEvent): void {
-  let entity = new TransferBatch(
+export function handleNFTUpgradeableTransferBatch(
+  event: NFTUpgradeableTransferBatchEvent
+): void {
+  let entity = new NFTUpgradeableTransferBatch(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.operator = event.params.operator
@@ -94,23 +106,25 @@ export function handleTransferBatch(event: TransferBatchEvent): void {
   entity.save()
 }
 
-export function handleTransferSingle(event: TransferSingleEvent): void {
-  let entity = new TransferSingle(
+export function handleNFTUpgradeableTransferSingle(
+  event: NFTUpgradeableTransferSingleEvent
+): void {
+  let entity = new NFTUpgradeableTransferSingle(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.operator = event.params.operator
   entity.from = event.params.from
   entity.to = event.params.to
-  entity.id = event.params.id
+  entity._id = event.params.id
   entity.value = event.params.value
   entity.save()
 }
 
-export function handleURI(event: URIEvent): void {
-  let entity = new URI(
+export function handleNFTUpgradeableURI(event: NFTUpgradeableURIEvent): void {
+  let entity = new NFTUpgradeableURI(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.value = event.params.value
-  entity.id = event.params.id
+  entity._id = event.params.id
   entity.save()
 }

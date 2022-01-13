@@ -1,11 +1,16 @@
 import {
-  Fulfilled as FulfilledEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  Fulfilled as NFTAccessConditionFulfilledEvent,
+  OwnershipTransferred as NFTAccessConditionOwnershipTransferredEvent,
 } from "../generated/NFTAccessCondition/NFTAccessCondition"
-import { Fulfilled, OwnershipTransferred } from "../generated/schema"
+import {
+  NFTAccessConditionFulfilled,
+  NFTAccessConditionOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleNFTAccessConditionFulfilled(
+  event: NFTAccessConditionFulfilledEvent
+): void {
+  let entity = new NFTAccessConditionFulfilled(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -15,10 +20,10 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleNFTAccessConditionOwnershipTransferred(
+  event: NFTAccessConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new NFTAccessConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

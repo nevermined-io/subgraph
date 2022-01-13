@@ -1,20 +1,20 @@
 import {
-  OwnershipTransferred as OwnershipTransferredEvent,
-  RoleAdminChanged as RoleAdminChangedEvent,
-  RoleGranted as RoleGrantedEvent,
-  RoleRevoked as RoleRevokedEvent
+  OwnershipTransferred as AgreementStoreManagerOwnershipTransferredEvent,
+  RoleAdminChanged as AgreementStoreManagerRoleAdminChangedEvent,
+  RoleGranted as AgreementStoreManagerRoleGrantedEvent,
+  RoleRevoked as AgreementStoreManagerRoleRevokedEvent,
 } from "../generated/AgreementStoreManager/AgreementStoreManager"
 import {
-  OwnershipTransferred,
-  RoleAdminChanged,
-  RoleGranted,
-  RoleRevoked
+  AgreementStoreManagerOwnershipTransferred,
+  AgreementStoreManagerRoleAdminChanged,
+  AgreementStoreManagerRoleGranted,
+  AgreementStoreManagerRoleRevoked,
 } from "../generated/schema"
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleAgreementStoreManagerOwnershipTransferred(
+  event: AgreementStoreManagerOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new AgreementStoreManagerOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner
@@ -22,8 +22,10 @@ export function handleOwnershipTransferred(
   entity.save()
 }
 
-export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
-  let entity = new RoleAdminChanged(
+export function handleAgreementStoreManagerRoleAdminChanged(
+  event: AgreementStoreManagerRoleAdminChangedEvent
+): void {
+  let entity = new AgreementStoreManagerRoleAdminChanged(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -32,8 +34,10 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   entity.save()
 }
 
-export function handleRoleGranted(event: RoleGrantedEvent): void {
-  let entity = new RoleGranted(
+export function handleAgreementStoreManagerRoleGranted(
+  event: AgreementStoreManagerRoleGrantedEvent
+): void {
+  let entity = new AgreementStoreManagerRoleGranted(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -42,8 +46,10 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
   entity.save()
 }
 
-export function handleRoleRevoked(event: RoleRevokedEvent): void {
-  let entity = new RoleRevoked(
+export function handleAgreementStoreManagerRoleRevoked(
+  event: AgreementStoreManagerRoleRevokedEvent
+): void {
+  let entity = new AgreementStoreManagerRoleRevoked(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role

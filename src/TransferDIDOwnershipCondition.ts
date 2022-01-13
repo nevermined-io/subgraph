@@ -1,11 +1,16 @@
 import {
-  Fulfilled as FulfilledEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  Fulfilled as TransferDIDOwnershipConditionFulfilledEvent,
+  OwnershipTransferred as TransferDIDOwnershipConditionOwnershipTransferredEvent,
 } from "../generated/TransferDIDOwnershipCondition/TransferDIDOwnershipCondition"
-import { Fulfilled, OwnershipTransferred } from "../generated/schema"
+import {
+  TransferDIDOwnershipConditionFulfilled,
+  TransferDIDOwnershipConditionOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleTransferDIDOwnershipConditionFulfilled(
+  event: TransferDIDOwnershipConditionFulfilledEvent
+): void {
+  let entity = new TransferDIDOwnershipConditionFulfilled(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -15,10 +20,10 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleTransferDIDOwnershipConditionOwnershipTransferred(
+  event: TransferDIDOwnershipConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new TransferDIDOwnershipConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

@@ -1,20 +1,22 @@
 import {
-  Fulfilled as FulfilledEvent,
-  OwnershipTransferred as OwnershipTransferredEvent,
-  RoleAdminChanged as RoleAdminChangedEvent,
-  RoleGranted as RoleGrantedEvent,
-  RoleRevoked as RoleRevokedEvent
+  Fulfilled as TransferNFT721ConditionFulfilledEvent,
+  OwnershipTransferred as TransferNFT721ConditionOwnershipTransferredEvent,
+  RoleAdminChanged as TransferNFT721ConditionRoleAdminChangedEvent,
+  RoleGranted as TransferNFT721ConditionRoleGrantedEvent,
+  RoleRevoked as TransferNFT721ConditionRoleRevokedEvent,
 } from "../generated/TransferNFT721Condition/TransferNFT721Condition"
 import {
-  Fulfilled,
-  OwnershipTransferred,
-  RoleAdminChanged,
-  RoleGranted,
-  RoleRevoked
+  TransferNFT721ConditionFulfilled,
+  TransferNFT721ConditionOwnershipTransferred,
+  TransferNFT721ConditionRoleAdminChanged,
+  TransferNFT721ConditionRoleGranted,
+  TransferNFT721ConditionRoleRevoked,
 } from "../generated/schema"
 
-export function handleFulfilled(event: FulfilledEvent): void {
-  let entity = new Fulfilled(
+export function handleTransferNFT721ConditionFulfilled(
+  event: TransferNFT721ConditionFulfilledEvent
+): void {
+  let entity = new TransferNFT721ConditionFulfilled(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -26,10 +28,10 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleTransferNFT721ConditionOwnershipTransferred(
+  event: TransferNFT721ConditionOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new TransferNFT721ConditionOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner
@@ -37,8 +39,10 @@ export function handleOwnershipTransferred(
   entity.save()
 }
 
-export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
-  let entity = new RoleAdminChanged(
+export function handleTransferNFT721ConditionRoleAdminChanged(
+  event: TransferNFT721ConditionRoleAdminChangedEvent
+): void {
+  let entity = new TransferNFT721ConditionRoleAdminChanged(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -47,8 +51,10 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   entity.save()
 }
 
-export function handleRoleGranted(event: RoleGrantedEvent): void {
-  let entity = new RoleGranted(
+export function handleTransferNFT721ConditionRoleGranted(
+  event: TransferNFT721ConditionRoleGrantedEvent
+): void {
+  let entity = new TransferNFT721ConditionRoleGranted(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -57,8 +63,10 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
   entity.save()
 }
 
-export function handleRoleRevoked(event: RoleRevokedEvent): void {
-  let entity = new RoleRevoked(
+export function handleTransferNFT721ConditionRoleRevoked(
+  event: TransferNFT721ConditionRoleRevokedEvent
+): void {
+  let entity = new TransferNFT721ConditionRoleRevoked(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role

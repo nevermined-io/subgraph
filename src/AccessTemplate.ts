@@ -1,11 +1,16 @@
 import {
-  AgreementCreated as AgreementCreatedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  AgreementCreated as AccessTemplateAgreementCreatedEvent,
+  OwnershipTransferred as AccessTemplateOwnershipTransferredEvent,
 } from "../generated/AccessTemplate/AccessTemplate"
-import { AgreementCreated, OwnershipTransferred } from "../generated/schema"
+import {
+  AccessTemplateAgreementCreated,
+  AccessTemplateOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleAgreementCreated(event: AgreementCreatedEvent): void {
-  let entity = new AgreementCreated(
+export function handleAccessTemplateAgreementCreated(
+  event: AccessTemplateAgreementCreatedEvent
+): void {
+  let entity = new AccessTemplateAgreementCreated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -17,10 +22,10 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleAccessTemplateOwnershipTransferred(
+  event: AccessTemplateOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new AccessTemplateOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

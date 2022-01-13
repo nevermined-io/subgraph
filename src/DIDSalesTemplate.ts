@@ -1,11 +1,16 @@
 import {
-  AgreementCreated as AgreementCreatedEvent,
-  OwnershipTransferred as OwnershipTransferredEvent
+  AgreementCreated as DIDSalesTemplateAgreementCreatedEvent,
+  OwnershipTransferred as DIDSalesTemplateOwnershipTransferredEvent,
 } from "../generated/DIDSalesTemplate/DIDSalesTemplate"
-import { AgreementCreated, OwnershipTransferred } from "../generated/schema"
+import {
+  DIDSalesTemplateAgreementCreated,
+  DIDSalesTemplateOwnershipTransferred,
+} from "../generated/schema"
 
-export function handleAgreementCreated(event: AgreementCreatedEvent): void {
-  let entity = new AgreementCreated(
+export function handleDIDSalesTemplateAgreementCreated(
+  event: DIDSalesTemplateAgreementCreatedEvent
+): void {
+  let entity = new DIDSalesTemplateAgreementCreated(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity._agreementId = event.params._agreementId
@@ -17,10 +22,10 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleDIDSalesTemplateOwnershipTransferred(
+  event: DIDSalesTemplateOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new DIDSalesTemplateOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner

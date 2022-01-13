@@ -1,18 +1,18 @@
 import {
-  OwnershipTransferred as OwnershipTransferredEvent,
-  RequestFrequencyExceeded as RequestFrequencyExceededEvent,
-  RequestLimitExceeded as RequestLimitExceededEvent
+  OwnershipTransferred as DispenserOwnershipTransferredEvent,
+  RequestFrequencyExceeded as DispenserRequestFrequencyExceededEvent,
+  RequestLimitExceeded as DispenserRequestLimitExceededEvent,
 } from "../generated/Dispenser/Dispenser"
 import {
-  OwnershipTransferred,
-  RequestFrequencyExceeded,
-  RequestLimitExceeded
+  DispenserOwnershipTransferred,
+  DispenserRequestFrequencyExceeded,
+  DispenserRequestLimitExceeded,
 } from "../generated/schema"
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleDispenserOwnershipTransferred(
+  event: DispenserOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new DispenserOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner
@@ -20,10 +20,10 @@ export function handleOwnershipTransferred(
   entity.save()
 }
 
-export function handleRequestFrequencyExceeded(
-  event: RequestFrequencyExceededEvent
+export function handleDispenserRequestFrequencyExceeded(
+  event: DispenserRequestFrequencyExceededEvent
 ): void {
-  let entity = new RequestFrequencyExceeded(
+  let entity = new DispenserRequestFrequencyExceeded(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.requester = event.params.requester
@@ -31,10 +31,10 @@ export function handleRequestFrequencyExceeded(
   entity.save()
 }
 
-export function handleRequestLimitExceeded(
-  event: RequestLimitExceededEvent
+export function handleDispenserRequestLimitExceeded(
+  event: DispenserRequestLimitExceededEvent
 ): void {
-  let entity = new RequestLimitExceeded(
+  let entity = new DispenserRequestLimitExceeded(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.requester = event.params.requester

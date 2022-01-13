@@ -1,22 +1,24 @@
 import {
-  Approval as ApprovalEvent,
-  OwnershipTransferred as OwnershipTransferredEvent,
-  RoleAdminChanged as RoleAdminChangedEvent,
-  RoleGranted as RoleGrantedEvent,
-  RoleRevoked as RoleRevokedEvent,
-  Transfer as TransferEvent
+  Approval as NeverminedTokenApprovalEvent,
+  OwnershipTransferred as NeverminedTokenOwnershipTransferredEvent,
+  RoleAdminChanged as NeverminedTokenRoleAdminChangedEvent,
+  RoleGranted as NeverminedTokenRoleGrantedEvent,
+  RoleRevoked as NeverminedTokenRoleRevokedEvent,
+  Transfer as NeverminedTokenTransferEvent,
 } from "../generated/NeverminedToken/NeverminedToken"
 import {
-  Approval,
-  OwnershipTransferred,
-  RoleAdminChanged,
-  RoleGranted,
-  RoleRevoked,
-  Transfer
+  NeverminedTokenApproval,
+  NeverminedTokenOwnershipTransferred,
+  NeverminedTokenRoleAdminChanged,
+  NeverminedTokenRoleGranted,
+  NeverminedTokenRoleRevoked,
+  NeverminedTokenTransfer,
 } from "../generated/schema"
 
-export function handleApproval(event: ApprovalEvent): void {
-  let entity = new Approval(
+export function handleNeverminedTokenApproval(
+  event: NeverminedTokenApprovalEvent
+): void {
+  let entity = new NeverminedTokenApproval(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.owner = event.params.owner
@@ -25,10 +27,10 @@ export function handleApproval(event: ApprovalEvent): void {
   entity.save()
 }
 
-export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
+export function handleNeverminedTokenOwnershipTransferred(
+  event: NeverminedTokenOwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new NeverminedTokenOwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.previousOwner = event.params.previousOwner
@@ -36,8 +38,10 @@ export function handleOwnershipTransferred(
   entity.save()
 }
 
-export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
-  let entity = new RoleAdminChanged(
+export function handleNeverminedTokenRoleAdminChanged(
+  event: NeverminedTokenRoleAdminChangedEvent
+): void {
+  let entity = new NeverminedTokenRoleAdminChanged(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -46,8 +50,10 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   entity.save()
 }
 
-export function handleRoleGranted(event: RoleGrantedEvent): void {
-  let entity = new RoleGranted(
+export function handleNeverminedTokenRoleGranted(
+  event: NeverminedTokenRoleGrantedEvent
+): void {
+  let entity = new NeverminedTokenRoleGranted(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -56,8 +62,10 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
   entity.save()
 }
 
-export function handleRoleRevoked(event: RoleRevokedEvent): void {
-  let entity = new RoleRevoked(
+export function handleNeverminedTokenRoleRevoked(
+  event: NeverminedTokenRoleRevokedEvent
+): void {
+  let entity = new NeverminedTokenRoleRevoked(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.role = event.params.role
@@ -66,8 +74,10 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
   entity.save()
 }
 
-export function handleTransfer(event: TransferEvent): void {
-  let entity = new Transfer(
+export function handleNeverminedTokenTransfer(
+  event: NeverminedTokenTransferEvent
+): void {
+  let entity = new NeverminedTokenTransfer(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
   entity.from = event.params.from
