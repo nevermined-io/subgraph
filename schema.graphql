@@ -1,3 +1,74 @@
+type AaveBorrowConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveBorrowConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AaveCollateralDepositConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveCollateralDepositConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AaveCollateralWithdrawConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveCollateralWithdrawConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AaveCreditTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+}
+
+type AaveCreditTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type AaveCreditTemplateVaultCreated @entity {
+  id: ID!
+  _vaultAddress: Bytes! # address
+  _creator: Bytes! # address
+  _lender: Bytes! # address
+  _borrower: Bytes! # address
+}
+type AaveRepayConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveRepayConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
 type AccessConditionFulfilled @entity {
   id: ID!
   _agreementId: Bytes! # bytes32
@@ -276,6 +347,20 @@ type DispenserRequestLimitExceeded @entity {
   amount: BigInt! # uint256
   maxAmount: BigInt! # uint256
 }
+type DistributeNFTCollateralConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _receiver: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _contract: Bytes! # address
+}
+
+type DistributeNFTCollateralConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
 type EscrowComputeExecutionTemplateAgreementCreated @entity {
   id: ID!
   _agreementId: Bytes! # bytes32
@@ -418,6 +503,21 @@ type NFT721HolderConditionFulfilled @entity {
 }
 
 type NFT721HolderConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721LockConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _lockAddress: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amount: BigInt! # uint256
+  _nftContractAddress: Bytes! # address
+}
+
+type NFT721LockConditionOwnershipTransferred @entity {
   id: ID!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address

@@ -7,6 +7,10 @@ import fs from 'fs-extra'
 import yaml from 'js-yaml'
 import prettier from 'prettier'
 
+const EXCLUDED_CONTRACTS = [
+    'AaveCreditVault',
+]
+
 type Manifest = {
     specVersion: string,
     schema: {
@@ -124,7 +128,7 @@ async function processFiles(err, files, network) {
         // generate schema (schema.graphql)
         // generate mappings (src/*.ts)
         const dataSource = generateDataSource(scaffold)
-        if (typeof dataSource !== 'undefined') {
+        if (typeof dataSource !== 'undefined' && !EXCLUDED_CONTRACTS.includes(contractName)) {
             dataSources.push(dataSource)
             schemas += generateSchema(events, protocol.name)
             // mappings.set(dataSource.mapping.file, scaffold.generateMapping())

@@ -1,4 +1,4 @@
-import { Bytes, ethereum } from '@graphprotocol/graph-ts'
+import { ethereum } from '@graphprotocol/graph-ts'
 import {
     Fulfilled as EscrowPaymentConditionFulfilledEvent,
     OwnershipTransferred as EscrowPaymentConditionOwnershipTransferredEvent,

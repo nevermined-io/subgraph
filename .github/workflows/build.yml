@@ -35,7 +35,10 @@ jobs:
         cd ..
         ./scripts/wait-nevermined.sh
 
+    - name: Test nevermined code update
+      run: yarn ts-node scripts/generate.ts spree
     - name: Test code generation
+      run: yarn codegen
     - name: Test build
       run: yarn build
     - name: Test create

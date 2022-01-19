@@ -3,10 +3,130 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: AccessCondition
-    network: spree
+    name: AaveBorrowCondition
+    network: mainnet
     source:
-      address: '0xE53927D1E274bb39F7EBa8ad9e0eee30F7504f77'
+      address: '0x3c83D8E1F1BF33Ebb1E8D5A2ac56cE482e54caCd'
+      abi: AaveBorrowCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveBorrowConditionFulfilled
+        - AaveBorrowConditionOwnershipTransferred
+      abis:
+        - name: AaveBorrowCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveBorrowCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveBorrowCondition.ts
+  - kind: ethereum
+    name: AaveCollateralDepositCondition
+    network: mainnet
+    source:
+      address: '0xE9dC0B76ceCc3f402C6EA57d5191811B1660AF32'
+      abi: AaveCollateralDepositCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCollateralDepositConditionFulfilled
+        - AaveCollateralDepositConditionOwnershipTransferred
+      abis:
+        - name: AaveCollateralDepositCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCollateralDepositCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveCollateralDepositCondition.ts
+  - kind: ethereum
+    name: AaveCollateralWithdrawCondition
+    network: mainnet
+    source:
+      address: '0x55E873f9327Ee99a67975C8F2BEa04aD141B2807'
+      abi: AaveCollateralWithdrawCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCollateralWithdrawConditionFulfilled
+        - AaveCollateralWithdrawConditionOwnershipTransferred
+      abis:
+        - name: AaveCollateralWithdrawCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCollateralWithdrawCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveCollateralWithdrawCondition.ts
+  - kind: ethereum
+    name: AaveCreditTemplate
+    network: mainnet
+    source:
+      address: '0x752181978DA1e0D04644Ae50a129B3ee1ED49A98'
+      abi: AaveCreditTemplate
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCreditTemplateAgreementCreated
+        - AaveCreditTemplateOwnershipTransferred
+        - AaveCreditTemplateVaultCreated
+      abis:
+        - name: AaveCreditTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCreditTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[])
+          handler: handleAgreementCreated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: VaultCreated(indexed address,indexed address,address,address)
+          handler: handleVaultCreated
+      file: ./src/AaveCreditTemplate.ts
+  - kind: ethereum
+    name: AaveRepayCondition
+    network: mainnet
+    source:
+      address: '0xE4f7c64C52085A6df2c7c2972466EEf3ba3aD081'
+      abi: AaveRepayCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveRepayConditionFulfilled
+        - AaveRepayConditionOwnershipTransferred
+      abis:
+        - name: AaveRepayCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveRepayCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveRepayCondition.ts
+  - kind: ethereum
+    name: AccessCondition
+    network: mainnet
+    source:
+      address: '0x83d35336e2cC9C69F6bD22c6D8412e4Ad59134ec'
       abi: AccessCondition
     mapping:
       kind: ethereum/events
@@ -27,9 +147,9 @@ dataSources:
       file: ./src/AccessCondition.ts
   - kind: ethereum
     name: AccessProofCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0xE4f7c64C52085A6df2c7c2972466EEf3ba3aD081'
+      address: '0x8a610D7061F945763d20B5645f164e29d3491775'
       abi: AccessProofCondition
     mapping:
       kind: ethereum/events
@@ -52,9 +172,9 @@ dataSources:
       file: ./src/AccessProofCondition.ts
   - kind: ethereum
     name: AccessProofTemplate
-    network: spree
+    network: mainnet
     source:
-      address: '0xd70432120128C23E09dAaE9a1Df7227517cB60F8'
+      address: '0xE8299CCe89f1B30E1d65Ebb827b784D8900aEf2c'
       abi: AccessProofTemplate
     mapping:
       kind: ethereum/events
@@ -77,9 +197,9 @@ dataSources:
       file: ./src/AccessProofTemplate.ts
   - kind: ethereum
     name: AccessTemplate
-    network: spree
+    network: mainnet
     source:
-      address: '0xac1D60D8840b3E5BaF347607a1093A1937bFF580'
+      address: '0x3A819b4848FBd48A680303d739daaA2ed46EeF2E'
       abi: AccessTemplate
     mapping:
       kind: ethereum/events
@@ -102,9 +222,9 @@ dataSources:
       file: ./src/AccessTemplate.ts
   - kind: ethereum
     name: AgreementStoreManager
-    network: spree
+    network: mainnet
     source:
-      address: '0x3Ef2ebF03002D828943EB1AbbFC470D1A53c6B21'
+      address: '0xd7C2FE49b96c48073D0D5e9f1f360d1493E670a5'
       abi: AgreementStoreManager
     mapping:
       kind: ethereum/events
@@ -131,9 +251,9 @@ dataSources:
       file: ./src/AgreementStoreManager.ts
   - kind: ethereum
     name: ComputeExecutionCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0x8a610D7061F945763d20B5645f164e29d3491775'
+      address: '0x0050675c2155D97b7bdb2A66a04eEa6807f9717e'
       abi: ComputeExecutionCondition
     mapping:
       kind: ethereum/events
@@ -154,7 +274,7 @@ dataSources:
       file: ./src/ComputeExecutionCondition.ts
   - kind: ethereum
     name: ConditionStoreManager
-    network: spree
+    network: mainnet
     source:
       address: '0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4'
       abi: ConditionStoreManager
@@ -182,7 +302,7 @@ dataSources:
       file: ./src/ConditionStoreManager.ts
   - kind: ethereum
     name: DIDRegistry
-    network: spree
+    network: mainnet
     source:
       address: '0x9C2a015129969c98E9A5BcBEb61A5F907FF5b629'
       abi: DIDRegistry
@@ -263,9 +383,9 @@ dataSources:
       file: ./src/DIDRegistry.ts
   - kind: ethereum
     name: DIDSalesTemplate
-    network: spree
+    network: mainnet
     source:
-      address: '0x32dC388D10185ebB18c906a64f0F4e45A9a3c57c'
+      address: '0x3f5aF8Df4943F9803e18b23a7CdCa3D1d50F6627'
       abi: DIDSalesTemplate
     mapping:
       kind: ethereum/events
@@ -288,7 +408,7 @@ dataSources:
       file: ./src/DIDSalesTemplate.ts
   - kind: ethereum
     name: Dispenser
-    network: spree
+    network: mainnet
     source:
       address: '0x312213d6f6b5FCF9F56B7B8946A6C727Bf4Bc21f'
       abi: Dispenser
@@ -312,10 +432,35 @@ dataSources:
           handler: handleRequestLimitExceeded
       file: ./src/Dispenser.ts
   - kind: ethereum
-    name: EscrowComputeExecutionTemplate
-    network: spree
+    name: DistributeNFTCollateralCondition
+    network: mainnet
     source:
-      address: '0xBC7b96f8b45F2Bb024C59b542c17AB49F986746a'
+      address: '0x32dC388D10185ebB18c906a64f0F4e45A9a3c57c'
+      abi: DistributeNFTCollateralCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DistributeNFTCollateralConditionFulfilled
+        - DistributeNFTCollateralConditionOwnershipTransferred
+      abis:
+        - name: DistributeNFTCollateralCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/DistributeNFTCollateralCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,address)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/DistributeNFTCollateralCondition.ts
+  - kind: ethereum
+    name: EscrowComputeExecutionTemplate
+    network: mainnet
+    source:
+      address: '0x515BF99873534584fF1ae590EaB00Cda1BF10583'
       abi: EscrowComputeExecutionTemplate
     mapping:
       kind: ethereum/events
@@ -338,7 +483,7 @@ dataSources:
       file: ./src/EscrowComputeExecutionTemplate.ts
   - kind: ethereum
     name: EscrowPaymentCondition
-    network: spree
+    network: mainnet
     source:
       address: '0x336EFb3c9E56F713dFdA4CDB3Dd0882F3226b6eE'
       abi: EscrowPaymentCondition
@@ -366,7 +511,7 @@ dataSources:
       file: ./src/EscrowPaymentCondition.ts
   - kind: ethereum
     name: HashLockCondition
-    network: spree
+    network: mainnet
     source:
       address: '0x645439117eB378a6d35148452E287a038666Ed67'
       abi: HashLockCondition
@@ -386,9 +531,9 @@ dataSources:
       file: ./src/HashLockCondition.ts
   - kind: ethereum
     name: LockPaymentCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0x3c83D8E1F1BF33Ebb1E8D5A2ac56cE482e54caCd'
+      address: '0x563aC2D29279053D16F2602432Cba7896D45E125'
       abi: LockPaymentCondition
     mapping:
       kind: ethereum/events
@@ -420,7 +565,7 @@ dataSources:
       file: ./src/LockPaymentCondition.ts
   - kind: ethereum
     name: NeverminedToken
-    network: spree
+    network: mainnet
     source:
       address: '0xe749E2f8482810b11B838Ae8c5eb69e54d610411'
       abi: NeverminedToken
@@ -455,9 +600,9 @@ dataSources:
       file: ./src/NeverminedToken.ts
   - kind: ethereum
     name: NFT721AccessTemplate
-    network: spree
+    network: mainnet
     source:
-      address: '0x0050675c2155D97b7bdb2A66a04eEa6807f9717e'
+      address: '0x7Ac89612A5880Ee7DCB8E01B6b187382471D0716'
       abi: NFT721AccessTemplate
     mapping:
       kind: ethereum/events
@@ -480,7 +625,7 @@ dataSources:
       file: ./src/NFT721AccessTemplate.ts
   - kind: ethereum
     name: NFT721HolderCondition
-    network: spree
+    network: mainnet
     source:
       address: '0x4999A8428d1D42fc955FbBC2f1E22323a55B6f86'
       abi: NFT721HolderCondition
@@ -504,10 +649,35 @@ dataSources:
           handler: handleOwnershipTransferred
       file: ./src/NFT721HolderCondition.ts
   - kind: ethereum
-    name: NFT721SalesTemplate
-    network: spree
+    name: NFT721LockCondition
+    network: mainnet
     source:
-      address: '0xEd0a0123EaEB4e32335D64cAb75ED0022938CD59'
+      address: '0x3Ef2ebF03002D828943EB1AbbFC470D1A53c6B21'
+      abi: NFT721LockCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721LockConditionFulfilled
+        - NFT721LockConditionOwnershipTransferred
+      abis:
+        - name: NFT721LockCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721LockCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,uint256,address)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721LockCondition.ts
+  - kind: ethereum
+    name: NFT721SalesTemplate
+    network: mainnet
+    source:
+      address: '0x6bC806485f940690a84299E7cEEC710dd6D7ba89'
       abi: NFT721SalesTemplate
     mapping:
       kind: ethereum/events
@@ -530,7 +700,7 @@ dataSources:
       file: ./src/NFT721SalesTemplate.ts
   - kind: ethereum
     name: NFT721Upgradeable
-    network: spree
+    network: mainnet
     source:
       address: '0x98b6901cE7C9fc65dBeeC98598136593EB7b4c6C'
       abi: NFT721Upgradeable
@@ -571,9 +741,9 @@ dataSources:
       file: ./src/NFT721Upgradeable.ts
   - kind: ethereum
     name: NFTAccessCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0x55E873f9327Ee99a67975C8F2BEa04aD141B2807'
+      address: '0xE53927D1E274bb39F7EBa8ad9e0eee30F7504f77'
       abi: NFTAccessCondition
     mapping:
       kind: ethereum/events
@@ -594,9 +764,9 @@ dataSources:
       file: ./src/NFTAccessCondition.ts
   - kind: ethereum
     name: NFTAccessTemplate
-    network: spree
+    network: mainnet
     source:
-      address: '0xdeAF2aa754287628d5d30Ca99d94a0CAd2AD4CAb'
+      address: '0x10c1a8a80197b9Aed657bb0F8057c7C89504ABDE'
       abi: NFTAccessTemplate
     mapping:
       kind: ethereum/events
@@ -619,9 +789,9 @@ dataSources:
       file: ./src/NFTAccessTemplate.ts
   - kind: ethereum
     name: NFTHolderCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0xd7C2FE49b96c48073D0D5e9f1f360d1493E670a5'
+      address: '0x36fa66586327d3a83175c6e68d2cd0b4e373ed06'
       abi: NFTHolderCondition
     mapping:
       kind: ethereum/events
@@ -644,9 +814,9 @@ dataSources:
       file: ./src/NFTHolderCondition.ts
   - kind: ethereum
     name: NFTLockCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0xF0579E51b07c740c6D4d1587EB5AA09F043a78D7'
+      address: '0xBbBb151A1632AE016c8485DCedE69260c3372eC5'
       abi: NFTLockCondition
     mapping:
       kind: ethereum/events
@@ -669,9 +839,9 @@ dataSources:
       file: ./src/NFTLockCondition.ts
   - kind: ethereum
     name: NFTSalesTemplate
-    network: spree
+    network: mainnet
     source:
-      address: '0x9E6D17b661A535F0d7126673E0f5d62a561bddf4'
+      address: '0xc10Cf8027f5913231a65c8081a83fF7F283317D6'
       abi: NFTSalesTemplate
     mapping:
       kind: ethereum/events
@@ -694,7 +864,7 @@ dataSources:
       file: ./src/NFTSalesTemplate.ts
   - kind: ethereum
     name: NFTUpgradeable
-    network: spree
+    network: mainnet
     source:
       address: '0x1e6d9207241DbDca82B0D9546490c97B24B1a9f6'
       abi: NFTUpgradeable
@@ -742,7 +912,7 @@ dataSources:
       file: ./src/NFTUpgradeable.ts
   - kind: ethereum
     name: SignCondition
-    network: spree
+    network: mainnet
     source:
       address: '0xEEE56e2a630DD29F9A628d618E58bb173911F393'
       abi: SignCondition
@@ -762,7 +932,7 @@ dataSources:
       file: ./src/SignCondition.ts
   - kind: ethereum
     name: TemplateStoreManager
-    network: spree
+    network: mainnet
     source:
       address: '0x726baA2f854A3BEC2378a707AeB38c9d933Ebad6'
       abi: TemplateStoreManager
@@ -782,7 +952,7 @@ dataSources:
       file: ./src/TemplateStoreManager.ts
   - kind: ethereum
     name: ThresholdCondition
-    network: spree
+    network: mainnet
     source:
       address: '0x8F006DbB3727d18f032C5618595ecDD2EDE13b61'
       abi: ThresholdCondition
@@ -802,9 +972,9 @@ dataSources:
       file: ./src/ThresholdCondition.ts
   - kind: ethereum
     name: TransferDIDOwnershipCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0xE9dC0B76ceCc3f402C6EA57d5191811B1660AF32'
+      address: '0xF0579E51b07c740c6D4d1587EB5AA09F043a78D7'
       abi: TransferDIDOwnershipCondition
     mapping:
       kind: ethereum/events
@@ -825,9 +995,9 @@ dataSources:
       file: ./src/TransferDIDOwnershipCondition.ts
   - kind: ethereum
     name: TransferNFT721Condition
-    network: spree
+    network: mainnet
     source:
-      address: '0x36fa66586327d3a83175c6e68d2cd0b4e373ed06'
+      address: '0x9E6D17b661A535F0d7126673E0f5d62a561bddf4'
       abi: TransferNFT721Condition
     mapping:
       kind: ethereum/events
@@ -859,9 +1029,9 @@ dataSources:
       file: ./src/TransferNFT721Condition.ts
   - kind: ethereum
     name: TransferNFTCondition
-    network: spree
+    network: mainnet
     source:
-      address: '0x563aC2D29279053D16F2602432Cba7896D45E125'
+      address: '0xac1D60D8840b3E5BaF347607a1093A1937bFF580'
       abi: TransferNFTCondition
     mapping:
       kind: ethereum/events
@@ -893,7 +1063,7 @@ dataSources:
       file: ./src/TransferNFTCondition.ts
   - kind: ethereum
     name: WhitelistingCondition
-    network: spree
+    network: mainnet
     source:
       address: '0xD306b5edCDC7819E1EB80B43De6548931706A3f4'
       abi: WhitelistingCondition
