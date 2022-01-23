@@ -67,62 +67,63 @@ describe('DIDRegistry', () => {
             )
             assert.isTrue(receipt.status)
             expectedEvent = receipt.events.DIDAttributeRegistered
+            console.log(did)
         })
 
-        it('should subscribe and wait for the event', async () => {
-            const query = `
-                subscription($did: ID) {
-                    didattributeRegistered(id: $did) {
-                        _did,
-                        _owner,
-                        _checksum,
-                        _value,
-                        _lastUpdatedBy,
-                        _blockNumberUpdated,
-                    }
-                }
-            `
-            const observable = wsClient.subscribe({
-                query: gql(query),
-                variables: {
-                    did: didZeroX(did),
-                },
-            })
+        // it('should subscribe and wait for the event', async () => {
+        //     const query = `
+        //         subscription($did: ID) {
+        //             didregistryDIDAttributeRegistered(id: $did) {
+        //                 _did,
+        //                 _owner,
+        //                 _checksum,
+        //                 _value,
+        //                 _lastUpdatedBy,
+        //                 _blockNumberUpdated,
+        //             }
+        //         }
+        //     `
+        //     const observable = wsClient.subscribe({
+        //         query: gql(query),
+        //         variables: {
+        //             did: didZeroX(did),
+        //         },
+        //     })
 
-            const promise = new Promise((resolve, reject) => {
-                observable.subscribe(
-                    x => {
-                        if (x.data.didattributeRegistered !== null) {
-                            resolve(x)
-                        }
-                    },
-                    err => reject(err),
-                )
-            })
-            const result: any = await promise
-            const eventData = result.data.didattributeRegistered
-            const expectedEventData = expectedEvent.returnValues
+        //     const promise = new Promise((resolve, reject) => {
+        //         observable.subscribe(
+        //             x => {
+        //                 if (x.data.didregistryDIDAttributeRegistered !== null) {
+        //                     resolve(x)
+        //                 }
+        //             },
+        //             err => reject(err),
+        //         )
+        //     })
+        //     const result: any = await promise
+        //     const eventData = result.data.didregistryDIDAttributeRegistered
+        //     const expectedEventData = expectedEvent.returnValues
 
-            assert.strictEqual(eventData._did, expectedEventData._did)
-            assert.strictEqual(
-                Web3.utils.toChecksumAddress(eventData._owner),
-                Web3.utils.toChecksumAddress(expectedEventData._owner),
-            )
-            assert.strictEqual(eventData._checksum, expectedEventData._checksum)
-            assert.strictEqual(
-                Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
-                Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
-            )
-            assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
+        //     assert.strictEqual(eventData._did, expectedEventData._did)
+        //     assert.strictEqual(
+        //         Web3.utils.toChecksumAddress(eventData._owner),
+        //         Web3.utils.toChecksumAddress(expectedEventData._owner),
+        //     )
+        //     assert.strictEqual(eventData._checksum, expectedEventData._checksum)
+        //     assert.strictEqual(
+        //         Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
+        //         Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
+        //     )
+        //     assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
 
 
 
-        })
+        // })
 
         it('should query for the event', async () => {
             const query = `
-                query($did: ID) {
-                    didattributeRegistered(id: $did) {
+                query($did: Bytes) {
+                    didregistryDIDAttributeRegistereds(where: {_did: $did}) {
                         _did,
                         _owner,
                         _checksum,

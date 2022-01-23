@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTLockCondition
+    network: spree
+    source:
+      address: "0xBbBb151A1632AE016c8485DCedE69260c3372eC5"
+      abi: NFTLockCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - OwnershipTransferred
+      abis:
+        - name: NFTLockCondition
+          file: ./abis/NFTLockCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32,uint256,address)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

@@ -1,0 +1,29 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Dispenser
+    network: spree
+    source:
+      address: "0x312213d6f6b5FCF9F56B7B8946A6C727Bf4Bc21f"
+      abi: Dispenser
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - RequestFrequencyExceeded
+        - RequestLimitExceeded
+      abis:
+        - name: Dispenser
+          file: ./abis/Dispenser.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RequestFrequencyExceeded(indexed address,uint256)
+          handler: handleRequestFrequencyExceeded
+        - event: RequestLimitExceeded(indexed address,uint256,uint256)
+          handler: handleRequestLimitExceeded
+      file: ./src/mapping.ts

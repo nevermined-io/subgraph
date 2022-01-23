@@ -8,7 +8,49 @@ import yaml from 'js-yaml'
 import prettier from 'prettier'
 
 const EXCLUDED_CONTRACTS = [
+    'AaveBorrowCondition',
+    'AaveCollateralDepositCondition',
+    'AaveCollateralWithdrawCondition',
+    'AaveCreditTemplate',
     'AaveCreditVault',
+    'AaveRepayCondition',
+    'AccessCondition',
+    'AccessProofCondition',
+    'AccessProofTemplate',
+    'AccessTemplate',
+    'AgreementStoreManager',
+    'ComputeExecutionCondition',
+    'ConditionStoreManager',
+    'DIDRegistryLibrary',
+    // 'DIDRegistry',
+    'DIDSalesTemplate',
+    'Dispenser',
+    'DistributeNFTCollateralCondition',
+    'EpochLibrary',
+    'EscrowComputeExecutionTemplate',
+    'EscrowPaymentCondition',
+    'HashLockCondition',
+    'LockPaymentCondition',
+    'NeverminedToken',
+    'NFT721AccessTemplate',
+    'NFT721HolderCondition',
+    'NFT721LockCondition',
+    'NFT721SalesTemplate',
+    'NFT721Upgradeable',
+    'NFTAccessCondition',
+    'NFTAccessTemplate',
+    'NFTHolderCondition',
+    'NFTLockCondition',
+    'NFTSalesTemplate',
+    'NFTUpgradeable',
+    'PlonkVerifier',
+    'SignCondition',
+    'TemplateStoreManager',
+    'ThresholdCondition',
+    'TransferDIDOwnershipCondition',
+    'TransferNFT721Condition',
+    'TransferNFTCondition',
+    'WhitelistingCondition',
 ]
 
 type Manifest = {
@@ -97,7 +139,6 @@ async function processFiles(err, files, network) {
     }
 
     files.forEach(async file => {
-        console.log(`Processing ${file}`)
         const abiJson = JSON.parse(fs.readFileSync(file).toString())
         const contractName = abiJson.name
         const address = abiJson.address
@@ -129,10 +170,13 @@ async function processFiles(err, files, network) {
         // generate mappings (src/*.ts)
         const dataSource = generateDataSource(scaffold)
         if (typeof dataSource !== 'undefined' && !EXCLUDED_CONTRACTS.includes(contractName)) {
+            console.log(`Processing ${file}`)
             dataSources.push(dataSource)
             schemas += generateSchema(events, protocol.name)
             // mappings.set(dataSource.mapping.file, scaffold.generateMapping())
             mappings.set(dataSource.mapping.file, generateMapping(events, contractName))
+        } else {
+            console.log(`Processing ${file} SKIPPED`)
         }
 
         // write manifest

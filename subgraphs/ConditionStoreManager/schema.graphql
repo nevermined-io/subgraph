@@ -1,0 +1,20 @@
+type ConditionCreated @entity {
+  id: ID!
+  _id: Bytes! # bytes32
+  _typeRef: Bytes! # address
+  _who: Bytes! # address
+}
+
+type ConditionUpdated @entity {
+  id: ID!
+  _id: Bytes! # bytes32
+  _typeRef: Bytes! # address
+  _state: Int! # uint8
+  _who: Bytes! # address
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}

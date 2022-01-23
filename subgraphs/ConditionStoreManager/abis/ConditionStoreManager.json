@@ -1,0 +1,370 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_id",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_typeRef",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_who",
+        "type": "address"
+      }
+    ],
+    "name": "ConditionCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_id",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_typeRef",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "_state",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_who",
+        "type": "address"
+      }
+    ],
+    "name": "ConditionUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "addressToBytes32",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x82c947b7"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_b32", "type": "bytes32" }
+    ],
+    "name": "bytes32ToAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ced058e"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" }
+    ],
+    "name": "calculateTotalAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ea3ab85"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "address", "name": "_typeRef", "type": "address" },
+      { "internalType": "uint256", "name": "_timeLock", "type": "uint256" },
+      { "internalType": "uint256", "name": "_timeOut", "type": "uint256" },
+      { "internalType": "address", "name": "_creator", "type": "address" }
+    ],
+    "name": "createCondition",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x880b2934"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "address", "name": "_typeRef", "type": "address" },
+      { "internalType": "address", "name": "_creator", "type": "address" }
+    ],
+    "name": "createCondition",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xaa7d0364"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "address", "name": "_typeRef", "type": "address" }
+    ],
+    "name": "createCondition",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xde43d135"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "delegatee", "type": "address" }
+    ],
+    "name": "delegateCreateRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x4eea66dd"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "address", "name": "delegatee", "type": "address" }
+    ],
+    "name": "delegateUpdateRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xdc936bb2"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getCondition",
+    "outputs": [
+      { "internalType": "address", "name": "typeRef", "type": "address" },
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "state",
+        "type": "uint8"
+      },
+      { "internalType": "uint256", "name": "timeLock", "type": "uint256" },
+      { "internalType": "uint256", "name": "timeOut", "type": "uint256" },
+      { "internalType": "uint256", "name": "blockNumber", "type": "uint256" },
+      { "internalType": "address", "name": "createdBy", "type": "address" },
+      { "internalType": "address", "name": "lastUpdatedBy", "type": "address" },
+      {
+        "internalType": "uint256",
+        "name": "blockNumberUpdated",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x2934a0ee"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getConditionCreatedBy",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x74860095"
+  },
+  {
+    "inputs": [],
+    "name": "getConditionListSize",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xfe6d8c46"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getConditionState",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x336c5122"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getConditionTypeRef",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xc0c786a7"
+  },
+  {
+    "inputs": [],
+    "name": "getCreateRole",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x90f1776a"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentBlockNumber",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6fd902e1"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_key", "type": "bytes32" }
+    ],
+    "name": "getMappingValue",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x3ef447ad"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_owner", "type": "address" }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xc4d66de8"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "isConditionTimeLocked",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x593d00e0"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "isConditionTimedOut",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6ed93cc5"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "addr", "type": "address" }
+    ],
+    "name": "isContract",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x16279055"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_agentId", "type": "address" },
+      { "internalType": "bytes32", "name": "_hash", "type": "bytes32" },
+      { "internalType": "bytes", "name": "_signature", "type": "bytes" }
+    ],
+    "name": "provenanceSignatureIsCorrect",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0xa190aff4"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x715018a6"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2fde38b"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_key", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_value", "type": "bytes32" }
+    ],
+    "name": "updateConditionMapping",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xb3191930"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "_newState",
+        "type": "uint8"
+      }
+    ],
+    "name": "updateConditionState",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x52bc0e46"
+  }
+]

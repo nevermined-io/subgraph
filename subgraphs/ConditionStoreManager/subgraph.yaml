@@ -1,0 +1,29 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ConditionStoreManager
+    network: spree
+    source:
+      address: "0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4"
+      abi: ConditionStoreManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ConditionCreated
+        - ConditionUpdated
+        - OwnershipTransferred
+      abis:
+        - name: ConditionStoreManager
+          file: ./abis/ConditionStoreManager.json
+      eventHandlers:
+        - event: ConditionCreated(indexed bytes32,indexed address,indexed address)
+          handler: handleConditionCreated
+        - event: ConditionUpdated(indexed bytes32,indexed address,indexed uint8,address)
+          handler: handleConditionUpdated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

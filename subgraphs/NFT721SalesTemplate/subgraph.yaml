@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFT721SalesTemplate
+    network: spree
+    source:
+      address: "0x6bC806485f940690a84299E7cEEC710dd6D7ba89"
+      abi: NFT721SalesTemplate
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - OwnershipTransferred
+      abis:
+        - name: NFT721SalesTemplate
+          file: ./abis/NFT721SalesTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+          handler: handleAgreementCreated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

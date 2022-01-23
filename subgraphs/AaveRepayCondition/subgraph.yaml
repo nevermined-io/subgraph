@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AaveRepayCondition
+    network: spree
+    source:
+      address: "0xE4f7c64C52085A6df2c7c2972466EEf3ba3aD081"
+      abi: AaveRepayCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - OwnershipTransferred
+      abis:
+        - name: AaveRepayCondition
+          file: ./abis/AaveRepayCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

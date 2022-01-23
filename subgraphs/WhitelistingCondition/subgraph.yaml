@@ -1,0 +1,23 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: WhitelistingCondition
+    network: spree
+    source:
+      address: "0xD306b5edCDC7819E1EB80B43De6548931706A3f4"
+      abi: WhitelistingCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+      abis:
+        - name: WhitelistingCondition
+          file: ./abis/WhitelistingCondition.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

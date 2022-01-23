@@ -1,0 +1,432 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xa217fddf"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "address[]",
+        "name": "_conditionTypes",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
+      { "internalType": "address", "name": "_creator", "type": "address" }
+    ],
+    "name": "createAgreement",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x45c82142"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "address[]",
+        "name": "_conditionTypes",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" }
+    ],
+    "name": "createAgreement",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x955d0c2a"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "address[]",
+        "name": "_conditionTypes",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
+      { "internalType": "address", "name": "_creator", "type": "address" },
+      { "internalType": "uint256", "name": "_idx", "type": "uint256" },
+      {
+        "internalType": "address payable",
+        "name": "_rewardAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+    ],
+    "name": "createAgreementAndPay",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "signature": "0xe3129bfb"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getAgreement",
+    "outputs": [
+      { "internalType": "bytes32", "name": "did", "type": "bytes32" },
+      { "internalType": "address", "name": "didOwner", "type": "address" },
+      { "internalType": "address", "name": "templateId", "type": "address" },
+      {
+        "internalType": "bytes32[]",
+        "name": "conditionIds",
+        "type": "bytes32[]"
+      },
+      { "internalType": "address", "name": "lastUpdatedBy", "type": "address" },
+      {
+        "internalType": "uint256",
+        "name": "blockNumberUpdated",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xf42eb765"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getAgreementDIDOwner",
+    "outputs": [
+      { "internalType": "address", "name": "didOwner", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x17cfbf5e"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
+    ],
+    "name": "getAgreementIdsForDID",
+    "outputs": [
+      { "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8945226e"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_templateId", "type": "address" }
+    ],
+    "name": "getAgreementIdsForTemplateId",
+    "outputs": [
+      { "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xa340c34f"
+  },
+  {
+    "inputs": [],
+    "name": "getAgreementListSize",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8a9013cb"
+  },
+  {
+    "inputs": [],
+    "name": "getDIDRegistryAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x579e6e3f"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x248a9ca3"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_address", "type": "address" }
+    ],
+    "name": "grantProxyRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf0e325ee"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x2f2ff15d"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "hasRole",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x91d14854"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_conditionStoreManagerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_templateStoreManagerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_didRegistryAddress",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf8c8765e"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "address", "name": "_owner", "type": "address" }
+    ],
+    "name": "isAgreementDIDOwner",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xd1c1db39"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "address", "name": "_provider", "type": "address" }
+    ],
+    "name": "isAgreementDIDProvider",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xcaf92b8b"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x715018a6"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x36568abe"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_address", "type": "address" }
+    ],
+    "name": "revokeProxyRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x1111ab15"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xd547741f"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
+    ],
+    "name": "supportsInterface",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x01ffc9a7"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2fde38b"
+  }
+]

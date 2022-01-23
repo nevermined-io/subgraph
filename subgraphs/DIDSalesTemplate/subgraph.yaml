@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: DIDSalesTemplate
+    network: spree
+    source:
+      address: "0x3f5aF8Df4943F9803e18b23a7CdCa3D1d50F6627"
+      abi: DIDSalesTemplate
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - OwnershipTransferred
+      abis:
+        - name: DIDSalesTemplate
+          file: ./abis/DIDSalesTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+          handler: handleAgreementCreated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

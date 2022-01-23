@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTAccessCondition
+    network: spree
+    source:
+      address: "0xE53927D1E274bb39F7EBa8ad9e0eee30F7504f77"
+      abi: NFTAccessCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - OwnershipTransferred
+      abis:
+        - name: NFTAccessCondition
+          file: ./abis/NFTAccessCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

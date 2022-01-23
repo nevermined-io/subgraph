@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AaveCollateralWithdrawCondition
+    network: spree
+    source:
+      address: "0x55E873f9327Ee99a67975C8F2BEa04aD141B2807"
+      abi: AaveCollateralWithdrawCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - OwnershipTransferred
+      abis:
+        - name: AaveCollateralWithdrawCondition
+          file: ./abis/AaveCollateralWithdrawCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

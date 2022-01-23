@@ -1,0 +1,122 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
+    "name": "approveTemplate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xa79cf51c"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
+    "name": "getTemplate",
+    "outputs": [
+      {
+        "internalType": "enum TemplateStoreLibrary.TemplateState",
+        "name": "state",
+        "type": "uint8"
+      },
+      { "internalType": "address", "name": "owner", "type": "address" },
+      { "internalType": "address", "name": "lastUpdatedBy", "type": "address" },
+      {
+        "internalType": "uint256",
+        "name": "blockNumberUpdated",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xf0d6f5d7"
+  },
+  {
+    "inputs": [],
+    "name": "getTemplateListSize",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x722e0b0e"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_owner", "type": "address" }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xc4d66de8"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
+    "name": "isTemplateApproved",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xb727a255"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
+    "name": "proposeTemplate",
+    "outputs": [
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xfe4b7724"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x715018a6"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
+    "name": "revokeTemplate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xdb80bb9a"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2fde38b"
+  }
+]

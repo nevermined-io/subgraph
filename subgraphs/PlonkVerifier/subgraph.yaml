@@ -1,0 +1,22 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PlonkVerifier
+    network: spree
+    source:
+      address: "0xEBe77E16736359Bf0F9013F6017242a5971cAE76"
+      abi: PlonkVerifier
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+
+      abis:
+        - name: PlonkVerifier
+          file: ./abis/PlonkVerifier.json
+      eventHandlers:
+
+      file: ./src/mapping.ts

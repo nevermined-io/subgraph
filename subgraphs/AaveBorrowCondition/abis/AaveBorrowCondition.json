@@ -1,0 +1,231 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_agreementId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_did",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_conditionId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "Fulfilled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "CONDITION_TYPE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x15c87f85"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "abortByTimeOut",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x1ce19185"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "addressToBytes32",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x82c947b7"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_b32", "type": "bytes32" }
+    ],
+    "name": "bytes32ToAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ced058e"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" }
+    ],
+    "name": "calculateTotalAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ea3ab85"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_vaultAddress", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_assetToBorrow",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_interestRateMode",
+        "type": "uint256"
+      }
+    ],
+    "name": "fulfill",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x6460cf12"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_valueHash", "type": "bytes32" }
+    ],
+    "name": "generateId",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xcb4e57e8"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentBlockNumber",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6fd902e1"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_vaultAddress", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_assetToBorrow",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_interestRateMode",
+        "type": "uint256"
+      }
+    ],
+    "name": "hashValues",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x509acc87"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_conditionStoreManagerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x485cc955"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "addr", "type": "address" }
+    ],
+    "name": "isContract",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x16279055"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_agentId", "type": "address" },
+      { "internalType": "bytes32", "name": "_hash", "type": "bytes32" },
+      { "internalType": "bytes", "name": "_signature", "type": "bytes" }
+    ],
+    "name": "provenanceSignatureIsCorrect",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0xa190aff4"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x715018a6"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2fde38b"
+  }
+]

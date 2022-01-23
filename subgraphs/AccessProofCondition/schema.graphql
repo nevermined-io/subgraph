@@ -1,0 +1,16 @@
+type Fulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _origHash: BigInt! # uint256
+  _buyer: [BigInt]! # uint256[2]
+  _provider: [BigInt]! # uint256[2]
+  _cipher: [BigInt]! # uint256[2]
+  _proof: Bytes! # bytes
+  _conditionId: Bytes! # bytes32
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}

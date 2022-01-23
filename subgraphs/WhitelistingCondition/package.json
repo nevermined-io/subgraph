@@ -1,0 +1,16 @@
+{
+  "name": "WhitelistingCondition",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node undefined neverminedio/WhitelistingCondition",
+    "create-local": "graph create --node http://localhost:8020/ neverminedio/WhitelistingCondition",
+    "remove-local": "graph remove --node http://localhost:8020/ neverminedio/WhitelistingCondition",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/WhitelistingCondition"
+  },
+  "dependencies": {
+    "@nevermined-io/graph-cli": "0.30.3",
+    "@graphprotocol/graph-ts": "0.24.1"
+  }
+}
