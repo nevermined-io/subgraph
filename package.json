@@ -9,7 +9,11 @@
     "remove-local": "graph remove --node http://localhost:9020/ nevermined",
     "deploy-local": "graph deploy -l v0.0.1 --node http://localhost:9020/ --ipfs http://localhost:5001 nevermined",
     "test": "mocha",
-    "lint": "eslint src/**/*.ts test/**/*.ts"
+    "lint": "eslint src/**/*.ts test/**/*.ts",
+    "nevermined:init": "ts-node ./scripts/init.ts spree",
+    "nevermined:update-addresses": "ts-node ./scripts/update-addresses.ts spree",
+    "nevermined:create": "./scripts/create.sh",
+    "nevermined:deploy": "./scripts/deploy.sh"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "0.24.1",
