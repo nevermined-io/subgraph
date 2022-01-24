@@ -1,0 +1,13 @@
+type Fulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _documentId: Bytes! # bytes32
+  _grantee: Bytes! # address
+  _conditionId: Bytes! # bytes32
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}

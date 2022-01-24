@@ -31,14 +31,14 @@ describe('DIDRegistry', () => {
 
         client = new ApolloClient({
             link: createHttpLink({
-                uri: 'http://localhost:9000/subgraphs/name/nevermined',
+                uri: 'http://localhost:9000/subgraphs/name/neverminedio/DIDRegistry',
                 fetch: fetch,
             }),
             cache: new InMemoryCache(),
         })
 
         const subscriptionClient = new SubscriptionClient(
-            'ws://localhost:9001/subgraphs/name/nevermined',
+            'ws://localhost:9001/subgraphs/name/neverminedio/DIDRegistry',
             {
                 reconnect: true,
             },
@@ -71,8 +71,8 @@ describe('DIDRegistry', () => {
 
         it('should subscribe and wait for the event', async () => {
             const query = `
-                subscription($did: ID) {
-                    didattributeRegistered(id: $did) {
+                subscription($did: Bytes) {
+                    didattributeRegistereds(where: {_did: $did}) {
                         _did,
                         _owner,
                         _checksum,
@@ -92,7 +92,7 @@ describe('DIDRegistry', () => {
             const promise = new Promise((resolve, reject) => {
                 observable.subscribe(
                     x => {
-                        if (x.data.didattributeRegistered !== null) {
+                        if (x.data.didattributeRegistereds !== null && x.data.didattributeRegistereds.length > 0) {
                             resolve(x)
                         }
                     },
@@ -100,7 +100,7 @@ describe('DIDRegistry', () => {
                 )
             })
             const result: any = await promise
-            const eventData = result.data.didattributeRegistered
+            const eventData = result.data.didattributeRegistereds[0]
             const expectedEventData = expectedEvent.returnValues
 
             assert.strictEqual(eventData._did, expectedEventData._did)
@@ -121,8 +121,8 @@ describe('DIDRegistry', () => {
 
         it('should query for the event', async () => {
             const query = `
-                query($did: ID) {
-                    didattributeRegistered(id: $did) {
+                query($did: Bytes) {
+                    didattributeRegistereds(where: {_did: $did}) {
                         _did,
                         _owner,
                         _checksum,
@@ -139,7 +139,7 @@ describe('DIDRegistry', () => {
                 },
 
             })
-            const eventData = result.data.didattributeRegistered
+            const eventData = result.data.didattributeRegistereds[0]
             const expectedEventData = expectedEvent.returnValues
 
             assert.strictEqual(eventData._did, expectedEventData._did)

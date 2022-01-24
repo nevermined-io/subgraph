@@ -1,0 +1,23 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: SignCondition
+    network: spree
+    source:
+      address: "0xEEE56e2a630DD29F9A628d618E58bb173911F393"
+      abi: SignCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+      abis:
+        - name: SignCondition
+          file: ./abis/SignCondition.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

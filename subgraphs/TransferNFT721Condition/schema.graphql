@@ -1,0 +1,36 @@
+type Fulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _receiver: Bytes! # address
+  _amount: BigInt! # uint256
+  _conditionId: Bytes! # bytes32
+  _contract: Bytes! # address
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type RoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type RoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type RoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}

@@ -1,0 +1,127 @@
+type ActedOnBehalf @entity {
+  id: ID!
+  _entityDid: Bytes! # bytes32
+  _delegateAgentId: Bytes! # address
+  _responsibleAgentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDAttributeRegistered @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _checksum: Bytes! # bytes32
+  _value: String! # string
+  _lastUpdatedBy: Bytes! # address
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDOwnershipTransferred @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _previousOwner: Bytes! # address
+  _newOwner: Bytes! # address
+}
+
+type DIDPermissionGranted @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _grantee: Bytes! # address
+}
+
+type DIDPermissionRevoked @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _grantee: Bytes! # address
+}
+
+type DIDProvenanceDelegateAdded @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _delegate: Bytes! # address
+}
+
+type DIDProvenanceDelegateRemoved @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _delegate: Bytes! # address
+  state: Boolean! # bool
+}
+
+type DIDProviderAdded @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _provider: Bytes! # address
+}
+
+type DIDProviderRemoved @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _provider: Bytes! # address
+  state: Boolean! # bool
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type ProvenanceAttributeRegistered @entity {
+  id: ID!
+  provId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  _relatedDid: Bytes! # bytes32
+  _agentInvolvedId: Bytes! # address
+  _method: Int! # uint8
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type Used @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type WasAssociatedWith @entity {
+  id: ID!
+  _entityDid: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type WasDerivedFrom @entity {
+  id: ID!
+  _newEntityDid: Bytes! # bytes32
+  _usedEntityDid: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type WasGeneratedBy @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}

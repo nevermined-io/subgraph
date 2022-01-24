@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTSalesTemplate
+    network: spree
+    source:
+      address: "0xc10Cf8027f5913231a65c8081a83fF7F283317D6"
+      abi: NFTSalesTemplate
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - OwnershipTransferred
+      abis:
+        - name: NFTSalesTemplate
+          file: ./abis/NFTSalesTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+          handler: handleAgreementCreated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

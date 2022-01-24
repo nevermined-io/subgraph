@@ -1,18 +1,127 @@
-type ExampleEntity @entity {
+type DIDRegistryActedOnBehalf @entity {
   id: ID!
-  count: BigInt!
   _entityDid: Bytes! # bytes32
   _delegateAgentId: Bytes! # address
+  _responsibleAgentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
 }
 
-type DIDAttributeRegistered @entity {
+type DIDRegistryDIDAttributeRegistered @entity {
   id: ID!
-  _did: Bytes!
-  _owner: Bytes!
-  _checksum: Bytes!
-  _value: String!
-  _lastUpdatedBy: Bytes!
-  _blockNumberUpdated: BigInt!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _checksum: Bytes! # bytes32
+  _value: String! # string
+  _lastUpdatedBy: Bytes! # address
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryDIDOwnershipTransferred @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _previousOwner: Bytes! # address
+  _newOwner: Bytes! # address
+}
+
+type DIDRegistryDIDPermissionGranted @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _grantee: Bytes! # address
+}
+
+type DIDRegistryDIDPermissionRevoked @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _grantee: Bytes! # address
+}
+
+type DIDRegistryDIDProvenanceDelegateAdded @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _delegate: Bytes! # address
+}
+
+type DIDRegistryDIDProvenanceDelegateRemoved @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _delegate: Bytes! # address
+  state: Boolean! # bool
+}
+
+type DIDRegistryDIDProviderAdded @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _provider: Bytes! # address
+}
+
+type DIDRegistryDIDProviderRemoved @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _provider: Bytes! # address
+  state: Boolean! # bool
+}
+
+type DIDRegistryOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type DIDRegistryProvenanceAttributeRegistered @entity {
+  id: ID!
+  provId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  _relatedDid: Bytes! # bytes32
+  _agentInvolvedId: Bytes! # address
+  _method: Int! # uint8
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryUsed @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryWasAssociatedWith @entity {
+  id: ID!
   _entityDid: Bytes! # bytes32
-  _delegateAgentId: Bytes! # address
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryWasDerivedFrom @entity {
+  id: ID!
+  _newEntityDid: Bytes! # bytes32
+  _usedEntityDid: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryWasGeneratedBy @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
 }

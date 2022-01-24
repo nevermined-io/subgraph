@@ -1,0 +1,40 @@
+type Approval @entity {
+  id: ID!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type RoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type RoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type RoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+}

@@ -1,0 +1,38 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NeverminedToken
+    network: spree
+    source:
+      address: "0xe749E2f8482810b11B838Ae8c5eb69e54d610411"
+      abi: NeverminedToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - OwnershipTransferred
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - Transfer
+      abis:
+        - name: NeverminedToken
+          file: ./abis/NeverminedToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts

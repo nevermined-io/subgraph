@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AccessTemplate
+    network: spree
+    source:
+      address: "0x3A819b4848FBd48A680303d739daaA2ed46EeF2E"
+      abi: AccessTemplate
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - OwnershipTransferred
+      abis:
+        - name: AccessTemplate
+          file: ./abis/AccessTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+          handler: handleAgreementCreated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

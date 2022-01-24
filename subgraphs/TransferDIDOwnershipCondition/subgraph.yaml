@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: TransferDIDOwnershipCondition
+    network: spree
+    source:
+      address: "0xF0579E51b07c740c6D4d1587EB5AA09F043a78D7"
+      abi: TransferDIDOwnershipCondition
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - OwnershipTransferred
+      abis:
+        - name: TransferDIDOwnershipCondition
+          file: ./abis/TransferDIDOwnershipCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
+          handler: handleFulfilled
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

@@ -1,0 +1,158 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "requester",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "minPeriod",
+        "type": "uint256"
+      }
+    ],
+    "name": "RequestFrequencyExceeded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "requester",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "RequestLimitExceeded",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      { "internalType": "address", "name": "_owner", "type": "address" }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x485cc955"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x715018a6"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "requestTokens",
+    "outputs": [
+      { "internalType": "bool", "name": "tokensTransferred", "type": "bool" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xeef9c27c"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "setMaxAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x4fe47f70"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "setMaxMintAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x088a4ed0"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "period", "type": "uint256" }
+    ],
+    "name": "setMinPeriod",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf8210769"
+  },
+  {
+    "inputs": [],
+    "name": "token",
+    "outputs": [
+      {
+        "internalType": "contract NeverminedToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xfc0c546a"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2fde38b"
+  }
+]

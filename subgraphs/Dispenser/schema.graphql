@@ -1,0 +1,18 @@
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type RequestFrequencyExceeded @entity {
+  id: ID!
+  requester: Bytes! # address
+  minPeriod: BigInt! # uint256
+}
+
+type RequestLimitExceeded @entity {
+  id: ID!
+  requester: Bytes! # address
+  amount: BigInt! # uint256
+  maxAmount: BigInt! # uint256
+}
