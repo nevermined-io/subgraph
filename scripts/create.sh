@@ -2,5 +2,5 @@
 
 for d in ./subgraphs/*
 do
-    (cd "$d" && yarn run graph create --node http://localhost:9020/ neverminedio/$(basename "$d"))
+    (cd "$d" && graph create --node http://localhost:9020/ neverminedio/$(basename "$d"))
 done
