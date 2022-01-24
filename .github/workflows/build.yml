@@ -45,7 +45,7 @@ jobs:
         ./scripts/wait-nevermined.sh
 
     - name: Run graph-node
-      run: docker-compose up -d
+      run: docker-compose up
 
     - name: Test update-addresses
       run: yarn nevermined:update-addresses ${{ matrix.network-name }}
