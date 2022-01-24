@@ -1,38 +1,11 @@
-import Scaffold from '@nevermined-io/graph-cli/src/scaffold'
-import { abiEvents, generateEventType } from '@nevermined-io/graph-cli/src/scaffold/schema'
-import { generateEventFieldAssignments } from '@nevermined-io/graph-cli/src/scaffold/mapping'
 import { generateScaffold, writeScaffold } from '@nevermined-io/graph-cli/src/command-helpers/scaffold'
-import { initSubgraphFromContract } from '@nevermined-io/graph-cli/src/commands/init'
 import { withSpinner } from '@nevermined-io/graph-cli/src/command-helpers/spinner'
 import Protocol from '@nevermined-io/graph-cli/src/protocols'
 import glob from 'glob'
 import fs from 'fs-extra'
-import yaml from 'js-yaml'
-import prettier from 'prettier'
 import { toolbox } from 'gluegun/toolbox'
-import { filesystem, system, print } from 'gluegun'
-import path from 'path'
+import { system, print } from 'gluegun'
 
-const initRepository = async (toolbox, directory) =>
-    await withSpinner(
-        'Initialize subgraph repository',
-        'Failed to initialize subgraph repository',
-        'Warnings while initializing subgraph repository',
-        async spinner => {
-            // Remove .git dir in --from-example mode; in --from-contract, we're
-            // starting from an empty directory
-            const gitDir = path.join(directory, '.git')
-            if (filesystem.exists(gitDir)) {
-                await filesystem.remove(gitDir)
-            }
-            await system.run('git init', { cwd: directory })
-            await system.run('git add --all', { cwd: directory })
-            await system.run('git commit -m "Initial commit"', {
-                cwd: directory,
-            })
-            return true
-        },
-    )
 
 const installDependencies = async (toolbox, directory, installCommand) =>
     await withSpinner(
@@ -109,13 +82,6 @@ async function processFiles(err, files, network) {
             process.exitCode = 1
             return
         }
-
-        // // Initialize a fresh Git repository
-        // const repo = await initRepository(toolbox, directory)
-        // if (repo !== true) {
-        //     process.exitCode = 1
-        //     return
-        // }
 
         // Install dependencies
         try {
