@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      network: ['--spree-embedded-contracts', '--polygon']
-      include:
-      - network: '--spree-embedded-contracts'
-        network-name: spree
-      - network: '--polygon'
-        network-name: polygon-localnet
+      matrix:
+        network: ['--spree-embedded-contracts', '--polygon']
+        include:
+        - network: '--spree-embedded-contracts'
+          network-name: spree
+        - network: '--polygon'
+          network-name: polygon-localnet
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
