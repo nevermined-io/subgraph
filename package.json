@@ -13,7 +13,8 @@
     "nevermined:init": "ts-node ./scripts/init.ts spree",
     "nevermined:update-addresses": "ts-node ./scripts/update-addresses.ts spree",
     "nevermined:create": "./scripts/create.sh",
-    "nevermined:deploy": "./scripts/deploy.sh"
+    "nevermined:deploy": "./scripts/deploy.sh",
+    "nevermined:install": "./scripts/install.sh"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "0.24.1",

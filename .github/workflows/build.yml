@@ -15,9 +15,7 @@ jobs:
       with:
         node-version: '12.x'
     - name: Install dependencies
-      run: |
-        yarn
-        npm install -g @nevermined-io/graph-cli
+      run: yarn
     # - name: Check linting
     #   run: yarn lint
 
@@ -37,6 +35,8 @@ jobs:
         cd ..
         ./scripts/wait-nevermined.sh
 
+    - name: Test install dependecies
+      run: yarn nevermined:install
     - name: Test update-addresses
       run: yarn nevermined:update-addresses
     - name: Test create
