@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.4.16",
-    "@nevermined-io/nevermined-sdk-js": "0.13.16",
+    "@nevermined-io/nevermined-sdk-js": "0.18.1",
     "@truffle/hdwallet-provider": "^1.5.1",
     "@types/chai": "^4.2.22",
     "@types/fs-extra": "^9.0.13",
