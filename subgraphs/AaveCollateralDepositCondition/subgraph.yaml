@@ -4,10 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: AaveCollateralDepositCondition
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xE9dC0B76ceCc3f402C6EA57d5191811B1660AF32"
       abi: AaveCollateralDepositCondition
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

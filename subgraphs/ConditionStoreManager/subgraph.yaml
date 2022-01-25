@@ -4,10 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: ConditionStoreManager
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4"
       abi: ConditionStoreManager
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

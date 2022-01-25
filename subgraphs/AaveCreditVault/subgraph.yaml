@@ -4,10 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: AaveCreditVault
-    network: spree
+    network: polygon-localnet
     source:
       address: "undefined"
       abi: AaveCreditVault
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

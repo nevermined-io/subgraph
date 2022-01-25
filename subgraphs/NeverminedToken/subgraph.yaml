@@ -4,10 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NeverminedToken
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xe749E2f8482810b11B838Ae8c5eb69e54d610411"
       abi: NeverminedToken
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

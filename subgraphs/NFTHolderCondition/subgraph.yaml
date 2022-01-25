@@ -1,13 +1,14 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTHolderCondition
-    network: spree
+    network: polygon-localnet
     source:
       address: "0x36fa66586327d3a83175c6e68d2cd0b4e373ed06"
       abi: NFTHolderCondition
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
