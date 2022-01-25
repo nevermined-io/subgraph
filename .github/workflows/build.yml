@@ -9,6 +9,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        network: ['--spree-embedded-contracts', '--polygon']
+        include:
+        - network: '--spree-embedded-contracts'
+          network-name: spree
+        - network: '--polygon'
+          network-name: polygon-localnet
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -31,14 +40,17 @@ jobs:
         cd tools
         export KEEPER_OWNER_ROLE_ADDRESS="0xe2DD09d719Da89e5a3D0F2549c7E24566e947260"
         rm -rf "${HOME}/.nevermined/nevermined-contracts/artifacts"
-        ./start_nevermined.sh --latest --no-marketplace --no-gateway --no-metadata --spree-embedded-contracts --graph &
+        ./start_nevermined.sh --latest --no-marketplace --no-gateway --no-metadata ${{ matrix.network }} &
         cd ..
         ./scripts/wait-nevermined.sh
 
-    - name: Test install dependecies
-      run: yarn nevermined:install
+    - name: Run graph-node
+      run: |
+        docker-compose up -d
+        ./scripts/wait_for_graph.sh
+
     - name: Test update-addresses
-      run: yarn nevermined:update-addresses
+      run: yarn nevermined:update-addresses ${{ matrix.network-name }}
     - name: Test create
       run: yarn nevermined:create
     - name: Test deploy

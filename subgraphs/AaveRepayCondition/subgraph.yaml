@@ -1,13 +1,14 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AaveRepayCondition
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xE4f7c64C52085A6df2c7c2972466EEf3ba3aD081"
       abi: AaveRepayCondition
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

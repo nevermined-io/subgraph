@@ -1,13 +1,14 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTSalesTemplate
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xc10Cf8027f5913231a65c8081a83fF7F283317D6"
       abi: NFTSalesTemplate
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

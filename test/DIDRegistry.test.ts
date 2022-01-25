@@ -55,6 +55,7 @@ describe('DIDRegistry', () => {
     describe('DIDAttributeRegistered', () => {
         it('should register an attribute', async () => {
             const didSeed = generateId()
+            console.log(didRegistry.address)
             did = await didRegistry.hashDID(didSeed, account.getId())
             const checksum = generateId()
             const data = 'data'

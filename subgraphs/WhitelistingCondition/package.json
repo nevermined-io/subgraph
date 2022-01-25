@@ -10,7 +10,7 @@
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/WhitelistingCondition"
   },
   "dependencies": {
-    "@nevermined-io/graph-cli": "0.30.3",
+    "@nevermined-io/graph-cli": "0.30.4",
     "@graphprotocol/graph-ts": "0.24.1"
   }
 }

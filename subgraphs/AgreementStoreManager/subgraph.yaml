@@ -1,13 +1,14 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AgreementStoreManager
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xd7C2FE49b96c48073D0D5e9f1f360d1493E670a5"
       abi: AgreementStoreManager
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

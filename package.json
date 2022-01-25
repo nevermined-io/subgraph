@@ -10,22 +10,22 @@
     "deploy-local": "graph deploy -l v0.0.1 --node http://localhost:9020/ --ipfs http://localhost:5001 nevermined",
     "test": "mocha",
     "lint": "eslint src/**/*.ts test/**/*.ts",
-    "nevermined:init": "ts-node ./scripts/init.ts spree",
-    "nevermined:update-addresses": "ts-node ./scripts/update-addresses.ts spree",
+    "nevermined:init": "ts-node ./scripts/init.ts",
+    "nevermined:update-addresses": "ts-node ./scripts/update-addresses.ts",
     "nevermined:create": "./scripts/create.sh",
     "nevermined:deploy": "./scripts/deploy.sh",
     "nevermined:install": "./scripts/install.sh"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "0.24.1",
-    "@nevermined-io/graph-cli": "0.30.3",
+    "@nevermined-io/graph-cli": "0.30.4",
     "@nevermined-io/contracts": "1.3.2",
     "glob": "^7.2.0",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
     "@apollo/client": "^3.4.16",
-    "@nevermined-io/nevermined-sdk-js": "0.13.16",
+    "@nevermined-io/nevermined-sdk-js": "0.18.1",
     "@truffle/hdwallet-provider": "^1.5.1",
     "@types/chai": "^4.2.22",
     "@types/fs-extra": "^9.0.13",

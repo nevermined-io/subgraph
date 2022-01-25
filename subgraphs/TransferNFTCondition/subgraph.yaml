@@ -1,13 +1,14 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: TransferNFTCondition
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xac1D60D8840b3E5BaF347607a1093A1937bFF580"
       abi: TransferNFTCondition
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

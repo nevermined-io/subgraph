@@ -1,13 +1,14 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: WhitelistingCondition
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xD306b5edCDC7819E1EB80B43De6548931706A3f4"
       abi: WhitelistingCondition
+      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
