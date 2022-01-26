@@ -1,10 +1,10 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTAccessCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xE53927D1E274bb39F7EBa8ad9e0eee30F7504f77"
       abi: NFTAccessCondition

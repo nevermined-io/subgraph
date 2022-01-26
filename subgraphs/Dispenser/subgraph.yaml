@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: Dispenser
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x312213d6f6b5FCF9F56B7B8946A6C727Bf4Bc21f"
       abi: Dispenser

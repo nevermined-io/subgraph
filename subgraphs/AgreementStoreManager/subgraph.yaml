@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AgreementStoreManager
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xd7C2FE49b96c48073D0D5e9f1f360d1493E670a5"
       abi: AgreementStoreManager

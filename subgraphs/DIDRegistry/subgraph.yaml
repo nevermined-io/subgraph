@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x9C2a015129969c98E9A5BcBEb61A5F907FF5b629"
       abi: DIDRegistry

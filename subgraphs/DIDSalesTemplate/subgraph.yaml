@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: DIDSalesTemplate
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x3f5aF8Df4943F9803e18b23a7CdCa3D1d50F6627"
       abi: DIDSalesTemplate

@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import fetch from 'node-fetch'
+import fetch from 'cross-fetch'
 import { ApolloClient, InMemoryCache, gql, NormalizedCacheObject, createHttpLink} from '@apollo/client/core'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
@@ -12,6 +12,7 @@ import { didZeroX, generateId } from '@nevermined-io/nevermined-sdk-js/dist/node
 import { EventLog } from 'web3-core'
 
 import { config } from './config'
+import { getDIDAttributeRegistereds } from '../src/DIDRegistry'
 
 
 let nevermined: Nevermined
@@ -154,6 +155,40 @@ describe('DIDRegistry', () => {
                 Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
             )
             assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
+        })
+
+        it('it should query using the subgraph client', async () => {
+            const response = await getDIDAttributeRegistereds(
+                'http://localhost:9000/subgraphs/name/neverminedio/DIDRegistry',
+                {
+                    where: {
+                        _did: didZeroX(did),
+                    },
+
+                },
+                {
+                    _did: true,
+                    _owner: true,
+                    _checksum: true,
+                    _value: true,
+                    _lastUpdatedBy: true,
+                    _blockNumberUpdated: true,
+                },
+            )
+            const eventData = response[0]
+            const expectedEventData = expectedEvent.returnValues
+
+            assert.strictEqual(eventData._did, expectedEventData._did)
+            assert.strictEqual(
+                Web3.utils.toChecksumAddress(eventData._owner),
+                Web3.utils.toChecksumAddress(expectedEventData._owner),
+            )
+            assert.strictEqual(eventData._checksum, expectedEventData._checksum)
+            assert.strictEqual(
+                Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
+                Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
+            )
+            assert.strictEqual(eventData._blockNumberUpdated.str, expectedEventData._blockNumberUpdated)
         })
     })
 })

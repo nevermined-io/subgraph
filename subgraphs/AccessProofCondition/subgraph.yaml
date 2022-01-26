@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessProofCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x8a610D7061F945763d20B5645f164e29d3491775"
       abi: AccessProofCondition

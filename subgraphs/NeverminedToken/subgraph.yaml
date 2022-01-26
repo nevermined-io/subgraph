@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NeverminedToken
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xe749E2f8482810b11B838Ae8c5eb69e54d610411"
       abi: NeverminedToken

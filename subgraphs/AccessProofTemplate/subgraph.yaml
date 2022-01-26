@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessProofTemplate
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xE8299CCe89f1B30E1d65Ebb827b784D8900aEf2c"
       abi: AccessProofTemplate

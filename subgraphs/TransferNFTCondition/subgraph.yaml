@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: TransferNFTCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xac1D60D8840b3E5BaF347607a1093A1937bFF580"
       abi: TransferNFTCondition

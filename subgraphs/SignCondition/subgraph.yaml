@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: SignCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xEEE56e2a630DD29F9A628d618E58bb173911F393"
       abi: SignCondition

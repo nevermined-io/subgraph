@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: EscrowPaymentCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x336EFb3c9E56F713dFdA4CDB3Dd0882F3226b6eE"
       abi: EscrowPaymentCondition
