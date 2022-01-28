@@ -1,6 +1,9 @@
 {
-  "name": "@nevermined-io/subgraph",
-  "license": "UNLICENSED",
+  "name": "@nevermined-io/subgraphs",
+  "version": "0.2.0",
+  "description": "Nevermined subgraph graphql clients",
+  "main": "./build/index.js",
+  "typings": "./build/index.d.ts",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
@@ -18,6 +21,13 @@
     "nevermined:create-manifestos": "./scripts/create-manifestos.sh",
     "nevermined:generate-clients": "./scripts/generate-clients.sh"
   },
+  "license": "Apache-2.0",
+  "author": "Nevermined <root@nevermined.io>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nevermined-io/subgraph.git"
+  },
+  "homepage": "https://github.com/nevermined-io/subgraph#readme",
   "dependencies": {
     "@graphprotocol/graph-ts": "0.24.1",
     "@nevermined-io/contracts": "1.3.2",
