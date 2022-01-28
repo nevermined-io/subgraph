@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: TransferDIDOwnershipCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xF0579E51b07c740c6D4d1587EB5AA09F043a78D7"
       abi: TransferDIDOwnershipCondition

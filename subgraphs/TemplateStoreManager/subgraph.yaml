@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: TemplateStoreManager
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x726baA2f854A3BEC2378a707AeB38c9d933Ebad6"
       abi: TemplateStoreManager

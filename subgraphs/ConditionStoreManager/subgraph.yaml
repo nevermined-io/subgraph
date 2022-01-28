@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: ConditionStoreManager
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4"
       abi: ConditionStoreManager

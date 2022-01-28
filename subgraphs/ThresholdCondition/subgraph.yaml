@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: ThresholdCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x8F006DbB3727d18f032C5618595ecDD2EDE13b61"
       abi: ThresholdCondition

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AaveRepayCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xE4f7c64C52085A6df2c7c2972466EEf3ba3aD081"
       abi: AaveRepayCondition

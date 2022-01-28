@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721SalesTemplate
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x6bC806485f940690a84299E7cEEC710dd6D7ba89"
       abi: NFT721SalesTemplate

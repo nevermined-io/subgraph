@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: EpochLibrary
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xaF6AaaA5B8D12F7d7dD4e2BE1d1B087544f585d0"
       abi: EpochLibrary

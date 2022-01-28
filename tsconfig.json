@@ -3,6 +3,13 @@
         "target": "ES5",
         "downlevelIteration": true,
         "module": "commonjs",
-        "esModuleInterop": true
-    }
+        "esModuleInterop": true,
+        "rootDir": "./src/",
+        "outDir": "./build",
+        "declaration": true,
+        "declarationDir": "./build"
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
 }

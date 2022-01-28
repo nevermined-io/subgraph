@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721HolderCondition
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x4999A8428d1D42fc955FbBC2f1E22323a55B6f86"
       abi: NFT721HolderCondition

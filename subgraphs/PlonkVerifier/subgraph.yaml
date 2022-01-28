@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: PlonkVerifier
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xEBe77E16736359Bf0F9013F6017242a5971cAE76"
       abi: PlonkVerifier
