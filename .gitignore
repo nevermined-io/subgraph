@@ -37,8 +37,12 @@ Thumbs.db
 # Ignore built ts files
 dist/**/*
 
-# ignore yarn.lock
-yarn.lock
+# ignore package-lock.json
+package-lock.json
+
+# ignore all but the root yarn.lock
+subgraphs/**/yarn.lock
+
 
 # graph generated files
 build/
