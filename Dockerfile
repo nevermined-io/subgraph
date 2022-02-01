@@ -1,14 +1,11 @@
 FROM graphprotocol/graph-node:v0.25.0
 
-# FROM node:14-alpine
-# RUN apt-get update
-# RUN apk add --no-cache --update \
-#     git \
-#     python3 \
-#     && rm -rf /var/cache/apk/*
-
 RUN apt-get update
-RUN apt-get install -y curl git
+RUN apt-get install -y curl git jq wget
+
+# Install yq
+RUN wget https://github.com/mikefarah/yq/releases/download/v4.18.1/yq_linux_amd64 -O yq
+RUN install yq /usr/bin
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 

@@ -13,6 +13,7 @@ cp -r /nevermined-contracts/* node_modules/@nevermined-io/contracts/artifacts/
 ./scripts/wait_for_graph.sh
 
 yarn nevermined:update-addresses $KEEPER_NETWORK_NAME
+yarn nevermined:update-startblock $KEEPER_NETWORK_NAME
 yarn nevermined:create
 yarn nevermined:deploy
 
