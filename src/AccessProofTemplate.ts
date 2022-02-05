@@ -105,7 +105,7 @@ export const getAgreementCreatedById = async function <K extends keyof Agreement
     if (obj["_accessProvider"])
         formattedObj["_accessProvider"] = obj["_accessProvider"];
     if (obj["_timeLocks"])
-        formattedObj["_timeLocks"] = wei(obj["_timeLocks"], 0);
+        formattedObj["_timeLocks"] = obj["_timeLocks"];
     if (obj["_timeOuts"])
         formattedObj["_timeOuts"] = obj["_timeOuts"];
     return formattedObj as Pick<AgreementCreatedResult, K>;
@@ -146,7 +146,7 @@ export const getAgreementCreateds = async function <K extends keyof AgreementCre
             if (obj["_accessProvider"])
                 formattedObj["_accessProvider"] = obj["_accessProvider"];
             if (obj["_timeLocks"])
-                formattedObj["_timeLocks"] = wei(obj["_timeLocks"], 0);
+                formattedObj["_timeLocks"] = obj["_timeLocks"];
             if (obj["_timeOuts"])
                 formattedObj["_timeOuts"] = obj["_timeOuts"];
             return formattedObj as Pick<AgreementCreatedResult, K>;
