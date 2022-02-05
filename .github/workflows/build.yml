@@ -59,3 +59,5 @@ jobs:
       env:
         SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
       run: yarn test
+    - name: Test the clients compile
+      run: yarn tsc
