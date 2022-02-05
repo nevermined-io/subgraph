@@ -7,7 +7,9 @@ mkdir manifestos
 for d in ./subgraphs/*
 do
     BASENAME=$(basename "$d")
+    echo $BASENAME
     yarn -s codegen-graph-ts pull http://localhost:9000/subgraphs/name/neverminedio/$BASENAME > manifestos/$BASENAME.json
+    echo
 done
 
 # delete empty manifestos (contracts that don't emit events)
