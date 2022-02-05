@@ -107,7 +107,7 @@ export const getAgreementCreatedById = async function <K extends keyof Agreement
     if (obj["_timeLocks"])
         formattedObj["_timeLocks"] = wei(obj["_timeLocks"], 0);
     if (obj["_timeOuts"])
-        formattedObj["_timeOuts"] = wei(obj["_timeOuts"], 0);
+        formattedObj["_timeOuts"] = obj["_timeOuts"];
     return formattedObj as Pick<AgreementCreatedResult, K>;
 };
 export const getAgreementCreateds = async function <K extends keyof AgreementCreatedResult>(url: string, options: MultiQueryOptions<AgreementCreatedFilter, AgreementCreatedResult>, args: AgreementCreatedArgs<K>): Promise<Pick<AgreementCreatedResult, K>[]> {
@@ -148,7 +148,7 @@ export const getAgreementCreateds = async function <K extends keyof AgreementCre
             if (obj["_timeLocks"])
                 formattedObj["_timeLocks"] = wei(obj["_timeLocks"], 0);
             if (obj["_timeOuts"])
-                formattedObj["_timeOuts"] = wei(obj["_timeOuts"], 0);
+                formattedObj["_timeOuts"] = obj["_timeOuts"];
             return formattedObj as Pick<AgreementCreatedResult, K>;
         });
         results = results.concat(newResults);
