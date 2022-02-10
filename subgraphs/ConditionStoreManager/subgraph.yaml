@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: ConditionStoreManager
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4"
       abi: ConditionStoreManager
@@ -17,6 +17,9 @@ dataSources:
         - ConditionCreated
         - ConditionUpdated
         - OwnershipTransferred
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
       abis:
         - name: ConditionStoreManager
           file: ./abis/ConditionStoreManager.json
@@ -27,4 +30,10 @@ dataSources:
           handler: handleConditionUpdated
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
       file: ./src/mapping.ts

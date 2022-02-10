@@ -1,3 +1,4 @@
+import { ethereum } from '@graphprotocol/graph-ts'
 import {
   Fulfilled as FulfilledEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
@@ -11,7 +12,7 @@ export function handleFulfilled(event: FulfilledEvent): void {
   )
   entity._agreementId = event.params._agreementId
   entity._tokenAddress = event.params._tokenAddress
-  entity._receivers = event.params._receivers
+  entity._receivers = ethereum.Value.fromAddressArray(event.params._receivers).toBytesArray()
   entity._conditionId = event.params._conditionId
   entity._amounts = event.params._amounts
   entity.save()

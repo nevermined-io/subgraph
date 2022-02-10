@@ -83,6 +83,14 @@
     "signature": "0x15c87f85"
   },
   {
+    "inputs": [],
+    "name": "USED_PAYMENT_ID",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x181fb807"
+  },
+  {
     "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
     "name": "abortByTimeOut",
     "outputs": [
@@ -168,6 +176,45 @@
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      {
+        "internalType": "address[]",
+        "name": "_receivers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_lockPaymentAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      {
+        "internalType": "bytes32",
+        "name": "_lockCondition",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_releaseConditions",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "fulfillMulti",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x578c04fb"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
       { "internalType": "bytes32", "name": "_valueHash", "type": "bytes32" }
     ],
     "name": "generateId",
@@ -233,6 +280,38 @@
     "stateMutability": "pure",
     "type": "function",
     "signature": "0xc55956d8"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      {
+        "internalType": "address[]",
+        "name": "_receivers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_lockPaymentAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      {
+        "internalType": "bytes32",
+        "name": "_lockCondition",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_releaseConditions",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "hashValuesMulti",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x7701a6ae"
   },
   {
     "inputs": [

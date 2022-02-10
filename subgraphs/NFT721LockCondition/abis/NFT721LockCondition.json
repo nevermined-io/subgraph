@@ -35,6 +35,12 @@
       {
         "indexed": false,
         "internalType": "address",
+        "name": "_receiver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
         "name": "_nftContractAddress",
         "type": "address"
       }
@@ -110,6 +116,31 @@
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_lockAddress", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "address", "name": "_receiver", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "fulfillMarked",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x50d0f2ba"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
       { "internalType": "bytes32", "name": "_valueHash", "type": "bytes32" }
     ],
     "name": "generateId",
@@ -134,6 +165,24 @@
     "stateMutability": "pure",
     "type": "function",
     "signature": "0x57d2b8b1"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_lockAddress", "type": "address" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "address", "name": "_receiver", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "hashValuesMarked",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x3985d597"
   },
   {
     "inputs": [
