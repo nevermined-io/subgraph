@@ -6,7 +6,7 @@ dataSources:
     name: NFT721LockCondition
     network: spree
     source:
-      address: "0x3Ef2ebF03002D828943EB1AbbFC470D1A53c6B21"
+      address: "0x4999A8428d1D42fc955FbBC2f1E22323a55B6f86"
       abi: NFT721LockCondition
       startBlock: 10
     mapping:
@@ -20,7 +20,7 @@ dataSources:
         - name: NFT721LockCondition
           file: ./abis/NFT721LockCondition.json
       eventHandlers:
-        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32,uint256,address)
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32,uint256,address,address)
           handler: handleFulfilled
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred

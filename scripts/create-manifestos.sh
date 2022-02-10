@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
+shopt -s extglob
+
 rm -rf manifestos
 mkdir manifestos
 
+EXCLUDE_SUBGRAPHS="AaveCreditVault|ConditionStoreManager|DistributeNFTCollateralCondition|NFT721LockCondition|NFTUpgradeable"
+
 # Generate manifestos for the graphql clients for each subgraph
-for d in ./subgraphs/*
+for d in ./subgraphs/!($EXCLUDE_SUBGRAPHS)/
 do
     BASENAME=$(basename "$d")
     echo $BASENAME
     yarn -s codegen-graph-ts pull http://localhost:9000/subgraphs/name/neverminedio/$BASENAME > manifestos/$BASENAME.json
     echo
 done
-
-# delete empty manifestos (contracts that don't emit events)
-find ./manifestos -name '*.json' -size 0 -print0 | xargs -0 rm

@@ -237,6 +237,36 @@
   },
   {
     "inputs": [
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "address payable",
+        "name": "_rewardAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_externalContract",
+        "type": "address"
+      },
+      { "internalType": "bytes32", "name": "_remoteId", "type": "bytes32" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+    ],
+    "name": "fulfillExternal",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function",
+    "signature": "0x6d6addd9"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "_account", "type": "address" },
       { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
@@ -289,6 +319,16 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x248a9ca3"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_address", "type": "address" }
+    ],
+    "name": "grantExternalContractRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2f9499a"
   },
   {
     "inputs": [
@@ -408,6 +448,16 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x36568abe"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_address", "type": "address" }
+    ],
+    "name": "revokeExternalContractRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x7892f047"
   },
   {
     "inputs": [

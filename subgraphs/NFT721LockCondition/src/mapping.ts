@@ -13,6 +13,7 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity._lockAddress = event.params._lockAddress
   entity._conditionId = event.params._conditionId
   entity._amount = event.params._amount
+  entity._receiver = event.params._receiver
   entity._nftContractAddress = event.params._nftContractAddress
   entity.save()
 }

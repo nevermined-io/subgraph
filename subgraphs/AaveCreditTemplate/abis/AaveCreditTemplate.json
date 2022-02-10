@@ -206,7 +206,7 @@
     ],
     "name": "createAgreementAndPay",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function",
     "signature": "0x6104ff1a"
   },
@@ -244,7 +244,7 @@
     "outputs": [
       { "internalType": "uint256", "name": "size", "type": "uint256" }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function",
     "signature": "0xf8fe1070"
   },

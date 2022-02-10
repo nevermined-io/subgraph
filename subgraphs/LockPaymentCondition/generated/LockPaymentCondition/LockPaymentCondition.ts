@@ -645,6 +645,64 @@ export class FulfillCall__Outputs {
   }
 }
 
+export class FulfillExternalCall extends ethereum.Call {
+  get inputs(): FulfillExternalCall__Inputs {
+    return new FulfillExternalCall__Inputs(this);
+  }
+
+  get outputs(): FulfillExternalCall__Outputs {
+    return new FulfillExternalCall__Outputs(this);
+  }
+}
+
+export class FulfillExternalCall__Inputs {
+  _call: FulfillExternalCall;
+
+  constructor(call: FulfillExternalCall) {
+    this._call = call;
+  }
+
+  get _agreementId(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _rewardAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get _externalContract(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get _remoteId(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+
+  get _amounts(): Array<BigInt> {
+    return this._call.inputValues[5].value.toBigIntArray();
+  }
+
+  get _receivers(): Array<Address> {
+    return this._call.inputValues[6].value.toAddressArray();
+  }
+}
+
+export class FulfillExternalCall__Outputs {
+  _call: FulfillExternalCall;
+
+  constructor(call: FulfillExternalCall) {
+    this._call = call;
+  }
+
+  get value0(): i32 {
+    return this._call.outputValues[0].value.toI32();
+  }
+}
+
 export class FulfillProxyCall extends ethereum.Call {
   get inputs(): FulfillProxyCall__Inputs {
     return new FulfillProxyCall__Inputs(this);
@@ -700,6 +758,36 @@ export class FulfillProxyCall__Outputs {
 
   get value0(): i32 {
     return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class GrantExternalContractRoleCall extends ethereum.Call {
+  get inputs(): GrantExternalContractRoleCall__Inputs {
+    return new GrantExternalContractRoleCall__Inputs(this);
+  }
+
+  get outputs(): GrantExternalContractRoleCall__Outputs {
+    return new GrantExternalContractRoleCall__Outputs(this);
+  }
+}
+
+export class GrantExternalContractRoleCall__Inputs {
+  _call: GrantExternalContractRoleCall;
+
+  constructor(call: GrantExternalContractRoleCall) {
+    this._call = call;
+  }
+
+  get _address(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class GrantExternalContractRoleCall__Outputs {
+  _call: GrantExternalContractRoleCall;
+
+  constructor(call: GrantExternalContractRoleCall) {
+    this._call = call;
   }
 }
 
@@ -861,6 +949,36 @@ export class RenounceRoleCall__Outputs {
   _call: RenounceRoleCall;
 
   constructor(call: RenounceRoleCall) {
+    this._call = call;
+  }
+}
+
+export class RevokeExternalContractRoleCall extends ethereum.Call {
+  get inputs(): RevokeExternalContractRoleCall__Inputs {
+    return new RevokeExternalContractRoleCall__Inputs(this);
+  }
+
+  get outputs(): RevokeExternalContractRoleCall__Outputs {
+    return new RevokeExternalContractRoleCall__Outputs(this);
+  }
+}
+
+export class RevokeExternalContractRoleCall__Inputs {
+  _call: RevokeExternalContractRoleCall;
+
+  constructor(call: RevokeExternalContractRoleCall) {
+    this._call = call;
+  }
+
+  get _address(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class RevokeExternalContractRoleCall__Outputs {
+  _call: RevokeExternalContractRoleCall;
+
+  constructor(call: RevokeExternalContractRoleCall) {
     this._call = call;
   }
 }

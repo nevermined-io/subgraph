@@ -21,6 +21,7 @@ export class Fulfilled extends Entity {
     this.set("_lockAddress", Value.fromBytes(Bytes.empty()));
     this.set("_conditionId", Value.fromBytes(Bytes.empty()));
     this.set("_amount", Value.fromBigInt(BigInt.zero()));
+    this.set("_receiver", Value.fromBytes(Bytes.empty()));
     this.set("_nftContractAddress", Value.fromBytes(Bytes.empty()));
   }
 
@@ -93,6 +94,15 @@ export class Fulfilled extends Entity {
 
   set _amount(value: BigInt) {
     this.set("_amount", Value.fromBigInt(value));
+  }
+
+  get _receiver(): Bytes {
+    let value = this.get("_receiver");
+    return value!.toBytes();
+  }
+
+  set _receiver(value: Bytes) {
+    this.set("_receiver", Value.fromBytes(value));
   }
 
   get _nftContractAddress(): Bytes {

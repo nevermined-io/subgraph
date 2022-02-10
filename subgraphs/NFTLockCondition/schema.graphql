@@ -5,6 +5,7 @@ type Fulfilled @entity {
   _lockAddress: Bytes! # address
   _conditionId: Bytes! # bytes32
   _amount: BigInt! # uint256
+  _receiver: Bytes! # address
   _nftContractAddress: Bytes! # address
 }
 

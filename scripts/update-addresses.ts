@@ -3,6 +3,11 @@ import Protocol from '@nevermined-io/graph-cli/src/protocols'
 import glob from 'glob'
 import fs from 'fs-extra'
 
+const EXCLUDED_SUBGRAPHS = [
+    'DIDRegistryLibrary',
+    'EpochLibrary',
+    'PlonkVerifier',
+]
 
 async function processFiles(err, files, network) {
     if (err) {
@@ -17,27 +22,29 @@ async function processFiles(err, files, network) {
     files.forEach(async file => {
         const abiJson = JSON.parse(fs.readFileSync(file).toString())
         const contractName = abiJson.name
-        const contract = abiJson.address
+        if (!EXCLUDED_SUBGRAPHS.includes(contractName)) {
+            const contract = abiJson.address
 
-        const protocolInstance = new Protocol('ethereum')
-        const ABI = protocolInstance.getABI()
-        const abi = await ABI.load(contractName, file)
-        const subgraphName = `neverminedio/${contractName}`
-        const indexEvents = true
-        const directory = `subgraphs/${contractName}`
+            const protocolInstance = new Protocol('ethereum')
+            const ABI = protocolInstance.getABI()
+            const abi = await ABI.load(contractName, file)
+            const subgraphName = `neverminedio/${contractName}`
+            const indexEvents = true
+            const directory = `subgraphs/${contractName}`
 
-        const scaffold = new Scaffold({
-            protocol: protocolInstance,
-            abi,
-            indexEvents,
-            contract,
-            network: 'spree',
-            contractName,
-            subgraphName,
-        })
+            const scaffold = new Scaffold({
+                protocol: protocolInstance,
+                abi,
+                indexEvents,
+                contract,
+                network: 'spree',
+                contractName,
+                subgraphName,
+            })
 
-        console.log(`Updating adresses for ${subgraphName}: ${directory}/subgraph.yaml`)
-        fs.writeFileSync(`${directory}/subgraph.yaml`, scaffold.generateManifest())
+            console.log(`Updating adresses for ${subgraphName}: ${directory}/subgraph.yaml`)
+            fs.writeFileSync(`${directory}/subgraph.yaml`, scaffold.generateManifest())
+        }
     })
 }
 
