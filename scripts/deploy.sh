@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
 shopt -s extglob
 
 GRAPH_NODE_URL=${GRAPH_NODE_URL:-http://localhost:9020/}

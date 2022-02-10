@@ -36,58 +36,42 @@ export type FulfilledFilter = {
     _agreementId_not_in?: string[];
     _agreementId_contains?: string | null;
     _agreementId_not_contains?: string | null;
-    _origHash?: WeiSource | null;
-    _origHash_not?: WeiSource | null;
-    _origHash_gt?: WeiSource | null;
-    _origHash_lt?: WeiSource | null;
-    _origHash_gte?: WeiSource | null;
-    _origHash_lte?: WeiSource | null;
-    _origHash_in?: WeiSource[];
-    _origHash_not_in?: WeiSource[];
-    _buyer?: WeiSource[];
-    _buyer_not?: WeiSource[];
-    _buyer_contains?: WeiSource[];
-    _buyer_not_contains?: WeiSource[];
-    _provider?: WeiSource[];
-    _provider_not?: WeiSource[];
-    _provider_contains?: WeiSource[];
-    _provider_not_contains?: WeiSource[];
-    _cipher?: WeiSource[];
-    _cipher_not?: WeiSource[];
-    _cipher_contains?: WeiSource[];
-    _cipher_not_contains?: WeiSource[];
-    _proof?: string | null;
-    _proof_not?: string | null;
-    _proof_in?: string[];
-    _proof_not_in?: string[];
-    _proof_contains?: string | null;
-    _proof_not_contains?: string | null;
+    _tokenAddress?: string | null;
+    _tokenAddress_not?: string | null;
+    _tokenAddress_in?: string[];
+    _tokenAddress_not_in?: string[];
+    _tokenAddress_contains?: string | null;
+    _tokenAddress_not_contains?: string | null;
+    _receivers?: string[];
+    _receivers_not?: string[];
+    _receivers_contains?: string[];
+    _receivers_not_contains?: string[];
     _conditionId?: string | null;
     _conditionId_not?: string | null;
     _conditionId_in?: string[];
     _conditionId_not_in?: string[];
     _conditionId_contains?: string | null;
     _conditionId_not_contains?: string | null;
+    _amounts?: WeiSource[];
+    _amounts_not?: WeiSource[];
+    _amounts_contains?: WeiSource[];
+    _amounts_not_contains?: WeiSource[];
 };
 export type FulfilledResult = {
     id: string;
     _agreementId: string;
-    _origHash: Wei;
-    _buyer: (Wei | null)[];
-    _provider: (Wei | null)[];
-    _cipher: (Wei | null)[];
-    _proof: string;
+    _tokenAddress: string;
+    _receivers: (string | null)[];
     _conditionId: string;
+    _amounts: (Wei | null)[];
 };
 export type FulfilledFields = {
     id: true;
     _agreementId: true;
-    _origHash: true;
-    _buyer: true;
-    _provider: true;
-    _cipher: true;
-    _proof: true;
+    _tokenAddress: true;
+    _receivers: true;
     _conditionId: true;
+    _amounts: true;
 };
 export type FulfilledArgs<K extends keyof FulfilledResult> = {
     [Property in keyof Pick<FulfilledFields, K>]: FulfilledFields[Property];
@@ -106,18 +90,14 @@ export const getFulfilledById = async function <K extends keyof FulfilledResult>
         formattedObj["id"] = obj["id"];
     if (obj["_agreementId"])
         formattedObj["_agreementId"] = obj["_agreementId"];
-    if (obj["_origHash"])
-        formattedObj["_origHash"] = wei(obj["_origHash"], 0);
-    if (obj["_buyer"])
-        formattedObj["_buyer"] = wei(obj["_buyer"], 0);
-    if (obj["_provider"])
-        formattedObj["_provider"] = wei(obj["_provider"], 0);
-    if (obj["_cipher"])
-        formattedObj["_cipher"] = wei(obj["_cipher"], 0);
-    if (obj["_proof"])
-        formattedObj["_proof"] = obj["_proof"];
+    if (obj["_tokenAddress"])
+        formattedObj["_tokenAddress"] = obj["_tokenAddress"];
+    if (obj["_receivers"])
+        formattedObj["_receivers"] = obj["_receivers"];
     if (obj["_conditionId"])
         formattedObj["_conditionId"] = obj["_conditionId"];
+    if (obj["_amounts"])
+        formattedObj["_amounts"] = wei(obj["_amounts"], 0);
     return formattedObj as Pick<FulfilledResult, K>;
 };
 export const getFulfilleds = async function <K extends keyof FulfilledResult>(url: string, options: MultiQueryOptions<FulfilledFilter, FulfilledResult>, args: FulfilledArgs<K>): Promise<Pick<FulfilledResult, K>[]> {
@@ -149,18 +129,14 @@ export const getFulfilleds = async function <K extends keyof FulfilledResult>(ur
                 formattedObj["id"] = obj["id"];
             if (obj["_agreementId"])
                 formattedObj["_agreementId"] = obj["_agreementId"];
-            if (obj["_origHash"])
-                formattedObj["_origHash"] = wei(obj["_origHash"], 0);
-            if (obj["_buyer"])
-                formattedObj["_buyer"] = wei(obj["_buyer"], 0);
-            if (obj["_provider"])
-                formattedObj["_provider"] = wei(obj["_provider"], 0);
-            if (obj["_cipher"])
-                formattedObj["_cipher"] = wei(obj["_cipher"], 0);
-            if (obj["_proof"])
-                formattedObj["_proof"] = obj["_proof"];
+            if (obj["_tokenAddress"])
+                formattedObj["_tokenAddress"] = obj["_tokenAddress"];
+            if (obj["_receivers"])
+                formattedObj["_receivers"] = obj["_receivers"];
             if (obj["_conditionId"])
                 formattedObj["_conditionId"] = obj["_conditionId"];
+            if (obj["_amounts"])
+                formattedObj["_amounts"] = wei(obj["_amounts"], 0);
             return formattedObj as Pick<FulfilledResult, K>;
         });
         results = results.concat(newResults);
@@ -258,6 +234,104 @@ export const getOwnershipTransferreds = async function <K extends keyof Ownershi
             if (obj["newOwner"])
                 formattedObj["newOwner"] = obj["newOwner"];
             return formattedObj as Pick<OwnershipTransferredResult, K>;
+        });
+        results = results.concat(newResults);
+        if (newResults.length < 1000) {
+            break;
+        }
+        if (paginationKey) {
+            paginationValue = rawResults[rawResults.length - 1][paginatedOptions.orderBy!];
+        }
+    } while (paginationKey && (options.first && results.length < options.first));
+    return options.first ? results.slice(0, options.first) : results;
+};
+export type ReceivedFilter = {
+    id?: string | null;
+    id_not?: string | null;
+    id_gt?: string | null;
+    id_lt?: string | null;
+    id_gte?: string | null;
+    id_lte?: string | null;
+    id_in?: string[];
+    id_not_in?: string[];
+    _from?: string | null;
+    _from_not?: string | null;
+    _from_in?: string[];
+    _from_not_in?: string[];
+    _from_contains?: string | null;
+    _from_not_contains?: string | null;
+    _value?: WeiSource | null;
+    _value_not?: WeiSource | null;
+    _value_gt?: WeiSource | null;
+    _value_lt?: WeiSource | null;
+    _value_gte?: WeiSource | null;
+    _value_lte?: WeiSource | null;
+    _value_in?: WeiSource[];
+    _value_not_in?: WeiSource[];
+};
+export type ReceivedResult = {
+    id: string;
+    _from: string;
+    _value: Wei;
+};
+export type ReceivedFields = {
+    id: true;
+    _from: true;
+    _value: true;
+};
+export type ReceivedArgs<K extends keyof ReceivedResult> = {
+    [Property in keyof Pick<ReceivedFields, K>]: ReceivedFields[Property];
+};
+export const getReceivedById = async function <K extends keyof ReceivedResult>(url: string, options: SingleQueryOptions, args: ReceivedArgs<K>): Promise<Pick<ReceivedResult, K>> {
+    const res = await axios.post(url, {
+        query: generateGql("received", options, args)
+    });
+    const r = res.data as any;
+    if (r.errors && r.errors.length) {
+        throw new Error(r.errors[0].message);
+    }
+    const obj = (r.data[Object.keys(r.data)[0]] as any);
+    const formattedObj: any = {};
+    if (obj["id"])
+        formattedObj["id"] = obj["id"];
+    if (obj["_from"])
+        formattedObj["_from"] = obj["_from"];
+    if (obj["_value"])
+        formattedObj["_value"] = wei(obj["_value"], 0);
+    return formattedObj as Pick<ReceivedResult, K>;
+};
+export const getReceiveds = async function <K extends keyof ReceivedResult>(url: string, options: MultiQueryOptions<ReceivedFilter, ReceivedResult>, args: ReceivedArgs<K>): Promise<Pick<ReceivedResult, K>[]> {
+    const paginatedOptions: Partial<MultiQueryOptions<ReceivedFilter, ReceivedResult>> = { ...options };
+    let paginationKey: keyof ReceivedFilter | null = null;
+    let paginationValue = "";
+    if (options.first && options.first > MAX_PAGE) {
+        paginatedOptions.first = MAX_PAGE;
+        paginatedOptions.orderBy = options.orderBy || "id";
+        paginatedOptions.orderDirection = options.orderDirection || "asc";
+        paginationKey = paginatedOptions.orderBy + (paginatedOptions.orderDirection === "asc" ? "_gt" : "_lt") as keyof ReceivedFilter;
+        paginatedOptions.where = { ...options.where };
+    }
+    let results: Pick<ReceivedResult, K>[] = [];
+    do {
+        if (paginationKey && paginationValue)
+            paginatedOptions.where![paginationKey] = paginationValue as any;
+        const res = await axios.post(url, {
+            query: generateGql("receiveds", paginatedOptions, args)
+        });
+        const r = res.data as any;
+        if (r.errors && r.errors.length) {
+            throw new Error(r.errors[0].message);
+        }
+        const rawResults = r.data[Object.keys(r.data)[0]] as any[];
+        const newResults = rawResults.map((obj) => {
+            const formattedObj: any = {};
+            if (obj["id"])
+                formattedObj["id"] = obj["id"];
+            if (obj["_from"])
+                formattedObj["_from"] = obj["_from"];
+            if (obj["_value"])
+                formattedObj["_value"] = wei(obj["_value"], 0);
+            return formattedObj as Pick<ReceivedResult, K>;
         });
         results = results.concat(newResults);
         if (newResults.length < 1000) {

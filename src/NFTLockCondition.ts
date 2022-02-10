@@ -62,6 +62,12 @@ export type FulfilledFilter = {
     _amount_lte?: WeiSource | null;
     _amount_in?: WeiSource[];
     _amount_not_in?: WeiSource[];
+    _receiver?: string | null;
+    _receiver_not?: string | null;
+    _receiver_in?: string[];
+    _receiver_not_in?: string[];
+    _receiver_contains?: string | null;
+    _receiver_not_contains?: string | null;
     _nftContractAddress?: string | null;
     _nftContractAddress_not?: string | null;
     _nftContractAddress_in?: string[];
@@ -76,6 +82,7 @@ export type FulfilledResult = {
     _lockAddress: string;
     _conditionId: string;
     _amount: Wei;
+    _receiver: string;
     _nftContractAddress: string;
 };
 export type FulfilledFields = {
@@ -85,6 +92,7 @@ export type FulfilledFields = {
     _lockAddress: true;
     _conditionId: true;
     _amount: true;
+    _receiver: true;
     _nftContractAddress: true;
 };
 export type FulfilledArgs<K extends keyof FulfilledResult> = {
@@ -112,6 +120,8 @@ export const getFulfilledById = async function <K extends keyof FulfilledResult>
         formattedObj["_conditionId"] = obj["_conditionId"];
     if (obj["_amount"])
         formattedObj["_amount"] = wei(obj["_amount"], 0);
+    if (obj["_receiver"])
+        formattedObj["_receiver"] = obj["_receiver"];
     if (obj["_nftContractAddress"])
         formattedObj["_nftContractAddress"] = obj["_nftContractAddress"];
     return formattedObj as Pick<FulfilledResult, K>;
@@ -153,6 +163,8 @@ export const getFulfilleds = async function <K extends keyof FulfilledResult>(ur
                 formattedObj["_conditionId"] = obj["_conditionId"];
             if (obj["_amount"])
                 formattedObj["_amount"] = wei(obj["_amount"], 0);
+            if (obj["_receiver"])
+                formattedObj["_receiver"] = obj["_receiver"];
             if (obj["_nftContractAddress"])
                 formattedObj["_nftContractAddress"] = obj["_nftContractAddress"];
             return formattedObj as Pick<FulfilledResult, K>;
