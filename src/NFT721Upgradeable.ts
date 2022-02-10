@@ -206,7 +206,7 @@ export const getApprovalForAlls = async function <K extends keyof ApprovalForAll
     let results: Pick<ApprovalForAllResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("approvalForAlls", paginatedOptions, args)
         });
@@ -408,7 +408,7 @@ export const getProxyApprovals = async function <K extends keyof ProxyApprovalRe
     let results: Pick<ProxyApprovalResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("proxyApprovals", paginatedOptions, args)
         });
