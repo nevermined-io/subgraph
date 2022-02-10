@@ -14,7 +14,9 @@ import * as DIDSalesTemplate from "./DIDSalesTemplate";
 import * as Dispenser from "./Dispenser";
 import * as DistributeNFTCollateralCondition from "./DistributeNFTCollateralCondition";
 import * as EscrowComputeExecutionTemplate from "./EscrowComputeExecutionTemplate";
+import * as EscrowPaymentCondition from "./EscrowPaymentCondition"
 import * as HashLockCondition from "./HashLockCondition";
+import * as LockPaymentCondition from "./LockPaymentCondition"
 import * as NeverminedToken from "./NeverminedToken";
 import * as NFT721AccessTemplate from "./NFT721AccessTemplate";
 import * as NFT721HolderCondition from "./NFT721HolderCondition";
@@ -52,7 +54,9 @@ export {
     Dispenser,
     DistributeNFTCollateralCondition,
     EscrowComputeExecutionTemplate,
+    EscrowPaymentCondition,
     HashLockCondition,
+    LockPaymentCondition,
     NeverminedToken,
     NFT721AccessTemplate,
     NFT721HolderCondition,
