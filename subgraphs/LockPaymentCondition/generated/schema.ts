@@ -8,7 +8,8 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
+  Address
 } from "@graphprotocol/graph-ts";
 
 export class Fulfilled extends Entity {
@@ -96,13 +97,13 @@ export class Fulfilled extends Entity {
     this.set("_tokenAddress", Value.fromBytes(value));
   }
 
-  get _receivers(): Array<Bytes> {
+  get _receivers(): Array<Address> {
     let value = this.get("_receivers");
-    return value!.toBytesArray();
+    return value!.toAddressArray();
   }
 
-  set _receivers(value: Array<Bytes>) {
-    this.set("_receivers", Value.fromBytesArray(value));
+  set _receivers(value: Array<Address>) {
+    this.set("_receivers", Value.fromAddressArray(value));
   }
 
   get _amounts(): Array<BigInt> {
