@@ -1,0 +1,5 @@
+type NeverminedConfigChange @entity {
+  id: ID!
+  _whoChanged: Bytes! # address
+  _parameter: Bytes! # bytes32
+}
