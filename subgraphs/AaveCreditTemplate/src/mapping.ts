@@ -19,6 +19,10 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity._accessProvider = event.params._accessProvider
   entity._timeLocks = event.params._timeLocks
   entity._timeOuts = event.params._timeOuts
+  entity._conditionIdSeeds = event.params._conditionIdSeeds
+  entity._conditionIds = event.params._conditionIds
+  entity._idSeed = event.params._idSeed
+  entity._creator = event.params._creator  
   entity.save()
 }
 

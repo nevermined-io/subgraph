@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTAccessCondition
     network: spree
     source:
-      address: "0xE53927D1E274bb39F7EBa8ad9e0eee30F7504f77"
+      address: "0xB59eFd463ffDaaB5A0BeeC232123ba1B048ebc43"
       abi: NFTAccessCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: NFTAccessCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

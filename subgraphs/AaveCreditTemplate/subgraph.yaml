@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: AaveCreditTemplate
     network: spree
     source:
-      address: "0x752181978DA1e0D04644Ae50a129B3ee1ED49A98"
+      address: "0xC244586E1675E4A98755bC1CE6F6Dead2CD55742"
       abi: AaveCreditTemplate
       startBlock: 10
     mapping:
@@ -15,14 +15,17 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
+        - Initialized
         - OwnershipTransferred
         - VaultCreated
       abis:
         - name: AaveCreditTemplate
           file: ./abis/AaveCreditTemplate.json
       eventHandlers:
-        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
           handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: VaultCreated(indexed address,indexed address,address,address)

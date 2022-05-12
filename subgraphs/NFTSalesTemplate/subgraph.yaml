@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTSalesTemplate
     network: spree
     source:
-      address: "0xc10Cf8027f5913231a65c8081a83fF7F283317D6"
+      address: "0x06F712732acfC7Be52997C94D12A4313C83d6bB7"
       abi: NFTSalesTemplate
       startBlock: 10
     mapping:
@@ -15,13 +15,16 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: NFTSalesTemplate
           file: ./abis/NFTSalesTemplate.json
       eventHandlers:
-        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
           handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

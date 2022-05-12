@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTAccessTemplate
     network: spree
     source:
-      address: "0x10c1a8a80197b9Aed657bb0F8057c7C89504ABDE"
+      address: "0x4714b1Bb67EcF87Df7A977917f87f46eA49eA631"
       abi: NFTAccessTemplate
       startBlock: 10
     mapping:
@@ -15,13 +15,16 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: NFTAccessTemplate
           file: ./abis/NFTAccessTemplate.json
       eventHandlers:
-        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
           handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

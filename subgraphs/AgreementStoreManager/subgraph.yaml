@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: AgreementStoreManager
     network: spree
     source:
-      address: "0xd7C2FE49b96c48073D0D5e9f1f360d1493E670a5"
+      address: "0x83cc685E9806296E1E0Ac275150297305A55D272"
       abi: AgreementStoreManager
       startBlock: 10
     mapping:
@@ -14,6 +14,7 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Initialized
         - OwnershipTransferred
         - RoleAdminChanged
         - RoleGranted
@@ -22,6 +23,8 @@ dataSources:
         - name: AgreementStoreManager
           file: ./abis/AgreementStoreManager.json
       eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)

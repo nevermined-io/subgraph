@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: HashLockCondition
     network: spree
     source:
-      address: "0x645439117eB378a6d35148452E287a038666Ed67"
+      address: "0x8F006DbB3727d18f032C5618595ecDD2EDE13b61"
       abi: HashLockCondition
       startBlock: 10
     mapping:
@@ -14,11 +14,14 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: HashLockCondition
           file: ./abis/HashLockCondition.json
       eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

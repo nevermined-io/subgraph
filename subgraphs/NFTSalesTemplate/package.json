@@ -1,13 +1,13 @@
 {
-  "name": "NFTSalesTemplate",
+  "name": "NFTSalesWithAccessTemplate",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node undefined neverminedio/NFTSalesTemplate",
-    "create-local": "graph create --node http://localhost:8020/ neverminedio/NFTSalesTemplate",
-    "remove-local": "graph remove --node http://localhost:8020/ neverminedio/NFTSalesTemplate",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/NFTSalesTemplate"
+    "deploy": "graph deploy --node undefined neverminedio/NFTSalesWithAccessTemplate",
+    "create-local": "graph create --node http://localhost:8020/ neverminedio/NFTSalesWithAccessTemplate",
+    "remove-local": "graph remove --node http://localhost:8020/ neverminedio/NFTSalesWithAccessTemplate",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/NFTSalesWithAccessTemplate"
   },
   "dependencies": {
     "@nevermined-io/graph-cli": "0.30.4",

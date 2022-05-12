@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: AaveCollateralWithdrawCondition
     network: spree
     source:
-      address: "0x55E873f9327Ee99a67975C8F2BEa04aD141B2807"
+      address: "0x9CdA4a4449bCaf7e2eb20D2485540d9628167132"
       abi: AaveCollateralWithdrawCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: AaveCollateralWithdrawCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

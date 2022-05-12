@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: TransferNFT721Condition
     network: spree
     source:
-      address: "0x9E6D17b661A535F0d7126673E0f5d62a561bddf4"
+      address: "0xE8299CCe89f1B30E1d65Ebb827b784D8900aEf2c"
       abi: TransferNFT721Condition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
         - RoleAdminChanged
         - RoleGranted
@@ -25,6 +26,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,uint256,bytes32,address)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)

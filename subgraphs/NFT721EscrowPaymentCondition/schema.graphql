@@ -1,0 +1,21 @@
+type Fulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _tokenAddress: Bytes! # address
+  _did: Bytes! # bytes32
+  _receivers: [Bytes]! # address[]
+  _conditionId: Bytes! # bytes32
+  _amounts: [BigInt]! # uint256[]
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type Received @entity {
+  id: ID!
+  _from: Bytes! # address
+  _value: BigInt! # uint256
+}

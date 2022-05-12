@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: TemplateStoreManager
     network: spree
     source:
-      address: "0x726baA2f854A3BEC2378a707AeB38c9d933Ebad6"
+      address: "0x336EFb3c9E56F713dFdA4CDB3Dd0882F3226b6eE"
       abi: TemplateStoreManager
       startBlock: 10
     mapping:
@@ -14,11 +14,14 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: TemplateStoreManager
           file: ./abis/TemplateStoreManager.json
       eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

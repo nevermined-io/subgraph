@@ -1,0 +1,33 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFT721EscrowPaymentCondition
+    network: spree
+    source:
+      address: "0x02175de5A7F168517688e3E93f55936C9c2C7A19"
+      abi: NFT721EscrowPaymentCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - Initialized
+        - OwnershipTransferred
+        - Received
+      abis:
+        - name: NFT721EscrowPaymentCondition
+          file: ./abis/NFT721EscrowPaymentCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed address,bytes32,address,bytes32,uint256)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Received(indexed address,uint256)
+          handler: handleReceived
+      file: ./src/mapping.ts

@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NeverminedToken
     network: spree
     source:
-      address: "0xe749E2f8482810b11B838Ae8c5eb69e54d610411"
+      address: "0x312213d6f6b5FCF9F56B7B8946A6C727Bf4Bc21f"
       abi: NeverminedToken
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Approval
+        - Initialized
         - OwnershipTransferred
         - RoleAdminChanged
         - RoleGranted
@@ -26,6 +27,8 @@ dataSources:
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
