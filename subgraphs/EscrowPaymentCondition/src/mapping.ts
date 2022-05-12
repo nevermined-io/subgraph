@@ -1,10 +1,15 @@
-import { ethereum } from '@graphprotocol/graph-ts'
 import {
   Fulfilled as FulfilledEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   Received as ReceivedEvent
 } from "../generated/EscrowPaymentCondition/EscrowPaymentCondition"
-import { Fulfilled, OwnershipTransferred, Received } from "../generated/schema"
+import {
+  Fulfilled,
+  Initialized,
+  OwnershipTransferred,
+  Received
+} from "../generated/schema"
 
 export function handleFulfilled(event: FulfilledEvent): void {
   let entity = new Fulfilled(
@@ -12,9 +17,17 @@ export function handleFulfilled(event: FulfilledEvent): void {
   )
   entity._agreementId = event.params._agreementId
   entity._tokenAddress = event.params._tokenAddress
-  entity._receivers = ethereum.Value.fromAddressArray(event.params._receivers).toBytesArray()
+  entity._receivers = event.params._receivers
   entity._conditionId = event.params._conditionId
   entity._amounts = event.params._amounts
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

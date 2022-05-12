@@ -1,8 +1,13 @@
 import {
   AgreementCreated as AgreementCreatedEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent
 } from "../generated/NFT721SalesWithAccessTemplate/NFT721SalesWithAccessTemplate"
-import { AgreementCreated, OwnershipTransferred } from "../generated/schema"
+import {
+  AgreementCreated,
+  Initialized,
+  OwnershipTransferred
+} from "../generated/schema"
 
 export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   let entity = new AgreementCreated(
@@ -18,6 +23,14 @@ export function handleAgreementCreated(event: AgreementCreatedEvent): void {
   entity._conditionIds = event.params._conditionIds
   entity._idSeed = event.params._idSeed
   entity._creator = event.params._creator
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

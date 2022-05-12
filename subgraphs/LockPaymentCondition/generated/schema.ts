@@ -8,8 +8,7 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal,
-  Address
+  BigDecimal
 } from "@graphprotocol/graph-ts";
 
 export class Fulfilled extends Entity {
@@ -97,13 +96,13 @@ export class Fulfilled extends Entity {
     this.set("_tokenAddress", Value.fromBytes(value));
   }
 
-  get _receivers(): Array<Address> {
+  get _receivers(): Array<Bytes> {
     let value = this.get("_receivers");
-    return value!.toAddressArray();
+    return value!.toBytesArray();
   }
 
-  set _receivers(value: Array<Address>) {
-    this.set("_receivers", Value.fromAddressArray(value));
+  set _receivers(value: Array<Bytes>) {
+    this.set("_receivers", Value.fromBytesArray(value));
   }
 
   get _amounts(): Array<BigInt> {
@@ -113,6 +112,48 @@ export class Fulfilled extends Entity {
 
   set _amounts(value: Array<BigInt>) {
     this.set("_amounts", Value.fromBigIntArray(value));
+  }
+}
+
+export class Initialized extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Initialized entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Initialized entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Initialized", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Initialized | null {
+    return changetype<Initialized | null>(store.get("Initialized", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get version(): i32 {
+    let value = this.get("version");
+    return value!.toI32();
+  }
+
+  set version(value: i32) {
+    this.set("version", Value.fromI32(value));
   }
 }
 

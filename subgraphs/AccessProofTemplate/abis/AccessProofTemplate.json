@@ -37,9 +37,46 @@
         "internalType": "uint256[]",
         "name": "_timeOuts",
         "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32[]",
+        "name": "_conditionIdSeeds",
+        "type": "bytes32[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "_idSeed",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_creator",
+        "type": "address"
       }
     ],
     "name": "AgreementCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
     "type": "event"
   },
   {
@@ -78,9 +115,7 @@
       { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" }
     ],
     "name": "createAgreement",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x2e166f3e"
@@ -107,9 +142,7 @@
       }
     ],
     "name": "createAgreement",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x4183e72b"
@@ -176,9 +209,7 @@
       { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
     ],
     "name": "createAgreementAndPayEscrow",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "payable",
     "type": "function",
     "signature": "0xf8fe1070"

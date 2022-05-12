@@ -66,6 +66,11 @@ type DIDProviderRemoved @entity {
   state: Boolean! # bool
 }
 
+type Initialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
 type OwnershipTransferred @entity {
   id: ID!
   previousOwner: Bytes! # address

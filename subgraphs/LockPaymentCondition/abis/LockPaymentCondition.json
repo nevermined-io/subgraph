@@ -52,6 +52,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -212,6 +225,24 @@
   },
   {
     "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "address payable",
+        "name": "_rewardAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+    ],
+    "name": "encodeParams",
+    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x2720c9ac"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       {
@@ -269,27 +300,13 @@
     "inputs": [
       { "internalType": "address", "name": "_account", "type": "address" },
       { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      {
-        "internalType": "address payable",
-        "name": "_rewardAddress",
-        "type": "address"
-      },
-      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
-      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
-      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+      { "internalType": "bytes", "name": "params", "type": "bytes" }
     ],
     "name": "fulfillProxy",
-    "outputs": [
-      {
-        "internalType": "enum ConditionStoreLibrary.ConditionState",
-        "name": "",
-        "type": "uint8"
-      }
-    ],
+    "outputs": [],
     "stateMutability": "payable",
     "type": "function",
-    "signature": "0xf3137fd5"
+    "signature": "0xf3c998ce"
   },
   {
     "inputs": [

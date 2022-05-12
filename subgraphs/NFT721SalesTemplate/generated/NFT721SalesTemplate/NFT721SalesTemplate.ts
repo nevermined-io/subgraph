@@ -46,6 +46,40 @@ export class AgreementCreated__Params {
   get _timeOuts(): Array<BigInt> {
     return this._event.parameters[5].value.toBigIntArray();
   }
+
+  get _conditionIdSeeds(): Array<Bytes> {
+    return this._event.parameters[6].value.toBytesArray();
+  }
+
+  get _conditionIds(): Array<Bytes> {
+    return this._event.parameters[7].value.toBytesArray();
+  }
+
+  get _idSeed(): Bytes {
+    return this._event.parameters[8].value.toBytes();
+  }
+
+  get _creator(): Address {
+    return this._event.parameters[9].value.toAddress();
+  }
+}
+
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
 }
 
 export class OwnershipTransferred extends ethereum.Event {
@@ -90,104 +124,6 @@ export class NFT721SalesTemplate__getAgreementDataResult {
 export class NFT721SalesTemplate extends ethereum.SmartContract {
   static bind(address: Address): NFT721SalesTemplate {
     return new NFT721SalesTemplate("NFT721SalesTemplate", address);
-  }
-
-  createAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>
-  ): BigInt {
-    let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[]):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[]):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  createAgreement1(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _accessConsumer: Address
-  ): BigInt {
-    let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_accessConsumer)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createAgreement1(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _accessConsumer: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_accessConsumer)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getAgreementData(_id: Bytes): NFT721SalesTemplate__getAgreementDataResult {
@@ -244,6 +180,64 @@ export class NFT721SalesTemplate extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddressArray());
+  }
+
+  id(): BigInt {
+    let result = super.call("id", "id():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_id(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("id", "id():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  nftPrice(
+    param0: Address,
+    param1: Address,
+    param2: Address,
+    param3: Bytes
+  ): BigInt {
+    let result = super.call(
+      "nftPrice",
+      "nftPrice(address,address,address,bytes32):(uint256)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromAddress(param2),
+        ethereum.Value.fromFixedBytes(param3)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_nftPrice(
+    param0: Address,
+    param1: Address,
+    param2: Address,
+    param3: Bytes
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "nftPrice",
+      "nftPrice(address,address,address,bytes32):(uint256)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromAddress(param2),
+        ethereum.Value.fromFixedBytes(param3)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   owner(): Address {
@@ -306,10 +300,6 @@ export class CreateAgreementCall__Outputs {
   constructor(call: CreateAgreementCall) {
     this._call = call;
   }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
 }
 
 export class CreateAgreement1Call extends ethereum.Call {
@@ -359,10 +349,6 @@ export class CreateAgreement1Call__Outputs {
 
   constructor(call: CreateAgreement1Call) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -500,9 +486,55 @@ export class CreateAgreementAndPayEscrowCall__Outputs {
   constructor(call: CreateAgreementAndPayEscrowCall) {
     this._call = call;
   }
+}
 
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
+export class CreateAgreementFulfillCall extends ethereum.Call {
+  get inputs(): CreateAgreementFulfillCall__Inputs {
+    return new CreateAgreementFulfillCall__Inputs(this);
+  }
+
+  get outputs(): CreateAgreementFulfillCall__Outputs {
+    return new CreateAgreementFulfillCall__Outputs(this);
+  }
+}
+
+export class CreateAgreementFulfillCall__Inputs {
+  _call: CreateAgreementFulfillCall;
+
+  constructor(call: CreateAgreementFulfillCall) {
+    this._call = call;
+  }
+
+  get _id(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _timeLocks(): Array<BigInt> {
+    return this._call.inputValues[2].value.toBigIntArray();
+  }
+
+  get _timeOuts(): Array<BigInt> {
+    return this._call.inputValues[3].value.toBigIntArray();
+  }
+
+  get _accessConsumer(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get _params(): Array<Bytes> {
+    return this._call.inputValues[5].value.toBytesArray();
+  }
+}
+
+export class CreateAgreementFulfillCall__Outputs {
+  _call: CreateAgreementFulfillCall;
+
+  constructor(call: CreateAgreementFulfillCall) {
+    this._call = call;
   }
 }
 
@@ -548,6 +580,48 @@ export class InitializeCall__Outputs {
   _call: InitializeCall;
 
   constructor(call: InitializeCall) {
+    this._call = call;
+  }
+}
+
+export class NftSaleCall extends ethereum.Call {
+  get inputs(): NftSaleCall__Inputs {
+    return new NftSaleCall__Inputs(this);
+  }
+
+  get outputs(): NftSaleCall__Outputs {
+    return new NftSaleCall__Outputs(this);
+  }
+}
+
+export class NftSaleCall__Inputs {
+  _call: NftSaleCall;
+
+  constructor(call: NftSaleCall) {
+    this._call = call;
+  }
+
+  get nftAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get nftId(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get token(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class NftSaleCall__Outputs {
+  _call: NftSaleCall;
+
+  constructor(call: NftSaleCall) {
     this._call = call;
   }
 }

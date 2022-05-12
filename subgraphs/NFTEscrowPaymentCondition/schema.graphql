@@ -3,9 +3,14 @@ type Fulfilled @entity {
   _agreementId: Bytes! # bytes32
   _tokenAddress: Bytes! # address
   _did: Bytes! # bytes32
-  _receivers: [Bytes]! # address[]
+  _receivers: Bytes! # address
   _conditionId: Bytes! # bytes32
-  _amounts: [BigInt]! # uint256[]
+  _amounts: BigInt! # uint256
+}
+
+type Initialized @entity {
+  id: ID!
+  version: Int! # uint8
 }
 
 type OwnershipTransferred @entity {

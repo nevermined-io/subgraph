@@ -10,6 +10,24 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -110,42 +128,6 @@ export class RoleRevoked__Params {
   }
 }
 
-export class AgreementStoreManager__getAgreementResult {
-  value0: Bytes;
-  value1: Address;
-  value2: Address;
-  value3: Array<Bytes>;
-  value4: Address;
-  value5: BigInt;
-
-  constructor(
-    value0: Bytes,
-    value1: Address,
-    value2: Address,
-    value3: Array<Bytes>,
-    value4: Address,
-    value5: BigInt
-  ) {
-    this.value0 = value0;
-    this.value1 = value1;
-    this.value2 = value2;
-    this.value3 = value3;
-    this.value4 = value4;
-    this.value5 = value5;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromFixedBytes(this.value0));
-    map.set("value1", ethereum.Value.fromAddress(this.value1));
-    map.set("value2", ethereum.Value.fromAddress(this.value2));
-    map.set("value3", ethereum.Value.fromFixedBytesArray(this.value3));
-    map.set("value4", ethereum.Value.fromAddress(this.value4));
-    map.set("value5", ethereum.Value.fromUnsignedBigInt(this.value5));
-    return map;
-  }
-}
-
 export class AgreementStoreManager extends ethereum.SmartContract {
   static bind(address: Address): AgreementStoreManager {
     return new AgreementStoreManager("AgreementStoreManager", address);
@@ -174,51 +156,28 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  createAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionTypes: Array<Address>,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _creator: Address
-  ): BigInt {
+  agreementId(_agreementId: Bytes, _creator: Address): Bytes {
     let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,address[],bytes32[],uint256[],uint256[],address):(uint256)",
+      "agreementId",
+      "agreementId(bytes32,address):(bytes32)",
       [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddressArray(_conditionTypes),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
+        ethereum.Value.fromFixedBytes(_agreementId),
         ethereum.Value.fromAddress(_creator)
       ]
     );
 
-    return result[0].toBigInt();
+    return result[0].toBytes();
   }
 
-  try_createAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionTypes: Array<Address>,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
+  try_agreementId(
+    _agreementId: Bytes,
     _creator: Address
-  ): ethereum.CallResult<BigInt> {
+  ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,address[],bytes32[],uint256[],uint256[],address):(uint256)",
+      "agreementId",
+      "agreementId(bytes32,address):(bytes32)",
       [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddressArray(_conditionTypes),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
+        ethereum.Value.fromFixedBytes(_agreementId),
         ethereum.Value.fromAddress(_creator)
       ]
     );
@@ -226,115 +185,62 @@ export class AgreementStoreManager extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  createAgreement1(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionTypes: Array<Address>,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>
-  ): BigInt {
+  fullConditionId(
+    _agreementId: Bytes,
+    _condType: Address,
+    _valueHash: Bytes
+  ): Bytes {
     let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,address[],bytes32[],uint256[],uint256[]):(uint256)",
+      "fullConditionId",
+      "fullConditionId(bytes32,address,bytes32):(bytes32)",
       [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddressArray(_conditionTypes),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts)
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromAddress(_condType),
+        ethereum.Value.fromFixedBytes(_valueHash)
       ]
     );
 
-    return result[0].toBigInt();
+    return result[0].toBytes();
   }
 
-  try_createAgreement1(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionTypes: Array<Address>,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>
-  ): ethereum.CallResult<BigInt> {
+  try_fullConditionId(
+    _agreementId: Bytes,
+    _condType: Address,
+    _valueHash: Bytes
+  ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,address[],bytes32[],uint256[],uint256[]):(uint256)",
+      "fullConditionId",
+      "fullConditionId(bytes32,address,bytes32):(bytes32)",
       [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromAddressArray(_conditionTypes),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts)
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromAddress(_condType),
+        ethereum.Value.fromFixedBytes(_valueHash)
       ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  getAgreement(_id: Bytes): AgreementStoreManager__getAgreementResult {
+  getAgreementTemplate(_id: Bytes): Address {
     let result = super.call(
-      "getAgreement",
-      "getAgreement(bytes32):(bytes32,address,address,bytes32[],address,uint256)",
-      [ethereum.Value.fromFixedBytes(_id)]
-    );
-
-    return new AgreementStoreManager__getAgreementResult(
-      result[0].toBytes(),
-      result[1].toAddress(),
-      result[2].toAddress(),
-      result[3].toBytesArray(),
-      result[4].toAddress(),
-      result[5].toBigInt()
-    );
-  }
-
-  try_getAgreement(
-    _id: Bytes
-  ): ethereum.CallResult<AgreementStoreManager__getAgreementResult> {
-    let result = super.tryCall(
-      "getAgreement",
-      "getAgreement(bytes32):(bytes32,address,address,bytes32[],address,uint256)",
-      [ethereum.Value.fromFixedBytes(_id)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new AgreementStoreManager__getAgreementResult(
-        value[0].toBytes(),
-        value[1].toAddress(),
-        value[2].toAddress(),
-        value[3].toBytesArray(),
-        value[4].toAddress(),
-        value[5].toBigInt()
-      )
-    );
-  }
-
-  getAgreementDIDOwner(_id: Bytes): Address {
-    let result = super.call(
-      "getAgreementDIDOwner",
-      "getAgreementDIDOwner(bytes32):(address)",
+      "getAgreementTemplate",
+      "getAgreementTemplate(bytes32):(address)",
       [ethereum.Value.fromFixedBytes(_id)]
     );
 
     return result[0].toAddress();
   }
 
-  try_getAgreementDIDOwner(_id: Bytes): ethereum.CallResult<Address> {
+  try_getAgreementTemplate(_id: Bytes): ethereum.CallResult<Address> {
     let result = super.tryCall(
-      "getAgreementDIDOwner",
-      "getAgreementDIDOwner(bytes32):(address)",
+      "getAgreementTemplate",
+      "getAgreementTemplate(bytes32):(address)",
       [ethereum.Value.fromFixedBytes(_id)]
     );
     if (result.reverted) {
@@ -342,77 +248,6 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getAgreementIdsForDID(_did: Bytes): Array<Bytes> {
-    let result = super.call(
-      "getAgreementIdsForDID",
-      "getAgreementIdsForDID(bytes32):(bytes32[])",
-      [ethereum.Value.fromFixedBytes(_did)]
-    );
-
-    return result[0].toBytesArray();
-  }
-
-  try_getAgreementIdsForDID(_did: Bytes): ethereum.CallResult<Array<Bytes>> {
-    let result = super.tryCall(
-      "getAgreementIdsForDID",
-      "getAgreementIdsForDID(bytes32):(bytes32[])",
-      [ethereum.Value.fromFixedBytes(_did)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytesArray());
-  }
-
-  getAgreementIdsForTemplateId(_templateId: Address): Array<Bytes> {
-    let result = super.call(
-      "getAgreementIdsForTemplateId",
-      "getAgreementIdsForTemplateId(address):(bytes32[])",
-      [ethereum.Value.fromAddress(_templateId)]
-    );
-
-    return result[0].toBytesArray();
-  }
-
-  try_getAgreementIdsForTemplateId(
-    _templateId: Address
-  ): ethereum.CallResult<Array<Bytes>> {
-    let result = super.tryCall(
-      "getAgreementIdsForTemplateId",
-      "getAgreementIdsForTemplateId(address):(bytes32[])",
-      [ethereum.Value.fromAddress(_templateId)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytesArray());
-  }
-
-  getAgreementListSize(): BigInt {
-    let result = super.call(
-      "getAgreementListSize",
-      "getAgreementListSize():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getAgreementListSize(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getAgreementListSize",
-      "getAgreementListSize():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getDIDRegistryAddress(): Address {
@@ -473,64 +308,6 @@ export class AgreementStoreManager extends ethereum.SmartContract {
       ethereum.Value.fromFixedBytes(role),
       ethereum.Value.fromAddress(account)
     ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isAgreementDIDOwner(_id: Bytes, _owner: Address): boolean {
-    let result = super.call(
-      "isAgreementDIDOwner",
-      "isAgreementDIDOwner(bytes32,address):(bool)",
-      [ethereum.Value.fromFixedBytes(_id), ethereum.Value.fromAddress(_owner)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isAgreementDIDOwner(
-    _id: Bytes,
-    _owner: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isAgreementDIDOwner",
-      "isAgreementDIDOwner(bytes32,address):(bool)",
-      [ethereum.Value.fromFixedBytes(_id), ethereum.Value.fromAddress(_owner)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isAgreementDIDProvider(_id: Bytes, _provider: Address): boolean {
-    let result = super.call(
-      "isAgreementDIDProvider",
-      "isAgreementDIDProvider(bytes32,address):(bool)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_provider)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isAgreementDIDProvider(
-    _id: Bytes,
-    _provider: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isAgreementDIDProvider",
-      "isAgreementDIDProvider(bytes32,address):(bool)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_provider)
-      ]
-    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -617,10 +394,6 @@ export class CreateAgreementCall__Inputs {
   get _timeOuts(): Array<BigInt> {
     return this._call.inputValues[5].value.toBigIntArray();
   }
-
-  get _creator(): Address {
-    return this._call.inputValues[6].value.toAddress();
-  }
 }
 
 export class CreateAgreementCall__Outputs {
@@ -629,26 +402,22 @@ export class CreateAgreementCall__Outputs {
   constructor(call: CreateAgreementCall) {
     this._call = call;
   }
+}
 
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
+export class CreateAgreementAndFulfillCall extends ethereum.Call {
+  get inputs(): CreateAgreementAndFulfillCall__Inputs {
+    return new CreateAgreementAndFulfillCall__Inputs(this);
+  }
+
+  get outputs(): CreateAgreementAndFulfillCall__Outputs {
+    return new CreateAgreementAndFulfillCall__Outputs(this);
   }
 }
 
-export class CreateAgreement1Call extends ethereum.Call {
-  get inputs(): CreateAgreement1Call__Inputs {
-    return new CreateAgreement1Call__Inputs(this);
-  }
+export class CreateAgreementAndFulfillCall__Inputs {
+  _call: CreateAgreementAndFulfillCall;
 
-  get outputs(): CreateAgreement1Call__Outputs {
-    return new CreateAgreement1Call__Outputs(this);
-  }
-}
-
-export class CreateAgreement1Call__Inputs {
-  _call: CreateAgreement1Call;
-
-  constructor(call: CreateAgreement1Call) {
+  constructor(call: CreateAgreementAndFulfillCall) {
     this._call = call;
   }
 
@@ -675,17 +444,25 @@ export class CreateAgreement1Call__Inputs {
   get _timeOuts(): Array<BigInt> {
     return this._call.inputValues[5].value.toBigIntArray();
   }
-}
 
-export class CreateAgreement1Call__Outputs {
-  _call: CreateAgreement1Call;
-
-  constructor(call: CreateAgreement1Call) {
-    this._call = call;
+  get _account(): Array<Address> {
+    return this._call.inputValues[6].value.toAddressArray();
   }
 
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
+  get _idx(): Array<BigInt> {
+    return this._call.inputValues[7].value.toBigIntArray();
+  }
+
+  get params(): Array<Bytes> {
+    return this._call.inputValues[8].value.toBytesArray();
+  }
+}
+
+export class CreateAgreementAndFulfillCall__Outputs {
+  _call: CreateAgreementAndFulfillCall;
+
+  constructor(call: CreateAgreementAndFulfillCall) {
+    this._call = call;
   }
 }
 

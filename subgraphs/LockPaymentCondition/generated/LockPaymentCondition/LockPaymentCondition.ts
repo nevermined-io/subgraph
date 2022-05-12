@@ -52,6 +52,24 @@ export class Fulfilled__Params {
   }
 }
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -314,6 +332,53 @@ export class LockPaymentCondition extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  encodeParams(
+    _did: Bytes,
+    _rewardAddress: Address,
+    _tokenAddress: Address,
+    _amounts: Array<BigInt>,
+    _receivers: Array<Address>
+  ): Bytes {
+    let result = super.call(
+      "encodeParams",
+      "encodeParams(bytes32,address,address,uint256[],address[]):(bytes)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_rewardAddress),
+        ethereum.Value.fromAddress(_tokenAddress),
+        ethereum.Value.fromUnsignedBigIntArray(_amounts),
+        ethereum.Value.fromAddressArray(_receivers)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_encodeParams(
+    _did: Bytes,
+    _rewardAddress: Address,
+    _tokenAddress: Address,
+    _amounts: Array<BigInt>,
+    _receivers: Array<Address>
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "encodeParams",
+      "encodeParams(bytes32,address,address,uint256[],address[]):(bytes)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_rewardAddress),
+        ethereum.Value.fromAddress(_tokenAddress),
+        ethereum.Value.fromUnsignedBigIntArray(_amounts),
+        ethereum.Value.fromAddressArray(_receivers)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   generateId(_agreementId: Bytes, _valueHash: Bytes): Bytes {
@@ -728,24 +793,8 @@ export class FulfillProxyCall__Inputs {
     return this._call.inputValues[1].value.toBytes();
   }
 
-  get _did(): Bytes {
+  get params(): Bytes {
     return this._call.inputValues[2].value.toBytes();
-  }
-
-  get _rewardAddress(): Address {
-    return this._call.inputValues[3].value.toAddress();
-  }
-
-  get _tokenAddress(): Address {
-    return this._call.inputValues[4].value.toAddress();
-  }
-
-  get _amounts(): Array<BigInt> {
-    return this._call.inputValues[5].value.toBigIntArray();
-  }
-
-  get _receivers(): Array<Address> {
-    return this._call.inputValues[6].value.toAddressArray();
   }
 }
 
@@ -754,10 +803,6 @@ export class FulfillProxyCall__Outputs {
 
   constructor(call: FulfillProxyCall) {
     this._call = call;
-  }
-
-  get value0(): i32 {
-    return this._call.outputValues[0].value.toI32();
   }
 }
 

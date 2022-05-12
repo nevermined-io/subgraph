@@ -1,5 +1,16 @@
-import { OwnershipTransferred as OwnershipTransferredEvent } from "../generated/HashLockCondition/HashLockCondition"
-import { OwnershipTransferred } from "../generated/schema"
+import {
+  Initialized as InitializedEvent,
+  OwnershipTransferred as OwnershipTransferredEvent
+} from "../generated/HashLockCondition/HashLockCondition"
+import { Initialized, OwnershipTransferred } from "../generated/schema"
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
+  entity.save()
+}
 
 export function handleOwnershipTransferred(
   event: OwnershipTransferredEvent

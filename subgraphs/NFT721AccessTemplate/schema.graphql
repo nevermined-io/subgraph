@@ -9,7 +9,12 @@ type AgreementCreated @entity {
   _conditionIdSeeds: [Bytes]! # bytes32[]
   _conditionIds: [Bytes]! # bytes32[]
   _idSeed: Bytes! # bytes32
-  _creator: Bytes! # address  
+  _creator: Bytes! # address
+}
+
+type Initialized @entity {
+  id: ID!
+  version: Int! # uint8
 }
 
 type OwnershipTransferred @entity {

@@ -1,253 +1,45 @@
-import Wei, { WeiSource, wei } from "@synthetixio/wei";
-import axios from "codegen-graph-ts/build/src/lib/axios";
-import generateGql from "codegen-graph-ts/build/src/lib/gql";
-export type SingleQueryOptions = {
-    id: string;
-    block?: {
-        "number": number;
-    } | {
-        hash: string;
-    };
-};
-export type MultiQueryOptions<T, R> = {
-    first?: number;
-    where?: T;
-    block?: {
-        "number": number;
-    } | {
-        hash: string;
-    };
-    orderBy?: keyof R;
-    orderDirection?: "asc" | "desc";
-};
-const MAX_PAGE = 1000;
-export type FulfilledFilter = {
-    id?: string | null;
-    id_not?: string | null;
-    id_gt?: string | null;
-    id_lt?: string | null;
-    id_gte?: string | null;
-    id_lte?: string | null;
-    id_in?: string[];
-    id_not_in?: string[];
-    _agreementId?: string | null;
-    _agreementId_not?: string | null;
-    _agreementId_in?: string[];
-    _agreementId_not_in?: string[];
-    _agreementId_contains?: string | null;
-    _agreementId_not_contains?: string | null;
-    _did?: string | null;
-    _did_not?: string | null;
-    _did_in?: string[];
-    _did_not_in?: string[];
-    _did_contains?: string | null;
-    _did_not_contains?: string | null;
-    _address?: string | null;
-    _address_not?: string | null;
-    _address_in?: string[];
-    _address_not_in?: string[];
-    _address_contains?: string | null;
-    _address_not_contains?: string | null;
-    _conditionId?: string | null;
-    _conditionId_not?: string | null;
-    _conditionId_in?: string[];
-    _conditionId_not_in?: string[];
-    _conditionId_contains?: string | null;
-    _conditionId_not_contains?: string | null;
-    _amount?: WeiSource | null;
-    _amount_not?: WeiSource | null;
-    _amount_gt?: WeiSource | null;
-    _amount_lt?: WeiSource | null;
-    _amount_gte?: WeiSource | null;
-    _amount_lte?: WeiSource | null;
-    _amount_in?: WeiSource[];
-    _amount_not_in?: WeiSource[];
-};
-export type FulfilledResult = {
-    id: string;
-    _agreementId: string;
-    _did: string;
-    _address: string;
-    _conditionId: string;
-    _amount: Wei;
-};
-export type FulfilledFields = {
-    id: true;
-    _agreementId: true;
-    _did: true;
-    _address: true;
-    _conditionId: true;
-    _amount: true;
-};
-export type FulfilledArgs<K extends keyof FulfilledResult> = {
-    [Property in keyof Pick<FulfilledFields, K>]: FulfilledFields[Property];
-};
-export const getFulfilledById = async function <K extends keyof FulfilledResult>(url: string, options: SingleQueryOptions, args: FulfilledArgs<K>): Promise<Pick<FulfilledResult, K>> {
-    const res = await axios.post(url, {
-        query: generateGql("fulfilled", options, args)
-    });
-    const r = res.data as any;
-    if (r.errors && r.errors.length) {
-        throw new Error(r.errors[0].message);
-    }
-    const obj = (r.data[Object.keys(r.data)[0]] as any);
-    const formattedObj: any = {};
-    if (obj["id"])
-        formattedObj["id"] = obj["id"];
-    if (obj["_agreementId"])
-        formattedObj["_agreementId"] = obj["_agreementId"];
-    if (obj["_did"])
-        formattedObj["_did"] = obj["_did"];
-    if (obj["_address"])
-        formattedObj["_address"] = obj["_address"];
-    if (obj["_conditionId"])
-        formattedObj["_conditionId"] = obj["_conditionId"];
-    if (obj["_amount"])
-        formattedObj["_amount"] = wei(obj["_amount"], 0);
-    return formattedObj as Pick<FulfilledResult, K>;
-};
-export const getFulfilleds = async function <K extends keyof FulfilledResult>(url: string, options: MultiQueryOptions<FulfilledFilter, FulfilledResult>, args: FulfilledArgs<K>): Promise<Pick<FulfilledResult, K>[]> {
-    const paginatedOptions: Partial<MultiQueryOptions<FulfilledFilter, FulfilledResult>> = { ...options };
-    let paginationKey: keyof FulfilledFilter | null = null;
-    let paginationValue = "";
-    if (options.first && options.first > MAX_PAGE) {
-        paginatedOptions.first = MAX_PAGE;
-        paginatedOptions.orderBy = options.orderBy || "id";
-        paginatedOptions.orderDirection = options.orderDirection || "asc";
-        paginationKey = paginatedOptions.orderBy + (paginatedOptions.orderDirection === "asc" ? "_gt" : "_lt") as keyof FulfilledFilter;
-        paginatedOptions.where = { ...options.where };
-    }
-    let results: Pick<FulfilledResult, K>[] = [];
-    do {
-        if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
-        const res = await axios.post(url, {
-            query: generateGql("fulfilleds", paginatedOptions, args)
-        });
-        const r = res.data as any;
-        if (r.errors && r.errors.length) {
-            throw new Error(r.errors[0].message);
-        }
-        const rawResults = r.data[Object.keys(r.data)[0]] as any[];
-        const newResults = rawResults.map((obj) => {
-            const formattedObj: any = {};
-            if (obj["id"])
-                formattedObj["id"] = obj["id"];
-            if (obj["_agreementId"])
-                formattedObj["_agreementId"] = obj["_agreementId"];
-            if (obj["_did"])
-                formattedObj["_did"] = obj["_did"];
-            if (obj["_address"])
-                formattedObj["_address"] = obj["_address"];
-            if (obj["_conditionId"])
-                formattedObj["_conditionId"] = obj["_conditionId"];
-            if (obj["_amount"])
-                formattedObj["_amount"] = wei(obj["_amount"], 0);
-            return formattedObj as Pick<FulfilledResult, K>;
-        });
-        results = results.concat(newResults);
-        if (newResults.length < 1000) {
-            break;
-        }
-        if (paginationKey) {
-            paginationValue = rawResults[rawResults.length - 1][paginatedOptions.orderBy!];
-        }
-    } while (paginationKey && (options.first && results.length < options.first));
-    return options.first ? results.slice(0, options.first) : results;
-};
-export type OwnershipTransferredFilter = {
-    id?: string | null;
-    id_not?: string | null;
-    id_gt?: string | null;
-    id_lt?: string | null;
-    id_gte?: string | null;
-    id_lte?: string | null;
-    id_in?: string[];
-    id_not_in?: string[];
-    previousOwner?: string | null;
-    previousOwner_not?: string | null;
-    previousOwner_in?: string[];
-    previousOwner_not_in?: string[];
-    previousOwner_contains?: string | null;
-    previousOwner_not_contains?: string | null;
-    newOwner?: string | null;
-    newOwner_not?: string | null;
-    newOwner_in?: string[];
-    newOwner_not_in?: string[];
-    newOwner_contains?: string | null;
-    newOwner_not_contains?: string | null;
-};
-export type OwnershipTransferredResult = {
-    id: string;
-    previousOwner: string;
-    newOwner: string;
-};
-export type OwnershipTransferredFields = {
-    id: true;
-    previousOwner: true;
-    newOwner: true;
-};
-export type OwnershipTransferredArgs<K extends keyof OwnershipTransferredResult> = {
-    [Property in keyof Pick<OwnershipTransferredFields, K>]: OwnershipTransferredFields[Property];
-};
-export const getOwnershipTransferredById = async function <K extends keyof OwnershipTransferredResult>(url: string, options: SingleQueryOptions, args: OwnershipTransferredArgs<K>): Promise<Pick<OwnershipTransferredResult, K>> {
-    const res = await axios.post(url, {
-        query: generateGql("ownershipTransferred", options, args)
-    });
-    const r = res.data as any;
-    if (r.errors && r.errors.length) {
-        throw new Error(r.errors[0].message);
-    }
-    const obj = (r.data[Object.keys(r.data)[0]] as any);
-    const formattedObj: any = {};
-    if (obj["id"])
-        formattedObj["id"] = obj["id"];
-    if (obj["previousOwner"])
-        formattedObj["previousOwner"] = obj["previousOwner"];
-    if (obj["newOwner"])
-        formattedObj["newOwner"] = obj["newOwner"];
-    return formattedObj as Pick<OwnershipTransferredResult, K>;
-};
-export const getOwnershipTransferreds = async function <K extends keyof OwnershipTransferredResult>(url: string, options: MultiQueryOptions<OwnershipTransferredFilter, OwnershipTransferredResult>, args: OwnershipTransferredArgs<K>): Promise<Pick<OwnershipTransferredResult, K>[]> {
-    const paginatedOptions: Partial<MultiQueryOptions<OwnershipTransferredFilter, OwnershipTransferredResult>> = { ...options };
-    let paginationKey: keyof OwnershipTransferredFilter | null = null;
-    let paginationValue = "";
-    if (options.first && options.first > MAX_PAGE) {
-        paginatedOptions.first = MAX_PAGE;
-        paginatedOptions.orderBy = options.orderBy || "id";
-        paginatedOptions.orderDirection = options.orderDirection || "asc";
-        paginationKey = paginatedOptions.orderBy + (paginatedOptions.orderDirection === "asc" ? "_gt" : "_lt") as keyof OwnershipTransferredFilter;
-        paginatedOptions.where = { ...options.where };
-    }
-    let results: Pick<OwnershipTransferredResult, K>[] = [];
-    do {
-        if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
-        const res = await axios.post(url, {
-            query: generateGql("ownershipTransferreds", paginatedOptions, args)
-        });
-        const r = res.data as any;
-        if (r.errors && r.errors.length) {
-            throw new Error(r.errors[0].message);
-        }
-        const rawResults = r.data[Object.keys(r.data)[0]] as any[];
-        const newResults = rawResults.map((obj) => {
-            const formattedObj: any = {};
-            if (obj["id"])
-                formattedObj["id"] = obj["id"];
-            if (obj["previousOwner"])
-                formattedObj["previousOwner"] = obj["previousOwner"];
-            if (obj["newOwner"])
-                formattedObj["newOwner"] = obj["newOwner"];
-            return formattedObj as Pick<OwnershipTransferredResult, K>;
-        });
-        results = results.concat(newResults);
-        if (newResults.length < 1000) {
-            break;
-        }
-        if (paginationKey) {
-            paginationValue = rawResults[rawResults.length - 1][paginatedOptions.orderBy!];
-        }
-    } while (paginationKey && (options.first && results.length < options.first));
-    return options.first ? results.slice(0, options.first) : results;
-};
+import {
+  Fulfilled as NFT721HolderConditionFulfilledEvent,
+  Initialized as NFT721HolderConditionInitializedEvent,
+  OwnershipTransferred as NFT721HolderConditionOwnershipTransferredEvent,
+} from "../generated/NFT721HolderCondition/NFT721HolderCondition"
+import {
+  NFT721HolderConditionFulfilled,
+  NFT721HolderConditionInitialized,
+  NFT721HolderConditionOwnershipTransferred,
+} from "../generated/schema"
+
+export function handleNFT721HolderConditionFulfilled(
+  event: NFT721HolderConditionFulfilledEvent
+): void {
+  let entity = new NFT721HolderConditionFulfilled(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity._agreementId = event.params._agreementId
+  entity._did = event.params._did
+  entity._address = event.params._address
+  entity._conditionId = event.params._conditionId
+  entity._amount = event.params._amount
+  entity.save()
+}
+
+export function handleNFT721HolderConditionInitialized(
+  event: NFT721HolderConditionInitializedEvent
+): void {
+  let entity = new NFT721HolderConditionInitialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
+  entity.save()
+}
+
+export function handleNFT721HolderConditionOwnershipTransferred(
+  event: NFT721HolderConditionOwnershipTransferredEvent
+): void {
+  let entity = new NFT721HolderConditionOwnershipTransferred(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
+  entity.save()
+}

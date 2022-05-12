@@ -1,0 +1,23 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: EpochLibrary
+    network: spree
+    source:
+      address: "0xaF6AaaA5B8D12F7d7dD4e2BE1d1B087544f585d0"
+      abi: EpochLibrary
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+
+      abis:
+        - name: EpochLibrary
+          file: ./abis/EpochLibrary.json
+      eventHandlers:
+
+      file: ./src/mapping.ts

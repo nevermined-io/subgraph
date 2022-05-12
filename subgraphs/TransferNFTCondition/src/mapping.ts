@@ -1,5 +1,6 @@
 import {
   Fulfilled as FulfilledEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
@@ -7,6 +8,7 @@ import {
 } from "../generated/TransferNFTCondition/TransferNFTCondition"
 import {
   Fulfilled,
+  Initialized,
   OwnershipTransferred,
   RoleAdminChanged,
   RoleGranted,
@@ -23,6 +25,14 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity._amount = event.params._amount
   entity._conditionId = event.params._conditionId
   entity._contract = event.params._contract
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

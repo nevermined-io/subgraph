@@ -29,6 +29,9 @@
 # install dependencies
 $ yarn
 
+# It will regenerate with the new artifacts and copy the abis 
+# yarn nevermined:init <NETWORK-NAME>
+
 # code generation
 $ yarn codegen
 

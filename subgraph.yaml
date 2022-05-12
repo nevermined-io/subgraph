@@ -1,0 +1,1552 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AaveBorrowCondition
+    network: spree
+    source:
+      address: '0xc6eF91571a6d512985C885cb5EEB7aC8E6C47f4B'
+      abi: AaveBorrowCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveBorrowConditionFulfilled
+        - AaveBorrowConditionInitialized
+        - AaveBorrowConditionOwnershipTransferred
+      abis:
+        - name: AaveBorrowCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveBorrowCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveBorrowCondition.ts
+  - kind: ethereum
+    name: AaveCollateralDepositCondition
+    network: spree
+    source:
+      address: '0x483a6fc289cAF5e4C67656b7ecfa4B11Fe35F21A'
+      abi: AaveCollateralDepositCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCollateralDepositConditionFulfilled
+        - AaveCollateralDepositConditionInitialized
+        - AaveCollateralDepositConditionOwnershipTransferred
+      abis:
+        - name: AaveCollateralDepositCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCollateralDepositCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveCollateralDepositCondition.ts
+  - kind: ethereum
+    name: AaveCollateralWithdrawCondition
+    network: spree
+    source:
+      address: '0x9CdA4a4449bCaf7e2eb20D2485540d9628167132'
+      abi: AaveCollateralWithdrawCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCollateralWithdrawConditionFulfilled
+        - AaveCollateralWithdrawConditionInitialized
+        - AaveCollateralWithdrawConditionOwnershipTransferred
+      abis:
+        - name: AaveCollateralWithdrawCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCollateralWithdrawCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveCollateralWithdrawCondition.ts
+  - kind: ethereum
+    name: AaveCreditTemplate
+    network: spree
+    source:
+      address: '0xC244586E1675E4A98755bC1CE6F6Dead2CD55742'
+      abi: AaveCreditTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCreditTemplateAgreementCreated
+        - AaveCreditTemplateInitialized
+        - AaveCreditTemplateOwnershipTransferred
+        - AaveCreditTemplateVaultCreated
+      abis:
+        - name: AaveCreditTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCreditTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: VaultCreated(indexed address,indexed address,address,address)
+          handler: handleVaultCreated
+      file: ./src/AaveCreditTemplate.ts
+  - kind: ethereum
+    name: AaveCreditVault
+    network: spree
+    source:
+      address: '0x726baA2f854A3BEC2378a707AeB38c9d933Ebad6'
+      abi: AaveCreditVault
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveCreditVaultInitialized
+        - AaveCreditVaultRoleAdminChanged
+        - AaveCreditVaultRoleGranted
+        - AaveCreditVaultRoleRevoked
+      abis:
+        - name: AaveCreditVault
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveCreditVault.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/AaveCreditVault.ts
+  - kind: ethereum
+    name: AaveRepayCondition
+    network: spree
+    source:
+      address: '0xAF7b0BdB23EE4CD154fA65B0E124dfe682a31133'
+      abi: AaveRepayCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AaveRepayConditionFulfilled
+        - AaveRepayConditionInitialized
+        - AaveRepayConditionOwnershipTransferred
+      abis:
+        - name: AaveRepayCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AaveRepayCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AaveRepayCondition.ts
+  - kind: ethereum
+    name: AccessCondition
+    network: spree
+    source:
+      address: '0xEd0a0123EaEB4e32335D64cAb75ED0022938CD59'
+      abi: AccessCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AccessConditionFulfilled
+        - AccessConditionInitialized
+        - AccessConditionOwnershipTransferred
+      abis:
+        - name: AccessCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AccessCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AccessCondition.ts
+  - kind: ethereum
+    name: AccessProofCondition
+    network: spree
+    source:
+      address: '0xd70432120128C23E09dAaE9a1Df7227517cB60F8'
+      abi: AccessProofCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AccessProofConditionFulfilled
+        - AccessProofConditionInitialized
+        - AccessProofConditionOwnershipTransferred
+      abis:
+        - name: AccessProofCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AccessProofCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed
+            bytes32,uint256,uint256[2],uint256[2],uint256[2],bytes,bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AccessProofCondition.ts
+  - kind: ethereum
+    name: AccessProofTemplate
+    network: spree
+    source:
+      address: '0x7Ac89612A5880Ee7DCB8E01B6b187382471D0716'
+      abi: AccessProofTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AccessProofTemplateAgreementCreated
+        - AccessProofTemplateInitialized
+        - AccessProofTemplateOwnershipTransferred
+      abis:
+        - name: AccessProofTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AccessProofTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AccessProofTemplate.ts
+  - kind: ethereum
+    name: AccessTemplate
+    network: spree
+    source:
+      address: '0x10c1a8a80197b9Aed657bb0F8057c7C89504ABDE'
+      abi: AccessTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AccessTemplateAgreementCreated
+        - AccessTemplateInitialized
+        - AccessTemplateOwnershipTransferred
+      abis:
+        - name: AccessTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AccessTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/AccessTemplate.ts
+  - kind: ethereum
+    name: AgreementStoreManager
+    network: spree
+    source:
+      address: '0x83cc685E9806296E1E0Ac275150297305A55D272'
+      abi: AgreementStoreManager
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AgreementStoreManagerInitialized
+        - AgreementStoreManagerOwnershipTransferred
+        - AgreementStoreManagerRoleAdminChanged
+        - AgreementStoreManagerRoleGranted
+        - AgreementStoreManagerRoleRevoked
+      abis:
+        - name: AgreementStoreManager
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/AgreementStoreManager.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/AgreementStoreManager.ts
+  - kind: ethereum
+    name: ComputeExecutionCondition
+    network: spree
+    source:
+      address: '0xfe0d7429d2832d206d8C786f87f7300176b4D5B0'
+      abi: ComputeExecutionCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ComputeExecutionConditionFulfilled
+        - ComputeExecutionConditionInitialized
+        - ComputeExecutionConditionOwnershipTransferred
+      abis:
+        - name: ComputeExecutionCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/ComputeExecutionCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/ComputeExecutionCondition.ts
+  - kind: ethereum
+    name: ConditionStoreManager
+    network: spree
+    source:
+      address: '0xEBe77E16736359Bf0F9013F6017242a5971cAE76'
+      abi: ConditionStoreManager
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ConditionStoreManagerConditionCreated
+        - ConditionStoreManagerConditionUpdated
+        - ConditionStoreManagerInitialized
+        - ConditionStoreManagerOwnershipTransferred
+        - ConditionStoreManagerRoleAdminChanged
+        - ConditionStoreManagerRoleGranted
+        - ConditionStoreManagerRoleRevoked
+      abis:
+        - name: ConditionStoreManager
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/ConditionStoreManager.spree.json
+      eventHandlers:
+        - event: ConditionCreated(indexed bytes32,indexed address,indexed address)
+          handler: handleConditionCreated
+        - event: >-
+            ConditionUpdated(indexed bytes32,indexed address,indexed
+            uint8,address)
+          handler: handleConditionUpdated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/ConditionStoreManager.ts
+  - kind: ethereum
+    name: DIDRegistry
+    network: spree
+    source:
+      address: '0xe749E2f8482810b11B838Ae8c5eb69e54d610411'
+      abi: DIDRegistry
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DIDRegistryActedOnBehalf
+        - DIDRegistryDIDAttributeRegistered
+        - DIDRegistryDIDOwnershipTransferred
+        - DIDRegistryDIDPermissionGranted
+        - DIDRegistryDIDPermissionRevoked
+        - DIDRegistryDIDProvenanceDelegateAdded
+        - DIDRegistryDIDProvenanceDelegateRemoved
+        - DIDRegistryDIDProviderAdded
+        - DIDRegistryDIDProviderRemoved
+        - DIDRegistryInitialized
+        - DIDRegistryOwnershipTransferred
+        - DIDRegistryProvenanceAttributeRegistered
+        - DIDRegistryUsed
+        - DIDRegistryWasAssociatedWith
+        - DIDRegistryWasDerivedFrom
+        - DIDRegistryWasGeneratedBy
+      abis:
+        - name: DIDRegistry
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/DIDRegistry.spree.json
+      eventHandlers:
+        - event: >-
+            ActedOnBehalf(indexed bytes32,indexed address,indexed
+            address,bytes32,bytes32,string,uint256)
+          handler: handleActedOnBehalf
+        - event: >-
+            DIDAttributeRegistered(indexed bytes32,indexed address,indexed
+            bytes32,string,address,uint256)
+          handler: handleDIDAttributeRegistered
+        - event: DIDOwnershipTransferred(bytes32,address,address)
+          handler: handleDIDOwnershipTransferred
+        - event: >-
+            DIDPermissionGranted(indexed bytes32,indexed address,indexed
+            address)
+          handler: handleDIDPermissionGranted
+        - event: >-
+            DIDPermissionRevoked(indexed bytes32,indexed address,indexed
+            address)
+          handler: handleDIDPermissionRevoked
+        - event: DIDProvenanceDelegateAdded(bytes32,address)
+          handler: handleDIDProvenanceDelegateAdded
+        - event: DIDProvenanceDelegateRemoved(bytes32,address,bool)
+          handler: handleDIDProvenanceDelegateRemoved
+        - event: DIDProviderAdded(bytes32,address)
+          handler: handleDIDProviderAdded
+        - event: DIDProviderRemoved(bytes32,address,bool)
+          handler: handleDIDProviderRemoved
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: >-
+            ProvenanceAttributeRegistered(indexed bytes32,indexed
+            bytes32,indexed
+            address,bytes32,bytes32,address,uint8,string,uint256)
+          handler: handleProvenanceAttributeRegistered
+        - event: >-
+            Used(indexed bytes32,indexed address,indexed
+            bytes32,bytes32,string,uint256)
+          handler: handleUsed
+        - event: >-
+            WasAssociatedWith(indexed bytes32,indexed address,indexed
+            bytes32,bytes32,string,uint256)
+          handler: handleWasAssociatedWith
+        - event: >-
+            WasDerivedFrom(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,bytes32,string,uint256)
+          handler: handleWasDerivedFrom
+        - event: >-
+            WasGeneratedBy(indexed bytes32,indexed address,indexed
+            bytes32,bytes32,string,uint256)
+          handler: handleWasGeneratedBy
+      file: ./src/DIDRegistry.ts
+  - kind: ethereum
+    name: DIDSalesTemplate
+    network: spree
+    source:
+      address: '0x19DB41A6F8B12aD02Dc99899374685F2318d240e'
+      abi: DIDSalesTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DIDSalesTemplateAgreementCreated
+        - DIDSalesTemplateInitialized
+        - DIDSalesTemplateOwnershipTransferred
+      abis:
+        - name: DIDSalesTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/DIDSalesTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/DIDSalesTemplate.ts
+  - kind: ethereum
+    name: Dispenser
+    network: spree
+    source:
+      address: '0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4'
+      abi: Dispenser
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DispenserInitialized
+        - DispenserOwnershipTransferred
+        - DispenserRequestFrequencyExceeded
+        - DispenserRequestLimitExceeded
+      abis:
+        - name: Dispenser
+          file: node_modules/@nevermined-io/contracts/artifacts/Dispenser.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RequestFrequencyExceeded(indexed address,uint256)
+          handler: handleRequestFrequencyExceeded
+        - event: RequestLimitExceeded(indexed address,uint256,uint256)
+          handler: handleRequestLimitExceeded
+      file: ./src/Dispenser.ts
+  - kind: ethereum
+    name: DistributeNFTCollateralCondition
+    network: spree
+    source:
+      address: '0x515BF99873534584fF1ae590EaB00Cda1BF10583'
+      abi: DistributeNFTCollateralCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - DistributeNFTCollateralConditionFulfilled
+        - DistributeNFTCollateralConditionInitialized
+        - DistributeNFTCollateralConditionOwnershipTransferred
+      abis:
+        - name: DistributeNFTCollateralCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/DistributeNFTCollateralCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,address)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/DistributeNFTCollateralCondition.ts
+  - kind: ethereum
+    name: EscrowComputeExecutionTemplate
+    network: spree
+    source:
+      address: '0x06768E184cB8f0fD729F6B96b552599487De3D70'
+      abi: EscrowComputeExecutionTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - EscrowComputeExecutionTemplateAgreementCreated
+        - EscrowComputeExecutionTemplateInitialized
+        - EscrowComputeExecutionTemplateOwnershipTransferred
+      abis:
+        - name: EscrowComputeExecutionTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/EscrowComputeExecutionTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/EscrowComputeExecutionTemplate.ts
+  - kind: ethereum
+    name: EscrowPaymentCondition
+    network: spree
+    source:
+      address: '0xEEE56e2a630DD29F9A628d618E58bb173911F393'
+      abi: EscrowPaymentCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - EscrowPaymentConditionFulfilled
+        - EscrowPaymentConditionInitialized
+        - EscrowPaymentConditionOwnershipTransferred
+        - EscrowPaymentConditionReceived
+      abis:
+        - name: EscrowPaymentCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/EscrowPaymentCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed
+            address,address[],bytes32,uint256[])
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Received(indexed address,uint256)
+          handler: handleReceived
+      file: ./src/EscrowPaymentCondition.ts
+  - kind: ethereum
+    name: HashLockCondition
+    network: spree
+    source:
+      address: '0x8F006DbB3727d18f032C5618595ecDD2EDE13b61'
+      abi: HashLockCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - HashLockConditionInitialized
+        - HashLockConditionOwnershipTransferred
+      abis:
+        - name: HashLockCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/HashLockCondition.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/HashLockCondition.ts
+  - kind: ethereum
+    name: LockPaymentCondition
+    network: spree
+    source:
+      address: '0xfD5CDB5074E8BFf573E0f10ab72e7b4C4051aF35'
+      abi: LockPaymentCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - LockPaymentConditionFulfilled
+        - LockPaymentConditionInitialized
+        - LockPaymentConditionOwnershipTransferred
+        - LockPaymentConditionRoleAdminChanged
+        - LockPaymentConditionRoleGranted
+        - LockPaymentConditionRoleRevoked
+      abis:
+        - name: LockPaymentCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/LockPaymentCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            bytes32,address,address,address[],uint256[])
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/LockPaymentCondition.ts
+  - kind: ethereum
+    name: NeverminedConfig
+    network: spree
+    source:
+      address: '0x1e6d9207241DbDca82B0D9546490c97B24B1a9f6'
+      abi: NeverminedConfig
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NeverminedConfigInitialized
+        - NeverminedConfigNeverminedConfigChange
+        - NeverminedConfigOwnershipTransferred
+        - NeverminedConfigRoleAdminChanged
+        - NeverminedConfigRoleGranted
+        - NeverminedConfigRoleRevoked
+      abis:
+        - name: NeverminedConfig
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NeverminedConfig.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: NeverminedConfigChange(indexed address,indexed bytes32)
+          handler: handleNeverminedConfigChange
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/NeverminedConfig.ts
+  - kind: ethereum
+    name: NeverminedToken
+    network: spree
+    source:
+      address: '0x312213d6f6b5FCF9F56B7B8946A6C727Bf4Bc21f'
+      abi: NeverminedToken
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NeverminedTokenApproval
+        - NeverminedTokenInitialized
+        - NeverminedTokenOwnershipTransferred
+        - NeverminedTokenRoleAdminChanged
+        - NeverminedTokenRoleGranted
+        - NeverminedTokenRoleRevoked
+        - NeverminedTokenTransfer
+      abis:
+        - name: NeverminedToken
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NeverminedToken.spree.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/NeverminedToken.ts
+  - kind: ethereum
+    name: NFT721AccessProofTemplate
+    network: spree
+    source:
+      address: '0x4610eB60fc1f4AEc14D57a45a586f5be7C152Fb5'
+      abi: NFT721AccessProofTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721AccessProofTemplateAgreementCreated
+        - NFT721AccessProofTemplateInitialized
+        - NFT721AccessProofTemplateOwnershipTransferred
+      abis:
+        - name: NFT721AccessProofTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721AccessProofTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721AccessProofTemplate.ts
+  - kind: ethereum
+    name: NFT721AccessSwapTemplate
+    network: spree
+    source:
+      address: '0xe542C9760F9e0Af957208D36130b55F0dDE2e147'
+      abi: NFT721AccessSwapTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721AccessSwapTemplateAgreementCreated
+        - NFT721AccessSwapTemplateInitialized
+        - NFT721AccessSwapTemplateOwnershipTransferred
+      abis:
+        - name: NFT721AccessSwapTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721AccessSwapTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721AccessSwapTemplate.ts
+  - kind: ethereum
+    name: NFT721AccessTemplate
+    network: spree
+    source:
+      address: '0xc6dbC055422dD656e36D8ad66d4BcDC436C11DDE'
+      abi: NFT721AccessTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721AccessTemplateAgreementCreated
+        - NFT721AccessTemplateInitialized
+        - NFT721AccessTemplateOwnershipTransferred
+      abis:
+        - name: NFT721AccessTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721AccessTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721AccessTemplate.ts
+  - kind: ethereum
+    name: NFT721EscrowPaymentCondition
+    network: spree
+    source:
+      address: '0x02175de5A7F168517688e3E93f55936C9c2C7A19'
+      abi: NFT721EscrowPaymentCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721EscrowPaymentConditionFulfilled
+        - NFT721EscrowPaymentConditionInitialized
+        - NFT721EscrowPaymentConditionOwnershipTransferred
+        - NFT721EscrowPaymentConditionReceived
+      abis:
+        - name: NFT721EscrowPaymentCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721EscrowPaymentCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed
+            address,bytes32,address,bytes32,uint256)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Received(indexed address,uint256)
+          handler: handleReceived
+      file: ./src/NFT721EscrowPaymentCondition.ts
+  - kind: ethereum
+    name: NFT721HolderCondition
+    network: spree
+    source:
+      address: '0xE6E685823Ddd2e0D0B29917D84D687E5431136F6'
+      abi: NFT721HolderCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721HolderConditionFulfilled
+        - NFT721HolderConditionInitialized
+        - NFT721HolderConditionOwnershipTransferred
+      abis:
+        - name: NFT721HolderCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721HolderCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,uint256)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721HolderCondition.ts
+  - kind: ethereum
+    name: NFT721LockCondition
+    network: spree
+    source:
+      address: '0x884AAAAf48D4A7B4Dc4CB9B2cf47a150b3d535A6'
+      abi: NFT721LockCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721LockConditionFulfilled
+        - NFT721LockConditionInitialized
+        - NFT721LockConditionOwnershipTransferred
+      abis:
+        - name: NFT721LockCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721LockCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,uint256,address,address)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721LockCondition.ts
+  - kind: ethereum
+    name: NFT721SalesTemplate
+    network: spree
+    source:
+      address: '0x208aca4B0316C9996F085cbD57E01c11Bc0E7cb1'
+      abi: NFT721SalesTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721SalesTemplateAgreementCreated
+        - NFT721SalesTemplateInitialized
+        - NFT721SalesTemplateOwnershipTransferred
+      abis:
+        - name: NFT721SalesTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721SalesTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721SalesTemplate.ts
+  - kind: ethereum
+    name: NFT721SalesWithAccessTemplate
+    network: spree
+    source:
+      address: '0x8463738B17C39BA66EA8745D5036226241356269'
+      abi: NFT721SalesWithAccessTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721SalesWithAccessTemplateAgreementCreated
+        - NFT721SalesWithAccessTemplateInitialized
+        - NFT721SalesWithAccessTemplateOwnershipTransferred
+      abis:
+        - name: NFT721SalesWithAccessTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721SalesWithAccessTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFT721SalesWithAccessTemplate.ts
+  - kind: ethereum
+    name: NFT721Upgradeable
+    network: spree
+    source:
+      address: '0x9C2a015129969c98E9A5BcBEb61A5F907FF5b629'
+      abi: NFT721Upgradeable
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT721UpgradeableApproval
+        - NFT721UpgradeableApprovalForAll
+        - NFT721UpgradeableInitialized
+        - NFT721UpgradeableOwnershipTransferred
+        - NFT721UpgradeableProxyApproval
+        - NFT721UpgradeableRoleAdminChanged
+        - NFT721UpgradeableRoleGranted
+        - NFT721UpgradeableRoleRevoked
+        - NFT721UpgradeableTransfer
+      abis:
+        - name: NFT721Upgradeable
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFT721Upgradeable.spree.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProxyApproval(address,address,bool)
+          handler: handleProxyApproval
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/NFT721Upgradeable.ts
+  - kind: ethereum
+    name: NFTAccessCondition
+    network: spree
+    source:
+      address: '0xB59eFd463ffDaaB5A0BeeC232123ba1B048ebc43'
+      abi: NFTAccessCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTAccessConditionFulfilled
+        - NFTAccessConditionInitialized
+        - NFTAccessConditionOwnershipTransferred
+      abis:
+        - name: NFTAccessCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTAccessCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTAccessCondition.ts
+  - kind: ethereum
+    name: NFTAccessProofTemplate
+    network: spree
+    source:
+      address: '0xc10Cf8027f5913231a65c8081a83fF7F283317D6'
+      abi: NFTAccessProofTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTAccessProofTemplateAgreementCreated
+        - NFTAccessProofTemplateInitialized
+        - NFTAccessProofTemplateOwnershipTransferred
+      abis:
+        - name: NFTAccessProofTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTAccessProofTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTAccessProofTemplate.ts
+  - kind: ethereum
+    name: NFTAccessSwapTemplate
+    network: spree
+    source:
+      address: '0x3f5aF8Df4943F9803e18b23a7CdCa3D1d50F6627'
+      abi: NFTAccessSwapTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTAccessSwapTemplateAgreementCreated
+        - NFTAccessSwapTemplateInitialized
+        - NFTAccessSwapTemplateOwnershipTransferred
+      abis:
+        - name: NFTAccessSwapTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTAccessSwapTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTAccessSwapTemplate.ts
+  - kind: ethereum
+    name: NFTAccessTemplate
+    network: spree
+    source:
+      address: '0x4714b1Bb67EcF87Df7A977917f87f46eA49eA631'
+      abi: NFTAccessTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTAccessTemplateAgreementCreated
+        - NFTAccessTemplateInitialized
+        - NFTAccessTemplateOwnershipTransferred
+      abis:
+        - name: NFTAccessTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTAccessTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTAccessTemplate.ts
+  - kind: ethereum
+    name: NFTEscrowPaymentCondition
+    network: spree
+    source:
+      address: '0x33A456DE31bea3f3fa4F968A698D713191FfE969'
+      abi: NFTEscrowPaymentCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTEscrowPaymentConditionFulfilled
+        - NFTEscrowPaymentConditionInitialized
+        - NFTEscrowPaymentConditionOwnershipTransferred
+        - NFTEscrowPaymentConditionReceived
+      abis:
+        - name: NFTEscrowPaymentCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTEscrowPaymentCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed
+            address,bytes32,address,bytes32,uint256)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Received(indexed address,uint256)
+          handler: handleReceived
+      file: ./src/NFTEscrowPaymentCondition.ts
+  - kind: ethereum
+    name: NFTHolderCondition
+    network: spree
+    source:
+      address: '0xBC7b96f8b45F2Bb024C59b542c17AB49F986746a'
+      abi: NFTHolderCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTHolderConditionFulfilled
+        - NFTHolderConditionInitialized
+        - NFTHolderConditionOwnershipTransferred
+      abis:
+        - name: NFTHolderCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTHolderCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,uint256)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTHolderCondition.ts
+  - kind: ethereum
+    name: NFTLockCondition
+    network: spree
+    source:
+      address: '0xdeAF2aa754287628d5d30Ca99d94a0CAd2AD4CAb'
+      abi: NFTLockCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTLockConditionFulfilled
+        - NFTLockConditionInitialized
+        - NFTLockConditionOwnershipTransferred
+      abis:
+        - name: NFTLockCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTLockCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,bytes32,uint256,address,address)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTLockCondition.ts
+  - kind: ethereum
+    name: NFTSalesTemplate
+    network: spree
+    source:
+      address: '0x06F712732acfC7Be52997C94D12A4313C83d6bB7'
+      abi: NFTSalesTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTSalesTemplateAgreementCreated
+        - NFTSalesTemplateInitialized
+        - NFTSalesTemplateOwnershipTransferred
+      abis:
+        - name: NFTSalesTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTSalesTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTSalesTemplate.ts
+  - kind: ethereum
+    name: NFTSalesWithAccessTemplate
+    network: spree
+    source:
+      address: '0x752181978DA1e0D04644Ae50a129B3ee1ED49A98'
+      abi: NFTSalesWithAccessTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTSalesWithAccessTemplateAgreementCreated
+        - NFTSalesWithAccessTemplateInitialized
+        - NFTSalesWithAccessTemplateOwnershipTransferred
+      abis:
+        - name: NFTSalesWithAccessTemplate
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTSalesWithAccessTemplate.spree.json
+      eventHandlers:
+        - event: >-
+            AgreementCreated(indexed bytes32,bytes32,indexed address,indexed
+            address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/NFTSalesWithAccessTemplate.ts
+  - kind: ethereum
+    name: NFTUpgradeable
+    network: spree
+    source:
+      address: '0x98b6901cE7C9fc65dBeeC98598136593EB7b4c6C'
+      abi: NFTUpgradeable
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTUpgradeableApprovalForAll
+        - NFTUpgradeableInitialized
+        - NFTUpgradeableOwnershipTransferred
+        - NFTUpgradeableProxyApproval
+        - NFTUpgradeableRoleAdminChanged
+        - NFTUpgradeableRoleGranted
+        - NFTUpgradeableRoleRevoked
+        - NFTUpgradeableTransferBatch
+        - NFTUpgradeableTransferSingle
+        - NFTUpgradeableURI
+      abis:
+        - name: NFTUpgradeable
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/NFTUpgradeable.spree.json
+      eventHandlers:
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProxyApproval(address,address,bool)
+          handler: handleProxyApproval
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: >-
+            TransferBatch(indexed address,indexed address,indexed
+            address,uint256[],uint256[])
+          handler: handleTransferBatch
+        - event: >-
+            TransferSingle(indexed address,indexed address,indexed
+            address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: URI(string,indexed uint256)
+          handler: handleURI
+      file: ./src/NFTUpgradeable.ts
+  - kind: ethereum
+    name: SignCondition
+    network: spree
+    source:
+      address: '0x645439117eB378a6d35148452E287a038666Ed67'
+      abi: SignCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - SignConditionInitialized
+        - SignConditionOwnershipTransferred
+      abis:
+        - name: SignCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/SignCondition.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/SignCondition.ts
+  - kind: ethereum
+    name: TemplateStoreManager
+    network: spree
+    source:
+      address: '0x336EFb3c9E56F713dFdA4CDB3Dd0882F3226b6eE'
+      abi: TemplateStoreManager
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TemplateStoreManagerInitialized
+        - TemplateStoreManagerOwnershipTransferred
+      abis:
+        - name: TemplateStoreManager
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/TemplateStoreManager.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/TemplateStoreManager.ts
+  - kind: ethereum
+    name: ThresholdCondition
+    network: spree
+    source:
+      address: '0xD306b5edCDC7819E1EB80B43De6548931706A3f4'
+      abi: ThresholdCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ThresholdConditionInitialized
+        - ThresholdConditionOwnershipTransferred
+      abis:
+        - name: ThresholdCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/ThresholdCondition.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/ThresholdCondition.ts
+  - kind: ethereum
+    name: TransferDIDOwnershipCondition
+    network: spree
+    source:
+      address: '0xEa9058B3A010879147886C6d6Bc6a0B25b04d5F8'
+      abi: TransferDIDOwnershipCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TransferDIDOwnershipConditionFulfilled
+        - TransferDIDOwnershipConditionInitialized
+        - TransferDIDOwnershipConditionOwnershipTransferred
+      abis:
+        - name: TransferDIDOwnershipCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/TransferDIDOwnershipCondition.spree.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/TransferDIDOwnershipCondition.ts
+  - kind: ethereum
+    name: TransferNFT721Condition
+    network: spree
+    source:
+      address: '0xE8299CCe89f1B30E1d65Ebb827b784D8900aEf2c'
+      abi: TransferNFT721Condition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TransferNFT721ConditionFulfilled
+        - TransferNFT721ConditionInitialized
+        - TransferNFT721ConditionOwnershipTransferred
+        - TransferNFT721ConditionRoleAdminChanged
+        - TransferNFT721ConditionRoleGranted
+        - TransferNFT721ConditionRoleRevoked
+      abis:
+        - name: TransferNFT721Condition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/TransferNFT721Condition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,uint256,bytes32,address)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/TransferNFT721Condition.ts
+  - kind: ethereum
+    name: TransferNFTCondition
+    network: spree
+    source:
+      address: '0x63db61383D97FFe56A59cfFAD146dBe4904cBe75'
+      abi: TransferNFTCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TransferNFTConditionFulfilled
+        - TransferNFTConditionInitialized
+        - TransferNFTConditionOwnershipTransferred
+        - TransferNFTConditionRoleAdminChanged
+        - TransferNFTConditionRoleGranted
+        - TransferNFTConditionRoleRevoked
+      abis:
+        - name: TransferNFTCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/TransferNFTCondition.spree.json
+      eventHandlers:
+        - event: >-
+            Fulfilled(indexed bytes32,indexed bytes32,indexed
+            address,uint256,bytes32,address)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+      file: ./src/TransferNFTCondition.ts
+  - kind: ethereum
+    name: WhitelistingCondition
+    network: spree
+    source:
+      address: '0x15338ade17C4b6F65E4ff7b3aCE22AAdED00aC4d'
+      abi: WhitelistingCondition
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - WhitelistingConditionInitialized
+        - WhitelistingConditionOwnershipTransferred
+      abis:
+        - name: WhitelistingCondition
+          file: >-
+            node_modules/@nevermined-io/contracts/artifacts/WhitelistingCondition.spree.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/WhitelistingCondition.ts

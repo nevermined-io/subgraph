@@ -1,0 +1,1346 @@
+type AaveBorrowConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveBorrowConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AaveBorrowConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AaveCollateralDepositConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveCollateralDepositConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AaveCollateralDepositConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AaveCollateralWithdrawConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveCollateralWithdrawConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AaveCollateralWithdrawConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AaveCreditTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type AaveCreditTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AaveCreditTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type AaveCreditTemplateVaultCreated @entity {
+  id: ID!
+  _vaultAddress: Bytes! # address
+  _creator: Bytes! # address
+  _lender: Bytes! # address
+  _borrower: Bytes! # address
+}
+type AaveCreditVaultInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AaveCreditVaultRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type AaveCreditVaultRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type AaveCreditVaultRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type AaveRepayConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+}
+
+type AaveRepayConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AaveRepayConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AccessConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _documentId: Bytes! # bytes32
+  _grantee: Bytes! # address
+  _conditionId: Bytes! # bytes32
+}
+
+type AccessConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AccessConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AccessProofConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _origHash: BigInt! # uint256
+  _buyer: [BigInt]! # uint256[2]
+  _provider: [BigInt]! # uint256[2]
+  _cipher: [BigInt]! # uint256[2]
+  _proof: Bytes! # bytes
+  _conditionId: Bytes! # bytes32
+}
+
+type AccessProofConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AccessProofConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AccessProofTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type AccessProofTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AccessProofTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AccessTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type AccessTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AccessTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type AgreementStoreManagerInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type AgreementStoreManagerOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type AgreementStoreManagerRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type AgreementStoreManagerRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type AgreementStoreManagerRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type ComputeExecutionConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _computeConsumer: Bytes! # address
+  _conditionId: Bytes! # bytes32
+}
+
+type ComputeExecutionConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type ComputeExecutionConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type ConditionStoreManagerConditionCreated @entity {
+  id: ID!
+  _id: Bytes! # bytes32
+  _typeRef: Bytes! # address
+  _who: Bytes! # address
+}
+
+type ConditionStoreManagerConditionUpdated @entity {
+  id: ID!
+  _id: Bytes! # bytes32
+  _typeRef: Bytes! # address
+  _state: Int! # uint8
+  _who: Bytes! # address
+}
+
+type ConditionStoreManagerInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type ConditionStoreManagerOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type ConditionStoreManagerRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type ConditionStoreManagerRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type ConditionStoreManagerRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type DIDRegistryActedOnBehalf @entity {
+  id: ID!
+  _entityDid: Bytes! # bytes32
+  _delegateAgentId: Bytes! # address
+  _responsibleAgentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryDIDAttributeRegistered @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _checksum: Bytes! # bytes32
+  _value: String! # string
+  _lastUpdatedBy: Bytes! # address
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryDIDOwnershipTransferred @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _previousOwner: Bytes! # address
+  _newOwner: Bytes! # address
+}
+
+type DIDRegistryDIDPermissionGranted @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _grantee: Bytes! # address
+}
+
+type DIDRegistryDIDPermissionRevoked @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _grantee: Bytes! # address
+}
+
+type DIDRegistryDIDProvenanceDelegateAdded @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _delegate: Bytes! # address
+}
+
+type DIDRegistryDIDProvenanceDelegateRemoved @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _delegate: Bytes! # address
+  state: Boolean! # bool
+}
+
+type DIDRegistryDIDProviderAdded @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _provider: Bytes! # address
+}
+
+type DIDRegistryDIDProviderRemoved @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _provider: Bytes! # address
+  state: Boolean! # bool
+}
+
+type DIDRegistryInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type DIDRegistryOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type DIDRegistryProvenanceAttributeRegistered @entity {
+  id: ID!
+  provId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  _relatedDid: Bytes! # bytes32
+  _agentInvolvedId: Bytes! # address
+  _method: Int! # uint8
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryUsed @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryWasAssociatedWith @entity {
+  id: ID!
+  _entityDid: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryWasDerivedFrom @entity {
+  id: ID!
+  _newEntityDid: Bytes! # bytes32
+  _usedEntityDid: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+
+type DIDRegistryWasGeneratedBy @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _agentId: Bytes! # address
+  _activityId: Bytes! # bytes32
+  provId: Bytes! # bytes32
+  _attributes: String! # string
+  _blockNumberUpdated: BigInt! # uint256
+}
+type DIDSalesTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type DIDSalesTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type DIDSalesTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type DispenserInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type DispenserOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type DispenserRequestFrequencyExceeded @entity {
+  id: ID!
+  requester: Bytes! # address
+  minPeriod: BigInt! # uint256
+}
+
+type DispenserRequestLimitExceeded @entity {
+  id: ID!
+  requester: Bytes! # address
+  amount: BigInt! # uint256
+  maxAmount: BigInt! # uint256
+}
+type DistributeNFTCollateralConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _receiver: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _contract: Bytes! # address
+}
+
+type DistributeNFTCollateralConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type DistributeNFTCollateralConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type EscrowComputeExecutionTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type EscrowComputeExecutionTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type EscrowComputeExecutionTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type EscrowPaymentConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _tokenAddress: Bytes! # address
+  _receivers: [Bytes]! # address[]
+  _conditionId: Bytes! # bytes32
+  _amounts: [BigInt]! # uint256[]
+}
+
+type EscrowPaymentConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type EscrowPaymentConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type EscrowPaymentConditionReceived @entity {
+  id: ID!
+  _from: Bytes! # address
+  _value: BigInt! # uint256
+}
+type HashLockConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type HashLockConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type LockPaymentConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _conditionId: Bytes! # bytes32
+  _rewardAddress: Bytes! # address
+  _tokenAddress: Bytes! # address
+  _receivers: [Bytes]! # address[]
+  _amounts: [BigInt]! # uint256[]
+}
+
+type LockPaymentConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type LockPaymentConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type LockPaymentConditionRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type LockPaymentConditionRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type LockPaymentConditionRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type NeverminedConfigInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NeverminedConfigNeverminedConfigChange @entity {
+  id: ID!
+  _whoChanged: Bytes! # address
+  _parameter: Bytes! # bytes32
+}
+
+type NeverminedConfigOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type NeverminedConfigRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type NeverminedConfigRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NeverminedConfigRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type NeverminedTokenApproval @entity {
+  id: ID!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type NeverminedTokenInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NeverminedTokenOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type NeverminedTokenRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type NeverminedTokenRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NeverminedTokenRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NeverminedTokenTransfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+}
+type NFT721AccessProofTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFT721AccessProofTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721AccessProofTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721AccessSwapTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFT721AccessSwapTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721AccessSwapTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721AccessTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFT721AccessTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721AccessTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721EscrowPaymentConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _tokenAddress: Bytes! # address
+  _did: Bytes! # bytes32
+  _receivers: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amounts: BigInt! # uint256
+}
+
+type NFT721EscrowPaymentConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721EscrowPaymentConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type NFT721EscrowPaymentConditionReceived @entity {
+  id: ID!
+  _from: Bytes! # address
+  _value: BigInt! # uint256
+}
+type NFT721HolderConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _address: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amount: BigInt! # uint256
+}
+
+type NFT721HolderConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721HolderConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721LockConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _lockAddress: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amount: BigInt! # uint256
+  _receiver: Bytes! # address
+  _nftContractAddress: Bytes! # address
+}
+
+type NFT721LockConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721LockConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721SalesTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFT721SalesTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721SalesTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721SalesWithAccessTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFT721SalesWithAccessTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721SalesWithAccessTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFT721UpgradeableApproval @entity {
+  id: ID!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+
+type NFT721UpgradeableApprovalForAll @entity {
+  id: ID!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type NFT721UpgradeableInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFT721UpgradeableOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type NFT721UpgradeableProxyApproval @entity {
+  id: ID!
+  sender: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type NFT721UpgradeableRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type NFT721UpgradeableRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NFT721UpgradeableRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NFT721UpgradeableTransfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+type NFTAccessConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _documentId: Bytes! # bytes32
+  _grantee: Bytes! # address
+  _conditionId: Bytes! # bytes32
+}
+
+type NFTAccessConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTAccessConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTAccessProofTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFTAccessProofTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTAccessProofTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTAccessSwapTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFTAccessSwapTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTAccessSwapTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTAccessTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFTAccessTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTAccessTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTEscrowPaymentConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _tokenAddress: Bytes! # address
+  _did: Bytes! # bytes32
+  _receivers: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amounts: BigInt! # uint256
+}
+
+type NFTEscrowPaymentConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTEscrowPaymentConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type NFTEscrowPaymentConditionReceived @entity {
+  id: ID!
+  _from: Bytes! # address
+  _value: BigInt! # uint256
+}
+type NFTHolderConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _address: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amount: BigInt! # uint256
+}
+
+type NFTHolderConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTHolderConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTLockConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _lockAddress: Bytes! # address
+  _conditionId: Bytes! # bytes32
+  _amount: BigInt! # uint256
+  _receiver: Bytes! # address
+  _nftContractAddress: Bytes! # address
+}
+
+type NFTLockConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTLockConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTSalesTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFTSalesTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTSalesTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTSalesWithAccessTemplateAgreementCreated @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _accessConsumer: Bytes! # address
+  _accessProvider: Bytes! # address
+  _timeLocks: [BigInt]! # uint256[]
+  _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type NFTSalesWithAccessTemplateInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTSalesWithAccessTemplateOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type NFTUpgradeableApprovalForAll @entity {
+  id: ID!
+  account: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type NFTUpgradeableInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type NFTUpgradeableOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type NFTUpgradeableProxyApproval @entity {
+  id: ID!
+  sender: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type NFTUpgradeableRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type NFTUpgradeableRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NFTUpgradeableRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type NFTUpgradeableTransferBatch @entity {
+  id: ID!
+  operator: Bytes! # address
+  from: Bytes! # address
+  to: Bytes! # address
+  ids: [BigInt]! # uint256[]
+  values: [BigInt]! # uint256[]
+}
+
+type NFTUpgradeableTransferSingle @entity {
+  id: ID!
+  operator: Bytes! # address
+  from: Bytes! # address
+  to: Bytes! # address
+  _id: BigInt! # uint256
+  value: BigInt! # uint256
+}
+
+type NFTUpgradeableURI @entity {
+  id: ID!
+  value: String! # string
+  _id: BigInt! # uint256
+}
+type SignConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type SignConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type TemplateStoreManagerInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type TemplateStoreManagerOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type ThresholdConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type ThresholdConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type TransferDIDOwnershipConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _receiver: Bytes! # address
+  _conditionId: Bytes! # bytes32
+}
+
+type TransferDIDOwnershipConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type TransferDIDOwnershipConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+type TransferNFT721ConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _receiver: Bytes! # address
+  _amount: BigInt! # uint256
+  _conditionId: Bytes! # bytes32
+  _contract: Bytes! # address
+}
+
+type TransferNFT721ConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type TransferNFT721ConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type TransferNFT721ConditionRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type TransferNFT721ConditionRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type TransferNFT721ConditionRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type TransferNFTConditionFulfilled @entity {
+  id: ID!
+  _agreementId: Bytes! # bytes32
+  _did: Bytes! # bytes32
+  _receiver: Bytes! # address
+  _amount: BigInt! # uint256
+  _conditionId: Bytes! # bytes32
+  _contract: Bytes! # address
+}
+
+type TransferNFTConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type TransferNFTConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type TransferNFTConditionRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type TransferNFTConditionRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type TransferNFTConditionRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+type WhitelistingConditionInitialized @entity {
+  id: ID!
+  version: Int! # uint8
+}
+
+type WhitelistingConditionOwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
