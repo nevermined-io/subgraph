@@ -111,6 +111,7 @@ describe('AccessTemplate', () => {
                 did,
                 amounts,
                 receivers,
+                consumer.getId(),
                 escrowPaymentCondition.getAddress(),
                 keeper.token.getAddress(),
                 conditionIdLock,

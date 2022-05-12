@@ -11,7 +11,7 @@ import { config } from './config'
 import { getFulfilleds } from '../src/LockPaymentCondition'
 import { getMetadata } from './utils'
 import AssetRewards from '@nevermined-io/nevermined-sdk-js/dist/node/models/AssetRewards'
-
+import BigNumber from 'bignumber.js'
 
 let nevermined: Nevermined
 let publisher: Account
@@ -50,9 +50,9 @@ describe('LockPaymentCondition', () => {
             10,
             0,
             new AssetRewards(new Map([
-                [publisher.getId(), 10],
-                [consumer.getId(), 10],
-            ]))
+                [publisher.getId(), new BigNumber(10)],
+                [consumer.getId(), new BigNumber(10)],
+            ])),
         )
         assert.isDefined(ddo)
         await nevermined.nfts.mint(ddo.id, 1, publisher)
