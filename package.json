@@ -37,7 +37,7 @@
   "devDependencies": {
     "@graphprotocol/graph-ts": "0.24.1",
     "@nevermined-io/contracts": "1.99.9",
-    "@nevermined-io/nevermined-sdk-js": "nevermined-io/sdk-js.git#feature/bring_master_to_develop",
+    "@nevermined-io/nevermined-sdk-js": "0.20.0-rc0",
     "@nevermined-io/graph-cli": "0.30.4",
     "@apollo/client": "^3.4.16",
     "@truffle/hdwallet-provider": "^1.5.1",
