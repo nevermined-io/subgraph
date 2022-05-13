@@ -100,7 +100,7 @@ export const getApprovals = async function <K extends keyof ApprovalResult>(url:
     let results: Pick<ApprovalResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("approvals", paginatedOptions, args)
         });
@@ -206,7 +206,7 @@ export const getApprovalForAlls = async function <K extends keyof ApprovalForAll
     let results: Pick<ApprovalForAllResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("approvalForAlls", paginatedOptions, args)
         });
@@ -296,7 +296,7 @@ export const getInitializeds = async function <K extends keyof InitializedResult
     let results: Pick<InitializedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("initializeds", paginatedOptions, args)
         });
@@ -390,7 +390,7 @@ export const getOwnershipTransferreds = async function <K extends keyof Ownershi
     let results: Pick<OwnershipTransferredResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("ownershipTransferreds", paginatedOptions, args)
         });
@@ -494,7 +494,7 @@ export const getProxyApprovals = async function <K extends keyof ProxyApprovalRe
     let results: Pick<ProxyApprovalResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("proxyApprovals", paginatedOptions, args)
         });
@@ -602,7 +602,7 @@ export const getRoleAdminChangeds = async function <K extends keyof RoleAdminCha
     let results: Pick<RoleAdminChangedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("roleAdminChangeds", paginatedOptions, args)
         });
@@ -710,7 +710,7 @@ export const getRoleGranteds = async function <K extends keyof RoleGrantedResult
     let results: Pick<RoleGrantedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("roleGranteds", paginatedOptions, args)
         });
@@ -818,7 +818,7 @@ export const getRoleRevokeds = async function <K extends keyof RoleRevokedResult
     let results: Pick<RoleRevokedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("roleRevokeds", paginatedOptions, args)
         });
@@ -928,7 +928,7 @@ export const getTransfers = async function <K extends keyof TransferResult>(url:
     let results: Pick<TransferResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("transfers", paginatedOptions, args)
         });

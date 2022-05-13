@@ -134,7 +134,7 @@ export const getFulfilleds = async function <K extends keyof FulfilledResult>(ur
     let results: Pick<FulfilledResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("fulfilleds", paginatedOptions, args)
         });
@@ -232,7 +232,7 @@ export const getInitializeds = async function <K extends keyof InitializedResult
     let results: Pick<InitializedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("initializeds", paginatedOptions, args)
         });
@@ -326,7 +326,7 @@ export const getOwnershipTransferreds = async function <K extends keyof Ownershi
     let results: Pick<OwnershipTransferredResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("ownershipTransferreds", paginatedOptions, args)
         });

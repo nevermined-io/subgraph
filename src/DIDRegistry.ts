@@ -148,7 +148,7 @@ export const getActedOnBehalfs = async function <K extends keyof ActedOnBehalfRe
     let results: Pick<ActedOnBehalfResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("actedOnBehalves", paginatedOptions, args)
         });
@@ -304,7 +304,7 @@ export const getDIDAttributeRegistereds = async function <K extends keyof DIDAtt
     let results: Pick<DIDAttributeRegisteredResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didattributeRegistereds", paginatedOptions, args)
         });
@@ -418,7 +418,7 @@ export const getDIDOwnershipTransferreds = async function <K extends keyof DIDOw
     let results: Pick<DIDOwnershipTransferredResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didownershipTransferreds", paginatedOptions, args)
         });
@@ -526,7 +526,7 @@ export const getDIDPermissionGranteds = async function <K extends keyof DIDPermi
     let results: Pick<DIDPermissionGrantedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didpermissionGranteds", paginatedOptions, args)
         });
@@ -634,7 +634,7 @@ export const getDIDPermissionRevokeds = async function <K extends keyof DIDPermi
     let results: Pick<DIDPermissionRevokedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didpermissionRevokeds", paginatedOptions, args)
         });
@@ -732,7 +732,7 @@ export const getDIDProvenanceDelegateAddeds = async function <K extends keyof DI
     let results: Pick<DIDProvenanceDelegateAddedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didprovenanceDelegateAddeds", paginatedOptions, args)
         });
@@ -836,7 +836,7 @@ export const getDIDProvenanceDelegateRemoveds = async function <K extends keyof 
     let results: Pick<DIDProvenanceDelegateRemovedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didprovenanceDelegateRemoveds", paginatedOptions, args)
         });
@@ -934,7 +934,7 @@ export const getDIDProviderAddeds = async function <K extends keyof DIDProviderA
     let results: Pick<DIDProviderAddedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didproviderAddeds", paginatedOptions, args)
         });
@@ -1038,7 +1038,7 @@ export const getDIDProviderRemoveds = async function <K extends keyof DIDProvide
     let results: Pick<DIDProviderRemovedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("didproviderRemoveds", paginatedOptions, args)
         });
@@ -1128,7 +1128,7 @@ export const getInitializeds = async function <K extends keyof InitializedResult
     let results: Pick<InitializedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("initializeds", paginatedOptions, args)
         });
@@ -1222,7 +1222,7 @@ export const getOwnershipTransferreds = async function <K extends keyof Ownershi
     let results: Pick<OwnershipTransferredResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("ownershipTransferreds", paginatedOptions, args)
         });
@@ -1400,7 +1400,7 @@ export const getProvenanceAttributeRegistereds = async function <K extends keyof
     let results: Pick<ProvenanceAttributeRegisteredResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("provenanceAttributeRegistereds", paginatedOptions, args)
         });
@@ -1560,7 +1560,7 @@ export const getUseds = async function <K extends keyof UsedResult>(url: string,
     let results: Pick<UsedResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("useds", paginatedOptions, args)
         });
@@ -1714,7 +1714,7 @@ export const getWasAssociatedWiths = async function <K extends keyof WasAssociat
     let results: Pick<WasAssociatedWithResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("wasAssociatedWiths", paginatedOptions, args)
         });
@@ -1878,7 +1878,7 @@ export const getWasDerivedFroms = async function <K extends keyof WasDerivedFrom
     let results: Pick<WasDerivedFromResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("wasDerivedFroms", paginatedOptions, args)
         });
@@ -2034,7 +2034,7 @@ export const getWasGeneratedBys = async function <K extends keyof WasGeneratedBy
     let results: Pick<WasGeneratedByResult, K>[] = [];
     do {
         if (paginationKey && paginationValue)
-            paginatedOptions.where![paginationKey] = paginationValue as any;
+            paginatedOptions.where![paginationKey] = paginationValue as never;
         const res = await axios.post(url, {
             query: generateGql("wasGeneratedBies", paginatedOptions, args)
         });

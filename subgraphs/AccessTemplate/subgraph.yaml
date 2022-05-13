@@ -15,7 +15,6 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
-        - Initialized
         - OwnershipTransferred
       abis:
         - name: AccessTemplate
@@ -23,8 +22,6 @@ dataSources:
       eventHandlers:
         - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
           handler: handleAgreementCreated
-        - event: Initialized(uint8)
-          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts
