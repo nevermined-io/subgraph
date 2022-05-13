@@ -30,7 +30,7 @@
 $ yarn
 
 # It will regenerate with the new artifacts and copy the abis 
-yarn nevermined:init <NETWORK-NAME>
+$ yarn nevermined:init <NETWORK-NAME>
 
 # code generation
 $ yarn codegen
@@ -40,7 +40,16 @@ $ yarn create-local
 
 # local deployment of the subgraph
 $ yarn deploy-local
+
+# generate the manifestos from the graphql api
+$ yarn nevermined:create-manifestos  
+
+# generate the subgraph client code
+$ yarn nevermined:generate-clients  
 ```
+
+
+
 
 > Note: The code generation must be performed again after every change to the GraphQL schema or the ABIs included in the manifest. It must also be performed at least once before building or deploying the subgraph.
 
