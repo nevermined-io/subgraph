@@ -40,6 +40,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -136,6 +149,43 @@
   },
   {
     "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      {
+        "internalType": "address[]",
+        "name": "_receivers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_returnAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_lockPaymentAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      {
+        "internalType": "bytes32",
+        "name": "_lockCondition",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_releaseConditions",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "encodeParams",
+    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0xe0a10948"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
@@ -143,6 +193,11 @@
         "internalType": "address[]",
         "name": "_receivers",
         "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_returnAddress",
+        "type": "address"
       },
       {
         "internalType": "address",
@@ -171,7 +226,7 @@
     ],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xbf346637"
+    "signature": "0x8550d820"
   },
   {
     "inputs": [
@@ -182,6 +237,11 @@
         "internalType": "address[]",
         "name": "_receivers",
         "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_returnAddress",
+        "type": "address"
       },
       {
         "internalType": "address",
@@ -210,7 +270,7 @@
     ],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x578c04fb"
+    "signature": "0x6964a4ff"
   },
   {
     "inputs": [
@@ -242,6 +302,11 @@
       },
       {
         "internalType": "address",
+        "name": "_returnAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_lockPaymentAddress",
         "type": "address"
       },
@@ -261,7 +326,7 @@
     "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
     "stateMutability": "pure",
     "type": "function",
-    "signature": "0x983431c1"
+    "signature": "0x25ca6fff"
   },
   {
     "inputs": [
@@ -292,6 +357,11 @@
       },
       {
         "internalType": "address",
+        "name": "_returnAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_lockPaymentAddress",
         "type": "address"
       },
@@ -311,7 +381,7 @@
     "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
     "stateMutability": "pure",
     "type": "function",
-    "signature": "0x7701a6ae"
+    "signature": "0x7d101495"
   },
   {
     "inputs": [

@@ -46,6 +46,40 @@ export class AgreementCreated__Params {
   get _timeOuts(): Array<BigInt> {
     return this._event.parameters[5].value.toBigIntArray();
   }
+
+  get _conditionIdSeeds(): Array<Bytes> {
+    return this._event.parameters[6].value.toBytesArray();
+  }
+
+  get _conditionIds(): Array<Bytes> {
+    return this._event.parameters[7].value.toBytesArray();
+  }
+
+  get _idSeed(): Bytes {
+    return this._event.parameters[8].value.toBytes();
+  }
+
+  get _creator(): Address {
+    return this._event.parameters[9].value.toAddress();
+  }
+}
+
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
 }
 
 export class OwnershipTransferred extends ethereum.Event {
@@ -120,226 +154,6 @@ export class AaveCreditTemplate__getAgreementDataResult {
 export class AaveCreditTemplate extends ethereum.SmartContract {
   static bind(address: Address): AaveCreditTemplate {
     return new AaveCreditTemplate("AaveCreditTemplate", address);
-  }
-
-  createAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>
-  ): BigInt {
-    let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[]):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[]):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  createAgreement1(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _accessConsumer: Address
-  ): BigInt {
-    let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_accessConsumer)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createAgreement1(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _accessConsumer: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_accessConsumer)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  createAgreement2(
-    _id: Bytes,
-    _lendingPool: Address,
-    _dataProvider: Address,
-    _weth: Address,
-    _agreementFee: BigInt,
-    _treasuryAddress: Address,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _lender: Address
-  ): BigInt {
-    let result = super.call(
-      "createAgreement",
-      "createAgreement(bytes32,address,address,address,uint256,address,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_lendingPool),
-        ethereum.Value.fromAddress(_dataProvider),
-        ethereum.Value.fromAddress(_weth),
-        ethereum.Value.fromUnsignedBigInt(_agreementFee),
-        ethereum.Value.fromAddress(_treasuryAddress),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_lender)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createAgreement2(
-    _id: Bytes,
-    _lendingPool: Address,
-    _dataProvider: Address,
-    _weth: Address,
-    _agreementFee: BigInt,
-    _treasuryAddress: Address,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _lender: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createAgreement",
-      "createAgreement(bytes32,address,address,address,uint256,address,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_lendingPool),
-        ethereum.Value.fromAddress(_dataProvider),
-        ethereum.Value.fromAddress(_weth),
-        ethereum.Value.fromUnsignedBigInt(_agreementFee),
-        ethereum.Value.fromAddress(_treasuryAddress),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_lender)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  createVaultAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _vaultAddress: Address
-  ): BigInt {
-    let result = super.call(
-      "createVaultAgreement",
-      "createVaultAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_vaultAddress)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createVaultAgreement(
-    _id: Bytes,
-    _did: Bytes,
-    _conditionIds: Array<Bytes>,
-    _timeLocks: Array<BigInt>,
-    _timeOuts: Array<BigInt>,
-    _vaultAddress: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createVaultAgreement",
-      "createVaultAgreement(bytes32,bytes32,bytes32[],uint256[],uint256[],address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromFixedBytesArray(_conditionIds),
-        ethereum.Value.fromUnsignedBigIntArray(_timeLocks),
-        ethereum.Value.fromUnsignedBigIntArray(_timeOuts),
-        ethereum.Value.fromAddress(_vaultAddress)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   deployVault(
@@ -490,6 +304,51 @@ export class AaveCreditTemplate extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
+
+  vaultLibrary(): Address {
+    let result = super.call("vaultLibrary", "vaultLibrary():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_vaultLibrary(): ethereum.CallResult<Address> {
+    let result = super.tryCall("vaultLibrary", "vaultLibrary():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+}
+
+export class ChangeCreditVaultLibraryCall extends ethereum.Call {
+  get inputs(): ChangeCreditVaultLibraryCall__Inputs {
+    return new ChangeCreditVaultLibraryCall__Inputs(this);
+  }
+
+  get outputs(): ChangeCreditVaultLibraryCall__Outputs {
+    return new ChangeCreditVaultLibraryCall__Outputs(this);
+  }
+}
+
+export class ChangeCreditVaultLibraryCall__Inputs {
+  _call: ChangeCreditVaultLibraryCall;
+
+  constructor(call: ChangeCreditVaultLibraryCall) {
+    this._call = call;
+  }
+
+  get _vaultLibrary(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class ChangeCreditVaultLibraryCall__Outputs {
+  _call: ChangeCreditVaultLibraryCall;
+
+  constructor(call: ChangeCreditVaultLibraryCall) {
+    this._call = call;
+  }
 }
 
 export class CreateAgreementCall extends ethereum.Call {
@@ -535,10 +394,6 @@ export class CreateAgreementCall__Outputs {
 
   constructor(call: CreateAgreementCall) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -589,10 +444,6 @@ export class CreateAgreement1Call__Outputs {
 
   constructor(call: CreateAgreement1Call) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -663,10 +514,6 @@ export class CreateAgreement2Call__Outputs {
 
   constructor(call: CreateAgreement2Call) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -804,10 +651,6 @@ export class CreateAgreementAndPayEscrowCall__Outputs {
   constructor(call: CreateAgreementAndPayEscrowCall) {
     this._call = call;
   }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
 }
 
 export class CreateVaultAgreementCall extends ethereum.Call {
@@ -857,10 +700,6 @@ export class CreateVaultAgreementCall__Outputs {
 
   constructor(call: CreateVaultAgreementCall) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -969,6 +808,10 @@ export class InitializeCall__Inputs {
 
   get _transferConditionAddress(): Address {
     return this._call.inputValues[7].value.toAddress();
+  }
+
+  get _vaultLibrary(): Address {
+    return this._call.inputValues[8].value.toAddress();
   }
 }
 

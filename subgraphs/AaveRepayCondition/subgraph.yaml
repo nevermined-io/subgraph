@@ -6,7 +6,7 @@ dataSources:
     name: AaveRepayCondition
     network: spree
     source:
-      address: "0xE4f7c64C52085A6df2c7c2972466EEf3ba3aD081"
+      address: "0x2af77391A0602eF29ded7E151b73559604bE0d17"
       abi: AaveRepayCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: AaveRepayCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

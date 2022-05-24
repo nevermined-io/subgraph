@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTUpgradeable
     network: spree
     source:
-      address: "0x1e6d9207241DbDca82B0D9546490c97B24B1a9f6"
+      address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
       abi: NFTUpgradeable
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - ApprovalForAll
+        - Initialized
         - OwnershipTransferred
         - ProxyApproval
         - RoleAdminChanged
@@ -29,6 +30,8 @@ dataSources:
       eventHandlers:
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: ProxyApproval(address,address,bool)

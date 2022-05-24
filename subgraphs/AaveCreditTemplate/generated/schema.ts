@@ -22,6 +22,10 @@ export class AgreementCreated extends Entity {
     this.set("_accessProvider", Value.fromBytes(Bytes.empty()));
     this.set("_timeLocks", Value.fromBigIntArray(new Array(0)));
     this.set("_timeOuts", Value.fromBigIntArray(new Array(0)));
+    this.set("_conditionIdSeeds", Value.fromBytesArray(new Array(0)));
+    this.set("_conditionIds", Value.fromBytesArray(new Array(0)));
+    this.set("_idSeed", Value.fromBytes(Bytes.empty()));
+    this.set("_creator", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -104,6 +108,84 @@ export class AgreementCreated extends Entity {
 
   set _timeOuts(value: Array<BigInt>) {
     this.set("_timeOuts", Value.fromBigIntArray(value));
+  }
+
+  get _conditionIdSeeds(): Array<Bytes> {
+    let value = this.get("_conditionIdSeeds");
+    return value!.toBytesArray();
+  }
+
+  set _conditionIdSeeds(value: Array<Bytes>) {
+    this.set("_conditionIdSeeds", Value.fromBytesArray(value));
+  }
+
+  get _conditionIds(): Array<Bytes> {
+    let value = this.get("_conditionIds");
+    return value!.toBytesArray();
+  }
+
+  set _conditionIds(value: Array<Bytes>) {
+    this.set("_conditionIds", Value.fromBytesArray(value));
+  }
+
+  get _idSeed(): Bytes {
+    let value = this.get("_idSeed");
+    return value!.toBytes();
+  }
+
+  set _idSeed(value: Bytes) {
+    this.set("_idSeed", Value.fromBytes(value));
+  }
+
+  get _creator(): Bytes {
+    let value = this.get("_creator");
+    return value!.toBytes();
+  }
+
+  set _creator(value: Bytes) {
+    this.set("_creator", Value.fromBytes(value));
+  }
+}
+
+export class Initialized extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Initialized entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Initialized entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Initialized", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Initialized | null {
+    return changetype<Initialized | null>(store.get("Initialized", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get version(): i32 {
+    let value = this.get("version");
+    return value!.toI32();
+  }
+
+  set version(value: i32) {
+    this.set("version", Value.fromI32(value));
   }
 }
 

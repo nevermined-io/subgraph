@@ -1,13 +1,23 @@
 import {
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RequestFrequencyExceeded as RequestFrequencyExceededEvent,
   RequestLimitExceeded as RequestLimitExceededEvent
 } from "../generated/Dispenser/Dispenser"
 import {
+  Initialized,
   OwnershipTransferred,
   RequestFrequencyExceeded,
   RequestLimitExceeded
 } from "../generated/schema"
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
+  entity.save()
+}
 
 export function handleOwnershipTransferred(
   event: OwnershipTransferredEvent

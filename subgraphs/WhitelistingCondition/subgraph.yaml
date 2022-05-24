@@ -6,7 +6,7 @@ dataSources:
     name: WhitelistingCondition
     network: spree
     source:
-      address: "0xD306b5edCDC7819E1EB80B43De6548931706A3f4"
+      address: "0x8A3468746753001fad0811F369938ddac1a504Bb"
       abi: WhitelistingCondition
       startBlock: 10
     mapping:
@@ -14,11 +14,14 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: WhitelistingCondition
           file: ./abis/WhitelistingCondition.json
       eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

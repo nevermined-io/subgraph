@@ -7,7 +7,9 @@
         "rootDir": "./src/",
         "outDir": "./build",
         "declaration": true,
-        "declarationDir": "./build"
+        "declarationDir": "./build",
+        "strictNullChecks": true,
+        "noImplicitAny": true
     },
     "include": [
         "src/**/*.ts"

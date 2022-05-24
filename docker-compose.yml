@@ -2,7 +2,7 @@ version: '3'
 services:
   graph-node:
     container_name: graph-node
-    image: graphprotocol/graph-node:v0.25.0
+    image: graphprotocol/graph-node:v0.26.0
     ports:
       - '9000:8000'
       - '9001:8001'
@@ -20,11 +20,17 @@ services:
       ipfs: 'ipfs:5001'
       ethereum: "spree:http://172.17.0.1:8545"
       GRAPH_LOG: info
+      ETHEREUM_REORG_THRESHOLD: 1
+      ETHEREUM_ANCESTOR_COUNT: 1
   ipfs:
     container_name: nevermined-ipfs
     image: ipfs/go-ipfs:v0.4.23
     ports:
       - '5001:5001'
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
   postgres:
     container_name: nevermined-postgres
     image: postgres

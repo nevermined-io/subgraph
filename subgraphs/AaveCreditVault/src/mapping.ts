@@ -1,9 +1,23 @@
 import {
+  Initialized as InitializedEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
   RoleRevoked as RoleRevokedEvent
 } from "../generated/AaveCreditVault/AaveCreditVault"
-import { RoleAdminChanged, RoleGranted, RoleRevoked } from "../generated/schema"
+import {
+  Initialized,
+  RoleAdminChanged,
+  RoleGranted,
+  RoleRevoked
+} from "../generated/schema"
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
+  entity.save()
+}
 
 export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   let entity = new RoleAdminChanged(

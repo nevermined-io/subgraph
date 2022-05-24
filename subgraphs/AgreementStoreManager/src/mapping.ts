@@ -1,15 +1,25 @@
 import {
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
   RoleRevoked as RoleRevokedEvent
 } from "../generated/AgreementStoreManager/AgreementStoreManager"
 import {
+  Initialized,
   OwnershipTransferred,
   RoleAdminChanged,
   RoleGranted,
   RoleRevoked
 } from "../generated/schema"
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
+  entity.save()
+}
 
 export function handleOwnershipTransferred(
   event: OwnershipTransferredEvent

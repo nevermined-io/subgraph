@@ -12,6 +12,8 @@ if [ "$NETWORK" == "mumbai" ]; then
     POLYGONSCAN_URL=$POLYGONSCAN_URL_MUMBAI
 elif [ "$NETWORK" == "matic" ]; then
     POLYGONSCAN_URL=$POLYGONSCAN_URL_MATIC
+elif [ "$NETWORK" == "polygon-localnet" ]; then
+    POLYGONSCAN_URL=""
 else
     echo "Currently not supported in $NETWORK. Skipping..."
     exit 0
@@ -26,18 +28,20 @@ do
     ABI=node_modules/@nevermined-io/contracts/artifacts/$BASENAME.$NETWORK.json
     SUBGRAPH=$d/subgraph.yaml
     IMPLEMENTATION_ADDRESS=$(cat $ABI | jq -r '.implementation')
-    BLOCK_NUMBER=$(
-        curl -G $POLYGONSCAN_URL \
-        -d module=account \
-        -d action=txlist \
-        -d address=$IMPLEMENTATION_ADDRESS \
-        -d startblock=0 \
-        -d endblock=99999999 \
-        -d page=1 \
-        -d offset=10 \
-        -d sort=asc \
-        -d apiKey=$POLYGONSCAN_APIKEY | jq -r '.result[0].blockNumber' || echo 10
-    )
+    # BLOCK_NUMBER=$(
+    #     curl -G $POLYGONSCAN_URL \
+    #     -d module=account \
+    #     -d action=txlist \
+    #     -d address=$IMPLEMENTATION_ADDRESS \
+    #     -d startblock=0 \
+    #     -d endblock=99999999 \
+    #     -d page=1 \
+    #     -d offset=10 \
+    #     -d sort=asc \
+    #     -d apiKey=$POLYGONSCAN_APIKEY | jq -r '.result[0].blockNumber' || echo 1
+    # )
+    BLOCK_NUMBER=1
+
     echo $BASENAME
     echo $ABI
     echo $IMPLEMENTATION_ADDRESS

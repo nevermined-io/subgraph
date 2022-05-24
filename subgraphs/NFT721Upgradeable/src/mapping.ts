@@ -1,6 +1,7 @@
 import {
   Approval as ApprovalEvent,
   ApprovalForAll as ApprovalForAllEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProxyApproval as ProxyApprovalEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
@@ -11,6 +12,7 @@ import {
 import {
   Approval,
   ApprovalForAll,
+  Initialized,
   OwnershipTransferred,
   ProxyApproval,
   RoleAdminChanged,
@@ -36,6 +38,14 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
   entity.owner = event.params.owner
   entity.operator = event.params.operator
   entity.approved = event.params.approved
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

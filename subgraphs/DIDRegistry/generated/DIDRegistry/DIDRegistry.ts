@@ -264,6 +264,24 @@ export class DIDProviderRemoved__Params {
   }
 }
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -901,52 +919,6 @@ export class DIDRegistry extends ethereum.SmartContract {
     );
   }
 
-  getDIDRegisterIds(): Array<Bytes> {
-    let result = super.call(
-      "getDIDRegisterIds",
-      "getDIDRegisterIds():(bytes32[])",
-      []
-    );
-
-    return result[0].toBytesArray();
-  }
-
-  try_getDIDRegisterIds(): ethereum.CallResult<Array<Bytes>> {
-    let result = super.tryCall(
-      "getDIDRegisterIds",
-      "getDIDRegisterIds():(bytes32[])",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytesArray());
-  }
-
-  getDIDRegistrySize(): BigInt {
-    let result = super.call(
-      "getDIDRegistrySize",
-      "getDIDRegistrySize():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getDIDRegistrySize(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getDIDRegistrySize",
-      "getDIDRegistrySize():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   getPermission(_did: Bytes, _grantee: Address): boolean {
     let result = super.call(
       "getPermission",
@@ -1135,6 +1107,38 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isDIDProviderOrOwner(_did: Bytes, _provider: Address): boolean {
+    let result = super.call(
+      "isDIDProviderOrOwner",
+      "isDIDProviderOrOwner(bytes32,address):(bool)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_provider)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isDIDProviderOrOwner(
+    _did: Bytes,
+    _provider: Address
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isDIDProviderOrOwner",
+      "isDIDProviderOrOwner(bytes32,address):(bool)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_provider)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   isOwnerProviderOrDelegate(_did: Bytes): boolean {
     let result = super.call(
       "isOwnerProviderOrDelegate",
@@ -1218,281 +1222,6 @@ export class DIDRegistry extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  registerAttribute(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string
-  ): BigInt {
-    let result = super.call(
-      "registerAttribute",
-      "registerAttribute(bytes32,bytes32,address[],string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_registerAttribute(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "registerAttribute",
-      "registerAttribute(bytes32,bytes32,address[],string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  registerDID(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _activityId: Bytes,
-    _attributes: string
-  ): BigInt {
-    let result = super.call(
-      "registerDID",
-      "registerDID(bytes32,bytes32,address[],string,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_attributes)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_registerDID(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _activityId: Bytes,
-    _attributes: string
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "registerDID",
-      "registerDID(bytes32,bytes32,address[],string,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_attributes)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  registerMintableDID(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _cap: BigInt,
-    _royalties: i32,
-    _activityId: Bytes,
-    _nftMetadata: string
-  ): BigInt {
-    let result = super.call(
-      "registerMintableDID",
-      "registerMintableDID(bytes32,bytes32,address[],string,uint256,uint8,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromUnsignedBigInt(_cap),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_nftMetadata)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_registerMintableDID(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _cap: BigInt,
-    _royalties: i32,
-    _activityId: Bytes,
-    _nftMetadata: string
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "registerMintableDID",
-      "registerMintableDID(bytes32,bytes32,address[],string,uint256,uint8,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromUnsignedBigInt(_cap),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_nftMetadata)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  registerMintableDID1(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _cap: BigInt,
-    _royalties: i32,
-    _mint: boolean,
-    _activityId: Bytes,
-    _nftMetadata: string
-  ): BigInt {
-    let result = super.call(
-      "registerMintableDID",
-      "registerMintableDID(bytes32,bytes32,address[],string,uint256,uint8,bool,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromUnsignedBigInt(_cap),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromBoolean(_mint),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_nftMetadata)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_registerMintableDID1(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _cap: BigInt,
-    _royalties: i32,
-    _mint: boolean,
-    _activityId: Bytes,
-    _nftMetadata: string
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "registerMintableDID",
-      "registerMintableDID(bytes32,bytes32,address[],string,uint256,uint8,bool,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromUnsignedBigInt(_cap),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromBoolean(_mint),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_nftMetadata)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  registerMintableDID721(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _royalties: i32,
-    _mint: boolean,
-    _activityId: Bytes,
-    _nftMetadata: string
-  ): BigInt {
-    let result = super.call(
-      "registerMintableDID721",
-      "registerMintableDID721(bytes32,bytes32,address[],string,uint8,bool,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromBoolean(_mint),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_nftMetadata)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_registerMintableDID721(
-    _didSeed: Bytes,
-    _checksum: Bytes,
-    _providers: Array<Address>,
-    _url: string,
-    _royalties: i32,
-    _mint: boolean,
-    _activityId: Bytes,
-    _nftMetadata: string
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "registerMintableDID721",
-      "registerMintableDID721(bytes32,bytes32,address[],string,uint8,bool,bytes32,string):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_didSeed),
-        ethereum.Value.fromFixedBytes(_checksum),
-        ethereum.Value.fromAddressArray(_providers),
-        ethereum.Value.fromString(_url),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromBoolean(_mint),
-        ethereum.Value.fromFixedBytes(_activityId),
-        ethereum.Value.fromString(_nftMetadata)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   used(
@@ -2037,6 +1766,44 @@ export class MintCall__Outputs {
   }
 }
 
+export class Mint1Call extends ethereum.Call {
+  get inputs(): Mint1Call__Inputs {
+    return new Mint1Call__Inputs(this);
+  }
+
+  get outputs(): Mint1Call__Outputs {
+    return new Mint1Call__Outputs(this);
+  }
+}
+
+export class Mint1Call__Inputs {
+  _call: Mint1Call;
+
+  constructor(call: Mint1Call) {
+    this._call = call;
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _receiver(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class Mint1Call__Outputs {
+  _call: Mint1Call;
+
+  constructor(call: Mint1Call) {
+    this._call = call;
+  }
+}
+
 export class Mint721Call extends ethereum.Call {
   get inputs(): Mint721Call__Inputs {
     return new Mint721Call__Inputs(this);
@@ -2063,6 +1830,40 @@ export class Mint721Call__Outputs {
   _call: Mint721Call;
 
   constructor(call: Mint721Call) {
+    this._call = call;
+  }
+}
+
+export class Mint7211Call extends ethereum.Call {
+  get inputs(): Mint7211Call__Inputs {
+    return new Mint7211Call__Inputs(this);
+  }
+
+  get outputs(): Mint7211Call__Outputs {
+    return new Mint7211Call__Outputs(this);
+  }
+}
+
+export class Mint7211Call__Inputs {
+  _call: Mint7211Call;
+
+  constructor(call: Mint7211Call) {
+    this._call = call;
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _receiver(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class Mint7211Call__Outputs {
+  _call: Mint7211Call;
+
+  constructor(call: Mint7211Call) {
     this._call = call;
   }
 }
@@ -2106,10 +1907,6 @@ export class RegisterAttributeCall__Outputs {
 
   constructor(call: RegisterAttributeCall) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -2160,10 +1957,6 @@ export class RegisterDIDCall__Outputs {
 
   constructor(call: RegisterDIDCall) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -2222,10 +2015,6 @@ export class RegisterMintableDIDCall__Outputs {
 
   constructor(call: RegisterMintableDIDCall) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -2289,10 +2078,6 @@ export class RegisterMintableDID1Call__Outputs {
   constructor(call: RegisterMintableDID1Call) {
     this._call = call;
   }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
 }
 
 export class RegisterMintableDID721Call extends ethereum.Call {
@@ -2350,10 +2135,6 @@ export class RegisterMintableDID721Call__Outputs {
 
   constructor(call: RegisterMintableDID721Call) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 

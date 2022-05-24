@@ -1,0 +1,306 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_agreementId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "_did",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_accessConsumer",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_accessProvider",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "_timeOuts",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32[]",
+        "name": "_conditionIdSeeds",
+        "type": "bytes32[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "_idSeed",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_creator",
+        "type": "address"
+      }
+    ],
+    "name": "AgreementCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" }
+    ],
+    "name": "createAgreement",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x2e166f3e"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
+      {
+        "internalType": "address",
+        "name": "_accessConsumer",
+        "type": "address"
+      }
+    ],
+    "name": "createAgreement",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x4183e72b"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
+      { "internalType": "uint256", "name": "_idx", "type": "uint256" },
+      {
+        "internalType": "address payable",
+        "name": "_rewardAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+    ],
+    "name": "createAgreementAndPay",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "signature": "0x6104ff1a"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "bytes32[]",
+        "name": "_conditionIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_timeLocks",
+        "type": "uint256[]"
+      },
+      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
+      {
+        "internalType": "address",
+        "name": "_accessConsumer",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "_idx", "type": "uint256" },
+      {
+        "internalType": "address payable",
+        "name": "_rewardAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+    ],
+    "name": "createAgreementAndPayEscrow",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "signature": "0xf8fe1070"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getAgreementData",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "accessConsumer",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "accessProvider", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6ff015ae"
+  },
+  {
+    "inputs": [],
+    "name": "getConditionTypes",
+    "outputs": [
+      { "internalType": "address[]", "name": "", "type": "address[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x91a169bf"
+  },
+  {
+    "inputs": [],
+    "name": "id",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0xaf640d0f"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_agreementStoreManagerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_lockPaymentConditionAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address payable",
+        "name": "_escrowPaymentAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_accessCondition",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x1459457a"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x715018a6"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf2fde38b"
+  }
+]

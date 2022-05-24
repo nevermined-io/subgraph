@@ -1,5 +1,6 @@
 import {
   Approval as ApprovalEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
@@ -8,6 +9,7 @@ import {
 } from "../generated/NeverminedToken/NeverminedToken"
 import {
   Approval,
+  Initialized,
   OwnershipTransferred,
   RoleAdminChanged,
   RoleGranted,
@@ -22,6 +24,14 @@ export function handleApproval(event: ApprovalEvent): void {
   entity.owner = event.params.owner
   entity.spender = event.params.spender
   entity.value = event.params.value
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

@@ -6,7 +6,7 @@ dataSources:
     name: DIDRegistry
     network: spree
     source:
-      address: "0x9C2a015129969c98E9A5BcBEb61A5F907FF5b629"
+      address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
       abi: DIDRegistry
       startBlock: 10
     mapping:
@@ -23,6 +23,7 @@ dataSources:
         - DIDProvenanceDelegateRemoved
         - DIDProviderAdded
         - DIDProviderRemoved
+        - Initialized
         - OwnershipTransferred
         - ProvenanceAttributeRegistered
         - Used
@@ -51,6 +52,8 @@ dataSources:
           handler: handleDIDProviderAdded
         - event: DIDProviderRemoved(bytes32,address,bool)
           handler: handleDIDProviderRemoved
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: ProvenanceAttributeRegistered(indexed bytes32,indexed bytes32,indexed address,bytes32,bytes32,address,uint8,string,uint256)

@@ -258,6 +258,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -703,26 +716,6 @@
     "signature": "0x22c6b519"
   },
   {
-    "inputs": [],
-    "name": "getDIDRegisterIds",
-    "outputs": [
-      { "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x70c6817a"
-  },
-  {
-    "inputs": [],
-    "name": "getDIDRegistrySize",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x39c035f0"
-  },
-  {
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       { "internalType": "address", "name": "_grantee", "type": "address" }
@@ -835,6 +828,17 @@
   },
   {
     "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_provider", "type": "address" }
+    ],
+    "name": "isDIDProviderOrOwner",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x49791a91"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
     ],
     "name": "isOwnerProviderOrDelegate",
@@ -875,6 +879,18 @@
   },
   {
     "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      { "internalType": "address", "name": "_receiver", "type": "address" }
+    ],
+    "name": "mint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xead905bb"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
     ],
     "name": "mint721",
@@ -882,6 +898,17 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x733e4f29"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_receiver", "type": "address" }
+    ],
+    "name": "mint721",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xa7d7febd"
   },
   {
     "inputs": [],
@@ -903,9 +930,7 @@
       { "internalType": "string", "name": "_url", "type": "string" }
     ],
     "name": "registerAttribute",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x534eb706"
@@ -924,9 +949,7 @@
       { "internalType": "string", "name": "_attributes", "type": "string" }
     ],
     "name": "registerDID",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x110a9d6a"
@@ -947,9 +970,7 @@
       { "internalType": "string", "name": "_nftMetadata", "type": "string" }
     ],
     "name": "registerMintableDID",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xc7235a55"
@@ -971,9 +992,7 @@
       { "internalType": "string", "name": "_nftMetadata", "type": "string" }
     ],
     "name": "registerMintableDID",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xffb411ac"
@@ -994,9 +1013,7 @@
       { "internalType": "string", "name": "_nftMetadata", "type": "string" }
     ],
     "name": "registerMintableDID721",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x5193097f"

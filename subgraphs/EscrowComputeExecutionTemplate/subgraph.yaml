@@ -6,7 +6,7 @@ dataSources:
     name: EscrowComputeExecutionTemplate
     network: spree
     source:
-      address: "0x515BF99873534584fF1ae590EaB00Cda1BF10583"
+      address: "0xB8bFF8F8872cD434b61dF5DC4A54EF62Ad1e9b19"
       abi: EscrowComputeExecutionTemplate
       startBlock: 10
     mapping:
@@ -15,13 +15,16 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: EscrowComputeExecutionTemplate
           file: ./abis/EscrowComputeExecutionTemplate.json
       eventHandlers:
-        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
           handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

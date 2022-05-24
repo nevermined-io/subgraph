@@ -1,8 +1,13 @@
 import {
   Fulfilled as FulfilledEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent
 } from "../generated/AaveCollateralDepositCondition/AaveCollateralDepositCondition"
-import { Fulfilled, OwnershipTransferred } from "../generated/schema"
+import {
+  Fulfilled,
+  Initialized,
+  OwnershipTransferred
+} from "../generated/schema"
 
 export function handleFulfilled(event: FulfilledEvent): void {
   let entity = new Fulfilled(
@@ -11,6 +16,14 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity._agreementId = event.params._agreementId
   entity._did = event.params._did
   entity._conditionId = event.params._conditionId
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

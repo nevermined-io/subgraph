@@ -1,4 +1,4 @@
-FROM graphprotocol/graph-node:v0.25.0
+FROM graphprotocol/graph-node:v0.26.0
 
 RUN apt-get update
 RUN apt-get install -y curl git jq wget

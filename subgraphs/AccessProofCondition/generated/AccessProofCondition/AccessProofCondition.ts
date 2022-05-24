@@ -52,6 +52,24 @@ export class Fulfilled__Params {
   }
 }
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -290,6 +308,36 @@ export class AbortByTimeOutCall__Outputs {
 
   get value0(): i32 {
     return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class ChangeDisputeManagerCall extends ethereum.Call {
+  get inputs(): ChangeDisputeManagerCall__Inputs {
+    return new ChangeDisputeManagerCall__Inputs(this);
+  }
+
+  get outputs(): ChangeDisputeManagerCall__Outputs {
+    return new ChangeDisputeManagerCall__Outputs(this);
+  }
+}
+
+export class ChangeDisputeManagerCall__Inputs {
+  _call: ChangeDisputeManagerCall;
+
+  constructor(call: ChangeDisputeManagerCall) {
+    this._call = call;
+  }
+
+  get _disputeManagerAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class ChangeDisputeManagerCall__Outputs {
+  _call: ChangeDisputeManagerCall;
+
+  constructor(call: ChangeDisputeManagerCall) {
+    this._call = call;
   }
 }
 

@@ -1,6 +1,6 @@
-import { ethereum, Bytes, log } from '@graphprotocol/graph-ts'
 import {
   Fulfilled as FulfilledEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
@@ -8,6 +8,7 @@ import {
 } from "../generated/LockPaymentCondition/LockPaymentCondition"
 import {
   Fulfilled,
+  Initialized,
   OwnershipTransferred,
   RoleAdminChanged,
   RoleGranted,
@@ -25,6 +26,14 @@ export function handleFulfilled(event: FulfilledEvent): void {
   entity._tokenAddress = event.params._tokenAddress
   entity._receivers = event.params._receivers
   entity._amounts = event.params._amounts
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

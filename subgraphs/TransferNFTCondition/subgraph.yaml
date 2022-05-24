@@ -6,7 +6,7 @@ dataSources:
     name: TransferNFTCondition
     network: spree
     source:
-      address: "0xac1D60D8840b3E5BaF347607a1093A1937bFF580"
+      address: "0x32c79B039E4BC4Ad9272CA7D2A3DE5183D06Cd6B"
       abi: TransferNFTCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
         - RoleAdminChanged
         - RoleGranted
@@ -25,6 +26,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,uint256,bytes32,address)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)

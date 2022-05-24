@@ -40,6 +40,24 @@ export class Fulfilled__Params {
   }
 }
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -400,6 +418,32 @@ export class InitializeCall__Outputs {
   _call: InitializeCall;
 
   constructor(call: InitializeCall) {
+    this._call = call;
+  }
+}
+
+export class ReinitializeCall extends ethereum.Call {
+  get inputs(): ReinitializeCall__Inputs {
+    return new ReinitializeCall__Inputs(this);
+  }
+
+  get outputs(): ReinitializeCall__Outputs {
+    return new ReinitializeCall__Outputs(this);
+  }
+}
+
+export class ReinitializeCall__Inputs {
+  _call: ReinitializeCall;
+
+  constructor(call: ReinitializeCall) {
+    this._call = call;
+  }
+}
+
+export class ReinitializeCall__Outputs {
+  _call: ReinitializeCall;
+
+  constructor(call: ReinitializeCall) {
     this._call = call;
   }
 }

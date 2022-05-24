@@ -1,0 +1,30 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTAccessSwapTemplate
+    network: spree
+    source:
+      address: "0xF841Ff2C8abF1751A83923755EbD2F66bBAa5BFE"
+      abi: NFTAccessSwapTemplate
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: NFTAccessSwapTemplate
+          file: ./abis/NFTAccessSwapTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/mapping.ts

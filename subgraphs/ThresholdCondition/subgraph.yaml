@@ -6,7 +6,7 @@ dataSources:
     name: ThresholdCondition
     network: spree
     source:
-      address: "0x8F006DbB3727d18f032C5618595ecDD2EDE13b61"
+      address: "0xF400b7e470866a2bcbaEE225bD1eCbF50A8660bf"
       abi: ThresholdCondition
       startBlock: 10
     mapping:
@@ -14,11 +14,14 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: ThresholdCondition
           file: ./abis/ThresholdCondition.json
       eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

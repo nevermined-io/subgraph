@@ -66,6 +66,24 @@ export class ConditionUpdated__Params {
   }
 }
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -172,28 +190,19 @@ export class ConditionStoreManager__getConditionResult {
   value2: BigInt;
   value3: BigInt;
   value4: BigInt;
-  value5: Address;
-  value6: Address;
-  value7: BigInt;
 
   constructor(
     value0: Address,
     value1: i32,
     value2: BigInt,
     value3: BigInt,
-    value4: BigInt,
-    value5: Address,
-    value6: Address,
-    value7: BigInt
+    value4: BigInt
   ) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
     this.value3 = value3;
     this.value4 = value4;
-    this.value5 = value5;
-    this.value6 = value6;
-    this.value7 = value7;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -206,9 +215,6 @@ export class ConditionStoreManager__getConditionResult {
     map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
     map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
-    map.set("value5", ethereum.Value.fromAddress(this.value5));
-    map.set("value6", ethereum.Value.fromAddress(this.value6));
-    map.set("value7", ethereum.Value.fromUnsignedBigInt(this.value7));
     return map;
   }
 }
@@ -312,118 +318,10 @@ export class ConditionStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  createCondition(
-    _id: Bytes,
-    _typeRef: Address,
-    _timeLock: BigInt,
-    _timeOut: BigInt,
-    _creator: Address
-  ): BigInt {
-    let result = super.call(
-      "createCondition",
-      "createCondition(bytes32,address,uint256,uint256,address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_typeRef),
-        ethereum.Value.fromUnsignedBigInt(_timeLock),
-        ethereum.Value.fromUnsignedBigInt(_timeOut),
-        ethereum.Value.fromAddress(_creator)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createCondition(
-    _id: Bytes,
-    _typeRef: Address,
-    _timeLock: BigInt,
-    _timeOut: BigInt,
-    _creator: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createCondition",
-      "createCondition(bytes32,address,uint256,uint256,address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_typeRef),
-        ethereum.Value.fromUnsignedBigInt(_timeLock),
-        ethereum.Value.fromUnsignedBigInt(_timeOut),
-        ethereum.Value.fromAddress(_creator)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  createCondition1(_id: Bytes, _typeRef: Address, _creator: Address): BigInt {
-    let result = super.call(
-      "createCondition",
-      "createCondition(bytes32,address,address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_typeRef),
-        ethereum.Value.fromAddress(_creator)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createCondition1(
-    _id: Bytes,
-    _typeRef: Address,
-    _creator: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createCondition",
-      "createCondition(bytes32,address,address):(uint256)",
-      [
-        ethereum.Value.fromFixedBytes(_id),
-        ethereum.Value.fromAddress(_typeRef),
-        ethereum.Value.fromAddress(_creator)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  createCondition2(_id: Bytes, _typeRef: Address): BigInt {
-    let result = super.call(
-      "createCondition",
-      "createCondition(bytes32,address):(uint256)",
-      [ethereum.Value.fromFixedBytes(_id), ethereum.Value.fromAddress(_typeRef)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_createCondition2(
-    _id: Bytes,
-    _typeRef: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "createCondition",
-      "createCondition(bytes32,address):(uint256)",
-      [ethereum.Value.fromFixedBytes(_id), ethereum.Value.fromAddress(_typeRef)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   getCondition(_id: Bytes): ConditionStoreManager__getConditionResult {
     let result = super.call(
       "getCondition",
-      "getCondition(bytes32):(address,uint8,uint256,uint256,uint256,address,address,uint256)",
+      "getCondition(bytes32):(address,uint8,uint256,uint256,uint256)",
       [ethereum.Value.fromFixedBytes(_id)]
     );
 
@@ -432,10 +330,7 @@ export class ConditionStoreManager extends ethereum.SmartContract {
       result[1].toI32(),
       result[2].toBigInt(),
       result[3].toBigInt(),
-      result[4].toBigInt(),
-      result[5].toAddress(),
-      result[6].toAddress(),
-      result[7].toBigInt()
+      result[4].toBigInt()
     );
   }
 
@@ -444,7 +339,7 @@ export class ConditionStoreManager extends ethereum.SmartContract {
   ): ethereum.CallResult<ConditionStoreManager__getConditionResult> {
     let result = super.tryCall(
       "getCondition",
-      "getCondition(bytes32):(address,uint8,uint256,uint256,uint256,address,address,uint256)",
+      "getCondition(bytes32):(address,uint8,uint256,uint256,uint256)",
       [ethereum.Value.fromFixedBytes(_id)]
     );
     if (result.reverted) {
@@ -457,58 +352,9 @@ export class ConditionStoreManager extends ethereum.SmartContract {
         value[1].toI32(),
         value[2].toBigInt(),
         value[3].toBigInt(),
-        value[4].toBigInt(),
-        value[5].toAddress(),
-        value[6].toAddress(),
-        value[7].toBigInt()
+        value[4].toBigInt()
       )
     );
-  }
-
-  getConditionCreatedBy(_id: Bytes): Address {
-    let result = super.call(
-      "getConditionCreatedBy",
-      "getConditionCreatedBy(bytes32):(address)",
-      [ethereum.Value.fromFixedBytes(_id)]
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getConditionCreatedBy(_id: Bytes): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getConditionCreatedBy",
-      "getConditionCreatedBy(bytes32):(address)",
-      [ethereum.Value.fromFixedBytes(_id)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getConditionListSize(): BigInt {
-    let result = super.call(
-      "getConditionListSize",
-      "getConditionListSize():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getConditionListSize(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getConditionListSize",
-      "getConditionListSize():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getConditionState(_id: Bytes): i32 {
@@ -620,6 +466,29 @@ export class ConditionStoreManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   getRoleAdmin(role: Bytes): Bytes {
@@ -863,18 +732,6 @@ export class CreateConditionCall__Inputs {
   get _typeRef(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
-
-  get _timeLock(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get _timeOut(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-
-  get _creator(): Address {
-    return this._call.inputValues[4].value.toAddress();
-  }
 }
 
 export class CreateConditionCall__Outputs {
@@ -882,10 +739,6 @@ export class CreateConditionCall__Outputs {
 
   constructor(call: CreateConditionCall) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -914,8 +767,12 @@ export class CreateCondition1Call__Inputs {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get _creator(): Address {
-    return this._call.inputValues[2].value.toAddress();
+  get _timeLock(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get _timeOut(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -924,10 +781,6 @@ export class CreateCondition1Call__Outputs {
 
   constructor(call: CreateCondition1Call) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -962,10 +815,6 @@ export class CreateCondition2Call__Outputs {
 
   constructor(call: CreateCondition2Call) {
     this._call = call;
-  }
-
-  get size(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -1121,6 +970,10 @@ export class InitializeCall__Inputs {
   get _owner(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
+
+  get _nvmConfigAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
 }
 
 export class InitializeCall__Outputs {
@@ -1251,6 +1104,36 @@ export class RevokeRoleCall__Outputs {
   _call: RevokeRoleCall;
 
   constructor(call: RevokeRoleCall) {
+    this._call = call;
+  }
+}
+
+export class SetNvmConfigAddressCall extends ethereum.Call {
+  get inputs(): SetNvmConfigAddressCall__Inputs {
+    return new SetNvmConfigAddressCall__Inputs(this);
+  }
+
+  get outputs(): SetNvmConfigAddressCall__Outputs {
+    return new SetNvmConfigAddressCall__Outputs(this);
+  }
+}
+
+export class SetNvmConfigAddressCall__Inputs {
+  _call: SetNvmConfigAddressCall;
+
+  constructor(call: SetNvmConfigAddressCall) {
+    this._call = call;
+  }
+
+  get _addr(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetNvmConfigAddressCall__Outputs {
+  _call: SetNvmConfigAddressCall;
+
+  constructor(call: SetNvmConfigAddressCall) {
     this._call = call;
   }
 }

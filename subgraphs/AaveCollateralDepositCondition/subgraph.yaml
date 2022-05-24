@@ -6,7 +6,7 @@ dataSources:
     name: AaveCollateralDepositCondition
     network: spree
     source:
-      address: "0xE9dC0B76ceCc3f402C6EA57d5191811B1660AF32"
+      address: "0x1bad507833adF7aCb32c428e4721d2A110739e62"
       abi: AaveCollateralDepositCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: AaveCollateralDepositCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

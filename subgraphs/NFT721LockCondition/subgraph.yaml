@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFT721LockCondition
     network: spree
     source:
-      address: "0x4999A8428d1D42fc955FbBC2f1E22323a55B6f86"
+      address: "0x48A079061CA0de9D0BaccB56DC999b002699f86c"
       abi: NFT721LockCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: NFT721LockCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32,uint256,address,address)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts
