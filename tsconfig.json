@@ -9,9 +9,9 @@
         "declaration": true,
         "declarationDir": "./build",
         "strictNullChecks": true,
-        "noImplicitAny": true
+        "noImplicitAny": false,
     },
     "include": [
         "src/**/*.ts"
-    ]
+    ],
 }

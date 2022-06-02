@@ -63,7 +63,7 @@ describe('LockPaymentCondition', () => {
             ]))
         )
         assert.isDefined(ddo)
-        await nevermined.nfts.mint(ddo.id, 1, publisher)
+        // await nevermined.nfts.mint(ddo.id, 1, publisher)
     })
 
     it('should order an NFT', async () => {
@@ -125,9 +125,9 @@ describe('LockPaymentCondition', () => {
         )
         const event = response.pop()
         assert.isDefined(event)
-        assert.equal(event._agreementId, agreementId)
-        assert.equal(event._did, didZeroX(ddo.id))
-        assert.equal(event._receivers[0], [publisher.getId().toLowerCase()][0])
-        assert.deepEqual(event._amounts.map(a => a.toNumber()), [10, 10])
+        assert.equal(event!._agreementId, agreementId)
+        assert.equal(event!._did, didZeroX(ddo.id))
+        assert.equal(event!._receivers[0], [publisher.getId().toLowerCase()][0])
+        assert.deepEqual(event!._amounts.map(a => a!.toNumber()), [10, 10])
     })
 })

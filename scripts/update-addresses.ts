@@ -9,7 +9,7 @@ const EXCLUDED_SUBGRAPHS = [
     'PlonkVerifier',
 ]
 
-async function processFiles(err, files, network) {
+async function processFiles(err: { message: any }, files: any[], network: string) {
     if (err) {
         console.log(err.message)
         process.exit(1)
@@ -19,7 +19,7 @@ async function processFiles(err, files, network) {
         process.exit(1)
     }
 
-    files.forEach(async file => {
+    files.forEach(async (file: fs.PathOrFileDescriptor) => {
         const abiJson = JSON.parse(fs.readFileSync(file).toString())
         const contractName = abiJson.name
         if (!EXCLUDED_SUBGRAPHS.includes(contractName)) {
@@ -52,7 +52,7 @@ async function main() {
     const network = process.argv[2]
     console.log(`Using network '${network}'`)
 
-    const forFiles = (err, files) => processFiles(err, files, network)
+    const forFiles = (err: any, files: any) => processFiles(err, files, network)
 
     glob(`node_modules/@nevermined-io/contracts/artifacts/*.${network}.json`, forFiles)
 }

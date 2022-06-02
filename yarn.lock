@@ -1255,10 +1255,10 @@
   dependencies:
     "@openzeppelin/contracts-upgradeable" "^4.6.0"
 
-"@nevermined-io/contracts@^1.99.9":
-  version "1.99.9"
-  resolved "https://registry.yarnpkg.com/@nevermined-io/contracts/-/contracts-1.99.9.tgz#79325667630ab54ca3da602b62b31f4cffd5ad5b"
-  integrity sha512-ZT5woOzX7WH6QWzefoV5IL3W5jhZSMyJEyzFBPpdP4B9Od80PVyqICvPbSsIFWgEWpFxnEJ2sNvaOSSazJaPnQ==
+"@nevermined-io/contracts@^2.0.0-rc5":
+  version "2.0.0-rc5"
+  resolved "https://registry.yarnpkg.com/@nevermined-io/contracts/-/contracts-2.0.0-rc5.tgz#7b55738790ed81b2df2b718d2f110b4d2e868635"
+  integrity sha512-tUnZjwNKDxW9k7Ke6Dlh1nYwaQ+WcsnTw5PnBi279yX0awVjvFNOvudycMlujNsH0LHwI/5VuLdli/BmmCMCEQ==
   dependencies:
     "@openzeppelin/contracts-upgradeable" "^4.6.0"
 
@@ -1291,14 +1291,14 @@
     which "2.0.2"
     yaml "^1.5.1"
 
-"@nevermined-io/nevermined-sdk-js@0.20.0-rc0":
-  version "0.20.0-rc0"
-  resolved "https://registry.yarnpkg.com/@nevermined-io/nevermined-sdk-js/-/nevermined-sdk-js-0.20.0-rc0.tgz#b8320e58f6afc78669c4e5e78f9174428b65cafd"
-  integrity sha512-iH4HDYaHleODVipuuC6zBWQXF9Auuv9Et3wVOsNn/X7WpNSyDU5q2eVkg/CgwvRgnWSMriPsS1/b0culPGc2AQ==
+"@nevermined-io/nevermined-sdk-js@0.20.0-rc3":
+  version "0.20.0-rc3"
+  resolved "https://registry.yarnpkg.com/@nevermined-io/nevermined-sdk-js/-/nevermined-sdk-js-0.20.0-rc3.tgz#a1e7b333a4898d8d82fb25936e4e71c54e4bba53"
+  integrity sha512-7zkuGsK1ju/NuAewkULZeFyuR7KGT72j3s7cXyO6movqKghhPG3xynywhTdYXl2Pbhh8x1RY8r73KqS7yycdlw==
   dependencies:
-    "@nevermined-io/contracts" "^1.99.9"
+    "@nevermined-io/contracts" "^2.0.0-rc5"
     "@nevermined-io/secret-store-client" "^0.0.16"
-    "@nevermined-io/subgraphs" "^0.2.9"
+    "@nevermined-io/subgraphs" "0.3.0-rc1"
     assert "^2.0.0"
     bignumber.js "^9.0.2"
     circomlibjs "^0.1.1"
@@ -1331,10 +1331,10 @@
   dependencies:
     node-fetch "^2.6.0"
 
-"@nevermined-io/subgraphs@^0.2.9":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@nevermined-io/subgraphs/-/subgraphs-0.2.9.tgz#8447740dd9b48e8d10fba25eb152a98c4899c006"
-  integrity sha512-QPQB0GPnLTWwWlxYbJzGoBAnQZrOXFPAKfrXDppUvjBPJ1SY3eDCfh225npri0ZJkyfy9lFLu/DTA42lkbAyaA==
+"@nevermined-io/subgraphs@0.3.0-rc1":
+  version "0.3.0-rc1"
+  resolved "https://registry.yarnpkg.com/@nevermined-io/subgraphs/-/subgraphs-0.3.0-rc1.tgz#0793f1bb2b64674139cedddf22b37af4ce30dd34"
+  integrity sha512-UhN6E0eP6EOWcvhWrdJf2WIil6oTHonmtcn/ogAoRqmek+FZ2/09ZR+TKAckx8NBmSxqrvet7oG50SjQUfmqlg==
   dependencies:
     codegen-graph-ts "npm:@nevermined-io/codegen-graph-ts@0.1.4"
     glob "^7.2.0"

@@ -1,12 +1,12 @@
 import { assert } from 'chai'
 import fetch from 'cross-fetch'
-import { ApolloClient, InMemoryCache, gql, NormalizedCacheObject, createHttpLink} from '@apollo/client/core'
+import { ApolloClient, InMemoryCache, gql, NormalizedCacheObject, createHttpLink } from '@apollo/client/core'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import ws from 'ws'
 import Web3 from 'web3'
 
-import { Account, Nevermined} from '@nevermined-io/nevermined-sdk-js'
+import { Account, Nevermined } from '@nevermined-io/nevermined-sdk-js'
 import DIDRegistry from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/DIDRegistry'
 import { didZeroX, generateId } from '@nevermined-io/nevermined-sdk-js/dist/node/utils'
 import { EventLog } from 'web3-core'
@@ -27,8 +27,8 @@ let did: string
 describe('DIDRegistry', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
-        ;({ didRegistry } = nevermined.keeper)
-        ;[account] = await nevermined.accounts.list()
+            ; ({ didRegistry } = nevermined.keeper)
+            ;[account] = await nevermined.accounts.list()
 
         client = new ApolloClient({
             link: createHttpLink({
@@ -68,7 +68,7 @@ describe('DIDRegistry', () => {
                 account.getId(),
             )
             assert.isTrue(receipt.status)
-            expectedEvent = receipt.events.DIDAttributeRegistered
+            expectedEvent = receipt.events!.DIDAttributeRegistered
         })
 
         it('should subscribe and wait for the event', async () => {

@@ -1,12 +1,12 @@
 import { assert } from 'chai'
 import fetch from 'cross-fetch'
-import { ApolloClient, InMemoryCache, gql, NormalizedCacheObject, createHttpLink} from '@apollo/client/core'
+import { ApolloClient, InMemoryCache, gql, NormalizedCacheObject, createHttpLink } from '@apollo/client/core'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import ws from 'ws'
 import Web3 from 'web3'
 
-import { Account, Keeper, Nevermined} from '@nevermined-io/nevermined-sdk-js'
+import { Account, Keeper, Nevermined } from '@nevermined-io/nevermined-sdk-js'
 import DIDRegistry from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/DIDRegistry'
 import { didZeroX, generateId, zeroX } from '@nevermined-io/nevermined-sdk-js/dist/node/utils'
 import { EventLog } from 'web3-core'
@@ -15,9 +15,10 @@ import { config } from './config'
 import { getAgreementCreateds } from '../src/AccessTemplate'
 import { AccessCondition, EscrowPaymentCondition, LockPaymentCondition } from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/conditions'
 import { AccessTemplate } from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/templates'
+import Token from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/Token'
+import BigNumber from 'bignumber.js'
 
-
-const amounts = [10]
+const amounts = [new BigNumber(10)]
 
 let receivers: string[]
 let nevermined: Nevermined
@@ -30,27 +31,35 @@ let client: ApolloClient<NormalizedCacheObject>
 let wsClient: ApolloClient<NormalizedCacheObject>
 let did: string
 let didSeed: string
+let agreementIdSeed: string
 let agreementId: string
-let conditionIdAccess: string
-let conditionIdLock: string
-let conditionIdEscrow: string
+let conditionIdAccess: [string, string]
+let conditionIdLock: [string, string]
+let conditionIdEscrow: [string, string]
 let accessCondition: AccessCondition
 let lockPaymentCondition: LockPaymentCondition
 let escrowPaymentCondition: EscrowPaymentCondition
 let accessTemplate: AccessTemplate
+let token: Token
 
 
 describe('AccessTemplate', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
-        ;({ keeper } = nevermined)
-        ;[account, consumer] = await nevermined.accounts.list()
+            ; ({ keeper } = nevermined)
+            ;[account, consumer] = await nevermined.accounts.list()
         receivers = [account.getId()]
-        ;({accessCondition, lockPaymentCondition, escrowPaymentCondition} = keeper.conditions)
-        ;({accessTemplate} = keeper.templates)
+            ; ({ accessCondition, lockPaymentCondition, escrowPaymentCondition } = keeper.conditions)
+            ; ({ accessTemplate } = keeper.templates)
+            ; ({ token } = keeper)
 
 
-        agreementId = generateId()
+
+        agreementIdSeed = generateId()
+        agreementId = await nevermined.keeper.agreementStoreManager.agreementId(
+            agreementIdSeed,
+            account.getId()
+        )
         didSeed = generateId()
         did = await keeper.didRegistry.hashDID(didSeed, account.getId())
 
@@ -93,36 +102,40 @@ describe('AccessTemplate', () => {
         })
 
         it('should generate the condition IDs', async () => {
-            conditionIdAccess = await accessCondition.generateIdHash(
+            conditionIdAccess = await accessCondition.generateIdWithSeed(
                 agreementId,
-                did,
-                consumer.getId(),
+                await accessCondition.hashValues(did, consumer.getId())
             )
-            conditionIdLock = await lockPaymentCondition.generateIdHash(
+            conditionIdLock = await lockPaymentCondition.generateIdWithSeed(
                 agreementId,
-                did,
-                escrowPaymentCondition.getAddress(),
-                keeper.token.getAddress(),
-                amounts,
-                receivers,
+                await lockPaymentCondition.hashValues(
+                    did,
+                    escrowPaymentCondition.getAddress(),
+                    token.getAddress(),
+                    amounts,
+                    receivers
+                )
             )
-            conditionIdEscrow = await escrowPaymentCondition.generateIdHash(
+            conditionIdEscrow = await escrowPaymentCondition.generateIdWithSeed(
                 agreementId,
-                did,
-                amounts,
-                receivers,
-                escrowPaymentCondition.getAddress(),
-                keeper.token.getAddress(),
-                conditionIdLock,
-                conditionIdAccess,
+                await escrowPaymentCondition.hashValues(
+                    did,
+                    amounts,
+                    receivers,
+                    consumer.getId(),
+                    escrowPaymentCondition.getAddress(),
+                    token.getAddress(),
+                    conditionIdLock[1],
+                    conditionIdAccess[1],
+                )
             )
         })
 
         it('should create a new agreement', async () => {
             const receipt = await accessTemplate.createAgreement(
-                agreementId,
+                agreementIdSeed,
                 did,
-                [conditionIdAccess, conditionIdLock, conditionIdEscrow],
+                [conditionIdAccess[0], conditionIdLock[0], conditionIdEscrow[0]],
                 [0, 0, 0],
                 [0, 0, 0],
                 consumer.getId(),
