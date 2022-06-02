@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -12,52 +12,58 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        network: ['--spree-embedded-contracts', '--polygon']
+        network: ["--spree-embedded-contracts", "--polygon", "--geth"]
         include:
-        - network: '--spree-embedded-contracts'
-          network-name: spree
-        - network: '--polygon'
-          network-name: polygon-localnet
+          - network: "--spree-embedded-contracts"
+            network-name: spree
+          - network: "--polygon"
+            network-name: polygon-localnet
+          - network: "--geth"
+            network-name: "geth-localnet"
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - name: Install dependencies
-      run: yarn
-    # - name: Check linting
-    #   run: yarn lint
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install dependencies
+        run: yarn
+      # - name: Check linting
+      #   run: yarn lint
 
-    - name: Reclaim some disk space
-      run : |
+      - name: Reclaim some disk space
+        run: |
           docker system prune --all --volumes -f
-    - name: Run tools (network)
-      run: |
-        docker login -u ${{ secrets.NEVERMINED_DOCKER_USERNAME }} -p ${{ secrets.NEVERMINED_DOCKER_TOKEN}}
-        sudo chmod go+r /etc/hosts
-        sudo echo "127.0.0.1  nevermined-metadata" | sudo tee -a /etc/hosts
-        git clone https://github.com/nevermined-io/tools
-        cd tools
-        export KEEPER_OWNER_ROLE_ADDRESS="0xe2DD09d719Da89e5a3D0F2549c7E24566e947260"
-        rm -rf "${HOME}/.nevermined/nevermined-contracts/artifacts"
-        ./start_nevermined.sh --latest --no-marketplace --no-graph ${{ matrix.network }} &
-        cd ..
-        ./scripts/wait-nevermined.sh
+      - name: Run tools (network)
+        run: |
+          docker login -u ${{ secrets.NEVERMINED_DOCKER_USERNAME }} -p ${{ secrets.NEVERMINED_DOCKER_TOKEN}}
+          sudo chmod go+r /etc/hosts
+          sudo echo "127.0.0.1  nevermined-metadata" | sudo tee -a /etc/hosts
+          git clone https://github.com/nevermined-io/tools
+          cd tools
+          export KEEPER_OWNER_ROLE_ADDRESS="0xe2DD09d719Da89e5a3D0F2549c7E24566e947260"
+          rm -rf "${HOME}/.nevermined/nevermined-contracts/artifacts"
 
-    - name: Run graph-node
-      run: |
-        docker-compose up -d
-        ./scripts/wait_for_graph.sh
+          export KEEPER_VERSION=develop
+          export GATEWAY_VERSION=develop
 
-    - name: Test update-addresses
-      run: yarn nevermined:update-addresses ${{ matrix.network-name }}
-    - name: Test create
-      run: yarn nevermined:create
-    - name: Test deploy
-      run: yarn nevermined:deploy
-    - name: Unit tests
-      env:
-        SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
-      run: yarn test
-    - name: Test the clients compile
-      run: yarn tsc
+          ./start_nevermined.sh --no-marketplace --no-graph --marketplace-api ${{ matrix.network }} &
+          cd ..
+          ./scripts/wait-nevermined.sh
+
+      - name: Run graph-node
+        run: |
+          docker-compose up -d
+          ./scripts/wait_for_graph.sh
+
+      - name: Test update-addresses
+        run: yarn nevermined:update-addresses ${{ matrix.network-name }}
+      - name: Test create
+        run: yarn nevermined:create
+      - name: Test deploy
+        run: yarn nevermined:deploy
+      - name: Unit tests
+        env:
+          SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
+        run: yarn test
+      - name: Test the clients compile
+        run: yarn tsc
