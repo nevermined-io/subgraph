@@ -1291,10 +1291,10 @@
     which "2.0.2"
     yaml "^1.5.1"
 
-"@nevermined-io/nevermined-sdk-js@0.20.0-rc3":
-  version "0.20.0-rc3"
-  resolved "https://registry.yarnpkg.com/@nevermined-io/nevermined-sdk-js/-/nevermined-sdk-js-0.20.0-rc3.tgz#a1e7b333a4898d8d82fb25936e4e71c54e4bba53"
-  integrity sha512-7zkuGsK1ju/NuAewkULZeFyuR7KGT72j3s7cXyO6movqKghhPG3xynywhTdYXl2Pbhh8x1RY8r73KqS7yycdlw==
+"@nevermined-io/nevermined-sdk-js@0.20.0-rc4":
+  version "0.20.0-rc4"
+  resolved "https://registry.yarnpkg.com/@nevermined-io/nevermined-sdk-js/-/nevermined-sdk-js-0.20.0-rc4.tgz#66976289f269c27d19d38698abe9a6393ee723bf"
+  integrity sha512-T/C02vHBM7dxFpdYYmIJosQ6mR9AJfalEnlIzQIPXNTJDun+QrR3WYxg9F+W1uzTxs74I6/JC+pBrP5DyK8OSg==
   dependencies:
     "@nevermined-io/contracts" "^2.0.0-rc5"
     "@nevermined-io/secret-store-client" "^0.0.16"
