@@ -6,7 +6,7 @@ dataSources:
     name: AaveCreditVault
     network: spree
     source:
-      address: "undefined"
+      address: "0x2fC1fd21cb222Dc180Ef817dE4c426fd9230b5A5"
       abi: AaveCreditVault
       startBlock: 10
     mapping:
@@ -14,6 +14,7 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
+        - Initialized
         - RoleAdminChanged
         - RoleGranted
         - RoleRevoked
@@ -21,6 +22,8 @@ dataSources:
         - name: AaveCreditVault
           file: ./abis/AaveCreditVault.json
       eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleRoleAdminChanged
         - event: RoleGranted(indexed bytes32,indexed address,indexed address)

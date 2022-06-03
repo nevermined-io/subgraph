@@ -6,7 +6,7 @@ dataSources:
     name: AccessCondition
     network: spree
     source:
-      address: "0x83d35336e2cC9C69F6bD22c6D8412e4Ad59134ec"
+      address: "0xdAc3A1f400Cb0939C8e2caeF9136a66B8Ba5249c"
       abi: AccessCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: AccessCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

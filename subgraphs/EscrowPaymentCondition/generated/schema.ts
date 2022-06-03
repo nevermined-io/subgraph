@@ -8,7 +8,8 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
+  Address
 } from "@graphprotocol/graph-ts";
 
 export class Fulfilled extends Entity {
@@ -30,7 +31,7 @@ export class Fulfilled extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save Fulfilled entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("Fulfilled", id.toString(), this);
     }
@@ -67,13 +68,13 @@ export class Fulfilled extends Entity {
     this.set("_tokenAddress", Value.fromBytes(value));
   }
 
-  get _receivers(): Array<Bytes> {
+  get _receivers(): Array<Address> {
     let value = this.get("_receivers");
     return value!.toBytesArray();
   }
 
-  set _receivers(value: Array<Bytes>) {
-    this.set("_receivers", Value.fromBytesArray(value));
+  set _receivers(value: Array<Address>) {
+    this.set("_receivers", Value.fromAddressArray(value));
   }
 
   get _conditionId(): Bytes {
@@ -95,6 +96,48 @@ export class Fulfilled extends Entity {
   }
 }
 
+export class Initialized extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Initialized entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Initialized entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Initialized", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Initialized | null {
+    return changetype<Initialized | null>(store.get("Initialized", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get version(): i32 {
+    let value = this.get("version");
+    return value!.toI32();
+  }
+
+  set version(value: i32) {
+    this.set("version", Value.fromI32(value));
+  }
+}
+
 export class OwnershipTransferred extends Entity {
   constructor(id: string) {
     super();
@@ -111,7 +154,7 @@ export class OwnershipTransferred extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save OwnershipTransferred entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("OwnershipTransferred", id.toString(), this);
     }
@@ -167,7 +210,7 @@ export class Received extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save Received entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("Received", id.toString(), this);
     }

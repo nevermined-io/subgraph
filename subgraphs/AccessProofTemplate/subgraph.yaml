@@ -6,7 +6,7 @@ dataSources:
     name: AccessProofTemplate
     network: spree
     source:
-      address: "0xE8299CCe89f1B30E1d65Ebb827b784D8900aEf2c"
+      address: "0xC5268112c8EB4977E659F996F7443D9717320706"
       abi: AccessProofTemplate
       startBlock: 10
     mapping:
@@ -15,13 +15,16 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: AccessProofTemplate
           file: ./abis/AccessProofTemplate.json
       eventHandlers:
-        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[])
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
           handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

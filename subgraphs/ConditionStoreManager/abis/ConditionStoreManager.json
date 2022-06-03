@@ -59,6 +59,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -190,45 +203,37 @@
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
-      { "internalType": "address", "name": "_typeRef", "type": "address" },
-      { "internalType": "uint256", "name": "_timeLock", "type": "uint256" },
-      { "internalType": "uint256", "name": "_timeOut", "type": "uint256" },
-      { "internalType": "address", "name": "_creator", "type": "address" }
+      { "internalType": "address", "name": "_typeRef", "type": "address" }
     ],
     "name": "createCondition",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x880b2934"
+    "signature": "0xde43d135"
   },
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
       { "internalType": "address", "name": "_typeRef", "type": "address" },
-      { "internalType": "address", "name": "_creator", "type": "address" }
+      { "internalType": "uint256", "name": "_timeLock", "type": "uint256" },
+      { "internalType": "uint256", "name": "_timeOut", "type": "uint256" }
     ],
     "name": "createCondition",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xaa7d0364"
+    "signature": "0xfe3ae90f"
   },
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
       { "internalType": "address", "name": "_typeRef", "type": "address" }
     ],
-    "name": "createCondition",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "name": "createCondition2",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xde43d135"
+    "signature": "0xf141d524"
   },
   {
     "inputs": [
@@ -263,36 +268,11 @@
       },
       { "internalType": "uint256", "name": "timeLock", "type": "uint256" },
       { "internalType": "uint256", "name": "timeOut", "type": "uint256" },
-      { "internalType": "uint256", "name": "blockNumber", "type": "uint256" },
-      { "internalType": "address", "name": "createdBy", "type": "address" },
-      { "internalType": "address", "name": "lastUpdatedBy", "type": "address" },
-      {
-        "internalType": "uint256",
-        "name": "blockNumberUpdated",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "blockNumber", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function",
     "signature": "0x2934a0ee"
-  },
-  {
-    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
-    "name": "getConditionCreatedBy",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x74860095"
-  },
-  {
-    "inputs": [],
-    "name": "getConditionListSize",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0xfe6d8c46"
   },
   {
     "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
@@ -344,6 +324,14 @@
     "signature": "0x3ef447ad"
   },
   {
+    "inputs": [],
+    "name": "getNvmConfigAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xab9de230"
+  },
+  {
     "inputs": [
       { "internalType": "bytes32", "name": "role", "type": "bytes32" }
     ],
@@ -388,13 +376,18 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_creator", "type": "address" },
-      { "internalType": "address", "name": "_owner", "type": "address" }
+      { "internalType": "address", "name": "_owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_nvmConfigAddress",
+        "type": "address"
+      }
     ],
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x485cc955"
+    "signature": "0xc0c53b8b"
   },
   {
     "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
@@ -481,6 +474,16 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xd547741f"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "setNvmConfigAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x02acb9a6"
   },
   {
     "inputs": [

@@ -7,6 +7,7 @@ start &
 
 # copy artifacts
 cd /subgraphs
+mkdir -p node_modules/@nevermined-io/contracts/artifacts/
 cp -r /nevermined-contracts/* node_modules/@nevermined-io/contracts/artifacts/
 
 # wait for subgraph to be online

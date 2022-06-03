@@ -33,7 +33,7 @@ export class Fulfilled extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save Fulfilled entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("Fulfilled", id.toString(), this);
     }
@@ -99,7 +99,7 @@ export class Fulfilled extends Entity {
 
   get _receivers(): Array<Address> {
     let value = this.get("_receivers");
-    return value!.toAddressArray();
+    return value!.toBytesArray();
   }
 
   set _receivers(value: Array<Address>) {
@@ -113,6 +113,48 @@ export class Fulfilled extends Entity {
 
   set _amounts(value: Array<BigInt>) {
     this.set("_amounts", Value.fromBigIntArray(value));
+  }
+}
+
+export class Initialized extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Initialized entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Initialized entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Initialized", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Initialized | null {
+    return changetype<Initialized | null>(store.get("Initialized", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get version(): i32 {
+    let value = this.get("version");
+    return value!.toI32();
+  }
+
+  set version(value: i32) {
+    this.set("version", Value.fromI32(value));
   }
 }
 
@@ -132,7 +174,7 @@ export class OwnershipTransferred extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save OwnershipTransferred entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("OwnershipTransferred", id.toString(), this);
     }
@@ -189,7 +231,7 @@ export class RoleAdminChanged extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save RoleAdminChanged entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("RoleAdminChanged", id.toString(), this);
     }
@@ -255,7 +297,7 @@ export class RoleGranted extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save RoleGranted entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("RoleGranted", id.toString(), this);
     }
@@ -319,7 +361,7 @@ export class RoleRevoked extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save RoleRevoked entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("RoleRevoked", id.toString(), this);
     }

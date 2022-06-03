@@ -43,8 +43,30 @@ export class Fulfilled__Params {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get _nftContractAddress(): Address {
+  get _receiver(): Address {
     return this._event.parameters[5].value.toAddress();
+  }
+
+  get _nftContractAddress(): Address {
+    return this._event.parameters[6].value.toAddress();
+  }
+}
+
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
   }
 }
 
@@ -164,6 +186,57 @@ export class NFT721LockCondition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toI32());
   }
 
+  fulfillMarked(
+    _agreementId: Bytes,
+    _did: Bytes,
+    _lockAddress: Address,
+    _amount: BigInt,
+    _receiver: Address,
+    _nftContractAddress: Address
+  ): i32 {
+    let result = super.call(
+      "fulfillMarked",
+      "fulfillMarked(bytes32,bytes32,address,uint256,address,address):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_lockAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_receiver),
+        ethereum.Value.fromAddress(_nftContractAddress)
+      ]
+    );
+
+    return result[0].toI32();
+  }
+
+  try_fulfillMarked(
+    _agreementId: Bytes,
+    _did: Bytes,
+    _lockAddress: Address,
+    _amount: BigInt,
+    _receiver: Address,
+    _nftContractAddress: Address
+  ): ethereum.CallResult<i32> {
+    let result = super.tryCall(
+      "fulfillMarked",
+      "fulfillMarked(bytes32,bytes32,address,uint256,address,address):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_lockAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_receiver),
+        ethereum.Value.fromAddress(_nftContractAddress)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
   generateId(_agreementId: Bytes, _valueHash: Bytes): Bytes {
     let result = super.call(
       "generateId",
@@ -229,6 +302,53 @@ export class NFT721LockCondition extends ethereum.SmartContract {
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromAddress(_lockAddress),
         ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_nftContractAddress)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  hashValuesMarked(
+    _did: Bytes,
+    _lockAddress: Address,
+    _amount: BigInt,
+    _receiver: Address,
+    _nftContractAddress: Address
+  ): Bytes {
+    let result = super.call(
+      "hashValuesMarked",
+      "hashValuesMarked(bytes32,address,uint256,address,address):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_lockAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_receiver),
+        ethereum.Value.fromAddress(_nftContractAddress)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_hashValuesMarked(
+    _did: Bytes,
+    _lockAddress: Address,
+    _amount: BigInt,
+    _receiver: Address,
+    _nftContractAddress: Address
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "hashValuesMarked",
+      "hashValuesMarked(bytes32,address,uint256,address,address):(bytes32)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_lockAddress),
+        ethereum.Value.fromUnsignedBigInt(_amount),
+        ethereum.Value.fromAddress(_receiver),
         ethereum.Value.fromAddress(_nftContractAddress)
       ]
     );
@@ -374,6 +494,60 @@ export class FulfillCall__Outputs {
   _call: FulfillCall;
 
   constructor(call: FulfillCall) {
+    this._call = call;
+  }
+
+  get value0(): i32 {
+    return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class FulfillMarkedCall extends ethereum.Call {
+  get inputs(): FulfillMarkedCall__Inputs {
+    return new FulfillMarkedCall__Inputs(this);
+  }
+
+  get outputs(): FulfillMarkedCall__Outputs {
+    return new FulfillMarkedCall__Outputs(this);
+  }
+}
+
+export class FulfillMarkedCall__Inputs {
+  _call: FulfillMarkedCall;
+
+  constructor(call: FulfillMarkedCall) {
+    this._call = call;
+  }
+
+  get _agreementId(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _lockAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get _amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get _receiver(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get _nftContractAddress(): Address {
+    return this._call.inputValues[5].value.toAddress();
+  }
+}
+
+export class FulfillMarkedCall__Outputs {
+  _call: FulfillMarkedCall;
+
+  constructor(call: FulfillMarkedCall) {
     this._call = call;
   }
 

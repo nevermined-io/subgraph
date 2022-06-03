@@ -1,26 +1,16 @@
 [
   {
+    "anonymous": false,
     "inputs": [
-      { "internalType": "address", "name": "_lendingPool", "type": "address" },
-      { "internalType": "address", "name": "_dataProvider", "type": "address" },
-      { "internalType": "address", "name": "_weth", "type": "address" },
-      { "internalType": "uint256", "name": "_nvmFee", "type": "uint256" },
-      { "internalType": "uint256", "name": "_agreementFee", "type": "uint256" },
       {
-        "internalType": "address",
-        "name": "_treasuryAddress",
-        "type": "address"
-      },
-      { "internalType": "address", "name": "_borrower", "type": "address" },
-      { "internalType": "address", "name": "_lender", "type": "address" },
-      {
-        "internalType": "address[]",
-        "name": "_conditions",
-        "type": "address[]"
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
       }
     ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    "name": "Initialized",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -304,6 +294,32 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_lendingPool", "type": "address" },
+      { "internalType": "address", "name": "_dataProvider", "type": "address" },
+      { "internalType": "address", "name": "_weth", "type": "address" },
+      { "internalType": "uint256", "name": "_nvmFee", "type": "uint256" },
+      { "internalType": "uint256", "name": "_agreementFee", "type": "uint256" },
+      {
+        "internalType": "address",
+        "name": "_treasuryAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_borrower", "type": "address" },
+      { "internalType": "address", "name": "_lender", "type": "address" },
+      {
+        "internalType": "address[]",
+        "name": "_conditions",
+        "type": "address[]"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xd9852c5a"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "_address", "type": "address" }
     ],
     "name": "isBorrower",
@@ -339,6 +355,14 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0xa59a9973"
+  },
+  {
+    "inputs": [],
+    "name": "nftId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xc6bc5182"
   },
   {
     "inputs": [],
@@ -419,11 +443,11 @@
         "type": "bytes32"
       }
     ],
-    "name": "setLockConditionId",
+    "name": "setRepayConditionId",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xe0cd4363"
+    "signature": "0x23ef1e79"
   },
   {
     "inputs": [

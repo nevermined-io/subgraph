@@ -3,6 +3,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -103,33 +116,14 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      {
-        "internalType": "address[]",
-        "name": "_conditionTypes",
-        "type": "address[]"
-      },
-      {
-        "internalType": "bytes32[]",
-        "name": "_conditionIds",
-        "type": "bytes32[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_timeLocks",
-        "type": "uint256[]"
-      },
-      { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
       { "internalType": "address", "name": "_creator", "type": "address" }
     ],
-    "name": "createAgreement",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
-    "stateMutability": "nonpayable",
+    "name": "agreementId",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
     "type": "function",
-    "signature": "0x45c82142"
+    "signature": "0xa947bd67"
   },
   {
     "inputs": [
@@ -153,9 +147,7 @@
       { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" }
     ],
     "name": "createAgreement",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x955d0c2a"
@@ -180,89 +172,95 @@
         "type": "uint256[]"
       },
       { "internalType": "uint256[]", "name": "_timeOuts", "type": "uint256[]" },
-      { "internalType": "address", "name": "_creator", "type": "address" },
-      { "internalType": "uint256", "name": "_idx", "type": "uint256" },
+      { "internalType": "address[]", "name": "_account", "type": "address[]" },
+      { "internalType": "uint256[]", "name": "_idx", "type": "uint256[]" },
+      { "internalType": "bytes[]", "name": "params", "type": "bytes[]" }
+    ],
+    "name": "createAgreementAndFulfill",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "signature": "0x122b3d45"
+  },
+  {
+    "inputs": [
       {
-        "internalType": "address payable",
-        "name": "_rewardAddress",
-        "type": "address"
-      },
-      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
-      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
-      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+        "components": [
+          { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+          { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+          {
+            "internalType": "address[]",
+            "name": "_conditionTypes",
+            "type": "address[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "_conditionIds",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "_timeLocks",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "_timeOuts",
+            "type": "uint256[]"
+          },
+          { "internalType": "address", "name": "_creator", "type": "address" },
+          { "internalType": "uint256", "name": "_idx", "type": "uint256" },
+          {
+            "internalType": "address payable",
+            "name": "_rewardAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_tokenAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "_amounts",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_receivers",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct AgreementStoreManager.CreateAgreementArgs",
+        "name": "args",
+        "type": "tuple"
+      }
     ],
     "name": "createAgreementAndPay",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function",
-    "signature": "0xe3129bfb"
-  },
-  {
-    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
-    "name": "getAgreement",
-    "outputs": [
-      { "internalType": "bytes32", "name": "did", "type": "bytes32" },
-      { "internalType": "address", "name": "didOwner", "type": "address" },
-      { "internalType": "address", "name": "templateId", "type": "address" },
-      {
-        "internalType": "bytes32[]",
-        "name": "conditionIds",
-        "type": "bytes32[]"
-      },
-      { "internalType": "address", "name": "lastUpdatedBy", "type": "address" },
-      {
-        "internalType": "uint256",
-        "name": "blockNumberUpdated",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0xf42eb765"
-  },
-  {
-    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
-    "name": "getAgreementDIDOwner",
-    "outputs": [
-      { "internalType": "address", "name": "didOwner", "type": "address" }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x17cfbf5e"
+    "signature": "0xcd14e31d"
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "address", "name": "_condType", "type": "address" },
+      { "internalType": "bytes32", "name": "_valueHash", "type": "bytes32" }
     ],
-    "name": "getAgreementIdsForDID",
-    "outputs": [
-      { "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }
-    ],
-    "stateMutability": "view",
+    "name": "fullConditionId",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
     "type": "function",
-    "signature": "0x8945226e"
+    "signature": "0x6fe97256"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_templateId", "type": "address" }
-    ],
-    "name": "getAgreementIdsForTemplateId",
-    "outputs": [
-      { "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }
-    ],
+    "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
+    "name": "getAgreementTemplate",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function",
-    "signature": "0xa340c34f"
-  },
-  {
-    "inputs": [],
-    "name": "getAgreementListSize",
-    "outputs": [
-      { "internalType": "uint256", "name": "size", "type": "uint256" }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x8a9013cb"
+    "signature": "0x69a7c3de"
   },
   {
     "inputs": [],
@@ -338,28 +336,6 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xf8c8765e"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
-      { "internalType": "address", "name": "_owner", "type": "address" }
-    ],
-    "name": "isAgreementDIDOwner",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0xd1c1db39"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
-      { "internalType": "address", "name": "_provider", "type": "address" }
-    ],
-    "name": "isAgreementDIDProvider",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0xcaf92b8b"
   },
   {
     "inputs": [],

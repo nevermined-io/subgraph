@@ -6,7 +6,7 @@ dataSources:
     name: EscrowPaymentCondition
     network: spree
     source:
-      address: "0x336EFb3c9E56F713dFdA4CDB3Dd0882F3226b6eE"
+      address: "0x2AbcD100Fee59D635EF7CF80b79f27FD36ed3B03"
       abi: EscrowPaymentCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
         - Received
       abis:
@@ -23,6 +24,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed address,address[],bytes32,uint256[])
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: Received(indexed address,uint256)

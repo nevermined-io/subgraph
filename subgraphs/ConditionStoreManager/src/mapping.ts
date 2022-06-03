@@ -1,6 +1,7 @@
 import {
   ConditionCreated as ConditionCreatedEvent,
   ConditionUpdated as ConditionUpdatedEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
   RoleGranted as RoleGrantedEvent,
@@ -9,6 +10,7 @@ import {
 import {
   ConditionCreated,
   ConditionUpdated,
+  Initialized,
   OwnershipTransferred,
   RoleAdminChanged,
   RoleGranted,
@@ -33,6 +35,14 @@ export function handleConditionUpdated(event: ConditionUpdatedEvent): void {
   entity._typeRef = event.params._typeRef
   entity._state = event.params._state
   entity._who = event.params._who
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

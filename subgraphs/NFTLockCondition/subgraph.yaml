@@ -6,7 +6,7 @@ dataSources:
     name: NFTLockCondition
     network: spree
     source:
-      address: "0xac1D60D8840b3E5BaF347607a1093A1937bFF580"
+      address: "0xAc1D8d71Ed8b449aA02357076F9e6A6624D5471F"
       abi: NFTLockCondition
       startBlock: 10
     mapping:
@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Fulfilled
+        - Initialized
         - OwnershipTransferred
       abis:
         - name: NFTLockCondition
@@ -22,6 +23,8 @@ dataSources:
       eventHandlers:
         - event: Fulfilled(indexed bytes32,indexed bytes32,indexed address,bytes32,uint256,address,address)
           handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/mapping.ts

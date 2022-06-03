@@ -6,6 +6,15 @@ type AgreementCreated @entity {
   _accessProvider: Bytes! # address
   _timeLocks: [BigInt]! # uint256[]
   _timeOuts: [BigInt]! # uint256[]
+  _conditionIdSeeds: [Bytes]! # bytes32[]
+  _conditionIds: [Bytes]! # bytes32[]
+  _idSeed: Bytes! # bytes32
+  _creator: Bytes! # address
+}
+
+type Initialized @entity {
+  id: ID!
+  version: Int! # uint8
 }
 
 type OwnershipTransferred @entity {

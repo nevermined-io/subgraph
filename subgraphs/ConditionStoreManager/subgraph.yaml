@@ -1,12 +1,12 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: ConditionStoreManager
-    network: polygon-localnet
+    network: spree
     source:
-      address: "0xF9E633CBeEB2A474D3Fe22261046C99e805beeC4"
+      address: "0xB4e92c6e1a1ad3f7b42463d11804BE6ca2be79D3"
       abi: ConditionStoreManager
       startBlock: 10
     mapping:
@@ -16,6 +16,7 @@ dataSources:
       entities:
         - ConditionCreated
         - ConditionUpdated
+        - Initialized
         - OwnershipTransferred
         - RoleAdminChanged
         - RoleGranted
@@ -28,6 +29,8 @@ dataSources:
           handler: handleConditionCreated
         - event: ConditionUpdated(indexed bytes32,indexed address,indexed uint8,address)
           handler: handleConditionUpdated
+        - event: Initialized(uint8)
+          handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)

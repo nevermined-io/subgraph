@@ -8,6 +8,7 @@ import {
   DIDProvenanceDelegateRemoved as DIDProvenanceDelegateRemovedEvent,
   DIDProviderAdded as DIDProviderAddedEvent,
   DIDProviderRemoved as DIDProviderRemovedEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProvenanceAttributeRegistered as ProvenanceAttributeRegisteredEvent,
   Used as UsedEvent,
@@ -25,6 +26,7 @@ import {
   DIDProvenanceDelegateRemoved,
   DIDProviderAdded,
   DIDProviderRemoved,
+  Initialized,
   OwnershipTransferred,
   ProvenanceAttributeRegistered,
   Used,
@@ -137,6 +139,14 @@ export function handleDIDProviderRemoved(event: DIDProviderRemovedEvent): void {
   entity._did = event.params._did
   entity._provider = event.params._provider
   entity.state = event.params.state
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 

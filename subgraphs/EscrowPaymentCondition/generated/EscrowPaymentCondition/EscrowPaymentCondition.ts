@@ -44,6 +44,24 @@ export class Fulfilled__Params {
   }
 }
 
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
+  }
+}
+
+export class Initialized__Params {
+  _event: Initialized;
+
+  constructor(event: Initialized) {
+    this._event = event;
+  }
+
+  get version(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -229,11 +247,71 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  encodeParams(
+    _did: Bytes,
+    _amounts: Array<BigInt>,
+    _receivers: Array<Address>,
+    _returnAddress: Address,
+    _lockPaymentAddress: Address,
+    _tokenAddress: Address,
+    _lockCondition: Bytes,
+    _releaseConditions: Array<Bytes>
+  ): Bytes {
+    let result = super.call(
+      "encodeParams",
+      "encodeParams(bytes32,uint256[],address[],address,address,address,bytes32,bytes32[]):(bytes)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromUnsignedBigIntArray(_amounts),
+        ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
+        ethereum.Value.fromAddress(_lockPaymentAddress),
+        ethereum.Value.fromAddress(_tokenAddress),
+        ethereum.Value.fromFixedBytes(_lockCondition),
+        ethereum.Value.fromFixedBytesArray(_releaseConditions)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_encodeParams(
+    _did: Bytes,
+    _amounts: Array<BigInt>,
+    _receivers: Array<Address>,
+    _returnAddress: Address,
+    _lockPaymentAddress: Address,
+    _tokenAddress: Address,
+    _lockCondition: Bytes,
+    _releaseConditions: Array<Bytes>
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "encodeParams",
+      "encodeParams(bytes32,uint256[],address[],address,address,address,bytes32,bytes32[]):(bytes)",
+      [
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromUnsignedBigIntArray(_amounts),
+        ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
+        ethereum.Value.fromAddress(_lockPaymentAddress),
+        ethereum.Value.fromAddress(_tokenAddress),
+        ethereum.Value.fromFixedBytes(_lockCondition),
+        ethereum.Value.fromFixedBytesArray(_releaseConditions)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
   fulfill(
     _agreementId: Bytes,
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -241,12 +319,13 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): i32 {
     let result = super.call(
       "fulfill",
-      "fulfill(bytes32,bytes32,uint256[],address[],address,address,bytes32,bytes32):(uint8)",
+      "fulfill(bytes32,bytes32,uint256[],address[],address,address,address,bytes32,bytes32):(uint8)",
       [
         ethereum.Value.fromFixedBytes(_agreementId),
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -262,6 +341,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -269,12 +349,13 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): ethereum.CallResult<i32> {
     let result = super.tryCall(
       "fulfill",
-      "fulfill(bytes32,bytes32,uint256[],address[],address,address,bytes32,bytes32):(uint8)",
+      "fulfill(bytes32,bytes32,uint256[],address[],address,address,address,bytes32,bytes32):(uint8)",
       [
         ethereum.Value.fromFixedBytes(_agreementId),
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -293,6 +374,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -300,12 +382,13 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): i32 {
     let result = super.call(
       "fulfillMulti",
-      "fulfillMulti(bytes32,bytes32,uint256[],address[],address,address,bytes32,bytes32[]):(uint8)",
+      "fulfillMulti(bytes32,bytes32,uint256[],address[],address,address,address,bytes32,bytes32[]):(uint8)",
       [
         ethereum.Value.fromFixedBytes(_agreementId),
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -321,6 +404,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -328,12 +412,13 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): ethereum.CallResult<i32> {
     let result = super.tryCall(
       "fulfillMulti",
-      "fulfillMulti(bytes32,bytes32,uint256[],address[],address,address,bytes32,bytes32[]):(uint8)",
+      "fulfillMulti(bytes32,bytes32,uint256[],address[],address,address,address,bytes32,bytes32[]):(uint8)",
       [
         ethereum.Value.fromFixedBytes(_agreementId),
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -406,6 +491,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -413,11 +499,12 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): Bytes {
     let result = super.call(
       "hashValues",
-      "hashValues(bytes32,uint256[],address[],address,address,bytes32,bytes32):(bytes32)",
+      "hashValues(bytes32,uint256[],address[],address,address,address,bytes32,bytes32):(bytes32)",
       [
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -432,6 +519,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -439,11 +527,12 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "hashValues",
-      "hashValues(bytes32,uint256[],address[],address,address,bytes32,bytes32):(bytes32)",
+      "hashValues(bytes32,uint256[],address[],address,address,address,bytes32,bytes32):(bytes32)",
       [
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -508,6 +597,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -515,11 +605,12 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): Bytes {
     let result = super.call(
       "hashValuesMulti",
-      "hashValuesMulti(bytes32,uint256[],address[],address,address,bytes32,bytes32[]):(bytes32)",
+      "hashValuesMulti(bytes32,uint256[],address[],address,address,address,bytes32,bytes32[]):(bytes32)",
       [
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -534,6 +625,7 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
     _did: Bytes,
     _amounts: Array<BigInt>,
     _receivers: Array<Address>,
+    _returnAddress: Address,
     _lockPaymentAddress: Address,
     _tokenAddress: Address,
     _lockCondition: Bytes,
@@ -541,11 +633,12 @@ export class EscrowPaymentCondition extends ethereum.SmartContract {
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "hashValuesMulti",
-      "hashValuesMulti(bytes32,uint256[],address[],address,address,bytes32,bytes32[]):(bytes32)",
+      "hashValuesMulti(bytes32,uint256[],address[],address,address,address,bytes32,bytes32[]):(bytes32)",
       [
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
         ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_returnAddress),
         ethereum.Value.fromAddress(_lockPaymentAddress),
         ethereum.Value.fromAddress(_tokenAddress),
         ethereum.Value.fromFixedBytes(_lockCondition),
@@ -700,20 +793,24 @@ export class FulfillCall__Inputs {
     return this._call.inputValues[3].value.toAddressArray();
   }
 
-  get _lockPaymentAddress(): Address {
+  get _returnAddress(): Address {
     return this._call.inputValues[4].value.toAddress();
   }
 
-  get _tokenAddress(): Address {
+  get _lockPaymentAddress(): Address {
     return this._call.inputValues[5].value.toAddress();
   }
 
+  get _tokenAddress(): Address {
+    return this._call.inputValues[6].value.toAddress();
+  }
+
   get _lockCondition(): Bytes {
-    return this._call.inputValues[6].value.toBytes();
+    return this._call.inputValues[7].value.toBytes();
   }
 
   get _releaseCondition(): Bytes {
-    return this._call.inputValues[7].value.toBytes();
+    return this._call.inputValues[8].value.toBytes();
   }
 }
 
@@ -762,20 +859,24 @@ export class FulfillMultiCall__Inputs {
     return this._call.inputValues[3].value.toAddressArray();
   }
 
-  get _lockPaymentAddress(): Address {
+  get _returnAddress(): Address {
     return this._call.inputValues[4].value.toAddress();
   }
 
-  get _tokenAddress(): Address {
+  get _lockPaymentAddress(): Address {
     return this._call.inputValues[5].value.toAddress();
   }
 
+  get _tokenAddress(): Address {
+    return this._call.inputValues[6].value.toAddress();
+  }
+
   get _lockCondition(): Bytes {
-    return this._call.inputValues[6].value.toBytes();
+    return this._call.inputValues[7].value.toBytes();
   }
 
   get _releaseConditions(): Array<Bytes> {
-    return this._call.inputValues[7].value.toBytesArray();
+    return this._call.inputValues[8].value.toBytesArray();
   }
 }
 

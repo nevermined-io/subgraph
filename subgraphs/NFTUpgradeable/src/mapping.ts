@@ -1,5 +1,6 @@
 import {
   ApprovalForAll as ApprovalForAllEvent,
+  Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProxyApproval as ProxyApprovalEvent,
   RoleAdminChanged as RoleAdminChangedEvent,
@@ -11,6 +12,7 @@ import {
 } from "../generated/NFTUpgradeable/NFTUpgradeable"
 import {
   ApprovalForAll,
+  Initialized,
   OwnershipTransferred,
   ProxyApproval,
   RoleAdminChanged,
@@ -28,6 +30,14 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
   entity.account = event.params.account
   entity.operator = event.params.operator
   entity.approved = event.params.approved
+  entity.save()
+}
+
+export function handleInitialized(event: InitializedEvent): void {
+  let entity = new Initialized(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.version = event.params.version
   entity.save()
 }
 
