@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: spree
+    network: polygon-localnet
     source:
       address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
       abi: DIDRegistry
@@ -23,6 +23,8 @@ dataSources:
         - DIDProvenanceDelegateRemoved
         - DIDProviderAdded
         - DIDProviderRemoved
+        - DIDRoyaltiesAdded
+        - DIDRoyaltyRecipientChanged
         - Initialized
         - OwnershipTransferred
         - ProvenanceAttributeRegistered
@@ -52,6 +54,10 @@ dataSources:
           handler: handleDIDProviderAdded
         - event: DIDProviderRemoved(bytes32,address,bool)
           handler: handleDIDProviderRemoved
+        - event: DIDRoyaltiesAdded(indexed bytes32,indexed address)
+          handler: handleDIDRoyaltiesAdded
+        - event: DIDRoyaltyRecipientChanged(indexed bytes32,indexed address)
+          handler: handleDIDRoyaltyRecipientChanged
         - event: Initialized(uint8)
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)

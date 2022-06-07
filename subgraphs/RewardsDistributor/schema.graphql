@@ -1,0 +1,4 @@
+type Initialized @entity {
+  id: ID!
+  version: Int! # uint8
+}

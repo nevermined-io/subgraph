@@ -663,6 +663,121 @@ export class DIDProviderRemoved extends Entity {
   }
 }
 
+export class DIDRoyaltiesAdded extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("did", Value.fromBytes(Bytes.empty()));
+    this.set("addr", Value.fromBytes(Bytes.empty()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save DIDRoyaltiesAdded entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save DIDRoyaltiesAdded entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("DIDRoyaltiesAdded", id.toString(), this);
+    }
+  }
+
+  static load(id: string): DIDRoyaltiesAdded | null {
+    return changetype<DIDRoyaltiesAdded | null>(
+      store.get("DIDRoyaltiesAdded", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get did(): Bytes {
+    let value = this.get("did");
+    return value!.toBytes();
+  }
+
+  set did(value: Bytes) {
+    this.set("did", Value.fromBytes(value));
+  }
+
+  get addr(): Bytes {
+    let value = this.get("addr");
+    return value!.toBytes();
+  }
+
+  set addr(value: Bytes) {
+    this.set("addr", Value.fromBytes(value));
+  }
+}
+
+export class DIDRoyaltyRecipientChanged extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("did", Value.fromBytes(Bytes.empty()));
+    this.set("addr", Value.fromBytes(Bytes.empty()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save DIDRoyaltyRecipientChanged entity without an ID"
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save DIDRoyaltyRecipientChanged entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("DIDRoyaltyRecipientChanged", id.toString(), this);
+    }
+  }
+
+  static load(id: string): DIDRoyaltyRecipientChanged | null {
+    return changetype<DIDRoyaltyRecipientChanged | null>(
+      store.get("DIDRoyaltyRecipientChanged", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get did(): Bytes {
+    let value = this.get("did");
+    return value!.toBytes();
+  }
+
+  set did(value: Bytes) {
+    this.set("did", Value.fromBytes(value));
+  }
+
+  get addr(): Bytes {
+    let value = this.get("addr");
+    return value!.toBytes();
+  }
+
+  set addr(value: Bytes) {
+    this.set("addr", Value.fromBytes(value));
+  }
+}
+
 export class Initialized extends Entity {
   constructor(id: string) {
     super();

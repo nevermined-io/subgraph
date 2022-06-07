@@ -258,6 +258,44 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "did",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "DIDRoyaltiesAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "did",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "DIDRoyaltyRecipientChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": false,
         "internalType": "uint8",
         "name": "version",
@@ -579,13 +617,18 @@
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
-      { "internalType": "address[]", "name": "_receivers", "type": "address[]" }
+      {
+        "internalType": "address[]",
+        "name": "_receivers",
+        "type": "address[]"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" }
     ],
     "name": "areRoyaltiesValid",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function",
-    "signature": "0xd3875024"
+    "signature": "0x61d74472"
   },
   {
     "inputs": [
@@ -683,6 +726,16 @@
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
     ],
+    "name": "getDIDCreator",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x234f04cd"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
+    ],
     "name": "getDIDOwner",
     "outputs": [
       { "internalType": "address", "name": "didOwner", "type": "address" }
@@ -714,6 +767,29 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x22c6b519"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
+    ],
+    "name": "getDIDRoyaltyRecipient",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x3b21f84f"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
+    ],
+    "name": "getDIDSupply",
+    "outputs": [
+      { "internalType": "uint256", "name": "nftSupply", "type": "uint256" },
+      { "internalType": "uint256", "name": "mintCap", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xdaca738f"
   },
   {
     "inputs": [
@@ -1020,6 +1096,16 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "registerRoyaltiesChecker",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x280f546c"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       { "internalType": "address", "name": "_delegate", "type": "address" }
     ],
@@ -1058,6 +1144,36 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xa6a8f17b"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "royaltiesCheckers",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xbfb967d0"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_royalties", "type": "address" }
+    ],
+    "name": "setDIDRoyalties",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x9463e25d"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_recipient", "type": "address" }
+    ],
+    "name": "setDIDRoyaltyRecipient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xb14d888a"
   },
   {
     "inputs": [
