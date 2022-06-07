@@ -66,6 +66,18 @@ type DIDProviderRemoved @entity {
   state: Boolean! # bool
 }
 
+type DIDRoyaltiesAdded @entity {
+  id: ID!
+  did: Bytes! # bytes32
+  addr: Bytes! # address
+}
+
+type DIDRoyaltyRecipientChanged @entity {
+  id: ID!
+  did: Bytes! # bytes32
+  addr: Bytes! # address
+}
+
 type Initialized @entity {
   id: ID!
   version: Int! # uint8

@@ -264,6 +264,50 @@ export class DIDProviderRemoved__Params {
   }
 }
 
+export class DIDRoyaltiesAdded extends ethereum.Event {
+  get params(): DIDRoyaltiesAdded__Params {
+    return new DIDRoyaltiesAdded__Params(this);
+  }
+}
+
+export class DIDRoyaltiesAdded__Params {
+  _event: DIDRoyaltiesAdded;
+
+  constructor(event: DIDRoyaltiesAdded) {
+    this._event = event;
+  }
+
+  get did(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get addr(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+}
+
+export class DIDRoyaltyRecipientChanged extends ethereum.Event {
+  get params(): DIDRoyaltyRecipientChanged__Params {
+    return new DIDRoyaltyRecipientChanged__Params(this);
+  }
+}
+
+export class DIDRoyaltyRecipientChanged__Params {
+  _event: DIDRoyaltyRecipientChanged;
+
+  constructor(event: DIDRoyaltyRecipientChanged) {
+    this._event = event;
+  }
+
+  get did(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get addr(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+}
+
 export class Initialized extends ethereum.Event {
   get params(): Initialized__Params {
     return new Initialized__Params(this);
@@ -558,6 +602,23 @@ export class DIDRegistry__getDIDRegisterResult {
   }
 }
 
+export class DIDRegistry__getDIDSupplyResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
 export class DIDRegistry__getProvenanceEntryResult {
   value0: Bytes;
   value1: Bytes;
@@ -672,15 +733,17 @@ export class DIDRegistry extends ethereum.SmartContract {
   areRoyaltiesValid(
     _did: Bytes,
     _amounts: Array<BigInt>,
-    _receivers: Array<Address>
+    _receivers: Array<Address>,
+    _tokenAddress: Address
   ): boolean {
     let result = super.call(
       "areRoyaltiesValid",
-      "areRoyaltiesValid(bytes32,uint256[],address[]):(bool)",
+      "areRoyaltiesValid(bytes32,uint256[],address[],address):(bool)",
       [
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
-        ethereum.Value.fromAddressArray(_receivers)
+        ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_tokenAddress)
       ]
     );
 
@@ -690,15 +753,17 @@ export class DIDRegistry extends ethereum.SmartContract {
   try_areRoyaltiesValid(
     _did: Bytes,
     _amounts: Array<BigInt>,
-    _receivers: Array<Address>
+    _receivers: Array<Address>,
+    _tokenAddress: Address
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "areRoyaltiesValid",
-      "areRoyaltiesValid(bytes32,uint256[],address[]):(bool)",
+      "areRoyaltiesValid(bytes32,uint256[],address[],address):(bool)",
       [
         ethereum.Value.fromFixedBytes(_did),
         ethereum.Value.fromUnsignedBigIntArray(_amounts),
-        ethereum.Value.fromAddressArray(_receivers)
+        ethereum.Value.fromAddressArray(_receivers),
+        ethereum.Value.fromAddress(_tokenAddress)
       ]
     );
     if (result.reverted) {
@@ -851,6 +916,29 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  getDIDCreator(_did: Bytes): Address {
+    let result = super.call(
+      "getDIDCreator",
+      "getDIDCreator(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getDIDCreator(_did: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getDIDCreator",
+      "getDIDCreator(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   getDIDOwner(_did: Bytes): Address {
     let result = super.call("getDIDOwner", "getDIDOwner(bytes32):(address)", [
       ethereum.Value.fromFixedBytes(_did)
@@ -915,6 +1003,62 @@ export class DIDRegistry extends ethereum.SmartContract {
         value[6].toBigInt(),
         value[7].toBigInt(),
         value[8].toBigInt()
+      )
+    );
+  }
+
+  getDIDRoyaltyRecipient(_did: Bytes): Address {
+    let result = super.call(
+      "getDIDRoyaltyRecipient",
+      "getDIDRoyaltyRecipient(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getDIDRoyaltyRecipient(_did: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getDIDRoyaltyRecipient",
+      "getDIDRoyaltyRecipient(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getDIDSupply(_did: Bytes): DIDRegistry__getDIDSupplyResult {
+    let result = super.call(
+      "getDIDSupply",
+      "getDIDSupply(bytes32):(uint256,uint256)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+
+    return new DIDRegistry__getDIDSupplyResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
+  }
+
+  try_getDIDSupply(
+    _did: Bytes
+  ): ethereum.CallResult<DIDRegistry__getDIDSupplyResult> {
+    let result = super.tryCall(
+      "getDIDSupply",
+      "getDIDSupply(bytes32):(uint256,uint256)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new DIDRegistry__getDIDSupplyResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
       )
     );
   }
@@ -1222,6 +1366,29 @@ export class DIDRegistry extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  royaltiesCheckers(param0: Address): boolean {
+    let result = super.call(
+      "royaltiesCheckers",
+      "royaltiesCheckers(address):(bool)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_royaltiesCheckers(param0: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "royaltiesCheckers",
+      "royaltiesCheckers(address):(bool)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   used(
@@ -2138,6 +2305,36 @@ export class RegisterMintableDID721Call__Outputs {
   }
 }
 
+export class RegisterRoyaltiesCheckerCall extends ethereum.Call {
+  get inputs(): RegisterRoyaltiesCheckerCall__Inputs {
+    return new RegisterRoyaltiesCheckerCall__Inputs(this);
+  }
+
+  get outputs(): RegisterRoyaltiesCheckerCall__Outputs {
+    return new RegisterRoyaltiesCheckerCall__Outputs(this);
+  }
+}
+
+export class RegisterRoyaltiesCheckerCall__Inputs {
+  _call: RegisterRoyaltiesCheckerCall;
+
+  constructor(call: RegisterRoyaltiesCheckerCall) {
+    this._call = call;
+  }
+
+  get _addr(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class RegisterRoyaltiesCheckerCall__Outputs {
+  _call: RegisterRoyaltiesCheckerCall;
+
+  constructor(call: RegisterRoyaltiesCheckerCall) {
+    this._call = call;
+  }
+}
+
 export class RemoveDIDProvenanceDelegateCall extends ethereum.Call {
   get inputs(): RemoveDIDProvenanceDelegateCall__Inputs {
     return new RemoveDIDProvenanceDelegateCall__Inputs(this);
@@ -2262,6 +2459,74 @@ export class RevokePermissionCall__Outputs {
   _call: RevokePermissionCall;
 
   constructor(call: RevokePermissionCall) {
+    this._call = call;
+  }
+}
+
+export class SetDIDRoyaltiesCall extends ethereum.Call {
+  get inputs(): SetDIDRoyaltiesCall__Inputs {
+    return new SetDIDRoyaltiesCall__Inputs(this);
+  }
+
+  get outputs(): SetDIDRoyaltiesCall__Outputs {
+    return new SetDIDRoyaltiesCall__Outputs(this);
+  }
+}
+
+export class SetDIDRoyaltiesCall__Inputs {
+  _call: SetDIDRoyaltiesCall;
+
+  constructor(call: SetDIDRoyaltiesCall) {
+    this._call = call;
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _royalties(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class SetDIDRoyaltiesCall__Outputs {
+  _call: SetDIDRoyaltiesCall;
+
+  constructor(call: SetDIDRoyaltiesCall) {
+    this._call = call;
+  }
+}
+
+export class SetDIDRoyaltyRecipientCall extends ethereum.Call {
+  get inputs(): SetDIDRoyaltyRecipientCall__Inputs {
+    return new SetDIDRoyaltyRecipientCall__Inputs(this);
+  }
+
+  get outputs(): SetDIDRoyaltyRecipientCall__Outputs {
+    return new SetDIDRoyaltyRecipientCall__Outputs(this);
+  }
+}
+
+export class SetDIDRoyaltyRecipientCall__Inputs {
+  _call: SetDIDRoyaltyRecipientCall;
+
+  constructor(call: SetDIDRoyaltyRecipientCall) {
+    this._call = call;
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _recipient(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class SetDIDRoyaltyRecipientCall__Outputs {
+  _call: SetDIDRoyaltyRecipientCall;
+
+  constructor(call: SetDIDRoyaltyRecipientCall) {
     this._call = call;
   }
 }

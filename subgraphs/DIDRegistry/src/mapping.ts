@@ -8,6 +8,8 @@ import {
   DIDProvenanceDelegateRemoved as DIDProvenanceDelegateRemovedEvent,
   DIDProviderAdded as DIDProviderAddedEvent,
   DIDProviderRemoved as DIDProviderRemovedEvent,
+  DIDRoyaltiesAdded as DIDRoyaltiesAddedEvent,
+  DIDRoyaltyRecipientChanged as DIDRoyaltyRecipientChangedEvent,
   Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProvenanceAttributeRegistered as ProvenanceAttributeRegisteredEvent,
@@ -26,6 +28,8 @@ import {
   DIDProvenanceDelegateRemoved,
   DIDProviderAdded,
   DIDProviderRemoved,
+  DIDRoyaltiesAdded,
+  DIDRoyaltyRecipientChanged,
   Initialized,
   OwnershipTransferred,
   ProvenanceAttributeRegistered,
@@ -139,6 +143,26 @@ export function handleDIDProviderRemoved(event: DIDProviderRemovedEvent): void {
   entity._did = event.params._did
   entity._provider = event.params._provider
   entity.state = event.params.state
+  entity.save()
+}
+
+export function handleDIDRoyaltiesAdded(event: DIDRoyaltiesAddedEvent): void {
+  let entity = new DIDRoyaltiesAdded(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.did = event.params.did
+  entity.addr = event.params.addr
+  entity.save()
+}
+
+export function handleDIDRoyaltyRecipientChanged(
+  event: DIDRoyaltyRecipientChangedEvent
+): void {
+  let entity = new DIDRoyaltyRecipientChanged(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.did = event.params.did
+  entity.addr = event.params.addr
   entity.save()
 }
 

@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: RewardsDistributor
+    network: polygon-localnet
+    source:
+      address: "0x9EacB2a88f1d487c63C1862d5a379E6Ad8a5550c"
+      abi: RewardsDistributor
+      startBlock: 10
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Initialized
+      abis:
+        - name: RewardsDistributor
+          file: ./abis/RewardsDistributor.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+      file: ./src/mapping.ts

@@ -1,0 +1,131 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_agreementId", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
+      {
+        "internalType": "address[]",
+        "name": "_receivers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_returnAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_lockPaymentAddress",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_tokenAddress", "type": "address" },
+      {
+        "internalType": "bytes32",
+        "name": "_lockCondition",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "_releaseConditions",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "claimReward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x39e5e39f"
+  },
+  {
+    "inputs": [],
+    "name": "conditionStoreManager",
+    "outputs": [
+      {
+        "internalType": "contract ConditionStoreManager",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x983a7893"
+  },
+  {
+    "inputs": [],
+    "name": "escrow",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xe2fdcc17"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_registry", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_conditionStoreManager",
+        "type": "address"
+      },
+      { "internalType": "address", "name": "_escrow", "type": "address" }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xc0c53b8b"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "", "type": "bytes32" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "receivers",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xfad2562f"
+  },
+  {
+    "inputs": [],
+    "name": "registry",
+    "outputs": [
+      { "internalType": "contract DIDRegistry", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x7b103999"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address[]", "name": "_addr", "type": "address[]" }
+    ],
+    "name": "setReceivers",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x87adf685"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "name": "used",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xb07c411f"
+  }
+]
