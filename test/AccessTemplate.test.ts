@@ -7,7 +7,6 @@ import ws from 'ws'
 import Web3 from 'web3'
 
 import { Account, Keeper, Nevermined } from '@nevermined-io/nevermined-sdk-js'
-import DIDRegistry from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/DIDRegistry'
 import { didZeroX, generateId, zeroX } from '@nevermined-io/nevermined-sdk-js/dist/node/utils'
 import { EventLog } from 'web3-core'
 
@@ -22,7 +21,6 @@ const amounts = [new BigNumber(10)]
 
 let receivers: string[]
 let nevermined: Nevermined
-let didRegistry: DIDRegistry
 let keeper: Keeper
 let account: Account
 let consumer: Account
@@ -231,12 +229,47 @@ describe('AccessTemplate', () => {
             assert.deepEqual(eventData._timeOuts, expectedEventData._timeOuts)
         })
 
-        it('it should query using the subgraph client', async () => {
+        it('it should query the agreementId using the subgraph client', async () => {
             const response = await getAgreementCreateds(
                 'http://localhost:9000/subgraphs/name/neverminedio/AccessTemplate',
                 {
                     where: {
                         _agreementId: zeroX(agreementId),
+                    },
+
+                },
+                {
+                    _agreementId: true,
+                    _did: true,
+                    _accessConsumer: true,
+                    _accessProvider: true,
+                    _timeLocks: true,
+                    _timeOuts: true,
+                },
+            )
+            const eventData = response[0]
+            const expectedEventData = expectedEvent.returnValues
+
+            assert.strictEqual(eventData._agreementId, expectedEventData._agreementId)
+            assert.strictEqual(eventData._did, expectedEventData._did)
+            assert.strictEqual(
+                Web3.utils.toChecksumAddress(eventData._accessConsumer),
+                Web3.utils.toChecksumAddress(expectedEventData._accessConsumer),
+            )
+            assert.strictEqual(
+                Web3.utils.toChecksumAddress(eventData._accessProvider),
+                Web3.utils.toChecksumAddress(expectedEventData._accessProvider),
+            )
+            assert.deepEqual(eventData._timeLocks, expectedEventData._timeLocks)
+            assert.deepEqual(eventData._timeOuts, expectedEventData._timeOuts)
+        })
+
+        it('it should query the agreements for a did using the subgraph client', async () => {
+            const response = await getAgreementCreateds(
+                'http://localhost:9000/subgraphs/name/neverminedio/AccessTemplate',
+                {
+                    where: {
+                        _did: didZeroX(did),
                     },
 
                 },
