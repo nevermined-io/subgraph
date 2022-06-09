@@ -2,6 +2,7 @@
 
 # This script requires the jq and yq clis
 
+POLYGONSCAN_URL=""
 POLYGONSCAN_URL_MUMBAI=${POLYGONSCAN_URL_MUMBAI:-https://api-testnet.polygonscan.com/api}
 POLYGONSCAN_URL_MATIC=${POLYGONSCAN_URL_MATIC:-https://api.polygonscan.com/api}
 POLYGONSCAN_APIKEY=${POLYGONSCAN_APIKEY:-ISP8J7YJGP88XSHU55QJF3YM71WVFRWSDJ}
@@ -28,18 +29,20 @@ do
     ABI=node_modules/@nevermined-io/contracts/artifacts/$BASENAME.$NETWORK.json
     SUBGRAPH=$d/subgraph.yaml
     IMPLEMENTATION_ADDRESS=$(cat $ABI | jq -r '.implementation')
-    BLOCK_NUMBER=$(
-        curl -G $POLYGONSCAN_URL \
-        -d module=account \
-        -d action=txlist \
-        -d address=$IMPLEMENTATION_ADDRESS \
-        -d startblock=0 \
-        -d endblock=99999999 \
-        -d page=1 \
-        -d offset=10 \
-        -d sort=asc \
-        -d apiKey=$POLYGONSCAN_APIKEY | jq -r '.result[0].blockNumber' || echo 1
-    )
+    if [ ! -z "${POLYGONSCAN_URL}" ]; then
+        BLOCK_NUMBER=$(
+            curl -G $POLYGONSCAN_URL \
+            -d module=account \
+            -d action=txlist \
+            -d address=$IMPLEMENTATION_ADDRESS \
+            -d startblock=0 \
+            -d endblock=99999999 \
+            -d page=1 \
+            -d offset=10 \
+            -d sort=asc \
+            -d apiKey=$POLYGONSCAN_APIKEY | jq -r '.result[0].blockNumber' || echo 1
+        )
+    fi
 
     echo $BASENAME
     echo $ABI
