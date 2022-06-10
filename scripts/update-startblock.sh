@@ -27,31 +27,34 @@ do
     BASENAME=$(basename "$d")
     ABI=node_modules/@nevermined-io/contracts/artifacts/$BASENAME.$NETWORK.json
     SUBGRAPH=$d/subgraph.yaml
-    IMPLEMENTATION_ADDRESS=$(cat $ABI | jq -r '.implementation')
-    BLOCK_NUMBER=$(
-        curl -G $POLYGONSCAN_URL \
-        -d module=account \
-        -d action=txlist \
-        -d address=$IMPLEMENTATION_ADDRESS \
-        -d startblock=0 \
-        -d endblock=99999999 \
-        -d page=1 \
-        -d offset=10 \
-        -d sort=asc \
-        -d apiKey=$POLYGONSCAN_APIKEY | jq -r '.result[0].blockNumber' || echo 1
-    )
+    if [ -z "$OVERRIDE_SUBGRAPH_STARTING_BLOCK" ]; then
+        IMPLEMENTATION_ADDRESS=$(cat $ABI | jq -r '.implementation')
+        BLOCK_NUMBER=$(
+            curl -G $POLYGONSCAN_URL \
+            -d module=account \
+            -d action=txlist \
+            -d address=$IMPLEMENTATION_ADDRESS \
+            -d startblock=0 \
+            -d endblock=99999999 \
+            -d page=1 \
+            -d offset=10 \
+            -d sort=asc \
+            -d apiKey=$POLYGONSCAN_APIKEY | jq -r '.result[0].blockNumber' || echo 1
+        )
 
-    echo $BASENAME
-    echo $ABI
-    echo $IMPLEMENTATION_ADDRESS
-    echo $BLOCK_NUMBER
-    echo $SUBGRAPH
+        echo $BASENAME
+        echo $ABI
+        echo $IMPLEMENTATION_ADDRESS
+        echo $BLOCK_NUMBER
+        echo $SUBGRAPH
 
-    # update the startBlock
-     yq -i ".dataSources[0].source.startBlock = $BLOCK_NUMBER" $SUBGRAPH
+        # update the startBlock
+        yq -i ".dataSources[0].source.startBlock = $BLOCK_NUMBER" $SUBGRAPH
 
-    # try not to trigger any rate-limits
-    sleep 0.5
-
-
+        # try not to trigger any rate-limits
+        sleep 0.5
+    else
+        BLOCK_NUMBER="$OVERRIDE_SUBGRAPH_STARTING_BLOCK"
+        yq -i ".dataSources[0].source.startBlock = $BLOCK_NUMBER" $SUBGRAPH
+    fi
 done
