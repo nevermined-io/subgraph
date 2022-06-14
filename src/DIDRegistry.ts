@@ -1081,6 +1081,198 @@ export const getDIDProviderRemoveds = async function <K extends keyof DIDProvide
     } while (paginationKey && (options.first && results.length < options.first));
     return options.first ? results.slice(0, options.first) : results;
 };
+export type DIDRoyaltiesAddedFilter = {
+    id?: string | null;
+    id_not?: string | null;
+    id_gt?: string | null;
+    id_lt?: string | null;
+    id_gte?: string | null;
+    id_lte?: string | null;
+    id_in?: string[];
+    id_not_in?: string[];
+    did?: string | null;
+    did_not?: string | null;
+    did_in?: string[];
+    did_not_in?: string[];
+    did_contains?: string | null;
+    did_not_contains?: string | null;
+    addr?: string | null;
+    addr_not?: string | null;
+    addr_in?: string[];
+    addr_not_in?: string[];
+    addr_contains?: string | null;
+    addr_not_contains?: string | null;
+};
+export type DIDRoyaltiesAddedResult = {
+    id: string;
+    did: string;
+    addr: string;
+};
+export type DIDRoyaltiesAddedFields = {
+    id: true;
+    did: true;
+    addr: true;
+};
+export type DIDRoyaltiesAddedArgs<K extends keyof DIDRoyaltiesAddedResult> = {
+    [Property in keyof Pick<DIDRoyaltiesAddedFields, K>]: DIDRoyaltiesAddedFields[Property];
+};
+export const getDIDRoyaltiesAddedById = async function <K extends keyof DIDRoyaltiesAddedResult>(url: string, options: SingleQueryOptions, args: DIDRoyaltiesAddedArgs<K>): Promise<Pick<DIDRoyaltiesAddedResult, K>> {
+    const res = await axios.post(url, {
+        query: generateGql("didroyaltiesAdded", options, args)
+    });
+    const r = res.data as any;
+    if (r.errors && r.errors.length) {
+        throw new Error(r.errors[0].message);
+    }
+    const obj = (r.data[Object.keys(r.data)[0]] as any);
+    const formattedObj: any = {};
+    if (obj["id"])
+        formattedObj["id"] = obj["id"];
+    if (obj["did"])
+        formattedObj["did"] = obj["did"];
+    if (obj["addr"])
+        formattedObj["addr"] = obj["addr"];
+    return formattedObj as Pick<DIDRoyaltiesAddedResult, K>;
+};
+export const getDIDRoyaltiesAddeds = async function <K extends keyof DIDRoyaltiesAddedResult>(url: string, options: MultiQueryOptions<DIDRoyaltiesAddedFilter, DIDRoyaltiesAddedResult>, args: DIDRoyaltiesAddedArgs<K>): Promise<Pick<DIDRoyaltiesAddedResult, K>[]> {
+    const paginatedOptions: Partial<MultiQueryOptions<DIDRoyaltiesAddedFilter, DIDRoyaltiesAddedResult>> = { ...options };
+    let paginationKey: keyof DIDRoyaltiesAddedFilter | null = null;
+    let paginationValue = "";
+    if (options.first && options.first > MAX_PAGE) {
+        paginatedOptions.first = MAX_PAGE;
+        paginatedOptions.orderBy = options.orderBy || "id";
+        paginatedOptions.orderDirection = options.orderDirection || "asc";
+        paginationKey = paginatedOptions.orderBy + (paginatedOptions.orderDirection === "asc" ? "_gt" : "_lt") as keyof DIDRoyaltiesAddedFilter;
+        paginatedOptions.where = { ...options.where };
+    }
+    let results: Pick<DIDRoyaltiesAddedResult, K>[] = [];
+    do {
+        if (paginationKey && paginationValue)
+            paginatedOptions.where![paginationKey] = paginationValue as any;
+        const res = await axios.post(url, {
+            query: generateGql("didroyaltiesAddeds", paginatedOptions, args)
+        });
+        const r = res.data as any;
+        if (r.errors && r.errors.length) {
+            throw new Error(r.errors[0].message);
+        }
+        const rawResults = r.data[Object.keys(r.data)[0]] as any[];
+        const newResults = rawResults.map((obj) => {
+            const formattedObj: any = {};
+            if (obj["id"])
+                formattedObj["id"] = obj["id"];
+            if (obj["did"])
+                formattedObj["did"] = obj["did"];
+            if (obj["addr"])
+                formattedObj["addr"] = obj["addr"];
+            return formattedObj as Pick<DIDRoyaltiesAddedResult, K>;
+        });
+        results = results.concat(newResults);
+        if (newResults.length < 1000) {
+            break;
+        }
+        if (paginationKey) {
+            paginationValue = rawResults[rawResults.length - 1][paginatedOptions.orderBy!];
+        }
+    } while (paginationKey && (options.first && results.length < options.first));
+    return options.first ? results.slice(0, options.first) : results;
+};
+export type DIDRoyaltyRecipientChangedFilter = {
+    id?: string | null;
+    id_not?: string | null;
+    id_gt?: string | null;
+    id_lt?: string | null;
+    id_gte?: string | null;
+    id_lte?: string | null;
+    id_in?: string[];
+    id_not_in?: string[];
+    did?: string | null;
+    did_not?: string | null;
+    did_in?: string[];
+    did_not_in?: string[];
+    did_contains?: string | null;
+    did_not_contains?: string | null;
+    addr?: string | null;
+    addr_not?: string | null;
+    addr_in?: string[];
+    addr_not_in?: string[];
+    addr_contains?: string | null;
+    addr_not_contains?: string | null;
+};
+export type DIDRoyaltyRecipientChangedResult = {
+    id: string;
+    did: string;
+    addr: string;
+};
+export type DIDRoyaltyRecipientChangedFields = {
+    id: true;
+    did: true;
+    addr: true;
+};
+export type DIDRoyaltyRecipientChangedArgs<K extends keyof DIDRoyaltyRecipientChangedResult> = {
+    [Property in keyof Pick<DIDRoyaltyRecipientChangedFields, K>]: DIDRoyaltyRecipientChangedFields[Property];
+};
+export const getDIDRoyaltyRecipientChangedById = async function <K extends keyof DIDRoyaltyRecipientChangedResult>(url: string, options: SingleQueryOptions, args: DIDRoyaltyRecipientChangedArgs<K>): Promise<Pick<DIDRoyaltyRecipientChangedResult, K>> {
+    const res = await axios.post(url, {
+        query: generateGql("didroyaltyRecipientChanged", options, args)
+    });
+    const r = res.data as any;
+    if (r.errors && r.errors.length) {
+        throw new Error(r.errors[0].message);
+    }
+    const obj = (r.data[Object.keys(r.data)[0]] as any);
+    const formattedObj: any = {};
+    if (obj["id"])
+        formattedObj["id"] = obj["id"];
+    if (obj["did"])
+        formattedObj["did"] = obj["did"];
+    if (obj["addr"])
+        formattedObj["addr"] = obj["addr"];
+    return formattedObj as Pick<DIDRoyaltyRecipientChangedResult, K>;
+};
+export const getDIDRoyaltyRecipientChangeds = async function <K extends keyof DIDRoyaltyRecipientChangedResult>(url: string, options: MultiQueryOptions<DIDRoyaltyRecipientChangedFilter, DIDRoyaltyRecipientChangedResult>, args: DIDRoyaltyRecipientChangedArgs<K>): Promise<Pick<DIDRoyaltyRecipientChangedResult, K>[]> {
+    const paginatedOptions: Partial<MultiQueryOptions<DIDRoyaltyRecipientChangedFilter, DIDRoyaltyRecipientChangedResult>> = { ...options };
+    let paginationKey: keyof DIDRoyaltyRecipientChangedFilter | null = null;
+    let paginationValue = "";
+    if (options.first && options.first > MAX_PAGE) {
+        paginatedOptions.first = MAX_PAGE;
+        paginatedOptions.orderBy = options.orderBy || "id";
+        paginatedOptions.orderDirection = options.orderDirection || "asc";
+        paginationKey = paginatedOptions.orderBy + (paginatedOptions.orderDirection === "asc" ? "_gt" : "_lt") as keyof DIDRoyaltyRecipientChangedFilter;
+        paginatedOptions.where = { ...options.where };
+    }
+    let results: Pick<DIDRoyaltyRecipientChangedResult, K>[] = [];
+    do {
+        if (paginationKey && paginationValue)
+            paginatedOptions.where![paginationKey] = paginationValue as any;
+        const res = await axios.post(url, {
+            query: generateGql("didroyaltyRecipientChangeds", paginatedOptions, args)
+        });
+        const r = res.data as any;
+        if (r.errors && r.errors.length) {
+            throw new Error(r.errors[0].message);
+        }
+        const rawResults = r.data[Object.keys(r.data)[0]] as any[];
+        const newResults = rawResults.map((obj) => {
+            const formattedObj: any = {};
+            if (obj["id"])
+                formattedObj["id"] = obj["id"];
+            if (obj["did"])
+                formattedObj["did"] = obj["did"];
+            if (obj["addr"])
+                formattedObj["addr"] = obj["addr"];
+            return formattedObj as Pick<DIDRoyaltyRecipientChangedResult, K>;
+        });
+        results = results.concat(newResults);
+        if (newResults.length < 1000) {
+            break;
+        }
+        if (paginationKey) {
+            paginationValue = rawResults[rawResults.length - 1][paginatedOptions.orderBy!];
+        }
+    } while (paginationKey && (options.first && results.length < options.first));
+    return options.first ? results.slice(0, options.first) : results;
+};
 export type InitializedFilter = {
     id?: string | null;
     id_not?: string | null;
