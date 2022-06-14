@@ -5,7 +5,7 @@ shopt -s extglob
 rm -rf manifestos
 mkdir manifestos
 
-EXCLUDE_SUBGRAPHS="AaveCreditVault|ConditionStoreManager|DistributeNFTCollateralCondition|NFT721LockCondition|NFTUpgradeable"
+EXCLUDE_SUBGRAPHS="AaveCreditVault|DistributeNFTCollateralCondition|NFT721LockCondition|NFTUpgradeable"
 
 # Generate manifestos for the graphql clients for each subgraph
 for d in ./subgraphs/!($EXCLUDE_SUBGRAPHS)/
