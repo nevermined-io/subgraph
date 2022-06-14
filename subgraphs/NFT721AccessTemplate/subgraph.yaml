@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFT721AccessTemplate
     network: spree
     source:
-      address: "0x10506Ba5C7a0e215d0487B3e93bdCFa4F463ed91"
+      address: "0x6d21f91932b998fE62B3cc4d883e6aab589Af56b"
       abi: NFT721AccessTemplate
       startBlock: 10
     mapping:

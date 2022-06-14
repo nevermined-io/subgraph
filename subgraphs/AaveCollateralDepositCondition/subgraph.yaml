@@ -6,7 +6,7 @@ dataSources:
     name: AaveCollateralDepositCondition
     network: spree
     source:
-      address: "0x1bad507833adF7aCb32c428e4721d2A110739e62"
+      address: "0x494a286382BD0Cd2aF8676D41c125Be325dD72B3"
       abi: AaveCollateralDepositCondition
       startBlock: 10
     mapping:

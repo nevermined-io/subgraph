@@ -1,10 +1,10 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: StandardRoyalties
-    network: polygon-localnet
+    network: spree
     source:
       address: "0x3ebCF78A74741541Fd16459F93dCD99860Ea9ba1"
       abi: StandardRoyalties

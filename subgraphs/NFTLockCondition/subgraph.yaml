@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTLockCondition
     network: spree
     source:
-      address: "0xAc1D8d71Ed8b449aA02357076F9e6A6624D5471F"
+      address: "0xdAc3A1f400Cb0939C8e2caeF9136a66B8Ba5249c"
       abi: NFTLockCondition
       startBlock: 10
     mapping:

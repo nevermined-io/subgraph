@@ -1,10 +1,10 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: polygon-localnet
+    network: spree
     source:
       address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
       abi: DIDRegistry

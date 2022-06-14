@@ -6,7 +6,7 @@ dataSources:
     name: AaveCreditTemplate
     network: spree
     source:
-      address: "0x3e4E4555bd6f2fb7f1BC1bDADF22638Ab5c99B84"
+      address: "0x19d34AB38F83C96677564dF1f2cA695e6C7099ba"
       abi: AaveCreditTemplate
       startBlock: 10
     mapping:

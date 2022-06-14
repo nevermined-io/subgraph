@@ -6,7 +6,7 @@ dataSources:
     name: AccessProofTemplate
     network: spree
     source:
-      address: "0xC5268112c8EB4977E659F996F7443D9717320706"
+      address: "0xF841Ff2C8abF1751A83923755EbD2F66bBAa5BFE"
       abi: AccessProofTemplate
       startBlock: 10
     mapping:

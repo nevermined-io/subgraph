@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTEscrowPaymentCondition
     network: spree
     source:
-      address: "0xC5E55dc50bfAf7116F50601802527F3B0807d535"
+      address: "0x8c78125bA3fC5bE80c96d802e8800f4de2137047"
       abi: NFTEscrowPaymentCondition
       startBlock: 10
     mapping:
