@@ -6,7 +6,7 @@ dataSources:
     name: AgreementStoreManager
     network: spree
     source:
-      address: "0xA687f430DC56473C0405100933e9790BC4c9DA96"
+      address: "0x4E88D395707fd9E127d7d936925fD74ca56A67CD"
       abi: AgreementStoreManager
       startBlock: 10
     mapping:

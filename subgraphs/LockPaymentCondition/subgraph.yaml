@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: LockPaymentCondition
     network: spree
     source:
-      address: "0x4E88D395707fd9E127d7d936925fD74ca56A67CD"
+      address: "0x9e478692Bce93FE0616aD97882cf6832FD9CB720"
       abi: LockPaymentCondition
       startBlock: 10
     mapping:

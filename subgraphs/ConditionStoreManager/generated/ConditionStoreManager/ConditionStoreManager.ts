@@ -23,7 +23,7 @@ export class ConditionCreated__Params {
     this._event = event;
   }
 
-  get _id(): Bytes {
+  get id(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 
@@ -49,7 +49,7 @@ export class ConditionUpdated__Params {
     this._event = event;
   }
 
-  get _id(): Bytes {
+  get id(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 

@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: DIDSalesTemplate
     network: spree
     source:
-      address: "0x99a9F881b4C3b03877d2058D14471ADb69991831"
+      address: "0x0003E25406C7Bec132EC07319690F3eE0ED420a4"
       abi: DIDSalesTemplate
       startBlock: 10
     mapping:

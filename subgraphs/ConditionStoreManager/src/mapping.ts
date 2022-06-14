@@ -19,9 +19,8 @@ import {
 
 export function handleConditionCreated(event: ConditionCreatedEvent): void {
   let entity = new ConditionCreated(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+    event.params.id
   )
-  entity._id = event.params._id
   entity._typeRef = event.params._typeRef
   entity._who = event.params._who
   entity.save()
@@ -29,9 +28,8 @@ export function handleConditionCreated(event: ConditionCreatedEvent): void {
 
 export function handleConditionUpdated(event: ConditionUpdatedEvent): void {
   let entity = new ConditionUpdated(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+    event.params.id
   )
-  entity._id = event.params._id
   entity._typeRef = event.params._typeRef
   entity._state = event.params._state
   entity._who = event.params._who

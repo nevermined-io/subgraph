@@ -6,7 +6,7 @@ dataSources:
     name: AaveBorrowCondition
     network: spree
     source:
-      address: "0x8c78125bA3fC5bE80c96d802e8800f4de2137047"
+      address: "0x1bad507833adF7aCb32c428e4721d2A110739e62"
       abi: AaveBorrowCondition
       startBlock: 10
     mapping:

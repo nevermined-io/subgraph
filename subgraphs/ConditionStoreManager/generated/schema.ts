@@ -12,11 +12,10 @@ import {
 } from "@graphprotocol/graph-ts";
 
 export class ConditionCreated extends Entity {
-  constructor(id: string) {
+  constructor(id: Bytes) {
     super();
-    this.set("id", Value.fromString(id));
+    this.set("id", Value.fromBytes(id));
 
-    this.set("_id", Value.fromBytes(Bytes.empty()));
     this.set("_typeRef", Value.fromBytes(Bytes.empty()));
     this.set("_who", Value.fromBytes(Bytes.empty()));
   }
@@ -28,7 +27,7 @@ export class ConditionCreated extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save ConditionCreated entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("ConditionCreated", id.toString(), this);
     }
@@ -47,15 +46,6 @@ export class ConditionCreated extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
-  }
-
-  get _id(): Bytes {
-    let value = this.get("_id");
-    return value!.toBytes();
-  }
-
-  set _id(value: Bytes) {
-    this.set("_id", Value.fromBytes(value));
   }
 
   get _typeRef(): Bytes {
@@ -78,9 +68,9 @@ export class ConditionCreated extends Entity {
 }
 
 export class ConditionUpdated extends Entity {
-  constructor(id: string) {
+  constructor(id: Bytes) {
     super();
-    this.set("id", Value.fromString(id));
+    this.set("id", Value.fromBytes(id));
 
     this.set("_id", Value.fromBytes(Bytes.empty()));
     this.set("_typeRef", Value.fromBytes(Bytes.empty()));
@@ -94,7 +84,7 @@ export class ConditionUpdated extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save ConditionUpdated entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("ConditionUpdated", id.toString(), this);
     }
@@ -165,7 +155,7 @@ export class Initialized extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save Initialized entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("Initialized", id.toString(), this);
     }
@@ -210,7 +200,7 @@ export class OwnershipTransferred extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save OwnershipTransferred entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("OwnershipTransferred", id.toString(), this);
     }
@@ -267,7 +257,7 @@ export class RoleAdminChanged extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save RoleAdminChanged entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("RoleAdminChanged", id.toString(), this);
     }
@@ -333,7 +323,7 @@ export class RoleGranted extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save RoleGranted entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("RoleGranted", id.toString(), this);
     }
@@ -397,7 +387,7 @@ export class RoleRevoked extends Entity {
       assert(
         id.kind == ValueKind.STRING,
         "Cannot save RoleRevoked entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        'Considering using .toHex() to convert the "id" to a string.'
       );
       store.set("RoleRevoked", id.toString(), this);
     }

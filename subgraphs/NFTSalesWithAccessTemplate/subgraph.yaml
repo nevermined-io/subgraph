@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTSalesWithAccessTemplate
     network: spree
     source:
-      address: "0x37cB53b6e0224b03D2cD11b68ea5Df6141D95a1e"
+      address: "0xA8d8Dd738462eb5c3122Cc456D6330AE414678B1"
       abi: NFTSalesWithAccessTemplate
       startBlock: 10
     mapping:
