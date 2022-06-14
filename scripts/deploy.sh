@@ -11,7 +11,7 @@ IPFS_URL=${IPFS_URL:-http://localhost:5001}
 # NFT721LockCondition does not build
 # NFTUpgradeable same as ConditionStoreManager
 
-EXCLUDE_SUBGRAPHS="AaveCreditVault|ConditionStoreManager|DistributeNFTCollateralCondition|NFT721LockCondition|NFTUpgradeable"
+EXCLUDE_SUBGRAPHS="AaveCreditVault|DistributeNFTCollateralCondition|NFT721LockCondition|NFTUpgradeable"
 
 for d in ./subgraphs/!($EXCLUDE_SUBGRAPHS)/
 do

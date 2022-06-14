@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: ConditionStoreManager
     network: spree
     source:
-      address: "0xB4e92c6e1a1ad3f7b42463d11804BE6ca2be79D3"
+      address: "0x9eD1050E0054C38Ad431109D04f0c4Be8424Bf7b"
       abi: ConditionStoreManager
       startBlock: 10
     mapping:
