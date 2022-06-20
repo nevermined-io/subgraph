@@ -141,9 +141,9 @@ export const getAgreementCreatedById = async function <K extends keyof Agreement
     if (obj["_accessProvider"])
         formattedObj["_accessProvider"] = obj["_accessProvider"];
     if (obj["_timeLocks"])
-        formattedObj["_timeLocks"] = wei(obj["_timeLocks"], 0);
+        formattedObj["_timeLocks"] = obj["_timeLocks"];
     if (obj["_timeOuts"])
-        formattedObj["_timeOuts"] = wei(obj["_timeOuts"], 0);
+        formattedObj["_timeOuts"] = obj["_timeOuts"];
     if (obj["_conditionIdSeeds"])
         formattedObj["_conditionIdSeeds"] = obj["_conditionIdSeeds"];
     if (obj["_conditionIds"])
@@ -190,9 +190,9 @@ export const getAgreementCreateds = async function <K extends keyof AgreementCre
             if (obj["_accessProvider"])
                 formattedObj["_accessProvider"] = obj["_accessProvider"];
             if (obj["_timeLocks"])
-                formattedObj["_timeLocks"] = wei(obj["_timeLocks"], 0);
+                formattedObj["_timeLocks"] = obj["_timeLocks"];
             if (obj["_timeOuts"])
-                formattedObj["_timeOuts"] = wei(obj["_timeOuts"], 0);
+                formattedObj["_timeOuts"] = obj["_timeOuts"];
             if (obj["_conditionIdSeeds"])
                 formattedObj["_conditionIdSeeds"] = obj["_conditionIdSeeds"];
             if (obj["_conditionIds"])
