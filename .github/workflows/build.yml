@@ -43,10 +43,7 @@ jobs:
           export KEEPER_OWNER_ROLE_ADDRESS="0xe2DD09d719Da89e5a3D0F2549c7E24566e947260"
           rm -rf "${HOME}/.nevermined/nevermined-contracts/artifacts"
 
-          export KEEPER_VERSION=develop
-          export GATEWAY_VERSION=develop
-
-          ./start_nevermined.sh --no-marketplace --no-graph --marketplace-api ${{ matrix.network }} &
+          ./start_nevermined.sh --latest --no-graph ${{ matrix.network }} &
           cd ..
           ./scripts/wait-nevermined.sh
 
