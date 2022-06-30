@@ -8,7 +8,6 @@ import { Account, DDO, MetaData, Nevermined } from '@nevermined-io/nevermined-sd
 import { didZeroX, zeroX } from '@nevermined-io/nevermined-sdk-js/dist/node/utils'
 
 import { config } from './config'
-import { getFulfilleds } from '../src/LockPaymentCondition'
 import { getAgreementCreateds } from '../src/NFTSalesTemplate'
 import { getMetadata } from './utils'
 import AssetRewards from '@nevermined-io/nevermined-sdk-js/dist/node/models/AssetRewards'
@@ -23,14 +22,19 @@ let wsClient: ApolloClient<NormalizedCacheObject>
 let metadata: MetaData
 let ddo: DDO
 let agreementId: string
+let subgraphHttpUrl: string
+let subgraphWsUrl: string
 
 describe('NFTSalesTemplate', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
             ;[publisher, consumer] = await nevermined.accounts.list()
 
-        console.log(await publisher.getBalance())
         metadata = getMetadata()
+
+        const networkName = (await nevermined.keeper.getNetworkName()).toLowerCase()
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200nftsalestemplate`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200nftsalestemplate`
 
         const clientAssertion = await nevermined.utils.jwt.generateClientAssertion(publisher)
         await nevermined.marketplace.login(clientAssertion)
@@ -38,7 +42,7 @@ describe('NFTSalesTemplate', () => {
         metadata.userId = payload.sub
 
         const subscriptionClient = new SubscriptionClient(
-            'ws://localhost:9001/subgraphs/name/neverminedio/NFTSalesTemplate',
+            subgraphWsUrl,
             {
                 reconnect: true,
             },
@@ -106,7 +110,7 @@ describe('NFTSalesTemplate', () => {
 
     it('should query the NFTSalesTemplate agreement created event', async () => {
         const response = await getAgreementCreateds(
-            'http://localhost:9000/subgraphs/name/neverminedio/NFTSalesTemplate',
+            subgraphHttpUrl,
             {
                 where: {
                     _agreementId: zeroX(agreementId),

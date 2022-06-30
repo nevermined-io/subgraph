@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
+# Usage: ./deploy.sh <tag> <network> <version>
 
+set -u
 shopt -s extglob
+
+TAG=$1
+NETWORK=$2
+VERSION=$3
 
 GRAPH_NODE_URL=${GRAPH_NODE_URL:-http://localhost:9020/}
 IPFS_URL=${IPFS_URL:-http://localhost:5001}
 
-# AaveCreditVault does not have an address. We need to use templates and dynamic sources
-# ConditionStoreManager has a param named `id` that conflicts with the id of the database. Needs to be manually changed
-# DistributeNFTCollateralCondition does not build
-# NFT721LockCondition does not build
-# NFTUpgradeable same as ConditionStoreManager
-
-EXCLUDE_SUBGRAPHS="AaveCreditVault|DistributeNFTCollateralCondition|NFT721LockCondition|NFTUpgradeable"
-
-for d in ./subgraphs/!($EXCLUDE_SUBGRAPHS)/
+for d in ./subgraphs/*
 do
-    echo $(basename "$d")
-    (cd "$d" && graph deploy -l v0.0.1 --node $GRAPH_NODE_URL --ipfs $IPFS_URL neverminedio/$(basename "$d"))
+    # lower case name
+    BASENAME=$(basename "$d" | tr "[:upper:]" "[:lower:]")
+    echo "Deploying $TAG$NETWORK$VERSION$BASENAME"
+
+    (cd "$d" && graph deploy -l v0.0.1 --node $GRAPH_NODE_URL --ipfs $IPFS_URL nevermined-io/$TAG$NETWORK$VERSION$BASENAME)
 done

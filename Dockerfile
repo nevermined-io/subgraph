@@ -11,7 +11,6 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 
 RUN apt-get install -y nodejs
 
-# COPY --from=graph-node /usr/local/bin/graph-node /usr/local/bin
 RUN npm install -g @nevermined-io/graph-cli
 RUN npm install --global yarn
 

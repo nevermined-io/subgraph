@@ -1,6 +1,6 @@
 {
   "name": "@nevermined-io/subgraphs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Nevermined subgraph graphql clients",
   "main": "./build/index.js",
   "typings": "./build/index.d.ts",
@@ -16,11 +16,15 @@
     "nevermined:init": "ts-node ./scripts/init.ts",
     "nevermined:update-addresses": "ts-node ./scripts/update-addresses.ts",
     "nevermined:create": "./scripts/create.sh",
+    "nevermined:create-hosted": "./scripts/create-hosted.sh",
     "nevermined:deploy": "./scripts/deploy.sh",
+    "nevermined:deploy-hosted": "./scripts/deploy-hosted.sh",
     "nevermined:install": "./scripts/install.sh",
     "nevermined:create-manifestos": "./scripts/create-manifestos.sh",
     "nevermined:generate-clients": "./scripts/generate-clients.sh",
-    "nevermined:update-startblock": "./scripts/update-startblock.sh"
+    "nevermined:update-startblock": "./scripts/update-startblock.sh",
+    "nevermined:update-network": "./scripts/update-network.sh",
+    "artifacts:download": "./scripts/download-artifacts.sh"
   },
   "license": "Apache-2.0",
   "author": "Nevermined <root@nevermined.io>",
