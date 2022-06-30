@@ -39,8 +39,8 @@ let lockPaymentCondition: LockPaymentCondition
 let escrowPaymentCondition: EscrowPaymentCondition
 let accessTemplate: AccessTemplate
 let token: Token
-const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200accesstemplate'
-const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200accesstemplate'
+let subgraphHttpUrl: string
+let subgraphWsUrl: string
 
 
 describe('AccessTemplate', () => {
@@ -53,7 +53,9 @@ describe('AccessTemplate', () => {
             ; ({ accessTemplate } = keeper.templates)
             ; ({ token } = keeper)
 
-
+        const networkName = await keeper.getNetworkName()
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200accesstemplate`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200accesstemplate`
 
         agreementIdSeed = generateId()
         agreementId = await nevermined.keeper.agreementStoreManager.agreementId(

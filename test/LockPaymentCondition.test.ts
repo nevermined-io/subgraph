@@ -22,13 +22,17 @@ let wsClient: ApolloClient<NormalizedCacheObject>
 let metadata: MetaData
 let ddo: DDO
 let agreementId: string
-const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200lockpaymentcondition'
-const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200lockpaymentcondition'
+let subgraphHttpUrl: string
+let subgraphWsUrl: string
 
 describe('LockPaymentCondition', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
             ;[publisher, consumer] = await nevermined.accounts.list()
+
+        const networkName = await nevermined.keeper.getNetworkName()
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200lockpaymentcondition`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200lockpaymentcondition`
 
         metadata = getMetadata()
 

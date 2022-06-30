@@ -8,7 +8,6 @@ import { Account, DDO, MetaData, Nevermined } from '@nevermined-io/nevermined-sd
 import { didZeroX, zeroX } from '@nevermined-io/nevermined-sdk-js/dist/node/utils'
 
 import { config } from './config'
-import { getFulfilleds } from '../src/LockPaymentCondition'
 import { getAgreementCreateds } from '../src/NFTSalesTemplate'
 import { getMetadata } from './utils'
 import AssetRewards from '@nevermined-io/nevermined-sdk-js/dist/node/models/AssetRewards'
@@ -23,8 +22,8 @@ let wsClient: ApolloClient<NormalizedCacheObject>
 let metadata: MetaData
 let ddo: DDO
 let agreementId: string
-const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200nftsalestemplate'
-const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200nftsalestemplate'
+let subgraphHttpUrl: string
+let subgraphWsUrl: string
 
 describe('NFTSalesTemplate', () => {
     before(async () => {
@@ -32,6 +31,10 @@ describe('NFTSalesTemplate', () => {
             ;[publisher, consumer] = await nevermined.accounts.list()
 
         metadata = getMetadata()
+
+        const networkName = await nevermined.keeper.getNetworkName()
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200nftsalestemplate`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200nftsalestemplate`
 
         const clientAssertion = await nevermined.utils.jwt.generateClientAssertion(publisher)
         await nevermined.marketplace.login(clientAssertion)

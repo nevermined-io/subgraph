@@ -54,10 +54,14 @@ jobs:
 
       - name: Test update-addresses
         run: yarn nevermined:update-addresses ${{ matrix.network-name }}
+      - name: Test update-startblock
+        run: OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock ${{ matrix.network-name }}
+      - name: Test update-network
+        run: yarn nevermined:update-network ${{ matrix.network-name }}
       - name: Test create
-        run: yarn nevermined:create
+        run: yarn nevermined:create development ${{ matrix.network-name }} v200
       - name: Test deploy
-        run: yarn nevermined:deploy
+        run: yarn nevermined:deploy development ${{ matrix.network-name }} v200
       - name: Unit tests
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}

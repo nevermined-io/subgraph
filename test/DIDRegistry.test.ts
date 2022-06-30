@@ -22,15 +22,18 @@ let expectedEvent: EventLog
 let client: ApolloClient<NormalizedCacheObject>
 let wsClient: ApolloClient<NormalizedCacheObject>
 let did: string
-const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200didregistry'
-const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200didregistry'
-
+let subgraphHttpUrl: string
+let subgraphWsUrl: string
 
 describe('DIDRegistry', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
             ; ({ didRegistry } = nevermined.keeper)
             ;[account] = await nevermined.accounts.list()
+
+        const networkName = await nevermined.keeper.getNetworkName()
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200didregistry`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200didregistry`
 
         client = new ApolloClient({
             link: createHttpLink({
