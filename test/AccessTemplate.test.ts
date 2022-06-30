@@ -53,7 +53,7 @@ describe('AccessTemplate', () => {
             ; ({ accessTemplate } = keeper.templates)
             ; ({ token } = keeper)
 
-        const networkName = await keeper.getNetworkName()
+        const networkName = (await keeper.getNetworkName()).toLowerCase()
         subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200accesstemplate`
         subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200accesstemplate`
 

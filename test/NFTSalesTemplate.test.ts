@@ -32,7 +32,7 @@ describe('NFTSalesTemplate', () => {
 
         metadata = getMetadata()
 
-        const networkName = await nevermined.keeper.getNetworkName()
+        const networkName = (await nevermined.keeper.getNetworkName()).toLowerCase()
         subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200nftsalestemplate`
         subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200nftsalestemplate`
 

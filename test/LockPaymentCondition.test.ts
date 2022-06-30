@@ -30,7 +30,7 @@ describe('LockPaymentCondition', () => {
         nevermined = await Nevermined.getInstance(config)
             ;[publisher, consumer] = await nevermined.accounts.list()
 
-        const networkName = await nevermined.keeper.getNetworkName()
+        const networkName = (await nevermined.keeper.getNetworkName()).toLowerCase()
         subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200lockpaymentcondition`
         subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200lockpaymentcondition`
 
