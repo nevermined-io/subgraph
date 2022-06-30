@@ -22,6 +22,8 @@ let expectedEvent: EventLog
 let client: ApolloClient<NormalizedCacheObject>
 let wsClient: ApolloClient<NormalizedCacheObject>
 let did: string
+const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200didregistry'
+const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200didregistry'
 
 
 describe('DIDRegistry', () => {
@@ -32,14 +34,14 @@ describe('DIDRegistry', () => {
 
         client = new ApolloClient({
             link: createHttpLink({
-                uri: 'http://localhost:9000/subgraphs/name/neverminedio/DIDRegistry',
+                uri: subgraphHttpUrl,
                 fetch: fetch,
             }),
             cache: new InMemoryCache(),
         })
 
         const subscriptionClient = new SubscriptionClient(
-            'ws://localhost:9001/subgraphs/name/neverminedio/DIDRegistry',
+            subgraphWsUrl,
             {
                 reconnect: true,
             },
@@ -56,7 +58,6 @@ describe('DIDRegistry', () => {
     describe('DIDAttributeRegistered', () => {
         it('should register an attribute', async () => {
             const didSeed = generateId()
-            console.log(didRegistry.address)
             did = await didRegistry.hashDID(didSeed, account.getId())
             const checksum = generateId()
             const data = 'data'
@@ -159,7 +160,7 @@ describe('DIDRegistry', () => {
 
         it('it should query using the subgraph client', async () => {
             const response = await getDIDAttributeRegistereds(
-                'http://localhost:9000/subgraphs/name/neverminedio/DIDRegistry',
+                subgraphHttpUrl,
                 {
                     where: {
                         _did: didZeroX(did),

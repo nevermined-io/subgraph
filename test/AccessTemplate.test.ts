@@ -39,6 +39,8 @@ let lockPaymentCondition: LockPaymentCondition
 let escrowPaymentCondition: EscrowPaymentCondition
 let accessTemplate: AccessTemplate
 let token: Token
+const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200accesstemplate'
+const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200accesstemplate'
 
 
 describe('AccessTemplate', () => {
@@ -65,14 +67,14 @@ describe('AccessTemplate', () => {
 
         client = new ApolloClient({
             link: createHttpLink({
-                uri: 'http://localhost:9000/subgraphs/name/neverminedio/AccessTemplate',
+                uri: subgraphHttpUrl,
                 fetch: fetch,
             }),
             cache: new InMemoryCache(),
         })
 
         const subscriptionClient = new SubscriptionClient(
-            'ws://localhost:9001/subgraphs/name/neverminedio/AccessTemplate',
+            subgraphWsUrl,
             {
                 reconnect: true,
             },
@@ -231,7 +233,7 @@ describe('AccessTemplate', () => {
 
         it('it should query the agreementId using the subgraph client', async () => {
             const response = await getAgreementCreateds(
-                'http://localhost:9000/subgraphs/name/neverminedio/AccessTemplate',
+                subgraphHttpUrl,
                 {
                     where: {
                         _agreementId: zeroX(agreementId),
@@ -266,7 +268,7 @@ describe('AccessTemplate', () => {
 
         it('it should query the agreements for a did using the subgraph client', async () => {
             const response = await getAgreementCreateds(
-                'http://localhost:9000/subgraphs/name/neverminedio/AccessTemplate',
+                subgraphHttpUrl,
                 {
                     where: {
                         _did: didZeroX(did),

@@ -22,13 +22,14 @@ let wsClient: ApolloClient<NormalizedCacheObject>
 let metadata: MetaData
 let ddo: DDO
 let agreementId: string
+const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200lockpaymentcondition'
+const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200lockpaymentcondition'
 
 describe('LockPaymentCondition', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
             ;[publisher, consumer] = await nevermined.accounts.list()
 
-        console.log(await publisher.getBalance())
         metadata = getMetadata()
 
         const clientAssertion = await nevermined.utils.jwt.generateClientAssertion(publisher)
@@ -37,7 +38,7 @@ describe('LockPaymentCondition', () => {
         metadata.userId = payload.sub
 
         const subscriptionClient = new SubscriptionClient(
-            'ws://localhost:9001/subgraphs/name/neverminedio/LockPaymentCondition',
+            subgraphWsUrl,
             {
                 reconnect: true,
             },
@@ -106,7 +107,7 @@ describe('LockPaymentCondition', () => {
 
     it('should query the LockPaymentCondition Fulfilled event', async () => {
         const response = await getFulfilleds(
-            'http://localhost:9000/subgraphs/name/neverminedio/LockPaymentCondition',
+            subgraphHttpUrl,
             {
                 where: {
                     _agreementId: zeroX(agreementId),

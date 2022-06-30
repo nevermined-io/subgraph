@@ -10,7 +10,9 @@
 
 - [Nevermined Subgraph](#nevermined-subgraph)
   - [Requirements](#requirements)
-  - [Developing](#developing)
+  - [Deploying subgraphs locally](#deploying-subgraphs-locally)
+  - [Deploying subgraphs to the hosted service](#deploying-subgraphs-to-the-hosted-service)
+    - [Getting the cookie and account id](#getting-the-cookie-and-account-id)
   - [Testing](#testing)
   - [References](#references)
   - [License](#license)
@@ -21,34 +23,84 @@
 
 - Node v12.22+
 - yarn 1.22+
-- [Nevermined tools]([https://git](https://github.com/nevermined-io/tools)) with the `--graph` option
+- [Nevermined tools]([https://git](https://github.com/nevermined-io/tools)) with the `--no-graph` option
 
-## Developing
+## Deploying subgraphs locally
 
 ```bash
-# install dependencies
-$ yarn
+# start nevermined-tools
+$ ./start_nevermined.sh --latest --no-graph --polygon
 
-# code generation
-$ yarn codegen
+# start the graph node locally
+$ docker-compose up
 
-# allocate subgraph name
-$ yarn create-local
+# copy the artifacts
+$ ./scripts/wait-nevermined.sh
 
-# local deployment of the subgraph
-$ yarn deploy-local
+# update the addresses
+$ yarn nevermined:update-addresses polygon-localnet
+
+# update startBlock
+$ OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock polygon-localnet
+
+# update the network
+# we always use spree in the subgraph manifest for local development networks
+$ yarn nevermined:update-network spree
+
+# create the subgraphs
+# we use `development` as the tag for local development contracts
+# the contracts version without the dots (`.`)
+$ yarn nevermined:create development polygon-localnet v200
+
+# deploy the subgraphs
+yarn nevermined:deploy development polygon-localnet v200
 ```
 
-> Note: The code generation must be performed again after every change to the GraphQL schema or the ABIs included in the manifest. It must also be performed at least once before building or deploying the subgraph.
+## Deploying subgraphs to the hosted service
+```bash
+# you need to get the access token from https://thegraph.com/hosted-service/dashboard and authenticate
+$ yarn graph auth --product hosted-service <access_token>
+
+# download the artifacts
+$ yarn artifacts:download v2.0.0 mumbai common
+
+# update addresses
+$ yarn nevermined:update-addresses mumbai
+
+# update start block
+$ yarn nevermined:update-startblock mumbai
+
+# update the network
+$ yarn nevermined:update-network mumbai
+
+# create the subgraphs
+# usage yarn nevermined:create-hosted <tag> <network> <version> <cookie> <account id>
+$ yarn nevermined:create-hosted common mumbai v200 "explorerSession_v24=s%3A6zVr0-om..." "MDEy..."
+
+# deploy the subgraphs
+$ yarn nevermined:deploy-hosted common mumbai v200
+```
+
+### Getting the cookie and account id
+The hosted service forces us to create the subgraphs through the online dashboard https://thegraph.com/hosted-service/dashboard.
+
+In order to automate the creation of the subgraphs in the hosted service we need a session _cookie_ and the _account id_. To get them:
+1. Go to the dashboard and login
+2. Open the browser networking dev tools
+3. Create a test subgraph with any name
+4. Check the `POST` request to https://api.thegraph.com/explorer/graphql
+5. Get the cookie from the request headers
+6. Get the account id from the request body
 
 ## Testing
 
 ```bash
-# check linting
-$ yarn lint
 
 # start nevermined tools
-$ ./start_nevermined.sh --latest --no-marketplace --spree-embedded-contracts --graph
+$ ./start_nevermined.sh --no-graph --polygon
+
+# start the graph node locally
+$ docker-compose up
 
 # wait and copy artifacts
 $ ./scripts/wait-nevermined.sh
@@ -66,7 +118,7 @@ $ yarn test
 ## License
 
 ```
-Copyright 2020 Keyko GmbH
+Copyright 2020 Nevermined AG
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

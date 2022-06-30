@@ -23,13 +23,14 @@ let wsClient: ApolloClient<NormalizedCacheObject>
 let metadata: MetaData
 let ddo: DDO
 let agreementId: string
+const subgraphHttpUrl = 'http://localhost:9000/subgraphs/name/nevermined-io/developmentpolygon-localnetv200nftsalestemplate'
+const subgraphWsUrl = 'ws://localhost:9001/subgraphs/name/nevermined-io/developmentpolygon-localnetv200nftsalestemplate'
 
 describe('NFTSalesTemplate', () => {
     before(async () => {
         nevermined = await Nevermined.getInstance(config)
             ;[publisher, consumer] = await nevermined.accounts.list()
 
-        console.log(await publisher.getBalance())
         metadata = getMetadata()
 
         const clientAssertion = await nevermined.utils.jwt.generateClientAssertion(publisher)
@@ -38,7 +39,7 @@ describe('NFTSalesTemplate', () => {
         metadata.userId = payload.sub
 
         const subscriptionClient = new SubscriptionClient(
-            'ws://localhost:9001/subgraphs/name/neverminedio/NFTSalesTemplate',
+            subgraphWsUrl,
             {
                 reconnect: true,
             },
@@ -106,7 +107,7 @@ describe('NFTSalesTemplate', () => {
 
     it('should query the NFTSalesTemplate agreement created event', async () => {
         const response = await getAgreementCreateds(
-            'http://localhost:9000/subgraphs/name/neverminedio/NFTSalesTemplate',
+            subgraphHttpUrl,
             {
                 where: {
                     _agreementId: zeroX(agreementId),
