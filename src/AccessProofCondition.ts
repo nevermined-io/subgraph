@@ -113,13 +113,13 @@ export const getFulfilledById = async function <K extends keyof FulfilledResult>
     if (obj["_agreementId"])
         formattedObj["_agreementId"] = obj["_agreementId"];
     if (obj["_origHash"])
-        formattedObj["_origHash"] = wei(obj["_origHash"], 0);
+        formattedObj["_origHash"] = obj["_origHash"];
     if (obj["_buyer"])
-        formattedObj["_buyer"] = wei(obj["_buyer"], 0);
+        formattedObj["_buyer"] = obj["_buyer"]
     if (obj["_provider"])
-        formattedObj["_provider"] = wei(obj["_provider"], 0);
+        formattedObj["_provider"] = obj["_provider"]
     if (obj["_cipher"])
-        formattedObj["_cipher"] = wei(obj["_cipher"], 0);
+        formattedObj["_cipher"] = obj["_cipher"]
     if (obj["_proof"])
         formattedObj["_proof"] = obj["_proof"];
     if (obj["_conditionId"])
@@ -156,13 +156,13 @@ export const getFulfilleds = async function <K extends keyof FulfilledResult>(ur
             if (obj["_agreementId"])
                 formattedObj["_agreementId"] = obj["_agreementId"];
             if (obj["_origHash"])
-                formattedObj["_origHash"] = wei(obj["_origHash"], 0);
+                formattedObj["_origHash"] = obj["_origHash"]
             if (obj["_buyer"])
-                formattedObj["_buyer"] = wei(obj["_buyer"], 0);
+                formattedObj["_buyer"] = obj["_buyer"]
             if (obj["_provider"])
-                formattedObj["_provider"] = wei(obj["_provider"], 0);
+                formattedObj["_provider"] = obj["_provider"]
             if (obj["_cipher"])
-                formattedObj["_cipher"] = wei(obj["_cipher"], 0);
+                formattedObj["_cipher"] = obj["_cipher"]
             if (obj["_proof"])
                 formattedObj["_proof"] = obj["_proof"];
             if (obj["_conditionId"])
