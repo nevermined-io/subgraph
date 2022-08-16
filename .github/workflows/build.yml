@@ -59,9 +59,9 @@ jobs:
       - name: Test update-network
         run: yarn nevermined:update-network spree
       - name: Test create
-        run: yarn nevermined:create development ${{ matrix.network-name }} v200
+        run: yarn nevermined:create development ${{ matrix.network-name }} v2
       - name: Test deploy
-        run: yarn nevermined:deploy development ${{ matrix.network-name }} v200
+        run: yarn nevermined:deploy development ${{ matrix.network-name }} v2
       - name: Unit tests
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
