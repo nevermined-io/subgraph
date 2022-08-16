@@ -6,10 +6,10 @@
 
 [![Tests](https://github.com/nevermined-io/subgraph/workflows/Build/badge.svg)](https://github.com/nevermined-io/subgraph/actions)
 
----
 
 - [Nevermined Subgraph](#nevermined-subgraph)
   - [Requirements](#requirements)
+  - [Subgraph naming convention](#subgraph-naming-convention)
   - [Deploying subgraphs locally](#deploying-subgraphs-locally)
   - [Deploying subgraphs to the hosted service](#deploying-subgraphs-to-the-hosted-service)
     - [Getting the cookie and account id](#getting-the-cookie-and-account-id)
@@ -25,6 +25,24 @@
 - yarn 1.22+
 - [Nevermined tools]([https://git](https://github.com/nevermined-io/tools)) with the `--no-graph` option
 
+## Subgraph naming convention
+
+In order to have different subraph version for different contracts versions it was important to incorporate bothe the _tag name_ and _version_ into the subgraph name.
+
+Note that this name is purely conventional and is not related to how the _thegraph_ works. _thegraph_ sees subgraph names only as a flat string.
+
+Example with the DID Registry subgraph deployed for mumbai public:
+```text
+nevermined-io/publicmumbaiv2didregistry
+
+- nevermined-io/: organization. all nevermined core subgraphs
+- public: the contract tag [common, public]
+- mumbai: the network name [mumbai, polygon]
+- version: the contracts major version [v2]
+- contract name: the name of the contract for this subgraph (lower case)
+```
+
+> In this example the hosted url would be [`https://api.thegraph.com/subgraphs/name/nevermined-io/publicmumbaiv2didregistry`](https://api.thegraph.com/subgraphs/name/nevermined-io/publicmumbaiv2didregistry)
 ## Deploying subgraphs locally
 
 ```bash
@@ -49,11 +67,11 @@ $ yarn nevermined:update-network spree
 
 # create the subgraphs
 # we use `development` as the tag for local development contracts
-# the contracts version without the dots (`.`)
-$ yarn nevermined:create development polygon-localnet v200
+# the contracts major version only
+$ yarn nevermined:create development polygon-localnet v2
 
 # deploy the subgraphs
-yarn nevermined:deploy development polygon-localnet v200
+$ yarn nevermined:deploy development polygon-localnet v2
 ```
 
 ## Deploying subgraphs to the hosted service
@@ -62,7 +80,7 @@ yarn nevermined:deploy development polygon-localnet v200
 $ yarn graph auth --product hosted-service <access_token>
 
 # download the artifacts
-$ yarn artifacts:download v2.0.0 mumbai common
+$ yarn artifacts:download v2.0.5 mumbai common
 
 # update addresses
 $ yarn nevermined:update-addresses mumbai
@@ -75,10 +93,10 @@ $ yarn nevermined:update-network mumbai
 
 # create the subgraphs
 # usage yarn nevermined:create-hosted <tag> <network> <version> <cookie> <account id>
-$ yarn nevermined:create-hosted common mumbai v200 "explorerSession_v24=s%3A6zVr0-om..." "MDEy..."
+$ yarn nevermined:create-hosted common mumbai v2 "explorerSession_v24=s%3A6zVr0-om..." "MDEy..."
 
 # deploy the subgraphs
-$ yarn nevermined:deploy-hosted common mumbai v200
+$ yarn nevermined:deploy-hosted common mumbai v2
 ```
 
 ### Getting the cookie and account id
