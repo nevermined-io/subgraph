@@ -27,7 +27,7 @@
 
 ## Subgraph naming convention
 
-In order to have different subraph version for different contracts versions it was important to incorporate bothe the _tag name_ and _version_ into the subgraph name.
+In order to have different subraph version for different contracts versions it was important to incorporate both the _tag name_ and _version_ into the subgraph name.
 
 Note that this name is purely conventional and is not related to how the _thegraph_ works. _thegraph_ sees subgraph names only as a flat string.
 
