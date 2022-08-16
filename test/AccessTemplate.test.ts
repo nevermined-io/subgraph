@@ -54,8 +54,8 @@ describe('AccessTemplate', () => {
             ; ({ token } = keeper)
 
         const networkName = (await keeper.getNetworkName()).toLowerCase()
-        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200accesstemplate`
-        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200accesstemplate`
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v2accesstemplate`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v2accesstemplate`
 
         agreementIdSeed = generateId()
         agreementId = await nevermined.keeper.agreementStoreManager.agreementId(

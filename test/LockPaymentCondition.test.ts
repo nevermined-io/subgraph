@@ -31,8 +31,8 @@ describe('LockPaymentCondition', () => {
             ;[publisher, consumer] = await nevermined.accounts.list()
 
         const networkName = (await nevermined.keeper.getNetworkName()).toLowerCase()
-        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v200lockpaymentcondition`
-        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v200lockpaymentcondition`
+        subgraphHttpUrl = `http://localhost:9000/subgraphs/name/nevermined-io/development${networkName}v2lockpaymentcondition`
+        subgraphWsUrl = `ws://localhost:9001/subgraphs/name/nevermined-io/development${networkName}v2lockpaymentcondition`
 
         metadata = getMetadata()
 
