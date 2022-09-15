@@ -16,17 +16,20 @@ generate_post_data()
 {
     cat <<EOF
 {
-    "operationName": "createSubgraph",
+    "operationName": "CreateSubgraph",
     "variables": {
-        "accountId": "$ACCOUNT_ID",
-        "displayName": "$TAG$NETWORK$VERSION$BASENAME",
-        "subtitle": "test",
-        "description": "description",
-        "name": "$TAG$NETWORK$VERSION$BASENAME",
-        "image": "https://storage.googleapis.com/subgraph-images/default/sg-3.png",
-        "hidden": false
+        "subgraph": {
+            "accountId": "$ACCOUNT_ID",
+            "displayName": "$TAG$NETWORK$VERSION$BASENAME",
+            "subtitle": "nevermined",
+            "description": "description",
+            "name": "$TAG$NETWORK$VERSION$BASENAME",
+            "image": "https://storage.googleapis.com/subgraph-images/default/sg-3.png",
+            "hidden": false,
+            "githubUrl": "https://github.com/nevermined-io/subgraph"
+        }
     },
-    "query": "mutation createSubgraph(\$accountId: ID!, \$displayName: String!, \$name: String!, \$image: String!, \$subtitle: String, \$description: String, \$hidden: Boolean, \$githubUrl: String) {  createSubgraph(accountId: \$accountId, displayName: \$displayName, name: \$name, image: \$image, subtitle: \$subtitle, description: \$description, hidden: \$hidden, githubUrl: \$githubUrl) {    id    name    displayName    image    draft    subtitle    description    hidden    account {      id      subgraphs {        id        __typename      }      __typename    }    __typename  }}"
+    "query": "mutation CreateSubgraph(\$subgraph: CreateSubgraphInput!) {  createSubgraph(subgraph: \$subgraph) {    id    accountId    account {      id      name      __typename    }    name    __typename  }}"
 }
 EOF
 }
