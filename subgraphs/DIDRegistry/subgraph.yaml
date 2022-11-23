@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: DIDRegistry
     network: spree
     source:
-      address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
+      address: "0x3ebCF78A74741541Fd16459F93dCD99860Ea9ba1"
       abi: DIDRegistry
       startBlock: 10
     mapping:
@@ -16,6 +16,7 @@ dataSources:
       entities:
         - ActedOnBehalf
         - DIDAttributeRegistered
+        - DIDMetadataUpdated
         - DIDOwnershipTransferred
         - DIDPermissionGranted
         - DIDPermissionRevoked
@@ -40,6 +41,8 @@ dataSources:
           handler: handleActedOnBehalf
         - event: DIDAttributeRegistered(indexed bytes32,indexed address,indexed bytes32,string,address,uint256)
           handler: handleDIDAttributeRegistered
+        - event: DIDMetadataUpdated(indexed bytes32,indexed address,bytes32,string,string)
+          handler: handleDIDMetadataUpdated
         - event: DIDOwnershipTransferred(bytes32,address,address)
           handler: handleDIDOwnershipTransferred
         - event: DIDPermissionGranted(indexed bytes32,indexed address,indexed address)

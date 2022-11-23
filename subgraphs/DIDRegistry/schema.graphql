@@ -19,6 +19,15 @@ type DIDAttributeRegistered @entity {
   _blockNumberUpdated: BigInt! # uint256
 }
 
+type DIDMetadataUpdated @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _checksum: Bytes! # bytes32
+  _url: String! # string
+  _immutableUrl: String! # string
+}
+
 type DIDOwnershipTransferred @entity {
   id: ID!
   _did: Bytes! # bytes32

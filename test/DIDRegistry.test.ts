@@ -9,7 +9,6 @@ import Web3 from 'web3'
 import { Account, Nevermined } from '@nevermined-io/nevermined-sdk-js'
 import DIDRegistry from '@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/DIDRegistry'
 import { didZeroX, generateId } from '@nevermined-io/nevermined-sdk-js/dist/node/utils'
-import { EventLog } from 'web3-core'
 
 import { config } from './config'
 import { getDIDAttributeRegistereds } from '../src/DIDRegistry'
@@ -18,7 +17,7 @@ import { getDIDAttributeRegistereds } from '../src/DIDRegistry'
 let nevermined: Nevermined
 let didRegistry: DIDRegistry
 let account: Account
-let expectedEvent: EventLog
+let expectedEvent
 let client: ApolloClient<NormalizedCacheObject>
 let wsClient: ApolloClient<NormalizedCacheObject>
 let did: string
@@ -71,8 +70,9 @@ describe('DIDRegistry', () => {
                 data,
                 account.getId(),
             )
-            assert.isTrue(receipt.status)
-            expectedEvent = receipt.events!.DIDAttributeRegistered
+            assert.equal(receipt.status, 1)
+            assert.isTrue(receipt.events!.some(e => e.event === 'DIDAttributeRegistered'))
+            expectedEvent = receipt.events?.find(e => e.event === 'DIDAttributeRegistered')
         })
 
         it('should subscribe and wait for the event', async () => {
@@ -107,7 +107,7 @@ describe('DIDRegistry', () => {
             })
             const result: any = await promise
             const eventData = result.data.didattributeRegistereds[0]
-            const expectedEventData = expectedEvent.returnValues
+            const expectedEventData = expectedEvent.args
 
             assert.strictEqual(eventData._did, expectedEventData._did)
             assert.strictEqual(
@@ -119,7 +119,7 @@ describe('DIDRegistry', () => {
                 Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
                 Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
             )
-            assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
+            assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated.toString())
 
 
 
@@ -146,7 +146,7 @@ describe('DIDRegistry', () => {
 
             })
             const eventData = result.data.didattributeRegistereds[0]
-            const expectedEventData = expectedEvent.returnValues
+            const expectedEventData = expectedEvent.args
 
             assert.strictEqual(eventData._did, expectedEventData._did)
             assert.strictEqual(
@@ -158,7 +158,7 @@ describe('DIDRegistry', () => {
                 Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
                 Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
             )
-            assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated)
+            assert.strictEqual(eventData._blockNumberUpdated, expectedEventData._blockNumberUpdated.toString())
         })
 
         it('it should query using the subgraph client', async () => {
@@ -180,7 +180,7 @@ describe('DIDRegistry', () => {
                 },
             )
             const eventData = response[0]
-            const expectedEventData = expectedEvent.returnValues
+            const expectedEventData = expectedEvent.args
 
             assert.strictEqual(eventData._did, expectedEventData._did)
             assert.strictEqual(
@@ -192,7 +192,7 @@ describe('DIDRegistry', () => {
                 Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
                 Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy),
             )
-            assert.strictEqual(eventData._blockNumberUpdated.str, expectedEventData._blockNumberUpdated)
+            assert.strictEqual(eventData._blockNumberUpdated.str, expectedEventData._blockNumberUpdated.toString())
         })
     })
 })
