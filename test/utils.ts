@@ -1,6 +1,6 @@
 import { MetaData } from "@nevermined-io/nevermined-sdk-js"
 import AssetRewards from "@nevermined-io/nevermined-sdk-js/dist/node/models/AssetRewards"
-import BigNumber from "bignumber.js"
+import BigNumber from "@nevermined-io/nevermined-sdk-js/dist/node/utils/BigNumber"
 
 
 const metadata: Partial<MetaData> = {
@@ -11,7 +11,6 @@ const metadata: Partial<MetaData> = {
         datePublished: '2012-10-10T17:00:00Z',
         author: 'Met Office',
         license: 'CC-BY',
-        price: '21' + '0'.repeat(18),
         files: [
             {
                 index: 0,
@@ -71,4 +70,4 @@ export const getMetadata = (
 ): MetaData => generateMetadata('TestAsset', price, nonce) as MetaData
 
 export const getAssetRewards = (receiver: string) =>
-    new AssetRewards(receiver, new BigNumber(21 + '0'.repeat(18)))
+    new AssetRewards(receiver, BigNumber.from(21 + '0'.repeat(18)))
