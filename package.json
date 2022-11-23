@@ -1,6 +1,6 @@
 {
   "name": "@nevermined-io/subgraphs",
-  "version": "0.4.1",
+  "version": "0.5.0-rc1",
   "description": "Nevermined subgraph graphql clients",
   "main": "./build/index.js",
   "typings": "./build/index.d.ts",
