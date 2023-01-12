@@ -1,13 +1,13 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: NFTUpgradeable
+    name: NFT1155Upgradeable
     network: spree
     source:
       address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
-      abi: NFTUpgradeable
+      abi: NFT1155Upgradeable
       startBlock: 10
     mapping:
       kind: ethereum/events
@@ -16,6 +16,7 @@ dataSources:
       entities:
         - ApprovalForAll
         - Initialized
+        - NFTCloned
         - OwnershipTransferred
         - ProxyApproval
         - RoleAdminChanged
@@ -25,13 +26,15 @@ dataSources:
         - TransferSingle
         - URI
       abis:
-        - name: NFTUpgradeable
-          file: ./abis/NFTUpgradeable.json
+        - name: NFT1155Upgradeable
+          file: ./abis/NFT1155Upgradeable.json
       eventHandlers:
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
         - event: Initialized(uint8)
           handler: handleInitialized
+        - event: NFTCloned(indexed address,indexed address,uint256)
+          handler: handleNFTCloned
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: ProxyApproval(address,address,bool)
