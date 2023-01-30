@@ -20,8 +20,6 @@ services:
   ipfs:
     container_name: nevermined-ipfs
     image: ipfs/go-ipfs:v0.4.23
-    ports:
-      - '5001:5001'
     ulimits:
       nofile:
         soft: 65536
@@ -30,8 +28,6 @@ services:
   postgres:
     container_name: nevermined-postgres
     image: postgres
-    ports:
-      - '5432:5432'
     command:
       [
         "postgres",
@@ -41,3 +37,4 @@ services:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in
       POSTGRES_DB: graph-node
+    network_mode: "host"
