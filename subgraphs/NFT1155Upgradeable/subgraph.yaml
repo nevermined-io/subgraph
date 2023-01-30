@@ -6,7 +6,7 @@ dataSources:
     name: NFT1155Upgradeable
     network: spree
     source:
-      address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
+      address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
       abi: NFT1155Upgradeable
       startBlock: 10
     mapping:
@@ -18,7 +18,6 @@ dataSources:
         - Initialized
         - NFTCloned
         - OwnershipTransferred
-        - ProxyApproval
         - RoleAdminChanged
         - RoleGranted
         - RoleRevoked
@@ -37,8 +36,6 @@ dataSources:
           handler: handleNFTCloned
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: ProxyApproval(address,address,bool)
-          handler: handleProxyApproval
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleRoleAdminChanged
         - event: RoleGranted(indexed bytes32,indexed address,indexed address)

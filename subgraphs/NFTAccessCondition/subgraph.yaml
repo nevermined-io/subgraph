@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTAccessCondition
     network: spree
     source:
-      address: "0x7848737493daf345d97CcC5a603D64f3A8A8540F"
+      address: "0xAc1D8d71Ed8b449aA02357076F9e6A6624D5471F"
       abi: NFTAccessCondition
       startBlock: 10
     mapping:

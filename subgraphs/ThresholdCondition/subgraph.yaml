@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: ThresholdCondition
     network: spree
     source:
-      address: "0x8A3468746753001fad0811F369938ddac1a504Bb"
+      address: "0xE911c4da793094b787D76CC24694cfE2e27C5362"
       abi: ThresholdCondition
       startBlock: 10
     mapping:

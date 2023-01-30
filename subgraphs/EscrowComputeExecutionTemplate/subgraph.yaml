@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: EscrowComputeExecutionTemplate
     network: spree
     source:
-      address: "0x15AeDb4FaE1DB4318205059F5af4595bD534AF26"
+      address: "0x6d21f91932b998fE62B3cc4d883e6aab589Af56b"
       abi: EscrowComputeExecutionTemplate
       startBlock: 10
     mapping:

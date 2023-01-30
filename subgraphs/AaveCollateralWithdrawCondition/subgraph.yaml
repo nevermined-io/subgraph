@@ -6,7 +6,7 @@ dataSources:
     name: AaveCollateralWithdrawCondition
     network: spree
     source:
-      address: "0x2af77391A0602eF29ded7E151b73559604bE0d17"
+      address: "0xA687f430DC56473C0405100933e9790BC4c9DA96"
       abi: AaveCollateralWithdrawCondition
       startBlock: 10
     mapping:

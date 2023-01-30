@@ -6,7 +6,7 @@ dataSources:
     name: AccessProofCondition
     network: spree
     source:
-      address: "0xAc1D8d71Ed8b449aA02357076F9e6A6624D5471F"
+      address: "0x32c79B039E4BC4Ad9272CA7D2A3DE5183D06Cd6B"
       abi: AccessProofCondition
       startBlock: 10
     mapping:

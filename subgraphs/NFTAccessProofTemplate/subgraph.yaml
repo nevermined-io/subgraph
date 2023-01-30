@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTAccessProofTemplate
     network: spree
     source:
-      address: "0x37cB53b6e0224b03D2cD11b68ea5Df6141D95a1e"
+      address: "0x9ABC3B45B8a1f95dc45Ca4076E1D5485F9CD27a7"
       abi: NFTAccessProofTemplate
       startBlock: 10
     mapping:

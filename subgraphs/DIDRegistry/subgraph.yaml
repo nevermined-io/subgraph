@@ -6,7 +6,7 @@ dataSources:
     name: DIDRegistry
     network: spree
     source:
-      address: "0x3ebCF78A74741541Fd16459F93dCD99860Ea9ba1"
+      address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
       abi: DIDRegistry
       startBlock: 10
     mapping:
@@ -29,6 +29,9 @@ dataSources:
         - Initialized
         - OwnershipTransferred
         - ProvenanceAttributeRegistered
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
         - Used
         - WasAssociatedWith
         - WasDerivedFrom
@@ -67,6 +70,12 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ProvenanceAttributeRegistered(indexed bytes32,indexed bytes32,indexed address,bytes32,bytes32,address,uint8,string,uint256)
           handler: handleProvenanceAttributeRegistered
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
         - event: Used(indexed bytes32,indexed address,indexed bytes32,bytes32,string,uint256)
           handler: handleUsed
         - event: WasAssociatedWith(indexed bytes32,indexed address,indexed bytes32,bytes32,string,uint256)

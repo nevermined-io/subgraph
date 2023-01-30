@@ -14,16 +14,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: nevermined-io/nvm-tools-actions@v0.2.0
+      - uses: nevermined-io/nvm-tools-actions@v0.6.1
         with:
           token: ${{ secrets.API_TOKEN_GITHUB }}
-          contracts-version: "develop"
           node-version: "develop"
 
       - name: Install dependencies
         run: yarn
-      # - name: Check linting
-      #   run: yarn lint
 
       - name: Run graph-node
         run: |
@@ -36,13 +33,13 @@ jobs:
       - name: Test update-addresses
         run: yarn nevermined:update-addresses geth-localnet
       - name: Test update-startblock
-        run: OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock ${{ matrix.network-name }}
+        run: OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock geth-localnet
       - name: Test update-network
         run: yarn nevermined:update-network spree
       - name: Test create
-        run: yarn nevermined:create development geth-localnet v2
+        run: yarn nevermined:create development geth-localnet v3
       - name: Test deploy
-        run: yarn nevermined:deploy development geth-localnet v2
+        run: yarn nevermined:deploy development geth-localnet v3
       - name: Unit tests
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}

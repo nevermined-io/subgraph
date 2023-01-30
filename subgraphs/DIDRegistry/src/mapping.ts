@@ -14,6 +14,9 @@ import {
   Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProvenanceAttributeRegistered as ProvenanceAttributeRegisteredEvent,
+  RoleAdminChanged as RoleAdminChangedEvent,
+  RoleGranted as RoleGrantedEvent,
+  RoleRevoked as RoleRevokedEvent,
   Used as UsedEvent,
   WasAssociatedWith as WasAssociatedWithEvent,
   WasDerivedFrom as WasDerivedFromEvent,
@@ -35,6 +38,9 @@ import {
   Initialized,
   OwnershipTransferred,
   ProvenanceAttributeRegistered,
+  RoleAdminChanged,
+  RoleGranted,
+  RoleRevoked,
   Used,
   WasAssociatedWith,
   WasDerivedFrom,
@@ -214,6 +220,36 @@ export function handleProvenanceAttributeRegistered(
   entity._method = event.params._method
   entity._attributes = event.params._attributes
   entity._blockNumberUpdated = event.params._blockNumberUpdated
+  entity.save()
+}
+
+export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
+  let entity = new RoleAdminChanged(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.role = event.params.role
+  entity.previousAdminRole = event.params.previousAdminRole
+  entity.newAdminRole = event.params.newAdminRole
+  entity.save()
+}
+
+export function handleRoleGranted(event: RoleGrantedEvent): void {
+  let entity = new RoleGranted(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.role = event.params.role
+  entity.account = event.params.account
+  entity.sender = event.params.sender
+  entity.save()
+}
+
+export function handleRoleRevoked(event: RoleRevokedEvent): void {
+  let entity = new RoleRevoked(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.role = event.params.role
+  entity.account = event.params.account
+  entity.sender = event.params.sender
   entity.save()
 }
 

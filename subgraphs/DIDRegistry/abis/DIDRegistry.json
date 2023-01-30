@@ -428,6 +428,81 @@
       {
         "indexed": true,
         "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
         "name": "_did",
         "type": "bytes32"
       },
@@ -601,6 +676,22 @@
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xa217fddf"
+  },
+  {
+    "inputs": [],
+    "name": "REGISTRY_OPERATOR_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x34364de1"
+  },
+  {
     "inputs": [
       { "internalType": "bytes32", "name": "_provId", "type": "bytes32" },
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
@@ -679,28 +770,6 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
-    ],
-    "name": "burn",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0x7a408454"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      { "internalType": "uint256", "name": "_tokenId", "type": "uint256" }
-    ],
-    "name": "burn721",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xe6d2e349"
-  },
-  {
-    "inputs": [
       { "internalType": "bytes32", "name": "_b32", "type": "bytes32" }
     ],
     "name": "bytes32ToAddress",
@@ -720,27 +789,6 @@
     "signature": "0x5ea3ab85"
   },
   {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      { "internalType": "bytes32", "name": "_cond", "type": "bytes32" },
-      { "internalType": "string", "name": "name", "type": "string" },
-      { "internalType": "address", "name": "user", "type": "address" }
-    ],
-    "name": "condition",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0x3e5e17d8"
-  },
-  {
-    "inputs": [],
-    "name": "conditionManager",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function",
-    "signature": "0x238ed129"
-  },
-  {
     "inputs": [],
     "name": "defaultRoyalties",
     "outputs": [
@@ -757,6 +805,7 @@
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "address", "name": "_nftAddress", "type": "address" },
       { "internalType": "uint256", "name": "_cap", "type": "uint256" },
       { "internalType": "uint256", "name": "_royalties", "type": "uint256" },
       { "internalType": "bool", "name": "_mint", "type": "bool" },
@@ -766,11 +815,16 @@
     "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x46cc0238"
+    "signature": "0x3a1895a7"
   },
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      },
       { "internalType": "uint256", "name": "_royalties", "type": "uint256" },
       { "internalType": "bool", "name": "_mint", "type": "bool" }
     ],
@@ -778,14 +832,14 @@
     "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x2c33e694"
+    "signature": "0xe84400ca"
   },
   {
     "inputs": [],
     "name": "erc1155",
     "outputs": [
       {
-        "internalType": "contract NFTUpgradeable",
+        "internalType": "contract NFT1155Upgradeable",
         "name": "",
         "type": "address"
       }
@@ -870,10 +924,9 @@
         "type": "uint256"
       },
       { "internalType": "address[]", "name": "providers", "type": "address[]" },
-      { "internalType": "uint256", "name": "nftSupply", "type": "uint256" },
-      { "internalType": "uint256", "name": "mintCap", "type": "uint256" },
       { "internalType": "uint256", "name": "royalties", "type": "uint256" },
-      { "internalType": "string", "name": "immutableUrl", "type": "string" }
+      { "internalType": "string", "name": "immutableUrl", "type": "string" },
+      { "internalType": "bool", "name": "nftInitialized", "type": "bool" }
     ],
     "stateMutability": "view",
     "type": "function",
@@ -903,14 +956,18 @@
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
     ],
-    "name": "getDIDSupply",
+    "name": "getNFTInfo",
     "outputs": [
-      { "internalType": "uint256", "name": "nftSupply", "type": "uint256" },
-      { "internalType": "uint256", "name": "mintCap", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "nftContractAddress",
+        "type": "address"
+      },
+      { "internalType": "bool", "name": "nftInitialized", "type": "bool" }
     ],
     "stateMutability": "view",
     "type": "function",
-    "signature": "0xdaca738f"
+    "signature": "0x490ca71b"
   },
   {
     "inputs": [],
@@ -976,6 +1033,16 @@
     "signature": "0x2105ab65"
   },
   {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x248a9ca3"
+  },
+  {
     "inputs": [],
     "name": "getTrustedForwarder",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
@@ -993,6 +1060,38 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xbc586456"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "grantRegistryOperatorRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xe6af0b6c"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x2f2ff15d"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "hasRole",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x91d14854"
   },
   {
     "inputs": [
@@ -1085,6 +1184,16 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "operator", "type": "address" }
+    ],
+    "name": "isRegistryOperator",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xa4b19343"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "forwarder", "type": "address" }
     ],
     "name": "isTrustedForwarder",
@@ -1100,50 +1209,6 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x481c6a75"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
-    ],
-    "name": "mint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xe1856ff4"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
-      { "internalType": "address", "name": "_receiver", "type": "address" }
-    ],
-    "name": "mint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xead905bb"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" }
-    ],
-    "name": "mint721",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0x733e4f29"
-  },
-  {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
-      { "internalType": "address", "name": "_receiver", "type": "address" }
-    ],
-    "name": "mint721",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xa7d7febd"
   },
   {
     "inputs": [],
@@ -1202,6 +1267,11 @@
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_didSeed", "type": "bytes32" },
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      },
       { "internalType": "bytes32", "name": "_checksum", "type": "bytes32" },
       {
         "internalType": "address[]",
@@ -1219,11 +1289,16 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x5d88642d"
+    "signature": "0x3bd02c41"
   },
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_didSeed", "type": "bytes32" },
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      },
       { "internalType": "bytes32", "name": "_checksum", "type": "bytes32" },
       {
         "internalType": "address[]",
@@ -1242,11 +1317,16 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xfd72ad2e"
+    "signature": "0xcffe1eb3"
   },
   {
     "inputs": [
       { "internalType": "bytes32", "name": "_didSeed", "type": "bytes32" },
+      {
+        "internalType": "address",
+        "name": "_nftContractAddress",
+        "type": "address"
+      },
       { "internalType": "bytes32", "name": "_checksum", "type": "bytes32" },
       {
         "internalType": "address[]",
@@ -1263,7 +1343,7 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xcd9766b4"
+    "signature": "0x09b8d7d1"
   },
   {
     "inputs": [
@@ -1274,6 +1354,19 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x280f546c"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_cond", "type": "bytes32" },
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "registerUsedProvenance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xa159969c"
   },
   {
     "inputs": [
@@ -1307,6 +1400,17 @@
   },
   {
     "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x36568abe"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       { "internalType": "address", "name": "_grantee", "type": "address" }
     ],
@@ -1317,22 +1421,33 @@
     "signature": "0xa6a8f17b"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "revokeRegistryOperatorRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xf6595a8f"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xd547741f"
+  },
+  {
     "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "name": "royaltiesCheckers",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function",
     "signature": "0xbfb967d0"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_manager", "type": "address" }
-    ],
-    "name": "setConditionManager",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xcb236cf3"
   },
   {
     "inputs": [
@@ -1368,13 +1483,23 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_addr", "type": "address" }
+      { "internalType": "address", "name": "_erc1155", "type": "address" }
     ],
-    "name": "setManager",
+    "name": "setNFT1155",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xd0ebdbe7"
+    "signature": "0xbcd3f9fc"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
+    ],
+    "name": "supportsInterface",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x01ffc9a7"
   },
   {
     "inputs": [
