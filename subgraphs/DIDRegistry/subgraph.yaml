@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: DIDRegistry
     network: spree
     source:
-      address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
+      address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
       abi: DIDRegistry
       startBlock: 10
     mapping:
@@ -16,6 +16,7 @@ dataSources:
       entities:
         - ActedOnBehalf
         - DIDAttributeRegistered
+        - DIDMetadataUpdated
         - DIDOwnershipTransferred
         - DIDPermissionGranted
         - DIDPermissionRevoked
@@ -28,6 +29,9 @@ dataSources:
         - Initialized
         - OwnershipTransferred
         - ProvenanceAttributeRegistered
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
         - Used
         - WasAssociatedWith
         - WasDerivedFrom
@@ -40,6 +44,8 @@ dataSources:
           handler: handleActedOnBehalf
         - event: DIDAttributeRegistered(indexed bytes32,indexed address,indexed bytes32,string,address,uint256)
           handler: handleDIDAttributeRegistered
+        - event: DIDMetadataUpdated(indexed bytes32,indexed address,bytes32,string,string)
+          handler: handleDIDMetadataUpdated
         - event: DIDOwnershipTransferred(bytes32,address,address)
           handler: handleDIDOwnershipTransferred
         - event: DIDPermissionGranted(indexed bytes32,indexed address,indexed address)
@@ -64,6 +70,12 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ProvenanceAttributeRegistered(indexed bytes32,indexed bytes32,indexed address,bytes32,bytes32,address,uint8,string,uint256)
           handler: handleProvenanceAttributeRegistered
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
         - event: Used(indexed bytes32,indexed address,indexed bytes32,bytes32,string,uint256)
           handler: handleUsed
         - event: WasAssociatedWith(indexed bytes32,indexed address,indexed bytes32,bytes32,string,uint256)

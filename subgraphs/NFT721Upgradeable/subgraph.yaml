@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFT721Upgradeable
     network: spree
     source:
-      address: "0x459b553aBD0398429AE98F3C1B2769483bc46091"
+      address: "0x3ebCF78A74741541Fd16459F93dCD99860Ea9ba1"
       abi: NFT721Upgradeable
       startBlock: 10
     mapping:
@@ -17,8 +17,8 @@ dataSources:
         - Approval
         - ApprovalForAll
         - Initialized
+        - NFTCloned
         - OwnershipTransferred
-        - ProxyApproval
         - RoleAdminChanged
         - RoleGranted
         - RoleRevoked
@@ -33,10 +33,10 @@ dataSources:
           handler: handleApprovalForAll
         - event: Initialized(uint8)
           handler: handleInitialized
+        - event: NFTCloned(indexed address,indexed address,uint256)
+          handler: handleNFTCloned
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: ProxyApproval(address,address,bool)
-          handler: handleProxyApproval
         - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
           handler: handleRoleAdminChanged
         - event: RoleGranted(indexed bytes32,indexed address,indexed address)

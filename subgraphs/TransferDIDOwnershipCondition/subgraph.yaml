@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: TransferDIDOwnershipCondition
     network: spree
     source:
-      address: "0x3B4e74e8817e51134AB401605c4280Ba5D90b3FC"
+      address: "0x7848737493daf345d97CcC5a603D64f3A8A8540F"
       abi: TransferDIDOwnershipCondition
       startBlock: 10
     mapping:

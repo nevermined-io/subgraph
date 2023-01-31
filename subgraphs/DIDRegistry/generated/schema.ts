@@ -214,6 +214,92 @@ export class DIDAttributeRegistered extends Entity {
   }
 }
 
+export class DIDMetadataUpdated extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("_did", Value.fromBytes(Bytes.empty()));
+    this.set("_owner", Value.fromBytes(Bytes.empty()));
+    this.set("_checksum", Value.fromBytes(Bytes.empty()));
+    this.set("_url", Value.fromString(""));
+    this.set("_immutableUrl", Value.fromString(""));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save DIDMetadataUpdated entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save DIDMetadataUpdated entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("DIDMetadataUpdated", id.toString(), this);
+    }
+  }
+
+  static load(id: string): DIDMetadataUpdated | null {
+    return changetype<DIDMetadataUpdated | null>(
+      store.get("DIDMetadataUpdated", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get _did(): Bytes {
+    let value = this.get("_did");
+    return value!.toBytes();
+  }
+
+  set _did(value: Bytes) {
+    this.set("_did", Value.fromBytes(value));
+  }
+
+  get _owner(): Bytes {
+    let value = this.get("_owner");
+    return value!.toBytes();
+  }
+
+  set _owner(value: Bytes) {
+    this.set("_owner", Value.fromBytes(value));
+  }
+
+  get _checksum(): Bytes {
+    let value = this.get("_checksum");
+    return value!.toBytes();
+  }
+
+  set _checksum(value: Bytes) {
+    this.set("_checksum", Value.fromBytes(value));
+  }
+
+  get _url(): string {
+    let value = this.get("_url");
+    return value!.toString();
+  }
+
+  set _url(value: string) {
+    this.set("_url", Value.fromString(value));
+  }
+
+  get _immutableUrl(): string {
+    let value = this.get("_immutableUrl");
+    return value!.toString();
+  }
+
+  set _immutableUrl(value: string) {
+    this.set("_immutableUrl", Value.fromString(value));
+  }
+}
+
 export class DIDOwnershipTransferred extends Entity {
   constructor(id: string) {
     super();
@@ -1001,6 +1087,200 @@ export class ProvenanceAttributeRegistered extends Entity {
 
   set _blockNumberUpdated(value: BigInt) {
     this.set("_blockNumberUpdated", Value.fromBigInt(value));
+  }
+}
+
+export class RoleAdminChanged extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("role", Value.fromBytes(Bytes.empty()));
+    this.set("previousAdminRole", Value.fromBytes(Bytes.empty()));
+    this.set("newAdminRole", Value.fromBytes(Bytes.empty()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save RoleAdminChanged entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save RoleAdminChanged entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("RoleAdminChanged", id.toString(), this);
+    }
+  }
+
+  static load(id: string): RoleAdminChanged | null {
+    return changetype<RoleAdminChanged | null>(
+      store.get("RoleAdminChanged", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get role(): Bytes {
+    let value = this.get("role");
+    return value!.toBytes();
+  }
+
+  set role(value: Bytes) {
+    this.set("role", Value.fromBytes(value));
+  }
+
+  get previousAdminRole(): Bytes {
+    let value = this.get("previousAdminRole");
+    return value!.toBytes();
+  }
+
+  set previousAdminRole(value: Bytes) {
+    this.set("previousAdminRole", Value.fromBytes(value));
+  }
+
+  get newAdminRole(): Bytes {
+    let value = this.get("newAdminRole");
+    return value!.toBytes();
+  }
+
+  set newAdminRole(value: Bytes) {
+    this.set("newAdminRole", Value.fromBytes(value));
+  }
+}
+
+export class RoleGranted extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("role", Value.fromBytes(Bytes.empty()));
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("sender", Value.fromBytes(Bytes.empty()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save RoleGranted entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save RoleGranted entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("RoleGranted", id.toString(), this);
+    }
+  }
+
+  static load(id: string): RoleGranted | null {
+    return changetype<RoleGranted | null>(store.get("RoleGranted", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get role(): Bytes {
+    let value = this.get("role");
+    return value!.toBytes();
+  }
+
+  set role(value: Bytes) {
+    this.set("role", Value.fromBytes(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get sender(): Bytes {
+    let value = this.get("sender");
+    return value!.toBytes();
+  }
+
+  set sender(value: Bytes) {
+    this.set("sender", Value.fromBytes(value));
+  }
+}
+
+export class RoleRevoked extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("role", Value.fromBytes(Bytes.empty()));
+    this.set("account", Value.fromBytes(Bytes.empty()));
+    this.set("sender", Value.fromBytes(Bytes.empty()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save RoleRevoked entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save RoleRevoked entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("RoleRevoked", id.toString(), this);
+    }
+  }
+
+  static load(id: string): RoleRevoked | null {
+    return changetype<RoleRevoked | null>(store.get("RoleRevoked", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get role(): Bytes {
+    let value = this.get("role");
+    return value!.toBytes();
+  }
+
+  set role(value: Bytes) {
+    this.set("role", Value.fromBytes(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value!.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get sender(): Bytes {
+    let value = this.get("sender");
+    return value!.toBytes();
+  }
+
+  set sender(value: Bytes) {
+    this.set("sender", Value.fromBytes(value));
   }
 }
 

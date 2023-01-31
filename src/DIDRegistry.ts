@@ -353,6 +353,166 @@ export const getDIDAttributeRegistereds = async function <K extends keyof DIDAtt
     } while (paginationKey && (options.first && results.length < options.first));
     return options.first ? results.slice(0, options.first) : results;
 };
+export type DIDMetadataUpdatedFilter = {
+    id?: string | null;
+    id_not?: string | null;
+    id_gt?: string | null;
+    id_lt?: string | null;
+    id_gte?: string | null;
+    id_lte?: string | null;
+    id_in?: string[];
+    id_not_in?: string[];
+    _did?: string | null;
+    _did_not?: string | null;
+    _did_in?: string[];
+    _did_not_in?: string[];
+    _did_contains?: string | null;
+    _did_not_contains?: string | null;
+    _owner?: string | null;
+    _owner_not?: string | null;
+    _owner_in?: string[];
+    _owner_not_in?: string[];
+    _owner_contains?: string | null;
+    _owner_not_contains?: string | null;
+    _checksum?: string | null;
+    _checksum_not?: string | null;
+    _checksum_in?: string[];
+    _checksum_not_in?: string[];
+    _checksum_contains?: string | null;
+    _checksum_not_contains?: string | null;
+    _url?: string | null;
+    _url_not?: string | null;
+    _url_gt?: string | null;
+    _url_lt?: string | null;
+    _url_gte?: string | null;
+    _url_lte?: string | null;
+    _url_in?: string[];
+    _url_not_in?: string[];
+    _url_contains?: string | null;
+    _url_contains_nocase?: string | null;
+    _url_not_contains?: string | null;
+    _url_not_contains_nocase?: string | null;
+    _url_starts_with?: string | null;
+    _url_starts_with_nocase?: string | null;
+    _url_not_starts_with?: string | null;
+    _url_not_starts_with_nocase?: string | null;
+    _url_ends_with?: string | null;
+    _url_ends_with_nocase?: string | null;
+    _url_not_ends_with?: string | null;
+    _url_not_ends_with_nocase?: string | null;
+    _immutableUrl?: string | null;
+    _immutableUrl_not?: string | null;
+    _immutableUrl_gt?: string | null;
+    _immutableUrl_lt?: string | null;
+    _immutableUrl_gte?: string | null;
+    _immutableUrl_lte?: string | null;
+    _immutableUrl_in?: string[];
+    _immutableUrl_not_in?: string[];
+    _immutableUrl_contains?: string | null;
+    _immutableUrl_contains_nocase?: string | null;
+    _immutableUrl_not_contains?: string | null;
+    _immutableUrl_not_contains_nocase?: string | null;
+    _immutableUrl_starts_with?: string | null;
+    _immutableUrl_starts_with_nocase?: string | null;
+    _immutableUrl_not_starts_with?: string | null;
+    _immutableUrl_not_starts_with_nocase?: string | null;
+    _immutableUrl_ends_with?: string | null;
+    _immutableUrl_ends_with_nocase?: string | null;
+    _immutableUrl_not_ends_with?: string | null;
+    _immutableUrl_not_ends_with_nocase?: string | null;
+};
+export type DIDMetadataUpdatedResult = {
+    id: string;
+    _did: string;
+    _owner: string;
+    _checksum: string;
+    _url: string;
+    _immutableUrl: string;
+};
+export type DIDMetadataUpdatedFields = {
+    id: true;
+    _did: true;
+    _owner: true;
+    _checksum: true;
+    _url: true;
+    _immutableUrl: true;
+};
+export type DIDMetadataUpdatedArgs<K extends keyof DIDMetadataUpdatedResult> = {
+    [Property in keyof Pick<DIDMetadataUpdatedFields, K>]: DIDMetadataUpdatedFields[Property];
+};
+export const getDIDMetadataUpdatedById = async function <K extends keyof DIDMetadataUpdatedResult>(url: string, options: SingleQueryOptions, args: DIDMetadataUpdatedArgs<K>): Promise<Pick<DIDMetadataUpdatedResult, K>> {
+    const res = await axios.post(url, {
+        query: generateGql("didmetadataUpdated", options, args)
+    });
+    const r = res.data as any;
+    if (r.errors && r.errors.length) {
+        throw new Error(r.errors[0].message);
+    }
+    const obj = (r.data[Object.keys(r.data)[0]] as any);
+    const formattedObj: any = {};
+    if (obj["id"])
+        formattedObj["id"] = obj["id"];
+    if (obj["_did"])
+        formattedObj["_did"] = obj["_did"];
+    if (obj["_owner"])
+        formattedObj["_owner"] = obj["_owner"];
+    if (obj["_checksum"])
+        formattedObj["_checksum"] = obj["_checksum"];
+    if (obj["_url"])
+        formattedObj["_url"] = obj["_url"];
+    if (obj["_immutableUrl"])
+        formattedObj["_immutableUrl"] = obj["_immutableUrl"];
+    return formattedObj as Pick<DIDMetadataUpdatedResult, K>;
+};
+export const getDIDMetadataUpdateds = async function <K extends keyof DIDMetadataUpdatedResult>(url: string, options: MultiQueryOptions<DIDMetadataUpdatedFilter, DIDMetadataUpdatedResult>, args: DIDMetadataUpdatedArgs<K>): Promise<Pick<DIDMetadataUpdatedResult, K>[]> {
+    const paginatedOptions: Partial<MultiQueryOptions<DIDMetadataUpdatedFilter, DIDMetadataUpdatedResult>> = { ...options };
+    let paginationKey: keyof DIDMetadataUpdatedFilter | null = null;
+    let paginationValue = "";
+    if (options.first && options.first > MAX_PAGE) {
+        paginatedOptions.first = MAX_PAGE;
+        paginatedOptions.orderBy = options.orderBy || "id";
+        paginatedOptions.orderDirection = options.orderDirection || "asc";
+        paginationKey = paginatedOptions.orderBy + (paginatedOptions.orderDirection === "asc" ? "_gt" : "_lt") as keyof DIDMetadataUpdatedFilter;
+        paginatedOptions.where = { ...options.where };
+    }
+    let results: Pick<DIDMetadataUpdatedResult, K>[] = [];
+    do {
+        if (paginationKey && paginationValue)
+            paginatedOptions.where![paginationKey] = paginationValue as any;
+        const res = await axios.post(url, {
+            query: generateGql("didmetadataUpdateds", paginatedOptions, args)
+        });
+        const r = res.data as any;
+        if (r.errors && r.errors.length) {
+            throw new Error(r.errors[0].message);
+        }
+        const rawResults = r.data[Object.keys(r.data)[0]] as any[];
+        const newResults = rawResults.map((obj) => {
+            const formattedObj: any = {};
+            if (obj["id"])
+                formattedObj["id"] = obj["id"];
+            if (obj["_did"])
+                formattedObj["_did"] = obj["_did"];
+            if (obj["_owner"])
+                formattedObj["_owner"] = obj["_owner"];
+            if (obj["_checksum"])
+                formattedObj["_checksum"] = obj["_checksum"];
+            if (obj["_url"])
+                formattedObj["_url"] = obj["_url"];
+            if (obj["_immutableUrl"])
+                formattedObj["_immutableUrl"] = obj["_immutableUrl"];
+            return formattedObj as Pick<DIDMetadataUpdatedResult, K>;
+        });
+        results = results.concat(newResults);
+        if (newResults.length < 1000) {
+            break;
+        }
+        if (paginationKey) {
+            paginationValue = rawResults[rawResults.length - 1][paginatedOptions.orderBy!];
+        }
+    } while (paginationKey && (options.first && results.length < options.first));
+    return options.first ? results.slice(0, options.first) : results;
+};
 export type DIDOwnershipTransferredFilter = {
     id?: string | null;
     id_not?: string | null;

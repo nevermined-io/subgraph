@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: NFTHolderCondition
     network: spree
     source:
-      address: "0x32c79B039E4BC4Ad9272CA7D2A3DE5183D06Cd6B"
+      address: "0xdAc3A1f400Cb0939C8e2caeF9136a66B8Ba5249c"
       abi: NFTHolderCondition
       startBlock: 10
     mapping:

@@ -2,10 +2,10 @@
 
 RETRY_COUNT=0
 HTTP_CODE=0
-GRAPH_NODE_URL=${GRAPH_NODE_URL:-http://localhost:9020/}
+GRAPH_NODE_URL=${GRAPH_NODE_URL:-http://localhost:8000/}
 
 until [ $HTTP_CODE -eq 200 ] || [ $RETRY_COUNT -eq 240 ]; do
-  HTTP_CODE=$(curl -s -o /dev/null -w ''%{http_code}'' -X OPTIONS $GRAPH_NODE_URL)
+  HTTP_CODE=$(curl -s -o /dev/null -w ''%{http_code}'' $GRAPH_NODE_URL)
   if [ $HTTP_CODE -eq 200 ]; then
     break
   fi

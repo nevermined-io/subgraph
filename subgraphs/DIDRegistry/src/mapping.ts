@@ -1,6 +1,7 @@
 import {
   ActedOnBehalf as ActedOnBehalfEvent,
   DIDAttributeRegistered as DIDAttributeRegisteredEvent,
+  DIDMetadataUpdated as DIDMetadataUpdatedEvent,
   DIDOwnershipTransferred as DIDOwnershipTransferredEvent,
   DIDPermissionGranted as DIDPermissionGrantedEvent,
   DIDPermissionRevoked as DIDPermissionRevokedEvent,
@@ -13,6 +14,9 @@ import {
   Initialized as InitializedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProvenanceAttributeRegistered as ProvenanceAttributeRegisteredEvent,
+  RoleAdminChanged as RoleAdminChangedEvent,
+  RoleGranted as RoleGrantedEvent,
+  RoleRevoked as RoleRevokedEvent,
   Used as UsedEvent,
   WasAssociatedWith as WasAssociatedWithEvent,
   WasDerivedFrom as WasDerivedFromEvent,
@@ -21,6 +25,7 @@ import {
 import {
   ActedOnBehalf,
   DIDAttributeRegistered,
+  DIDMetadataUpdated,
   DIDOwnershipTransferred,
   DIDPermissionGranted,
   DIDPermissionRevoked,
@@ -33,6 +38,9 @@ import {
   Initialized,
   OwnershipTransferred,
   ProvenanceAttributeRegistered,
+  RoleAdminChanged,
+  RoleGranted,
+  RoleRevoked,
   Used,
   WasAssociatedWith,
   WasDerivedFrom,
@@ -65,6 +73,18 @@ export function handleDIDAttributeRegistered(
   entity._value = event.params._value
   entity._lastUpdatedBy = event.params._lastUpdatedBy
   entity._blockNumberUpdated = event.params._blockNumberUpdated
+  entity.save()
+}
+
+export function handleDIDMetadataUpdated(event: DIDMetadataUpdatedEvent): void {
+  let entity = new DIDMetadataUpdated(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity._did = event.params._did
+  entity._owner = event.params._owner
+  entity._checksum = event.params._checksum
+  entity._url = event.params._url
+  entity._immutableUrl = event.params._immutableUrl
   entity.save()
 }
 
@@ -200,6 +220,36 @@ export function handleProvenanceAttributeRegistered(
   entity._method = event.params._method
   entity._attributes = event.params._attributes
   entity._blockNumberUpdated = event.params._blockNumberUpdated
+  entity.save()
+}
+
+export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
+  let entity = new RoleAdminChanged(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.role = event.params.role
+  entity.previousAdminRole = event.params.previousAdminRole
+  entity.newAdminRole = event.params.newAdminRole
+  entity.save()
+}
+
+export function handleRoleGranted(event: RoleGrantedEvent): void {
+  let entity = new RoleGranted(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.role = event.params.role
+  entity.account = event.params.account
+  entity.sender = event.params.sender
+  entity.save()
+}
+
+export function handleRoleRevoked(event: RoleRevokedEvent): void {
+  let entity = new RoleRevoked(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  )
+  entity.role = event.params.role
+  entity.account = event.params.account
+  entity.sender = event.params.sender
   entity.save()
 }
 

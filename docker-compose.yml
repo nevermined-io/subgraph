@@ -3,39 +3,31 @@ services:
   graph-node:
     container_name: graph-node
     image: graphprotocol/graph-node:v0.26.0
-    ports:
-      - '9000:8000'
-      - '9001:8001'
-      - '9020:8020'
-      - '9030:8030'
-      - '9040:8040'
     depends_on:
       - ipfs
       - postgres
     environment:
-      postgres_host: postgres
+      postgres_host: localhost
       postgres_user: graph-node
       postgres_pass: let-me-in
       postgres_db: graph-node
-      ipfs: 'ipfs:5001'
-      ethereum: "spree:http://172.17.0.1:8545"
+      ipfs: 'localhost:5001'
+      ethereum: "spree:http://contracts.nevermined.localnet"
       GRAPH_LOG: info
       ETHEREUM_REORG_THRESHOLD: 1
       ETHEREUM_ANCESTOR_COUNT: 1
+    network_mode: "host"
   ipfs:
     container_name: nevermined-ipfs
     image: ipfs/go-ipfs:v0.4.23
-    ports:
-      - '5001:5001'
     ulimits:
       nofile:
         soft: 65536
         hard: 65536
+    network_mode: "host"
   postgres:
     container_name: nevermined-postgres
     image: postgres
-    ports:
-      - '5432:5432'
     command:
       [
         "postgres",
@@ -45,3 +37,4 @@ services:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in
       POSTGRES_DB: graph-node
+    network_mode: "host"

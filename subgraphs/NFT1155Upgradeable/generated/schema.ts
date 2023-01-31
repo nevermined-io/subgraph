@@ -116,6 +116,70 @@ export class Initialized extends Entity {
   }
 }
 
+export class NFTCloned extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("_newAddress", Value.fromBytes(Bytes.empty()));
+    this.set("_fromAddress", Value.fromBytes(Bytes.empty()));
+    this.set("_ercType", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save NFTCloned entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save NFTCloned entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("NFTCloned", id.toString(), this);
+    }
+  }
+
+  static load(id: string): NFTCloned | null {
+    return changetype<NFTCloned | null>(store.get("NFTCloned", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get _newAddress(): Bytes {
+    let value = this.get("_newAddress");
+    return value!.toBytes();
+  }
+
+  set _newAddress(value: Bytes) {
+    this.set("_newAddress", Value.fromBytes(value));
+  }
+
+  get _fromAddress(): Bytes {
+    let value = this.get("_fromAddress");
+    return value!.toBytes();
+  }
+
+  set _fromAddress(value: Bytes) {
+    this.set("_fromAddress", Value.fromBytes(value));
+  }
+
+  get _ercType(): BigInt {
+    let value = this.get("_ercType");
+    return value!.toBigInt();
+  }
+
+  set _ercType(value: BigInt) {
+    this.set("_ercType", Value.fromBigInt(value));
+  }
+}
+
 export class OwnershipTransferred extends Entity {
   constructor(id: string) {
     super();
@@ -521,7 +585,7 @@ export class TransferSingle extends Entity {
     this.set("operator", Value.fromBytes(Bytes.empty()));
     this.set("from", Value.fromBytes(Bytes.empty()));
     this.set("to", Value.fromBytes(Bytes.empty()));
-    this.set("_id", Value.fromBigInt(BigInt.zero()));
+    this.set("_id", Value.fromBytes(Bytes.empty()));
     this.set("value", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -578,13 +642,13 @@ export class TransferSingle extends Entity {
     this.set("to", Value.fromBytes(value));
   }
 
-  get _id(): BigInt {
+  get _id(): Bytes {
     let value = this.get("_id");
-    return value!.toBigInt();
+    return value!.toBytes();
   }
 
-  set _id(value: BigInt) {
-    this.set("_id", Value.fromBigInt(value));
+  set _id(value: Bytes) {
+    this.set("_id", Value.fromBytes(value));
   }
 
   get value(): BigInt {
@@ -603,7 +667,7 @@ export class URI extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("value", Value.fromString(""));
-    this.set("_id", Value.fromBigInt(BigInt.zero()));
+    this.set("_id", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -641,12 +705,12 @@ export class URI extends Entity {
     this.set("value", Value.fromString(value));
   }
 
-  get _id(): BigInt {
+  get _id(): Bytes {
     let value = this.get("_id");
-    return value!.toBigInt();
+    return value!.toBytes();
   }
 
-  set _id(value: BigInt) {
-    this.set("_id", Value.fromBigInt(value));
+  set _id(value: Bytes) {
+    this.set("_id", Value.fromBytes(value));
   }
 }

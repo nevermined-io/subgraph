@@ -90,6 +90,40 @@ export class DIDAttributeRegistered__Params {
   }
 }
 
+export class DIDMetadataUpdated extends ethereum.Event {
+  get params(): DIDMetadataUpdated__Params {
+    return new DIDMetadataUpdated__Params(this);
+  }
+}
+
+export class DIDMetadataUpdated__Params {
+  _event: DIDMetadataUpdated;
+
+  constructor(event: DIDMetadataUpdated) {
+    this._event = event;
+  }
+
+  get _did(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get _owner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get _checksum(): Bytes {
+    return this._event.parameters[2].value.toBytes();
+  }
+
+  get _url(): string {
+    return this._event.parameters[3].value.toString();
+  }
+
+  get _immutableUrl(): string {
+    return this._event.parameters[4].value.toString();
+  }
+}
+
 export class DIDOwnershipTransferred extends ethereum.Event {
   get params(): DIDOwnershipTransferred__Params {
     return new DIDOwnershipTransferred__Params(this);
@@ -398,6 +432,84 @@ export class ProvenanceAttributeRegistered__Params {
   }
 }
 
+export class RoleAdminChanged extends ethereum.Event {
+  get params(): RoleAdminChanged__Params {
+    return new RoleAdminChanged__Params(this);
+  }
+}
+
+export class RoleAdminChanged__Params {
+  _event: RoleAdminChanged;
+
+  constructor(event: RoleAdminChanged) {
+    this._event = event;
+  }
+
+  get role(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get previousAdminRole(): Bytes {
+    return this._event.parameters[1].value.toBytes();
+  }
+
+  get newAdminRole(): Bytes {
+    return this._event.parameters[2].value.toBytes();
+  }
+}
+
+export class RoleGranted extends ethereum.Event {
+  get params(): RoleGranted__Params {
+    return new RoleGranted__Params(this);
+  }
+}
+
+export class RoleGranted__Params {
+  _event: RoleGranted;
+
+  constructor(event: RoleGranted) {
+    this._event = event;
+  }
+
+  get role(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get account(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get sender(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+}
+
+export class RoleRevoked extends ethereum.Event {
+  get params(): RoleRevoked__Params {
+    return new RoleRevoked__Params(this);
+  }
+}
+
+export class RoleRevoked__Params {
+  _event: RoleRevoked;
+
+  constructor(event: RoleRevoked) {
+    this._event = event;
+  }
+
+  get role(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get account(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get sender(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+}
+
 export class Used extends ethereum.Event {
   get params(): Used__Params {
     return new Used__Params(this);
@@ -562,8 +674,8 @@ export class DIDRegistry__getDIDRegisterResult {
   value4: BigInt;
   value5: Array<Address>;
   value6: BigInt;
-  value7: BigInt;
-  value8: BigInt;
+  value7: string;
+  value8: boolean;
 
   constructor(
     value0: Address,
@@ -573,8 +685,8 @@ export class DIDRegistry__getDIDRegisterResult {
     value4: BigInt,
     value5: Array<Address>,
     value6: BigInt,
-    value7: BigInt,
-    value8: BigInt
+    value7: string,
+    value8: boolean
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -596,25 +708,25 @@ export class DIDRegistry__getDIDRegisterResult {
     map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
     map.set("value5", ethereum.Value.fromAddressArray(this.value5));
     map.set("value6", ethereum.Value.fromUnsignedBigInt(this.value6));
-    map.set("value7", ethereum.Value.fromUnsignedBigInt(this.value7));
-    map.set("value8", ethereum.Value.fromUnsignedBigInt(this.value8));
+    map.set("value7", ethereum.Value.fromString(this.value7));
+    map.set("value8", ethereum.Value.fromBoolean(this.value8));
     return map;
   }
 }
 
-export class DIDRegistry__getDIDSupplyResult {
-  value0: BigInt;
-  value1: BigInt;
+export class DIDRegistry__getNFTInfoResult {
+  value0: Address;
+  value1: boolean;
 
-  constructor(value0: BigInt, value1: BigInt) {
+  constructor(value0: Address, value1: boolean) {
     this.value0 = value0;
     this.value1 = value1;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
     let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    map.set("value0", ethereum.Value.fromAddress(this.value0));
+    map.set("value1", ethereum.Value.fromBoolean(this.value1));
     return map;
   }
 }
@@ -675,6 +787,52 @@ export class DIDRegistry extends ethereum.SmartContract {
     return new DIDRegistry("DIDRegistry", address);
   }
 
+  DEFAULT_ADMIN_ROLE(): Bytes {
+    let result = super.call(
+      "DEFAULT_ADMIN_ROLE",
+      "DEFAULT_ADMIN_ROLE():(bytes32)",
+      []
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_DEFAULT_ADMIN_ROLE(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "DEFAULT_ADMIN_ROLE",
+      "DEFAULT_ADMIN_ROLE():(bytes32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  REGISTRY_OPERATOR_ROLE(): Bytes {
+    let result = super.call(
+      "REGISTRY_OPERATOR_ROLE",
+      "REGISTRY_OPERATOR_ROLE():(bytes32)",
+      []
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_REGISTRY_OPERATOR_ROLE(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "REGISTRY_OPERATOR_ROLE",
+      "REGISTRY_OPERATOR_ROLE():(bytes32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
   actedOnBehalf(
     _provId: Bytes,
     _did: Bytes,
@@ -730,6 +888,29 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  addressToBytes32(_addr: Address): Bytes {
+    let result = super.call(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_addressToBytes32(_addr: Address): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
   areRoyaltiesValid(
     _did: Bytes,
     _amounts: Array<BigInt>,
@@ -773,20 +954,93 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  bytes32ToAddress(_b32: Bytes): Address {
+    let result = super.call(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_bytes32ToAddress(_b32: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  calculateTotalAmount(_amounts: Array<BigInt>): BigInt {
+    let result = super.call(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateTotalAmount(
+    _amounts: Array<BigInt>
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  defaultRoyalties(): Address {
+    let result = super.call(
+      "defaultRoyalties",
+      "defaultRoyalties():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_defaultRoyalties(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "defaultRoyalties",
+      "defaultRoyalties():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   enableAndMintDidNft(
     _did: Bytes,
+    _nftAddress: Address,
     _cap: BigInt,
-    _royalties: i32,
+    _royalties: BigInt,
     _mint: boolean,
     _nftMetadata: string
   ): boolean {
     let result = super.call(
       "enableAndMintDidNft",
-      "enableAndMintDidNft(bytes32,uint256,uint8,bool,string):(bool)",
+      "enableAndMintDidNft(bytes32,address,uint256,uint256,bool,string):(bool)",
       [
         ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_nftAddress),
         ethereum.Value.fromUnsignedBigInt(_cap),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
+        ethereum.Value.fromUnsignedBigInt(_royalties),
         ethereum.Value.fromBoolean(_mint),
         ethereum.Value.fromString(_nftMetadata)
       ]
@@ -797,18 +1051,20 @@ export class DIDRegistry extends ethereum.SmartContract {
 
   try_enableAndMintDidNft(
     _did: Bytes,
+    _nftAddress: Address,
     _cap: BigInt,
-    _royalties: i32,
+    _royalties: BigInt,
     _mint: boolean,
     _nftMetadata: string
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "enableAndMintDidNft",
-      "enableAndMintDidNft(bytes32,uint256,uint8,bool,string):(bool)",
+      "enableAndMintDidNft(bytes32,address,uint256,uint256,bool,string):(bool)",
       [
         ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_nftAddress),
         ethereum.Value.fromUnsignedBigInt(_cap),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
+        ethereum.Value.fromUnsignedBigInt(_royalties),
         ethereum.Value.fromBoolean(_mint),
         ethereum.Value.fromString(_nftMetadata)
       ]
@@ -822,18 +1078,18 @@ export class DIDRegistry extends ethereum.SmartContract {
 
   enableAndMintDidNft721(
     _did: Bytes,
-    _royalties: i32,
-    _mint: boolean,
-    _nftMetadata: string
+    _nftContractAddress: Address,
+    _royalties: BigInt,
+    _mint: boolean
   ): boolean {
     let result = super.call(
       "enableAndMintDidNft721",
-      "enableAndMintDidNft721(bytes32,uint8,bool,string):(bool)",
+      "enableAndMintDidNft721(bytes32,address,uint256,bool):(bool)",
       [
         ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromBoolean(_mint),
-        ethereum.Value.fromString(_nftMetadata)
+        ethereum.Value.fromAddress(_nftContractAddress),
+        ethereum.Value.fromUnsignedBigInt(_royalties),
+        ethereum.Value.fromBoolean(_mint)
       ]
     );
 
@@ -842,18 +1098,18 @@ export class DIDRegistry extends ethereum.SmartContract {
 
   try_enableAndMintDidNft721(
     _did: Bytes,
-    _royalties: i32,
-    _mint: boolean,
-    _nftMetadata: string
+    _nftContractAddress: Address,
+    _royalties: BigInt,
+    _mint: boolean
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "enableAndMintDidNft721",
-      "enableAndMintDidNft721(bytes32,uint8,bool,string):(bool)",
+      "enableAndMintDidNft721(bytes32,address,uint256,bool):(bool)",
       [
         ethereum.Value.fromFixedBytes(_did),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_royalties)),
-        ethereum.Value.fromBoolean(_mint),
-        ethereum.Value.fromString(_nftMetadata)
+        ethereum.Value.fromAddress(_nftContractAddress),
+        ethereum.Value.fromUnsignedBigInt(_royalties),
+        ethereum.Value.fromBoolean(_mint)
       ]
     );
     if (result.reverted) {
@@ -916,6 +1172,29 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  getCurrentBlockNumber(): BigInt {
+    let result = super.call(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCurrentBlockNumber(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   getDIDCreator(_did: Bytes): Address {
     let result = super.call(
       "getDIDCreator",
@@ -963,7 +1242,7 @@ export class DIDRegistry extends ethereum.SmartContract {
   getDIDRegister(_did: Bytes): DIDRegistry__getDIDRegisterResult {
     let result = super.call(
       "getDIDRegister",
-      "getDIDRegister(bytes32):(address,bytes32,string,address,uint256,address[],uint256,uint256,uint256)",
+      "getDIDRegister(bytes32):(address,bytes32,string,address,uint256,address[],uint256,string,bool)",
       [ethereum.Value.fromFixedBytes(_did)]
     );
 
@@ -975,8 +1254,8 @@ export class DIDRegistry extends ethereum.SmartContract {
       result[4].toBigInt(),
       result[5].toAddressArray(),
       result[6].toBigInt(),
-      result[7].toBigInt(),
-      result[8].toBigInt()
+      result[7].toString(),
+      result[8].toBoolean()
     );
   }
 
@@ -985,7 +1264,7 @@ export class DIDRegistry extends ethereum.SmartContract {
   ): ethereum.CallResult<DIDRegistry__getDIDRegisterResult> {
     let result = super.tryCall(
       "getDIDRegister",
-      "getDIDRegister(bytes32):(address,bytes32,string,address,uint256,address[],uint256,uint256,uint256)",
+      "getDIDRegister(bytes32):(address,bytes32,string,address,uint256,address[],uint256,string,bool)",
       [ethereum.Value.fromFixedBytes(_did)]
     );
     if (result.reverted) {
@@ -1001,8 +1280,8 @@ export class DIDRegistry extends ethereum.SmartContract {
         value[4].toBigInt(),
         value[5].toAddressArray(),
         value[6].toBigInt(),
-        value[7].toBigInt(),
-        value[8].toBigInt()
+        value[7].toString(),
+        value[8].toBoolean()
       )
     );
   }
@@ -1030,25 +1309,48 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getDIDSupply(_did: Bytes): DIDRegistry__getDIDSupplyResult {
+  getDIDRoyaltyScheme(_did: Bytes): Address {
     let result = super.call(
-      "getDIDSupply",
-      "getDIDSupply(bytes32):(uint256,uint256)",
+      "getDIDRoyaltyScheme",
+      "getDIDRoyaltyScheme(bytes32):(address)",
       [ethereum.Value.fromFixedBytes(_did)]
     );
 
-    return new DIDRegistry__getDIDSupplyResult(
-      result[0].toBigInt(),
-      result[1].toBigInt()
+    return result[0].toAddress();
+  }
+
+  try_getDIDRoyaltyScheme(_did: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getDIDRoyaltyScheme",
+      "getDIDRoyaltyScheme(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getNFTInfo(_did: Bytes): DIDRegistry__getNFTInfoResult {
+    let result = super.call(
+      "getNFTInfo",
+      "getNFTInfo(bytes32):(address,bool)",
+      [ethereum.Value.fromFixedBytes(_did)]
+    );
+
+    return new DIDRegistry__getNFTInfoResult(
+      result[0].toAddress(),
+      result[1].toBoolean()
     );
   }
 
-  try_getDIDSupply(
+  try_getNFTInfo(
     _did: Bytes
-  ): ethereum.CallResult<DIDRegistry__getDIDSupplyResult> {
+  ): ethereum.CallResult<DIDRegistry__getNFTInfoResult> {
     let result = super.tryCall(
-      "getDIDSupply",
-      "getDIDSupply(bytes32):(uint256,uint256)",
+      "getNFTInfo",
+      "getNFTInfo(bytes32):(address,bool)",
       [ethereum.Value.fromFixedBytes(_did)]
     );
     if (result.reverted) {
@@ -1056,11 +1358,34 @@ export class DIDRegistry extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new DIDRegistry__getDIDSupplyResult(
-        value[0].toBigInt(),
-        value[1].toBigInt()
+      new DIDRegistry__getNFTInfoResult(
+        value[0].toAddress(),
+        value[1].toBoolean()
       )
     );
+  }
+
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   getPermission(_did: Bytes, _grantee: Address): boolean {
@@ -1165,6 +1490,71 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  getRoleAdmin(role: Bytes): Bytes {
+    let result = super.call("getRoleAdmin", "getRoleAdmin(bytes32):(bytes32)", [
+      ethereum.Value.fromFixedBytes(role)
+    ]);
+
+    return result[0].toBytes();
+  }
+
+  try_getRoleAdmin(role: Bytes): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "getRoleAdmin",
+      "getRoleAdmin(bytes32):(bytes32)",
+      [ethereum.Value.fromFixedBytes(role)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  hasRole(role: Bytes, account: Address): boolean {
+    let result = super.call("hasRole", "hasRole(bytes32,address):(bool)", [
+      ethereum.Value.fromFixedBytes(role),
+      ethereum.Value.fromAddress(account)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_hasRole(role: Bytes, account: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("hasRole", "hasRole(bytes32,address):(bool)", [
+      ethereum.Value.fromFixedBytes(role),
+      ethereum.Value.fromAddress(account)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   hashDID(_didSeed: Bytes, _creator: Address): Bytes {
     let result = super.call("hashDID", "hashDID(bytes32,address):(bytes32)", [
       ethereum.Value.fromFixedBytes(_didSeed),
@@ -1188,6 +1578,25 @@ export class DIDRegistry extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  isContract(addr: Address): boolean {
+    let result = super.call("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isContract(addr: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   isDIDOwner(_address: Address, _did: Bytes): boolean {
@@ -1338,6 +1747,52 @@ export class DIDRegistry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isRegistryOperator(operator: Address): boolean {
+    let result = super.call(
+      "isRegistryOperator",
+      "isRegistryOperator(address):(bool)",
+      [ethereum.Value.fromAddress(operator)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isRegistryOperator(operator: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isRegistryOperator",
+      "isRegistryOperator(address):(bool)",
+      [ethereum.Value.fromAddress(operator)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   manager(): Address {
     let result = super.call("manager", "manager():(address)", []);
 
@@ -1346,6 +1801,21 @@ export class DIDRegistry extends ethereum.SmartContract {
 
   try_manager(): ethereum.CallResult<Address> {
     let result = super.tryCall("manager", "manager():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  nvmConfig(): Address {
+    let result = super.call("nvmConfig", "nvmConfig():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_nvmConfig(): ethereum.CallResult<Address> {
+    let result = super.tryCall("nvmConfig", "nvmConfig():(address)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -1383,6 +1853,29 @@ export class DIDRegistry extends ethereum.SmartContract {
       "royaltiesCheckers",
       "royaltiesCheckers(address):(bool)",
       [ethereum.Value.fromAddress(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  supportsInterface(interfaceId: Bytes): boolean {
+    let result = super.call(
+      "supportsInterface",
+      "supportsInterface(bytes4):(bool)",
+      [ethereum.Value.fromFixedBytes(interfaceId)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_supportsInterface(interfaceId: Bytes): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "supportsInterface",
+      "supportsInterface(bytes4):(bool)",
+      [ethereum.Value.fromFixedBytes(interfaceId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1667,70 +2160,6 @@ export class AddDIDProviderCall__Outputs {
   }
 }
 
-export class BurnCall extends ethereum.Call {
-  get inputs(): BurnCall__Inputs {
-    return new BurnCall__Inputs(this);
-  }
-
-  get outputs(): BurnCall__Outputs {
-    return new BurnCall__Outputs(this);
-  }
-}
-
-export class BurnCall__Inputs {
-  _call: BurnCall;
-
-  constructor(call: BurnCall) {
-    this._call = call;
-  }
-
-  get _did(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get _amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class BurnCall__Outputs {
-  _call: BurnCall;
-
-  constructor(call: BurnCall) {
-    this._call = call;
-  }
-}
-
-export class Burn721Call extends ethereum.Call {
-  get inputs(): Burn721Call__Inputs {
-    return new Burn721Call__Inputs(this);
-  }
-
-  get outputs(): Burn721Call__Outputs {
-    return new Burn721Call__Outputs(this);
-  }
-}
-
-export class Burn721Call__Inputs {
-  _call: Burn721Call;
-
-  constructor(call: Burn721Call) {
-    this._call = call;
-  }
-
-  get _did(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-}
-
-export class Burn721Call__Outputs {
-  _call: Burn721Call;
-
-  constructor(call: Burn721Call) {
-    this._call = call;
-  }
-}
-
 export class EnableAndMintDidNftCall extends ethereum.Call {
   get inputs(): EnableAndMintDidNftCall__Inputs {
     return new EnableAndMintDidNftCall__Inputs(this);
@@ -1752,20 +2181,24 @@ export class EnableAndMintDidNftCall__Inputs {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _cap(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get _nftAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
   }
 
-  get _royalties(): i32 {
-    return this._call.inputValues[2].value.toI32();
+  get _cap(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get _royalties(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
   }
 
   get _mint(): boolean {
-    return this._call.inputValues[3].value.toBoolean();
+    return this._call.inputValues[4].value.toBoolean();
   }
 
   get _nftMetadata(): string {
-    return this._call.inputValues[4].value.toString();
+    return this._call.inputValues[5].value.toString();
   }
 }
 
@@ -1802,16 +2235,16 @@ export class EnableAndMintDidNft721Call__Inputs {
     return this._call.inputValues[0].value.toBytes();
   }
 
-  get _royalties(): i32 {
-    return this._call.inputValues[1].value.toI32();
+  get _nftContractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _royalties(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
   }
 
   get _mint(): boolean {
-    return this._call.inputValues[2].value.toBoolean();
-  }
-
-  get _nftMetadata(): string {
-    return this._call.inputValues[3].value.toString();
+    return this._call.inputValues[3].value.toBoolean();
   }
 }
 
@@ -1861,6 +2294,70 @@ export class GrantPermissionCall__Outputs {
   }
 }
 
+export class GrantRegistryOperatorRoleCall extends ethereum.Call {
+  get inputs(): GrantRegistryOperatorRoleCall__Inputs {
+    return new GrantRegistryOperatorRoleCall__Inputs(this);
+  }
+
+  get outputs(): GrantRegistryOperatorRoleCall__Outputs {
+    return new GrantRegistryOperatorRoleCall__Outputs(this);
+  }
+}
+
+export class GrantRegistryOperatorRoleCall__Inputs {
+  _call: GrantRegistryOperatorRoleCall;
+
+  constructor(call: GrantRegistryOperatorRoleCall) {
+    this._call = call;
+  }
+
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class GrantRegistryOperatorRoleCall__Outputs {
+  _call: GrantRegistryOperatorRoleCall;
+
+  constructor(call: GrantRegistryOperatorRoleCall) {
+    this._call = call;
+  }
+}
+
+export class GrantRoleCall extends ethereum.Call {
+  get inputs(): GrantRoleCall__Inputs {
+    return new GrantRoleCall__Inputs(this);
+  }
+
+  get outputs(): GrantRoleCall__Outputs {
+    return new GrantRoleCall__Outputs(this);
+  }
+}
+
+export class GrantRoleCall__Inputs {
+  _call: GrantRoleCall;
+
+  constructor(call: GrantRoleCall) {
+    this._call = call;
+  }
+
+  get role(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get account(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class GrantRoleCall__Outputs {
+  _call: GrantRoleCall;
+
+  constructor(call: GrantRoleCall) {
+    this._call = call;
+  }
+}
+
 export class InitializeCall extends ethereum.Call {
   get inputs(): InitializeCall__Inputs {
     return new InitializeCall__Inputs(this);
@@ -1889,148 +2386,20 @@ export class InitializeCall__Inputs {
   get _erc721(): Address {
     return this._call.inputValues[2].value.toAddress();
   }
+
+  get _config(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get _royalties(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
 }
 
 export class InitializeCall__Outputs {
   _call: InitializeCall;
 
   constructor(call: InitializeCall) {
-    this._call = call;
-  }
-}
-
-export class MintCall extends ethereum.Call {
-  get inputs(): MintCall__Inputs {
-    return new MintCall__Inputs(this);
-  }
-
-  get outputs(): MintCall__Outputs {
-    return new MintCall__Outputs(this);
-  }
-}
-
-export class MintCall__Inputs {
-  _call: MintCall;
-
-  constructor(call: MintCall) {
-    this._call = call;
-  }
-
-  get _did(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get _amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class MintCall__Outputs {
-  _call: MintCall;
-
-  constructor(call: MintCall) {
-    this._call = call;
-  }
-}
-
-export class Mint1Call extends ethereum.Call {
-  get inputs(): Mint1Call__Inputs {
-    return new Mint1Call__Inputs(this);
-  }
-
-  get outputs(): Mint1Call__Outputs {
-    return new Mint1Call__Outputs(this);
-  }
-}
-
-export class Mint1Call__Inputs {
-  _call: Mint1Call;
-
-  constructor(call: Mint1Call) {
-    this._call = call;
-  }
-
-  get _did(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get _amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get _receiver(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class Mint1Call__Outputs {
-  _call: Mint1Call;
-
-  constructor(call: Mint1Call) {
-    this._call = call;
-  }
-}
-
-export class Mint721Call extends ethereum.Call {
-  get inputs(): Mint721Call__Inputs {
-    return new Mint721Call__Inputs(this);
-  }
-
-  get outputs(): Mint721Call__Outputs {
-    return new Mint721Call__Outputs(this);
-  }
-}
-
-export class Mint721Call__Inputs {
-  _call: Mint721Call;
-
-  constructor(call: Mint721Call) {
-    this._call = call;
-  }
-
-  get _did(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-}
-
-export class Mint721Call__Outputs {
-  _call: Mint721Call;
-
-  constructor(call: Mint721Call) {
-    this._call = call;
-  }
-}
-
-export class Mint7211Call extends ethereum.Call {
-  get inputs(): Mint7211Call__Inputs {
-    return new Mint7211Call__Inputs(this);
-  }
-
-  get outputs(): Mint7211Call__Outputs {
-    return new Mint7211Call__Outputs(this);
-  }
-}
-
-export class Mint7211Call__Inputs {
-  _call: Mint7211Call;
-
-  constructor(call: Mint7211Call) {
-    this._call = call;
-  }
-
-  get _did(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get _receiver(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class Mint7211Call__Outputs {
-  _call: Mint7211Call;
-
-  constructor(call: Mint7211Call) {
     this._call = call;
   }
 }
@@ -2114,7 +2483,7 @@ export class RegisterDIDCall__Inputs {
     return this._call.inputValues[4].value.toBytes();
   }
 
-  get _attributes(): string {
+  get _immutableUrl(): string {
     return this._call.inputValues[5].value.toString();
   }
 }
@@ -2148,32 +2517,40 @@ export class RegisterMintableDIDCall__Inputs {
     return this._call.inputValues[0].value.toBytes();
   }
 
+  get _nftContractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
   get _checksum(): Bytes {
-    return this._call.inputValues[1].value.toBytes();
+    return this._call.inputValues[2].value.toBytes();
   }
 
   get _providers(): Array<Address> {
-    return this._call.inputValues[2].value.toAddressArray();
+    return this._call.inputValues[3].value.toAddressArray();
   }
 
   get _url(): string {
-    return this._call.inputValues[3].value.toString();
+    return this._call.inputValues[4].value.toString();
   }
 
   get _cap(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
+    return this._call.inputValues[5].value.toBigInt();
   }
 
-  get _royalties(): i32 {
-    return this._call.inputValues[5].value.toI32();
+  get _royalties(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
   }
 
   get _activityId(): Bytes {
-    return this._call.inputValues[6].value.toBytes();
+    return this._call.inputValues[7].value.toBytes();
   }
 
   get _nftMetadata(): string {
-    return this._call.inputValues[7].value.toString();
+    return this._call.inputValues[8].value.toString();
+  }
+
+  get _immutableUrl(): string {
+    return this._call.inputValues[9].value.toString();
   }
 }
 
@@ -2206,36 +2583,44 @@ export class RegisterMintableDID1Call__Inputs {
     return this._call.inputValues[0].value.toBytes();
   }
 
+  get _nftContractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
   get _checksum(): Bytes {
-    return this._call.inputValues[1].value.toBytes();
+    return this._call.inputValues[2].value.toBytes();
   }
 
   get _providers(): Array<Address> {
-    return this._call.inputValues[2].value.toAddressArray();
+    return this._call.inputValues[3].value.toAddressArray();
   }
 
   get _url(): string {
-    return this._call.inputValues[3].value.toString();
+    return this._call.inputValues[4].value.toString();
   }
 
   get _cap(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
+    return this._call.inputValues[5].value.toBigInt();
   }
 
-  get _royalties(): i32 {
-    return this._call.inputValues[5].value.toI32();
+  get _royalties(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
   }
 
   get _mint(): boolean {
-    return this._call.inputValues[6].value.toBoolean();
+    return this._call.inputValues[7].value.toBoolean();
   }
 
   get _activityId(): Bytes {
-    return this._call.inputValues[7].value.toBytes();
+    return this._call.inputValues[8].value.toBytes();
   }
 
   get _nftMetadata(): string {
-    return this._call.inputValues[8].value.toString();
+    return this._call.inputValues[9].value.toString();
+  }
+
+  get _immutableUrl(): string {
+    return this._call.inputValues[10].value.toString();
   }
 }
 
@@ -2268,32 +2653,36 @@ export class RegisterMintableDID721Call__Inputs {
     return this._call.inputValues[0].value.toBytes();
   }
 
+  get _nftContractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
   get _checksum(): Bytes {
-    return this._call.inputValues[1].value.toBytes();
+    return this._call.inputValues[2].value.toBytes();
   }
 
   get _providers(): Array<Address> {
-    return this._call.inputValues[2].value.toAddressArray();
+    return this._call.inputValues[3].value.toAddressArray();
   }
 
   get _url(): string {
-    return this._call.inputValues[3].value.toString();
+    return this._call.inputValues[4].value.toString();
   }
 
-  get _royalties(): i32 {
-    return this._call.inputValues[4].value.toI32();
+  get _royalties(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
   }
 
   get _mint(): boolean {
-    return this._call.inputValues[5].value.toBoolean();
+    return this._call.inputValues[6].value.toBoolean();
   }
 
   get _activityId(): Bytes {
-    return this._call.inputValues[6].value.toBytes();
+    return this._call.inputValues[7].value.toBytes();
   }
 
-  get _nftMetadata(): string {
-    return this._call.inputValues[7].value.toString();
+  get _immutableUrl(): string {
+    return this._call.inputValues[8].value.toString();
   }
 }
 
@@ -2331,6 +2720,48 @@ export class RegisterRoyaltiesCheckerCall__Outputs {
   _call: RegisterRoyaltiesCheckerCall;
 
   constructor(call: RegisterRoyaltiesCheckerCall) {
+    this._call = call;
+  }
+}
+
+export class RegisterUsedProvenanceCall extends ethereum.Call {
+  get inputs(): RegisterUsedProvenanceCall__Inputs {
+    return new RegisterUsedProvenanceCall__Inputs(this);
+  }
+
+  get outputs(): RegisterUsedProvenanceCall__Outputs {
+    return new RegisterUsedProvenanceCall__Outputs(this);
+  }
+}
+
+export class RegisterUsedProvenanceCall__Inputs {
+  _call: RegisterUsedProvenanceCall;
+
+  constructor(call: RegisterUsedProvenanceCall) {
+    this._call = call;
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _cond(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get name(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get user(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+}
+
+export class RegisterUsedProvenanceCall__Outputs {
+  _call: RegisterUsedProvenanceCall;
+
+  constructor(call: RegisterUsedProvenanceCall) {
     this._call = call;
   }
 }
@@ -2429,6 +2860,40 @@ export class RenounceOwnershipCall__Outputs {
   }
 }
 
+export class RenounceRoleCall extends ethereum.Call {
+  get inputs(): RenounceRoleCall__Inputs {
+    return new RenounceRoleCall__Inputs(this);
+  }
+
+  get outputs(): RenounceRoleCall__Outputs {
+    return new RenounceRoleCall__Outputs(this);
+  }
+}
+
+export class RenounceRoleCall__Inputs {
+  _call: RenounceRoleCall;
+
+  constructor(call: RenounceRoleCall) {
+    this._call = call;
+  }
+
+  get role(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get account(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class RenounceRoleCall__Outputs {
+  _call: RenounceRoleCall;
+
+  constructor(call: RenounceRoleCall) {
+    this._call = call;
+  }
+}
+
 export class RevokePermissionCall extends ethereum.Call {
   get inputs(): RevokePermissionCall__Inputs {
     return new RevokePermissionCall__Inputs(this);
@@ -2459,6 +2924,70 @@ export class RevokePermissionCall__Outputs {
   _call: RevokePermissionCall;
 
   constructor(call: RevokePermissionCall) {
+    this._call = call;
+  }
+}
+
+export class RevokeRegistryOperatorRoleCall extends ethereum.Call {
+  get inputs(): RevokeRegistryOperatorRoleCall__Inputs {
+    return new RevokeRegistryOperatorRoleCall__Inputs(this);
+  }
+
+  get outputs(): RevokeRegistryOperatorRoleCall__Outputs {
+    return new RevokeRegistryOperatorRoleCall__Outputs(this);
+  }
+}
+
+export class RevokeRegistryOperatorRoleCall__Inputs {
+  _call: RevokeRegistryOperatorRoleCall;
+
+  constructor(call: RevokeRegistryOperatorRoleCall) {
+    this._call = call;
+  }
+
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class RevokeRegistryOperatorRoleCall__Outputs {
+  _call: RevokeRegistryOperatorRoleCall;
+
+  constructor(call: RevokeRegistryOperatorRoleCall) {
+    this._call = call;
+  }
+}
+
+export class RevokeRoleCall extends ethereum.Call {
+  get inputs(): RevokeRoleCall__Inputs {
+    return new RevokeRoleCall__Inputs(this);
+  }
+
+  get outputs(): RevokeRoleCall__Outputs {
+    return new RevokeRoleCall__Outputs(this);
+  }
+}
+
+export class RevokeRoleCall__Inputs {
+  _call: RevokeRoleCall;
+
+  constructor(call: RevokeRoleCall) {
+    this._call = call;
+  }
+
+  get role(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get account(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class RevokeRoleCall__Outputs {
+  _call: RevokeRoleCall;
+
+  constructor(call: RevokeRoleCall) {
     this._call = call;
   }
 }
@@ -2531,32 +3060,62 @@ export class SetDIDRoyaltyRecipientCall__Outputs {
   }
 }
 
-export class SetManagerCall extends ethereum.Call {
-  get inputs(): SetManagerCall__Inputs {
-    return new SetManagerCall__Inputs(this);
+export class SetDefaultRoyaltiesCall extends ethereum.Call {
+  get inputs(): SetDefaultRoyaltiesCall__Inputs {
+    return new SetDefaultRoyaltiesCall__Inputs(this);
   }
 
-  get outputs(): SetManagerCall__Outputs {
-    return new SetManagerCall__Outputs(this);
+  get outputs(): SetDefaultRoyaltiesCall__Outputs {
+    return new SetDefaultRoyaltiesCall__Outputs(this);
   }
 }
 
-export class SetManagerCall__Inputs {
-  _call: SetManagerCall;
+export class SetDefaultRoyaltiesCall__Inputs {
+  _call: SetDefaultRoyaltiesCall;
 
-  constructor(call: SetManagerCall) {
+  constructor(call: SetDefaultRoyaltiesCall) {
     this._call = call;
   }
 
-  get _addr(): Address {
+  get _royalties(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }
 
-export class SetManagerCall__Outputs {
-  _call: SetManagerCall;
+export class SetDefaultRoyaltiesCall__Outputs {
+  _call: SetDefaultRoyaltiesCall;
 
-  constructor(call: SetManagerCall) {
+  constructor(call: SetDefaultRoyaltiesCall) {
+    this._call = call;
+  }
+}
+
+export class SetNFT1155Call extends ethereum.Call {
+  get inputs(): SetNFT1155Call__Inputs {
+    return new SetNFT1155Call__Inputs(this);
+  }
+
+  get outputs(): SetNFT1155Call__Outputs {
+    return new SetNFT1155Call__Outputs(this);
+  }
+}
+
+export class SetNFT1155Call__Inputs {
+  _call: SetNFT1155Call;
+
+  constructor(call: SetNFT1155Call) {
+    this._call = call;
+  }
+
+  get _erc1155(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetNFT1155Call__Outputs {
+  _call: SetNFT1155Call;
+
+  constructor(call: SetNFT1155Call) {
     this._call = call;
   }
 }
@@ -2659,6 +3218,48 @@ export class TransferOwnershipCall__Outputs {
   _call: TransferOwnershipCall;
 
   constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateMetadataUrlCall extends ethereum.Call {
+  get inputs(): UpdateMetadataUrlCall__Inputs {
+    return new UpdateMetadataUrlCall__Inputs(this);
+  }
+
+  get outputs(): UpdateMetadataUrlCall__Outputs {
+    return new UpdateMetadataUrlCall__Outputs(this);
+  }
+}
+
+export class UpdateMetadataUrlCall__Inputs {
+  _call: UpdateMetadataUrlCall;
+
+  constructor(call: UpdateMetadataUrlCall) {
+    this._call = call;
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _checksum(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _url(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get _immutableUrl(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+}
+
+export class UpdateMetadataUrlCall__Outputs {
+  _call: UpdateMetadataUrlCall;
+
+  constructor(call: UpdateMetadataUrlCall) {
     this._call = call;
   }
 }

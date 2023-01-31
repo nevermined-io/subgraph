@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: TransferNFTCondition
     network: spree
     source:
-      address: "0xB2d76922fc2B9e579Ed83BC47FDD15e1AE71591b"
+      address: "0x7bb73f43abdDB61AD456414B04095c138184d23E"
       abi: TransferNFTCondition
       startBlock: 10
     mapping:

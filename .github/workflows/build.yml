@@ -2,64 +2,44 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        network: ["--polygon", "--geth"]
-        include:
-          - network: "--polygon"
-            network-name: polygon-localnet
-          - network: "--geth"
-            network-name: "geth-localnet"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
+          node-version: 16
+      - uses: nevermined-io/nvm-tools-actions@v0.6.1
+        with:
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+          node-version: "develop"
+
       - name: Install dependencies
         run: yarn
-      # - name: Check linting
-      #   run: yarn lint
-
-      - name: Reclaim some disk space
-        run: |
-          docker system prune --all --volumes -f
-      - name: Run tools (network)
-        run: |
-          docker login -u ${{ secrets.NEVERMINED_DOCKER_USERNAME }} -p ${{ secrets.NEVERMINED_DOCKER_TOKEN}}
-          sudo chmod go+r /etc/hosts
-          sudo echo "127.0.0.1  nevermined-metadata" | sudo tee -a /etc/hosts
-          git clone https://github.com/nevermined-io/tools
-          cd tools
-          export KEEPER_OWNER_ROLE_ADDRESS="0xe2DD09d719Da89e5a3D0F2549c7E24566e947260"
-          rm -rf "${HOME}/.nevermined/nevermined-contracts/artifacts"
-
-          ./start_nevermined.sh --latest --no-graph ${{ matrix.network }} &
-          cd ..
-          ./scripts/wait-nevermined.sh
 
       - name: Run graph-node
         run: |
           docker-compose up -d
           ./scripts/wait_for_graph.sh
+      
+      - name: copy-artifacts
+        run: ./scripts/wait-nevermined.sh
 
       - name: Test update-addresses
-        run: yarn nevermined:update-addresses ${{ matrix.network-name }}
+        run: yarn nevermined:update-addresses geth-localnet
       - name: Test update-startblock
-        run: OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock ${{ matrix.network-name }}
+        run: OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock geth-localnet
       - name: Test update-network
         run: yarn nevermined:update-network spree
       - name: Test create
-        run: yarn nevermined:create development ${{ matrix.network-name }} v2
+        run: yarn nevermined:create development geth-localnet v3
       - name: Test deploy
-        run: yarn nevermined:deploy development ${{ matrix.network-name }} v2
+        run: yarn nevermined:deploy development geth-localnet v3
       - name: Unit tests
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}

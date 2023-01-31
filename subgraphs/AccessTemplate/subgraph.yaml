@@ -6,7 +6,7 @@ dataSources:
     name: AccessTemplate
     network: spree
     source:
-      address: "0x51b06dc27E773aC14227EEAE5E7F28558d589681"
+      address: "0xb761bE571673A8f93DADe4D9D64618e3Eb989477"
       abi: AccessTemplate
       startBlock: 10
     mapping:

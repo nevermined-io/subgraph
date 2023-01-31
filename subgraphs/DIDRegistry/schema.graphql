@@ -19,6 +19,15 @@ type DIDAttributeRegistered @entity {
   _blockNumberUpdated: BigInt! # uint256
 }
 
+type DIDMetadataUpdated @entity {
+  id: ID!
+  _did: Bytes! # bytes32
+  _owner: Bytes! # address
+  _checksum: Bytes! # bytes32
+  _url: String! # string
+  _immutableUrl: String! # string
+}
+
 type DIDOwnershipTransferred @entity {
   id: ID!
   _did: Bytes! # bytes32
@@ -100,6 +109,27 @@ type ProvenanceAttributeRegistered @entity {
   _method: Int! # uint8
   _attributes: String! # string
   _blockNumberUpdated: BigInt! # uint256
+}
+
+type RoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type RoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type RoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
 }
 
 type Used @entity {

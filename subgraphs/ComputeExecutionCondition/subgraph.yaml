@@ -6,7 +6,7 @@ dataSources:
     name: ComputeExecutionCondition
     network: spree
     source:
-      address: "0xF97c4991B8a8A0360A66Adbef26cc11Eea029C37"
+      address: "0x1f732F59d6b08b6367D1Ca7b468b64d5A0956970"
       abi: ComputeExecutionCondition
       startBlock: 10
     mapping:

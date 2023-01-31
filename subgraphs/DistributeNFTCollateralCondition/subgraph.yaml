@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: DistributeNFTCollateralCondition
     network: spree
     source:
-      address: "0xCA48F7C4C7EB1E4a5D656825b713eEA40E11D763"
+      address: "0x51b06dc27E773aC14227EEAE5E7F28558d589681"
       abi: DistributeNFTCollateralCondition
       startBlock: 10
     mapping:
