@@ -21,7 +21,7 @@ VERSION=$(echo ${VERSION%%.*} | tr -d '"')
 yarn nevermined:update-addresses $KEEPER_NETWORK_NAME
 OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock $KEEPER_NETWORK_NAME
 # we always use spree in the subgraph manifest for local development networks
-yarn nevermined:update-network spree
+yarn nevermined:update-network $KEEPER_NETWORK_NAME $VERSION
 yarn nevermined:create development $KEEPER_NETWORK_NAME $VERSION
 yarn nevermined:deploy development $KEEPER_NETWORK_NAME $VERSION
 
