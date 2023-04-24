@@ -100,8 +100,13 @@ export const getFulfilledById = async function <K extends keyof FulfilledResult>
         formattedObj["_receivers"] = obj["_receivers"];
     if (obj["_conditionId"])
         formattedObj["_conditionId"] = obj["_conditionId"];
-    if (obj["_amounts"])
-        formattedObj["_amounts"] = wei(obj["_amounts"], 0);
+    if (obj["_amounts"]) {
+        if (Array.isArray(obj["_amounts"])) {
+            formattedObj["_amounts"] = obj["_amounts"].map((a) => wei(a, 0));
+        } else {
+          formattedObj["_amounts"] = wei(obj["_amounts"], 0);
+        }
+    }
     return formattedObj as Pick<FulfilledResult, K>;
 };
 export const getFulfilleds = async function <K extends keyof FulfilledResult>(url: string, options: MultiQueryOptions<FulfilledFilter, FulfilledResult>, args: FulfilledArgs<K>): Promise<Pick<FulfilledResult, K>[]> {
@@ -139,8 +144,13 @@ export const getFulfilleds = async function <K extends keyof FulfilledResult>(ur
                 formattedObj["_receivers"] = obj["_receivers"];
             if (obj["_conditionId"])
                 formattedObj["_conditionId"] = obj["_conditionId"];
-            if (obj["_amounts"])
-                formattedObj["_amounts"] = wei(obj["_amounts"], 0);
+            if (obj["_amounts"]) {
+                if (Array.isArray(obj["_amounts"])) {
+                    formattedObj["_amounts"] = obj["_amounts"].map((a) => wei(a, 0));
+                } else {
+                    formattedObj["_amounts"] = wei(obj["_amounts"], 0);
+                }
+            }
             return formattedObj as Pick<FulfilledResult, K>;
         });
         results = results.concat(newResults);
