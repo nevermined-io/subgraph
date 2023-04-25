@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: ThresholdCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0xE911c4da793094b787D76CC24694cfE2e27C5362"
+      address: "0x9B5B7a1bd7c957c6F2d7803e501e8E0F22d8aF96"
       abi: ThresholdCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

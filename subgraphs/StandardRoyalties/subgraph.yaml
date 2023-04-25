@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: StandardRoyalties
-    network: spree
+    network: hyperspace
     source:
-      address: "0x459b553aBD0398429AE98F3C1B2769483bc46091"
+      address: "0x0dE91319747399675c98d6a6D20Bd2590FB27e37"
       abi: StandardRoyalties
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

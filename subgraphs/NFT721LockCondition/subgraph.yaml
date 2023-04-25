@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT721LockCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0xC5E55dc50bfAf7116F50601802527F3B0807d535"
+      address: "0xA50E506f3F5f34D6D2f0E80A65F4e2abab1C6e5A"
       abi: NFT721LockCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

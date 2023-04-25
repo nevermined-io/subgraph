@@ -42,7 +42,7 @@
     "@apollo/client": "^3.4.16",
     "@graphprotocol/graph-ts": "0.24.1",
     "@nevermined-io/contracts": "2.0.0-rc2",
-    "@nevermined-io/graph-cli": "0.30.4",
+    "@nevermined-io/graph-cli": "0.30.1",
     "@nevermined-io/nevermined-sdk-js": "1.0.0-rc18",
     "@truffle/hdwallet-provider": "^1.5.1",
     "@types/big.js": "^6.1.3",

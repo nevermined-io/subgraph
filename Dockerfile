@@ -11,7 +11,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 
 RUN apt-get install -y nodejs
 
-RUN npm install -g @nevermined-io/graph-cli
+#RUN npm install -g @nevermined-io/graph-cli
 RUN npm install --global yarn
 
 WORKDIR /subgraphs

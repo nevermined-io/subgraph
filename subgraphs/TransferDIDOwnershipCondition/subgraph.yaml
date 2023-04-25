@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: TransferDIDOwnershipCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0x7848737493daf345d97CcC5a603D64f3A8A8540F"
+      address: "0x2a3479F6752f71682f6453F4c0B703Df2E903b28"
       abi: TransferDIDOwnershipCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

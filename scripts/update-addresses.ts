@@ -37,7 +37,7 @@ async function processFiles(err: { message: any }, files: any[], network: string
                 abi,
                 indexEvents,
                 contract,
-                network: 'spree',
+                network,
                 contractName,
                 subgraphName,
             })

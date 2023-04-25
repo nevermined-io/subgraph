@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: EscrowComputeExecutionTemplate
-    network: spree
+    network: hyperspace
     source:
-      address: "0x6d21f91932b998fE62B3cc4d883e6aab589Af56b"
+      address: "0x8c887CfCeF54e7B6fCcB86F355a5eA684EA2fdf2"
       abi: EscrowComputeExecutionTemplate
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

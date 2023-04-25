@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AaveCollateralDepositCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0x2af77391A0602eF29ded7E151b73559604bE0d17"
+      address: "0xF03b3E858E803336CBE8809a22A5A905c004D913"
       abi: AaveCollateralDepositCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

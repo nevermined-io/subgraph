@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: DIDSalesTemplate
-    network: spree
+    network: hyperspace
     source:
-      address: "0x19d34AB38F83C96677564dF1f2cA695e6C7099ba"
+      address: "0x2EE10613F39265D1509206ef1a2e46AC28f378f1"
       abi: DIDSalesTemplate
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

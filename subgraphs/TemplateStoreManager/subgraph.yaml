@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: TemplateStoreManager
-    network: spree
+    network: hyperspace
     source:
-      address: "0x0270E295834E412fAD12f1AEEc727af5c33B3A1C"
+      address: "0xf5C632c11B365CBd604c4fE57A748d73e4Eb783e"
       abi: TemplateStoreManager
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

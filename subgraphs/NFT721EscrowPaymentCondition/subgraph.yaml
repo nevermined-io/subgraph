@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT721EscrowPaymentCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0x8c78125bA3fC5bE80c96d802e8800f4de2137047"
+      address: "0x9871b89e2B1e85259F183eB2F9515eE6b76eC6C1"
       abi: NFT721EscrowPaymentCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

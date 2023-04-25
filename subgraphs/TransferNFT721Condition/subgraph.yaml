@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: TransferNFT721Condition
-    network: spree
+    network: hyperspace
     source:
-      address: "0xCA48F7C4C7EB1E4a5D656825b713eEA40E11D763"
+      address: "0x7AfFeBBF05948f8b8D48aAa3b4fbeeC8Ce319Ea5"
       abi: TransferNFT721Condition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
