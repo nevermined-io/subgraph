@@ -1,5 +1,4 @@
-import { AssetPrice, MetaData } from "@nevermined-io/nevermined-sdk-js";
-import BigNumber from "@nevermined-io/nevermined-sdk-js/dist/node/utils/BigNumber";
+import { AssetPrice, MetaData, BigNumber } from "@nevermined-io/sdk";
 
 const metadata: Partial<MetaData> = {
   main: {

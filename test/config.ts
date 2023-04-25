@@ -1,9 +1,9 @@
-import { NeverminedOptions } from "@nevermined-io/nevermined-sdk-js";
 import {
+  NeverminedOptions,
   LoggerInstance,
   LogLevel,
   makeAccounts,
-} from "@nevermined-io/nevermined-sdk-js/dist/node/utils";
+} from "@nevermined-io/sdk";
 
 LoggerInstance.setLevel(LogLevel.Error);
 

@@ -23,7 +23,7 @@ import {
   PublishMetadata,
   RoyaltyKind,
   zeroX,
-} from "@nevermined-io/nevermined-sdk-js";
+} from "@nevermined-io/sdk";
 
 import { config } from "./config";
 import { getAgreementCreateds } from "../src/NFTSalesTemplate";
