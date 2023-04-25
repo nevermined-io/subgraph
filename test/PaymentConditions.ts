@@ -20,16 +20,14 @@ import {
   NFTAttributes,
   PublishMetadata,
   RoyaltyKind,
-} from "@nevermined-io/nevermined-sdk-js";
-import {
   didZeroX,
   zeroX,
-} from "@nevermined-io/nevermined-sdk-js/dist/node/utils";
+  BigNumber,
+} from "@nevermined-io/sdk";
 
 import { config } from "./config";
 import { getMetadata } from "./utils";
 import { decodeJwt } from "jose";
-import BigNumber from "@nevermined-io/nevermined-sdk-js/dist/node/utils/BigNumber";
 
 import * as subgraphs from "../src";
 

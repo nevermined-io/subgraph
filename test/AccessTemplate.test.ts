@@ -17,21 +17,17 @@ import {
   Keeper,
   Nevermined,
   Token,
-} from "@nevermined-io/nevermined-sdk-js";
-import {
   didZeroX,
   generateId,
   zeroX,
-} from "@nevermined-io/nevermined-sdk-js/dist/node/utils";
-
-import { config } from "./config";
-import { getAgreementCreateds } from "../src/AccessTemplate";
-import {
   AccessCondition,
   EscrowPaymentCondition,
   LockPaymentCondition,
-} from "@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/conditions";
-import { AccessTemplate } from "@nevermined-io/nevermined-sdk-js/dist/node/keeper/contracts/templates";
+  AccessTemplate,
+} from "@nevermined-io/sdk";
+
+import { config } from "./config";
+import { getAgreementCreateds } from "../src/AccessTemplate";
 import BigNumber from "bignumber.js";
 
 const amounts = [new BigNumber(10)];

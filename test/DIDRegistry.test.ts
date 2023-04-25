@@ -16,11 +16,9 @@ import {
   Account,
   DIDRegistry,
   Nevermined,
-} from "@nevermined-io/nevermined-sdk-js";
-import {
   didZeroX,
   generateId,
-} from "@nevermined-io/nevermined-sdk-js/dist/node/utils";
+} from "@nevermined-io/sdk";
 
 import { config } from "./config";
 import { getDIDAttributeRegistereds } from "../src/DIDRegistry";
