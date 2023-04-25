@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AccessProofTemplate
-    network: spree
+    network: hyperspace
     source:
-      address: "0x37cB53b6e0224b03D2cD11b68ea5Df6141D95a1e"
+      address: "0x8541584D70A240dC063c93f9cE87ca67887feD53"
       abi: AccessProofTemplate
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

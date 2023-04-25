@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT721Upgradeable
-    network: spree
+    network: hyperspace
     source:
-      address: "0x3ebCF78A74741541Fd16459F93dCD99860Ea9ba1"
+      address: "0x569DADC91c67405d75BD2A7f154928003ebC1e02"
       abi: NFT721Upgradeable
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

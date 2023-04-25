@@ -18,9 +18,9 @@ if [ -z "$TAG" ]; then
   TAG="common"
 fi
 
-REPO_URL=http://artifacts.nevermined.rocks
+REPO_URL=https://artifacts.nevermined.network
 declare -A NETWORKS_MAP
-NETWORKS_MAP=( ["mainnet"]="1" ["rinkeby"]="4" ["kovan"]="42" ["matic"]="137" ["mumbai"]="80001" ["celo-alfajores"]="44787" ["celo"]="42220" ["aurora"]="1313161554" ["aurora-testnet"]="1313161555" ["goerli"]="5" ["arbitrum-goerli"]="421613")
+NETWORKS_MAP=( ["mainnet"]="1" ["rinkeby"]="4" ["kovan"]="42" ["matic"]="137" ["mumbai"]="80001" ["celo-alfajores"]="44787" ["celo"]="42220" ["aurora"]="1313161554" ["aurora-testnet"]="1313161555" ["goerli"]="5" ["arbitrum-goerli"]="421613" ["hyperspace"]="3141")
 
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 UNPACK_DIR="$SCRIPT_DIR/../node_modules/@nevermined-io/contracts/artifacts"
@@ -38,9 +38,9 @@ function get_network_id_from_name {
 }
 
 NETWORK_ID=$(get_network_id_from_name)
-DOWNLOAD_URL=$REPO_URL/$NETWORK_ID/$TAG/contracts_$VERSION.tar.gz
+DOWNLOAD_URL=$REPO_URL/$NETWORK_ID/$TAG/contracts_v$VERSION.tar.gz
 curl -s -L -o /tmp/nvm_temp_artifacts.tar.gz $DOWNLOAD_URL
-tar xzf /tmp/nvm_temp_artifacts.tar.gz --directory $UNPACK_DIR
+tar xf /tmp/nvm_temp_artifacts.tar.gz --directory $UNPACK_DIR
 rm -f /tmp/nvm_temp_artifacts.tar.gz
 exit 0
 

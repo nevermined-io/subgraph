@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AaveCollateralWithdrawCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0xA687f430DC56473C0405100933e9790BC4c9DA96"
+      address: "0x95F67B720ab9b260f119F0cfcdA9f146B2b28fD6"
       abi: AaveCollateralWithdrawCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: DistributeNFTCollateralCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0x51b06dc27E773aC14227EEAE5E7F28558d589681"
+      address: "0x0f67F0c1813B7Bda70fB25Fa10779A021337c037"
       abi: DistributeNFTCollateralCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: spree
+    network: hyperspace
     source:
-      address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
+      address: "0x7dc496Bb472126cD65149c4b0fF53e55E5e515d7"
       abi: DIDRegistry
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

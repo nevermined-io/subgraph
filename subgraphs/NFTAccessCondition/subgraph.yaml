@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTAccessCondition
-    network: spree
+    network: hyperspace
     source:
-      address: "0xAc1D8d71Ed8b449aA02357076F9e6A6624D5471F"
+      address: "0xea4C5696fef2822EC67399CE2D059B1e18480919"
       abi: NFTAccessCondition
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

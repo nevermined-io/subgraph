@@ -1,14 +1,13 @@
-specVersion: 0.0.2
+specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTSalesWithAccessTemplate
-    network: spree
+    network: hyperspace
     source:
-      address: "0xF02147853093CF7e643024F302a32836747C766E"
+      address: "0x740829C4EDbF84B3F5213FC9434b4246799Ee480"
       abi: NFTSalesWithAccessTemplate
-      startBlock: 10
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
