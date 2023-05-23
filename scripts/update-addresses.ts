@@ -7,6 +7,13 @@ const EXCLUDED_SUBGRAPHS = [
     'DIDRegistryLibrary',
     'EpochLibrary',
     'PlonkVerifier',
+    'AccessDLEQCondition',
+    'AccessDLEQTemplate',
+    'NFT721AccessDLEQTemplate',
+    'NFT721SalesWithDLEQTemplate',
+    'NFT721SubscriptionUpgradeable',
+    'NFTAccessDLEQTemplate',
+    'NFTSalesWithDLEQTemplate'
 ]
 
 async function processFiles(err: { message: any }, files: any[], network: string) {
