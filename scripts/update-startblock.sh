@@ -2,9 +2,14 @@
 
 # This script requires the jq and yq clis
 
+# polygon
 POLYGONSCAN_URL_MUMBAI=${POLYGONSCAN_URL_MUMBAI:-https://api-testnet.polygonscan.com/api}
 POLYGONSCAN_URL_MATIC=${POLYGONSCAN_URL_MATIC:-https://api.polygonscan.com/api}
 POLYGONSCAN_APIKEY=${POLYGONSCAN_APIKEY:-ISP8J7YJGP88XSHU55QJF3YM71WVFRWSDJ}
+
+# gnosis
+GNOSISSCAN_URL=${GNOSISSCAN_URL:-https://api.gnosisscan.io/api}
+
 GRAPH_NODE_URL=${GRAPH_NODE_URL:-http://localhost:9020/}
 NETWORK=$1
 
@@ -14,6 +19,8 @@ elif [ "$NETWORK" == "matic" ]; then
     POLYGONSCAN_URL=$POLYGONSCAN_URL_MATIC
 elif [ "$NETWORK" == "polygon-localnet" ]; then
     POLYGONSCAN_URL=""
+elif [ "$NETWORK" == "gnosis" ]; then
+    POLYGONSCAN_URL=$GNOSISSCAN_URL
 else
     echo "Currently not supported in $NETWORK. Skipping..."
     exit 0
