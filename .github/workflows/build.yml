@@ -33,9 +33,9 @@ jobs:
       - name: Test update network
         run: yarn graph:update-network geth-localnet
       - name: Test create
-        run: yarn nevermined:create development geth-localnet v3
+        run: yarn graph:create-local development geth-localnet v3
       - name: Test deploy
-        run: yarn nevermined:deploy development geth-localnet v3
+        run: yarn graph:deploy-local development geth-localnet v3
       - name: Unit tests
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
