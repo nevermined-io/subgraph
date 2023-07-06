@@ -17,19 +17,18 @@ import {
   Keeper,
   Nevermined,
   Token,
-  didZeroX,
   generateId,
   zeroX,
   AccessCondition,
   EscrowPaymentCondition,
   LockPaymentCondition,
   AccessTemplate,
+  BigNumber,
 } from "@nevermined-io/sdk";
 
 import { config } from "./config";
-import BigNumber from "bignumber.js";
 
-const amounts = [new BigNumber(10)];
+const amounts = [BigNumber.from(10)];
 
 let receivers: string[];
 let nevermined: Nevermined;

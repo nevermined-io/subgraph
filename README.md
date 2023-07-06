@@ -2,10 +2,9 @@
 
 # Nevermined Subgraph
 
-> Nevermined subraph for [The Graph](https://thegraph.com)
+> Nevermined subraphs for [The Graph](https://thegraph.com)
 
 [![Tests](https://github.com/nevermined-io/subgraph/workflows/Build/badge.svg)](https://github.com/nevermined-io/subgraph/actions)
-
 
 - [Nevermined Subgraph](#nevermined-subgraph)
   - [Requirements](#requirements)
@@ -13,6 +12,7 @@
   - [Deploying subgraphs locally](#deploying-subgraphs-locally)
   - [Deploying subgraphs to the hosted service](#deploying-subgraphs-to-the-hosted-service)
     - [Getting the cookie and account id](#getting-the-cookie-and-account-id)
+  - [Custom Entities](#custom-entities)
   - [Testing](#testing)
   - [References](#references)
   - [License](#license)
@@ -21,9 +21,11 @@
 
 ## Requirements
 
-- Node v12.22+
-- yarn 1.22+
-- [Nevermined tools]([https://git](https://github.com/nevermined-io/tools)) with the `--no-graph` option
+- Node v16
+- yarn
+- jq
+- yq
+- [Nevermined tools](<[https://git](https://github.com/nevermined-io/nvm-tools)>)
 
 ## Subgraph naming convention
 
@@ -32,6 +34,7 @@ In order to have different subraph version for different contracts versions it w
 Note that this name is purely conventional and is not related to how the _thegraph_ works. _thegraph_ sees subgraph names only as a flat string.
 
 Example with the DID Registry subgraph deployed for mumbai public:
+
 ```text
 nevermined-io/publicmumbaiv2didregistry
 
@@ -43,66 +46,57 @@ nevermined-io/publicmumbaiv2didregistry
 ```
 
 > In this example the hosted url would be [`https://api.thegraph.com/subgraphs/name/nevermined-io/publicmumbaiv2didregistry`](https://api.thegraph.com/subgraphs/name/nevermined-io/publicmumbaiv2didregistry)
+
 ## Deploying subgraphs locally
 
 ```bash
 # start nevermined-tools
-$ ./start_nevermined.sh --latest --no-graph --polygon
+$ ./nvm-tools start
 
 # start the graph node locally
-$ docker-compose up
+$ docker compose up
 
 # copy the artifacts
-$ ./scripts/wait-nevermined.sh
+$ ./nvm-tools copy-artifacts ./artifacts
 
-# update the addresses
-$ yarn nevermined:update-addresses polygon-localnet
-
-# update startBlock
-$ OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock polygon-localnet
-
-# update the network
-# we always use spree in the subgraph manifest for local development networks
-$ yarn nevermined:update-network spree
+# update network name, contract addresses, and start block number
+$ yarn graph:update-network geth-localnet
 
 # create the subgraphs
 # we use `development` as the tag for local development contracts
 # the contracts major version only
-$ yarn nevermined:create development polygon-localnet v2
+$ yarn graph:create-local development geth-localnet v3
 
 # deploy the subgraphs
-$ yarn nevermined:deploy development polygon-localnet v2
+$ yarn graph:deploy-local development geth-localnet v2
 ```
 
 ## Deploying subgraphs to the hosted service
+
 ```bash
 # you need to get the access token from https://thegraph.com/hosted-service/dashboard and authenticate
 $ yarn graph auth --product hosted-service <access_token>
 
 # download the artifacts
-$ yarn artifacts:download v2.0.5 mumbai common
+$ yarn artifacts:download v3.2.1 mumbai public
 
-# update addresses
-$ yarn nevermined:update-addresses mumbai
-
-# update start block
-$ yarn nevermined:update-startblock mumbai
-
-# update the network
-$ yarn nevermined:update-network mumbai
+# update network name, contract addresses, and start block number
+$ yarn graph:update-network mumbai
 
 # create the subgraphs
-# usage yarn nevermined:create-hosted <tag> <network> <version> <cookie> <account id>
-$ yarn nevermined:create-hosted common mumbai v2 "explorerSession_v24=s%3A6zVr0-om..." "MDEy..."
+# usage yarn graph:create-hosted <tag> <network> <version> <cookie> <account id>
+$ yarn graph:create-hosted public mumbai v3 "explorerSession_v24=s%3A6zVr0-om..." "MDEy..."
 
 # deploy the subgraphs
-$ yarn nevermined:deploy-hosted common mumbai v2
+$ yarn graph:deploy-hosted public mumbai v3
 ```
 
 ### Getting the cookie and account id
+
 The hosted service forces us to create the subgraphs through the online dashboard https://thegraph.com/hosted-service/dashboard.
 
 In order to automate the creation of the subgraphs in the hosted service we need a session _cookie_ and the _account id_. To get them:
+
 1. Go to the dashboard and login
 2. Open the browser networking dev tools
 3. Create a test subgraph with any name
@@ -110,18 +104,41 @@ In order to automate the creation of the subgraphs in the hosted service we need
 5. Get the cookie from the request headers
 6. Get the account id from the request body
 
+## Custom Entities
+
+This is a list of custom entities that are not coming from the events
+
+### FulfilledCounter
+
+```graphql
+type FulfilledCounter @entity {
+  id: Bytes!
+  value: Int!
+}
+```
+
+Available on contracts:
+
+- LockPaymentCondition
+- TransferNFTCondition
+- TransferNFT721Condition
+- AccessCondition
+- EscrowPaymentCondition
+
+Example: [https://api.thegraph.com/subgraphs/name/nevermined-io/stagingarbitrum-goerliv3transfernft721condition](https://api.thegraph.com/subgraphs/name/nevermined-io/stagingarbitrum-goerliv3transfernft721condition/graphql?query=query+MyQuery+%7B%0A++fulfilledCounters+%7B%0A++++value%0A++%7D%0A%7D)
+
 ## Testing
 
 ```bash
 
 # start nevermined tools
-$ ./start_nevermined.sh --no-graph --polygon
+$ ./nvm-tools start
 
 # start the graph node locally
 $ docker-compose up
 
 # wait and copy artifacts
-$ ./scripts/wait-nevermined.sh
+$ ./nvm-tools copy-artifacts ./artifacts
 
 # run the tests
 $ export SEED_WORDS="<add your mnemonic here>"
