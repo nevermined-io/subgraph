@@ -25,7 +25,7 @@
 - yarn
 - jq
 - yq
-- [Nevermined tools](<[https://git](https://github.com/nevermined-io/nvm-tools)>)
+- [Nevermined tools](https://github.com/nevermined-io/nvm-tools)
 
 ## Subgraph naming convention
 
@@ -68,7 +68,7 @@ $ yarn graph:update-network geth-localnet
 $ yarn graph:create-local development geth-localnet v3
 
 # deploy the subgraphs
-$ yarn graph:deploy-local development geth-localnet v2
+$ yarn graph:deploy-local development geth-localnet v3
 ```
 
 ## Deploying subgraphs to the hosted service
@@ -131,14 +131,7 @@ Example: [https://api.thegraph.com/subgraphs/name/nevermined-io/stagingarbitrum-
 
 ```bash
 
-# start nevermined tools
-$ ./nvm-tools start
-
-# start the graph node locally
-$ docker-compose up
-
-# wait and copy artifacts
-$ ./nvm-tools copy-artifacts ./artifacts
+# deploy subgraphs locally (see above)
 
 # run the tests
 $ export SEED_WORDS="<add your mnemonic here>"
