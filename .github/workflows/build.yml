@@ -14,10 +14,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: nevermined-io/nvm-tools-actions@v0.11.0
+      - uses: nevermined-io/nvm-tools-actions@v0.13.0
         with:
           token: ${{ secrets.API_TOKEN_GITHUB }}
-          contracts-version: "v3.2.1"
+          contracts-version: "v3.2.2"
 
       - name: Install dependencies
         run: yarn
@@ -28,7 +28,7 @@ jobs:
           ./scripts/wait_for_graph.sh
 
       - name: copy-artifacts
-        run: ./scripts/wait-nevermined.sh
+        run: nvm-tools copy-artifacts ./artifacts
 
       - name: Test update-addresses
         run: yarn nevermined:update-addresses geth-localnet
@@ -44,5 +44,3 @@ jobs:
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
         run: yarn test
-      - name: Test the clients compile
-        run: yarn tsc

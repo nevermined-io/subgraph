@@ -5,8 +5,8 @@
   "main": "./build/index.js",
   "typings": "./build/index.d.ts",
   "scripts": {
-    "test": "mocha",
-    "lint": "eslint src/**/*.ts test/**/*.ts",
+    "test": "mocha tests/",
+    "lint": "eslint src/**/*.ts tests/**/*.ts",
     "graph:init": "./scripts/init.sh",
     "nevermined:update-addresses": "ts-node ./scripts/update-addresses.ts",
     "graph:create-local": "./scripts/create.sh",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.4.16",
-    "@nevermined-io/graph-cli": "^0.51.2",
+    "@graphprotocol/graph-cli": "^0.51.2",
     "@nevermined-io/sdk": "1.5.4",
     "@truffle/hdwallet-provider": "^1.5.1",
     "@types/big.js": "^6.1.3",

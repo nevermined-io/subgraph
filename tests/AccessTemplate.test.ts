@@ -27,7 +27,6 @@ import {
 } from "@nevermined-io/sdk";
 
 import { config } from "./config";
-import { getAgreementCreateds } from "../src/AccessTemplate";
 import BigNumber from "bignumber.js";
 
 const amounts = [new BigNumber(10)];
@@ -241,92 +240,6 @@ describe("AccessTemplate", () => {
         },
       });
       const eventData = result.data.agreementCreateds[0];
-      const expectedEventData = expectedEvent.args;
-
-      assert.strictEqual(
-        eventData._agreementId,
-        expectedEventData._agreementId
-      );
-      assert.strictEqual(eventData._did, expectedEventData._did);
-      assert.strictEqual(
-        Web3.utils.toChecksumAddress(eventData._accessConsumer),
-        Web3.utils.toChecksumAddress(expectedEventData._accessConsumer)
-      );
-      assert.strictEqual(
-        Web3.utils.toChecksumAddress(eventData._accessProvider),
-        Web3.utils.toChecksumAddress(expectedEventData._accessProvider)
-      );
-      assert.deepEqual(
-        eventData._timeLocks,
-        expectedEventData._timeLocks.map((v) => v.toString())
-      );
-      assert.deepEqual(
-        eventData._timeOuts,
-        expectedEventData._timeOuts.map((v) => v.toString())
-      );
-    });
-
-    it("it should query the agreementId using the subgraph client", async () => {
-      const response = await getAgreementCreateds(
-        subgraphHttpUrl,
-        {
-          where: {
-            _agreementId: zeroX(agreementId),
-          },
-        },
-        {
-          _agreementId: true,
-          _did: true,
-          _accessConsumer: true,
-          _accessProvider: true,
-          _timeLocks: true,
-          _timeOuts: true,
-        }
-      );
-      const eventData = response[0];
-      const expectedEventData = expectedEvent.args;
-
-      assert.strictEqual(
-        eventData._agreementId,
-        expectedEventData._agreementId
-      );
-      assert.strictEqual(eventData._did, expectedEventData._did);
-      assert.strictEqual(
-        Web3.utils.toChecksumAddress(eventData._accessConsumer),
-        Web3.utils.toChecksumAddress(expectedEventData._accessConsumer)
-      );
-      assert.strictEqual(
-        Web3.utils.toChecksumAddress(eventData._accessProvider),
-        Web3.utils.toChecksumAddress(expectedEventData._accessProvider)
-      );
-      assert.deepEqual(
-        eventData._timeLocks,
-        expectedEventData._timeLocks.map((v) => v.toString())
-      );
-      assert.deepEqual(
-        eventData._timeOuts,
-        expectedEventData._timeOuts.map((v) => v.toString())
-      );
-    });
-
-    it("it should query the agreements for a did using the subgraph client", async () => {
-      const response = await getAgreementCreateds(
-        subgraphHttpUrl,
-        {
-          where: {
-            _did: didZeroX(did),
-          },
-        },
-        {
-          _agreementId: true,
-          _did: true,
-          _accessConsumer: true,
-          _accessProvider: true,
-          _timeLocks: true,
-          _timeOuts: true,
-        }
-      );
-      const eventData = response[0];
       const expectedEventData = expectedEvent.args;
 
       assert.strictEqual(

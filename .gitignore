@@ -49,3 +49,6 @@ build/
 
 # ignore nested git folders
 subgraphs/**/.git/
+
+# artifacts
+artifacts

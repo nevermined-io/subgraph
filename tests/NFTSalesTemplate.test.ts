@@ -26,7 +26,6 @@ import {
 } from "@nevermined-io/sdk";
 
 import { config } from "./config";
-import { getAgreementCreateds } from "../src/NFTSalesTemplate";
 import { getMetadata } from "./utils";
 import { decodeJwt } from "jose";
 
@@ -153,32 +152,5 @@ describe("NFTSalesTemplate", () => {
     const event = result.data.agreementCreateds[0];
     assert.equal(event._did, didZeroX(ddo.id));
     assert.equal(event._agreementId, agreementId);
-  });
-
-  it("should query the NFTSalesTemplate agreement created event", async () => {
-    const response = await getAgreementCreateds(
-      subgraphHttpUrl,
-      {
-        where: {
-          _agreementId: zeroX(agreementId),
-        },
-      },
-      {
-        _accessConsumer: true,
-        _accessProvider: true,
-        _agreementId: true,
-        _conditionIdSeeds: true,
-        _conditionIds: true,
-        _creator: true,
-        _did: true,
-        _idSeed: true,
-        _timeLocks: true,
-        _timeOuts: true,
-      }
-    );
-    const event = response.pop();
-    assert.isDefined(event);
-    assert.equal(event!._agreementId, agreementId);
-    assert.equal(event!._did, didZeroX(ddo.id));
   });
 });

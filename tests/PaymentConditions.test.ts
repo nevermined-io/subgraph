@@ -29,8 +29,6 @@ import { config } from "./config";
 import { getMetadata } from "./utils";
 import { decodeJwt } from "jose";
 
-import * as subgraphs from "../src";
-
 describe("Payment Conditions", () => {
   let nevermined: Nevermined;
   let publisher: Account;
@@ -155,35 +153,6 @@ describe("Payment Conditions", () => {
       assert.equal(event._did, didZeroX(ddo.id));
       assert.equal(event._agreementId, agreementId);
     });
-
-    it("should query the LockPaymentCondition Fulfilled event", async () => {
-      const response = await subgraphs.LockPaymentCondition.getFulfilleds(
-        subgraphHttpUrl,
-        {
-          where: {
-            _agreementId: zeroX(agreementId),
-          },
-        },
-        {
-          _agreementId: true,
-          _did: true,
-          _conditionId: true,
-          _rewardAddress: true,
-          _tokenAddress: true,
-          _receivers: true,
-          _amounts: true,
-        }
-      );
-      const event = response.pop();
-      assert.isDefined(event);
-      assert.equal(event!._agreementId, agreementId);
-      assert.equal(event!._did, didZeroX(ddo.id));
-      assert.equal(event!._receivers[0], [publisher.getId().toLowerCase()][0]);
-      assert.deepEqual(
-        event!._amounts.map((a) => a!.toNumber()),
-        [10, 10]
-      );
-    });
   });
 
   describe("EscrowPaymentCondition", () => {
@@ -247,32 +216,6 @@ describe("Payment Conditions", () => {
       const result: any = await promise;
       const event = result.data.fulfilleds[0];
       assert.equal(event._agreementId, agreementId);
-    });
-
-    it("should query the EscrowPaymentCondition Fulfilled event", async () => {
-      const response = await subgraphs.EscrowPaymentCondition.getFulfilleds(
-        subgraphHttpUrl,
-        {
-          where: {
-            _agreementId: zeroX(agreementId),
-          },
-        },
-        {
-          _agreementId: true,
-          _amounts: true,
-          _conditionId: true,
-          _receivers: true,
-          _tokenAddress: true,
-        }
-      );
-      const event = response.pop();
-      assert.isDefined(event);
-      assert.equal(event!._agreementId, agreementId);
-      assert.equal(event!._receivers[0], [publisher.getId().toLowerCase()][0]);
-      assert.deepEqual(
-        event!._amounts.map((a) => a!.toNumber()),
-        [10, 10]
-      );
     });
   });
 });

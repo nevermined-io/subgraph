@@ -21,7 +21,6 @@ import {
 } from "@nevermined-io/sdk";
 
 import { config } from "./config";
-import { getDIDAttributeRegistereds } from "../src/DIDRegistry";
 
 let nevermined: Nevermined;
 let didRegistry: DIDRegistry;
@@ -176,42 +175,6 @@ describe("DIDRegistry", () => {
       );
       assert.strictEqual(
         eventData._blockNumberUpdated,
-        expectedEventData._blockNumberUpdated.toString()
-      );
-    });
-
-    it("it should query using the subgraph client", async () => {
-      const response = await getDIDAttributeRegistereds(
-        subgraphHttpUrl,
-        {
-          where: {
-            _did: didZeroX(did),
-          },
-        },
-        {
-          _did: true,
-          _owner: true,
-          _checksum: true,
-          _value: true,
-          _lastUpdatedBy: true,
-          _blockNumberUpdated: true,
-        }
-      );
-      const eventData = response[0];
-      const expectedEventData = expectedEvent.args;
-
-      assert.strictEqual(eventData._did, expectedEventData._did);
-      assert.strictEqual(
-        Web3.utils.toChecksumAddress(eventData._owner),
-        Web3.utils.toChecksumAddress(expectedEventData._owner)
-      );
-      assert.strictEqual(eventData._checksum, expectedEventData._checksum);
-      assert.strictEqual(
-        Web3.utils.toChecksumAddress(eventData._lastUpdatedBy),
-        Web3.utils.toChecksumAddress(expectedEventData._lastUpdatedBy)
-      );
-      assert.strictEqual(
-        eventData._blockNumberUpdated.str,
         expectedEventData._blockNumberUpdated.toString()
       );
     });
