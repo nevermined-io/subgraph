@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: SignCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x7eFBDb90869644522D7E005ceE6c800f92277457"
       abi: SignCondition

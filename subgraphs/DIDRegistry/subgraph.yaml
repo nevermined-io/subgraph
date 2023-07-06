@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
       abi: DIDRegistry

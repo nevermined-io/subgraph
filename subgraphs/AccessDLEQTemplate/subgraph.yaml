@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessDLEQTemplate
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xF02147853093CF7e643024F302a32836747C766E"
       abi: AccessDLEQTemplate

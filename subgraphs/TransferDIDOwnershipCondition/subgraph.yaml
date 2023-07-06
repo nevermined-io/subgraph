@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: TransferDIDOwnershipCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x8E55d45BfCDF04Ae1e30A034B308A6E05EA54867"
       abi: TransferDIDOwnershipCondition

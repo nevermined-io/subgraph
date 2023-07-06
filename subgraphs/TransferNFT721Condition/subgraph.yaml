@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: TransferNFT721Condition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xF841Ff2C8abF1751A83923755EbD2F66bBAa5BFE"
       abi: TransferNFT721Condition

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721EscrowPaymentCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x4FbD95bCb875F77deac1dDd9D8883C456f0a0B0B"
       abi: NFT721EscrowPaymentCondition

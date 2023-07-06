@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NeverminedConfig
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x61b8391902eB75D679F02E21bcBFffF6f0FA2416"
       abi: NeverminedConfig

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTAccessTemplate
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x320651bE9C69cd27410A380cdb9bcB89348A1D28"
       abi: NFTAccessTemplate

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NeverminedToken
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xB4e92c6e1a1ad3f7b42463d11804BE6ca2be79D3"
       abi: NeverminedToken

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: HashLockCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xFFE2cC964aF008a2D0670A1C97bc6e600B3d3722"
       abi: HashLockCondition

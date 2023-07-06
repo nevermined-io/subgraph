@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: ThresholdCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x89e292ae6e8A5ECaE023051e6Ae46B63B94Ee1B1"
       abi: ThresholdCondition

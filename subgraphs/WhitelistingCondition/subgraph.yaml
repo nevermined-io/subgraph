@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: WhitelistingCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x5C129d941A9E678630b189e146DAF20aD9F7b2c1"
       abi: WhitelistingCondition

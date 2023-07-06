@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTLockCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xC94cFBb9E8f432228bCC153cd797eaA2279E282A"
       abi: NFTLockCondition

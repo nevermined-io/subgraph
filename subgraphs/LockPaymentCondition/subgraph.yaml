@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: LockPaymentCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xB4F43b80622Ca3AF6C5C6cCe5B25B31498F319B4"
       abi: LockPaymentCondition

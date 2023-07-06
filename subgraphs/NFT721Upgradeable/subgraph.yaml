@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721Upgradeable
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0x3ebCF78A74741541Fd16459F93dCD99860Ea9ba1"
       abi: NFT721Upgradeable

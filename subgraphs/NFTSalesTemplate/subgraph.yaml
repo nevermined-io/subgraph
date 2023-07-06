@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTSalesTemplate
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xFE062b3d2bfc6Cd3319842f754703843cD301fe9"
       abi: NFTSalesTemplate

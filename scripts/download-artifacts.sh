@@ -36,7 +36,7 @@ NETWORKS_MAP=(
 )
 
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
-UNPACK_DIR="$SCRIPT_DIR/../node_modules/@nevermined-io/contracts/artifacts"
+UNPACK_DIR="$SCRIPT_DIR/../artifacts"
 mkdir -p $UNPACK_DIR
 
 # Return numerical chainId given a network name (considering networks names from our hardhat config)

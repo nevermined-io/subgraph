@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721SalesWithAccessTemplate
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xA4Fc971Eec0B6CD5b145c4D35c0E9378ba253cff"
       abi: NFT721SalesWithAccessTemplate

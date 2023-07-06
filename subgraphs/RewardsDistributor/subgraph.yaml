@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: RewardsDistributor
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xA99A4B00EA89948586fe07a4873407ACCE49789c"
       abi: RewardsDistributor

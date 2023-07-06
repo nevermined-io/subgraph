@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: EscrowComputeExecutionTemplate
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xF474fC9C472A6Df8D01bd06376c794B22C51ea93"
       abi: EscrowComputeExecutionTemplate

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721HolderCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xF3eb1Ab53142C2a57e6262e8eDfCB8bd8F9836Dc"
       abi: NFT721HolderCondition

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessDLEQCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xf49d333F51614CC2041aA1B757E98c96c5c4C902"
       abi: AccessDLEQCondition

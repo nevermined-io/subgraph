@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTHolderCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xe9bc51947fEFC5991FA26ba487ca913d5D892146"
       abi: NFTHolderCondition

@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: TemplateStoreManager
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xCc26259119953158BD7656a990389CFDd769dBC7"
       abi: TemplateStoreManager

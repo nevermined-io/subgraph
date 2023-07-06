@@ -17,7 +17,7 @@ services:
       postgres_pass: let-me-in
       postgres_db: graph-node
       ipfs: 'localhost:5001'
-      ethereum: 'mainnet:http://contracts.nevermined.localnet'
+      ethereum: 'geth-localnet:http://contracts.nevermined.localnet'
       GRAPH_LOG: info
     network_mode: host
   ipfs:

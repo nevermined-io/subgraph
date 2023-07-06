@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessCondition
-    network: mainnet
+    network: geth-localnet
     source:
       address: "0xC5268112c8EB4977E659F996F7443D9717320706"
       abi: AccessCondition
