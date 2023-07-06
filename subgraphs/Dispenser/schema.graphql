@@ -1,23 +1,35 @@
-type Initialized @entity {
-  id: ID!
+type Initialized @entity(immutable: true) {
+  id: Bytes!
   version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type OwnershipTransferred @entity {
-  id: ID!
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RequestFrequencyExceeded @entity {
-  id: ID!
+type RequestFrequencyExceeded @entity(immutable: true) {
+  id: Bytes!
   requester: Bytes! # address
   minPeriod: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RequestLimitExceeded @entity {
-  id: ID!
+type RequestLimitExceeded @entity(immutable: true) {
+  id: Bytes!
   requester: Bytes! # address
   amount: BigInt! # uint256
   maxAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }

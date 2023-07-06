@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AccessDLEQCondition
+    network: mainnet
+    source:
+      address: "0xf49d333F51614CC2041aA1B757E98c96c5c4C902"
+      abi: AccessDLEQCondition
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Fulfilled
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: AccessDLEQCondition
+          file: ./abis/AccessDLEQCondition.json
+      eventHandlers:
+        - event: Fulfilled(indexed bytes32,uint256,uint256[2],uint256[2],uint256[2],uint256[2],uint256[2],bytes32)
+          handler: handleFulfilled
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/access-dleq-condition.ts

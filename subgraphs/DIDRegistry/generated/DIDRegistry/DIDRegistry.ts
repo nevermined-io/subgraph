@@ -712,6 +712,42 @@ export class DIDRegistry__getDIDRegisterResult {
     map.set("value8", ethereum.Value.fromBoolean(this.value8));
     return map;
   }
+
+  getOwner(): Address {
+    return this.value0;
+  }
+
+  getLastChecksum(): Bytes {
+    return this.value1;
+  }
+
+  getUrl(): string {
+    return this.value2;
+  }
+
+  getLastUpdatedBy(): Address {
+    return this.value3;
+  }
+
+  getBlockNumberUpdated(): BigInt {
+    return this.value4;
+  }
+
+  getProviders(): Array<Address> {
+    return this.value5;
+  }
+
+  getRoyalties(): BigInt {
+    return this.value6;
+  }
+
+  getImmutableUrl(): string {
+    return this.value7;
+  }
+
+  getNftInitialized(): boolean {
+    return this.value8;
+  }
 }
 
 export class DIDRegistry__getNFTInfoResult {
@@ -728,6 +764,14 @@ export class DIDRegistry__getNFTInfoResult {
     map.set("value0", ethereum.Value.fromAddress(this.value0));
     map.set("value1", ethereum.Value.fromBoolean(this.value1));
     return map;
+  }
+
+  getNftContractAddress(): Address {
+    return this.value0;
+  }
+
+  getNftInitialized(): boolean {
+    return this.value1;
   }
 }
 
@@ -779,6 +823,42 @@ export class DIDRegistry__getProvenanceEntryResult {
     map.set("value7", ethereum.Value.fromUnsignedBigInt(this.value7));
     map.set("value8", ethereum.Value.fromBytes(this.value8));
     return map;
+  }
+
+  getDid(): Bytes {
+    return this.value0;
+  }
+
+  getRelatedDid(): Bytes {
+    return this.value1;
+  }
+
+  getAgentId(): Address {
+    return this.value2;
+  }
+
+  getActivityId(): Bytes {
+    return this.value3;
+  }
+
+  getAgentInvolvedId(): Address {
+    return this.value4;
+  }
+
+  getMethod(): i32 {
+    return this.value5;
+  }
+
+  getCreatedBy(): Address {
+    return this.value6;
+  }
+
+  getBlockNumberUpdated(): BigInt {
+    return this.value7;
+  }
+
+  getSignature(): Bytes {
+    return this.value8;
   }
 }
 

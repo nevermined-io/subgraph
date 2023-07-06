@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AaveCollateralDepositCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0x2af77391A0602eF29ded7E151b73559604bE0d17"
+      address: "0xB773D7389AF806560782c998E780AFC663ED1a05"
       abi: AaveCollateralDepositCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/aave-collateral-deposit-condition.ts

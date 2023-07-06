@@ -131,6 +131,36 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "addressToBytes32",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x82c947b7"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_b32", "type": "bytes32" }
+    ],
+    "name": "bytes32ToAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ced058e"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" }
+    ],
+    "name": "calculateTotalAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ea3ab85"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "_vaultLibrary", "type": "address" }
     ],
     "name": "changeCreditVaultLibrary",
@@ -339,7 +369,12 @@
         "name": "accessConsumer",
         "type": "address"
       },
-      { "internalType": "address", "name": "accessProvider", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "accessProvider",
+        "type": "address"
+      },
+      { "internalType": "bytes32", "name": "did", "type": "bytes32" }
     ],
     "stateMutability": "view",
     "type": "function",
@@ -354,6 +389,30 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x91a169bf"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentBlockNumber",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6fd902e1"
+  },
+  {
+    "inputs": [],
+    "name": "getNvmConfigAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xab9de230"
+  },
+  {
+    "inputs": [],
+    "name": "getTrustedForwarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xce1b815f"
   },
   {
     "inputs": [
@@ -410,6 +469,26 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xf5e95acb"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "addr", "type": "address" }
+    ],
+    "name": "isContract",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x16279055"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "forwarder", "type": "address" }
+    ],
+    "name": "isTrustedForwarder",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x572b6c05"
   },
   {
     "inputs": [],

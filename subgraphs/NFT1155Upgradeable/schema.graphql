@@ -1,76 +1,99 @@
-type ApprovalForAll @entity {
-  id: ID!
+type ApprovalForAll @entity(immutable: true) {
+  id: Bytes!
   account: Bytes! # address
   operator: Bytes! # address
   approved: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type Initialized @entity {
-  id: ID!
+type Initialized @entity(immutable: true) {
+  id: Bytes!
   version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type NFTCloned @entity {
-  id: ID!
+type NFTCloned @entity(immutable: true) {
+  id: Bytes!
   _newAddress: Bytes! # address
   _fromAddress: Bytes! # address
   _ercType: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type OwnershipTransferred @entity {
-  id: ID!
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type ProxyApproval @entity {
-  id: ID!
-  sender: Bytes! # address
-  operator: Bytes! # address
-  approved: Boolean! # bool
-}
-
-type RoleAdminChanged @entity {
-  id: ID!
+type RoleAdminChanged @entity(immutable: true) {
+  id: Bytes!
   role: Bytes! # bytes32
   previousAdminRole: Bytes! # bytes32
   newAdminRole: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleGranted @entity {
-  id: ID!
+type RoleGranted @entity(immutable: true) {
+  id: Bytes!
   role: Bytes! # bytes32
   account: Bytes! # address
   sender: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleRevoked @entity {
-  id: ID!
+type RoleRevoked @entity(immutable: true) {
+  id: Bytes!
   role: Bytes! # bytes32
   account: Bytes! # address
   sender: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type TransferBatch @entity {
-  id: ID!
+type TransferBatch @entity(immutable: true) {
+  id: Bytes!
   operator: Bytes! # address
   from: Bytes! # address
   to: Bytes! # address
-  ids: [BigInt]! # uint256[]
-  values: [BigInt]! # uint256[]
+  ids: [BigInt!]! # uint256[]
+  values: [BigInt!]! # uint256[]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type TransferSingle @entity {
-  id: ID!
+type TransferSingle @entity(immutable: true) {
+  id: Bytes!
   operator: Bytes! # address
   from: Bytes! # address
   to: Bytes! # address
-  _id: Bytes! # uint256
+  NFT1155Upgradeable_id: BigInt! # uint256
   value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type URI @entity {
-  id: ID!
+type URI @entity(immutable: true) {
+  id: Bytes!
   value: String! # string
-  _id: Bytes! # uint256
+  NFT1155Upgradeable_id: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }

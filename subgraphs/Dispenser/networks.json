@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "Dispenser": {
+      "address": "0x22A2E8b0C8F080E0f5043B9f2C2a38b3465B9D6d",
+      "startBlock": 0
+    }
+  }
+}

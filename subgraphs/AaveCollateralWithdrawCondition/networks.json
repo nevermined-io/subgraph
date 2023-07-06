@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AaveCollateralWithdrawCondition": {
+      "address": "0xBC45829a257D7E41924bb3638257bFA52591A3Cb",
+      "startBlock": 0
+    }
+  }
+}

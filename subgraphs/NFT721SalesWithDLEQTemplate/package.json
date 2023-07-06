@@ -1,0 +1,18 @@
+{
+  "name": "NFT721SalesWithDLEQTemplate",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ nevermined-io/NFT721SalesWithDLEQTemplate",
+    "create-local": "graph create --node http://localhost:8020/ nevermined-io/NFT721SalesWithDLEQTemplate",
+    "remove-local": "graph remove --node http://localhost:8020/ nevermined-io/NFT721SalesWithDLEQTemplate",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nevermined-io/NFT721SalesWithDLEQTemplate",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.51.2",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
+}

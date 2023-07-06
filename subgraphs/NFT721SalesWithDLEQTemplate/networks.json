@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFT721SalesWithDLEQTemplate": {
+      "address": "0x9F204302bEB97Bd34148EC620F5cc44635f0b05c",
+      "startBlock": 0
+    }
+  }
+}

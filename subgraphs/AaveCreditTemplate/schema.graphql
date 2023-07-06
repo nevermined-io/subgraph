@@ -1,32 +1,44 @@
-type AgreementCreated @entity {
-  id: ID!
+type AgreementCreated @entity(immutable: true) {
+  id: Bytes!
   _agreementId: Bytes! # bytes32
   _did: Bytes! # bytes32
   _accessConsumer: Bytes! # address
   _accessProvider: Bytes! # address
-  _timeLocks: [BigInt]! # uint256[]
-  _timeOuts: [BigInt]! # uint256[]
-  _conditionIdSeeds: [Bytes]! # bytes32[]
-  _conditionIds: [Bytes]! # bytes32[]
+  _timeLocks: [BigInt!]! # uint256[]
+  _timeOuts: [BigInt!]! # uint256[]
+  _conditionIdSeeds: [Bytes!]! # bytes32[]
+  _conditionIds: [Bytes!]! # bytes32[]
   _idSeed: Bytes! # bytes32
   _creator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type Initialized @entity {
-  id: ID!
+type Initialized @entity(immutable: true) {
+  id: Bytes!
   version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type OwnershipTransferred @entity {
-  id: ID!
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type VaultCreated @entity {
-  id: ID!
+type VaultCreated @entity(immutable: true) {
+  id: Bytes!
   _vaultAddress: Bytes! # address
   _creator: Bytes! # address
   _lender: Bytes! # address
   _borrower: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }

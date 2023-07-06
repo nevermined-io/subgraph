@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: TransferNFT721Condition
-    network: spree
+    network: mainnet
     source:
-      address: "0xCA48F7C4C7EB1E4a5D656825b713eEA40E11D763"
+      address: "0xF841Ff2C8abF1751A83923755EbD2F66bBAa5BFE"
       abi: TransferNFT721Condition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -36,4 +36,4 @@ dataSources:
           handler: handleRoleGranted
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
           handler: handleRoleRevoked
-      file: ./src/mapping.ts
+      file: ./src/transfer-nft-721-condition.ts

@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AccessCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0xF97c4991B8a8A0360A66Adbef26cc11Eea029C37"
+      address: "0xC5268112c8EB4977E659F996F7443D9717320706"
       abi: AccessCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/access-condition.ts

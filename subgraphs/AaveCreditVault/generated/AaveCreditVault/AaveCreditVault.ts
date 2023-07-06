@@ -217,6 +217,69 @@ export class AaveCreditVault extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  createClone(
+    _lendingPool: Address,
+    _dataProvider: Address,
+    _weth: Address,
+    _nvmFee: BigInt,
+    _agreementFee: BigInt,
+    _treasuryAddress: Address,
+    _borrower: Address,
+    _lender: Address,
+    _conditions: Array<Address>
+  ): Address {
+    let result = super.call(
+      "createClone",
+      "createClone(address,address,address,uint256,uint256,address,address,address,address[]):(address)",
+      [
+        ethereum.Value.fromAddress(_lendingPool),
+        ethereum.Value.fromAddress(_dataProvider),
+        ethereum.Value.fromAddress(_weth),
+        ethereum.Value.fromUnsignedBigInt(_nvmFee),
+        ethereum.Value.fromUnsignedBigInt(_agreementFee),
+        ethereum.Value.fromAddress(_treasuryAddress),
+        ethereum.Value.fromAddress(_borrower),
+        ethereum.Value.fromAddress(_lender),
+        ethereum.Value.fromAddressArray(_conditions)
+      ]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_createClone(
+    _lendingPool: Address,
+    _dataProvider: Address,
+    _weth: Address,
+    _nvmFee: BigInt,
+    _agreementFee: BigInt,
+    _treasuryAddress: Address,
+    _borrower: Address,
+    _lender: Address,
+    _conditions: Array<Address>
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "createClone",
+      "createClone(address,address,address,uint256,uint256,address,address,address,address[]):(address)",
+      [
+        ethereum.Value.fromAddress(_lendingPool),
+        ethereum.Value.fromAddress(_dataProvider),
+        ethereum.Value.fromAddress(_weth),
+        ethereum.Value.fromUnsignedBigInt(_nvmFee),
+        ethereum.Value.fromUnsignedBigInt(_agreementFee),
+        ethereum.Value.fromAddress(_treasuryAddress),
+        ethereum.Value.fromAddress(_borrower),
+        ethereum.Value.fromAddress(_lender),
+        ethereum.Value.fromAddressArray(_conditions)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   dataProvider(): Address {
     let result = super.call("dataProvider", "dataProvider():(address)", []);
 
@@ -735,6 +798,72 @@ export class BorrowCall__Outputs {
 
   constructor(call: BorrowCall) {
     this._call = call;
+  }
+}
+
+export class CreateCloneCall extends ethereum.Call {
+  get inputs(): CreateCloneCall__Inputs {
+    return new CreateCloneCall__Inputs(this);
+  }
+
+  get outputs(): CreateCloneCall__Outputs {
+    return new CreateCloneCall__Outputs(this);
+  }
+}
+
+export class CreateCloneCall__Inputs {
+  _call: CreateCloneCall;
+
+  constructor(call: CreateCloneCall) {
+    this._call = call;
+  }
+
+  get _lendingPool(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _dataProvider(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _weth(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get _nvmFee(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get _agreementFee(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get _treasuryAddress(): Address {
+    return this._call.inputValues[5].value.toAddress();
+  }
+
+  get _borrower(): Address {
+    return this._call.inputValues[6].value.toAddress();
+  }
+
+  get _lender(): Address {
+    return this._call.inputValues[7].value.toAddress();
+  }
+
+  get _conditions(): Array<Address> {
+    return this._call.inputValues[8].value.toAddressArray();
+  }
+}
+
+export class CreateCloneCall__Outputs {
+  _call: CreateCloneCall;
+
+  constructor(call: CreateCloneCall) {
+    this._call = call;
+  }
+
+  get value0(): Address {
+    return this._call.outputValues[0].value.toAddress();
   }
 }
 

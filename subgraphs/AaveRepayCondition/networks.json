@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AaveRepayCondition": {
+      "address": "0x2805c4ed5704153649501ABFDA2C0F3Db1794848",
+      "startBlock": 0
+    }
+  }
+}

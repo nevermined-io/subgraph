@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: Dispenser
-    network: spree
+    network: mainnet
     source:
-      address: "0xB4e92c6e1a1ad3f7b42463d11804BE6ca2be79D3"
+      address: "0x22A2E8b0C8F080E0f5043B9f2C2a38b3465B9D6d"
       abi: Dispenser
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -30,4 +30,4 @@ dataSources:
           handler: handleRequestFrequencyExceeded
         - event: RequestLimitExceeded(indexed address,uint256,uint256)
           handler: handleRequestLimitExceeded
-      file: ./src/mapping.ts
+      file: ./src/dispenser.ts

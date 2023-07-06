@@ -80,6 +80,32 @@ export class Initialized__Params {
   }
 }
 
+export class NFTCloned extends ethereum.Event {
+  get params(): NFTCloned__Params {
+    return new NFTCloned__Params(this);
+  }
+}
+
+export class NFTCloned__Params {
+  _event: NFTCloned;
+
+  constructor(event: NFTCloned) {
+    this._event = event;
+  }
+
+  get _newAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get _fromAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get _ercType(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -99,32 +125,6 @@ export class OwnershipTransferred__Params {
 
   get newOwner(): Address {
     return this._event.parameters[1].value.toAddress();
-  }
-}
-
-export class ProxyApproval extends ethereum.Event {
-  get params(): ProxyApproval__Params {
-    return new ProxyApproval__Params(this);
-  }
-}
-
-export class ProxyApproval__Params {
-  _event: ProxyApproval;
-
-  constructor(event: ProxyApproval) {
-    this._event = event;
-  }
-
-  get sender(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get approved(): boolean {
-    return this._event.parameters[2].value.toBoolean();
   }
 }
 
@@ -232,6 +232,45 @@ export class Transfer__Params {
   }
 }
 
+export class NFT721Upgradeable__getNFTAttributesResult {
+  value0: boolean;
+  value1: BigInt;
+  value2: BigInt;
+  value3: string;
+
+  constructor(value0: boolean, value1: BigInt, value2: BigInt, value3: string) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+    this.value3 = value3;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromBoolean(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
+    map.set("value3", ethereum.Value.fromString(this.value3));
+    return map;
+  }
+
+  getNftInitialized(): boolean {
+    return this.value0;
+  }
+
+  getNftSupply(): BigInt {
+    return this.value1;
+  }
+
+  getMintCap(): BigInt {
+    return this.value2;
+  }
+
+  getNftURI(): string {
+    return this.value3;
+  }
+}
+
 export class NFT721Upgradeable__royaltyInfoResult {
   value0: Address;
   value1: BigInt;
@@ -246,6 +285,14 @@ export class NFT721Upgradeable__royaltyInfoResult {
     map.set("value0", ethereum.Value.fromAddress(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
+  }
+
+  getReceiver(): Address {
+    return this.value0;
+  }
+
+  getRoyaltyAmount(): BigInt {
+    return this.value1;
   }
 }
 
@@ -277,14 +324,45 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  MINTER_ROLE(): Bytes {
-    let result = super.call("MINTER_ROLE", "MINTER_ROLE():(bytes32)", []);
+  NVM_OPERATOR_ROLE(): Bytes {
+    let result = super.call(
+      "NVM_OPERATOR_ROLE",
+      "NVM_OPERATOR_ROLE():(bytes32)",
+      []
+    );
 
     return result[0].toBytes();
   }
 
-  try_MINTER_ROLE(): ethereum.CallResult<Bytes> {
-    let result = super.tryCall("MINTER_ROLE", "MINTER_ROLE():(bytes32)", []);
+  try_NVM_OPERATOR_ROLE(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "NVM_OPERATOR_ROLE",
+      "NVM_OPERATOR_ROLE():(bytes32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  addressToBytes32(_addr: Address): Bytes {
+    let result = super.call(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_addressToBytes32(_addr: Address): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -311,6 +389,116 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  bytes32ToAddress(_b32: Bytes): Address {
+    let result = super.call(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_bytes32ToAddress(_b32: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  calculateTotalAmount(_amounts: Array<BigInt>): BigInt {
+    let result = super.call(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateTotalAmount(
+    _amounts: Array<BigInt>
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  contractURI(): string {
+    let result = super.call("contractURI", "contractURI():(string)", []);
+
+    return result[0].toString();
+  }
+
+  try_contractURI(): ethereum.CallResult<string> {
+    let result = super.tryCall("contractURI", "contractURI():(string)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  createClone(
+    name: string,
+    symbol: string,
+    uri: string,
+    cap: BigInt,
+    _operators: Array<Address>
+  ): Address {
+    let result = super.call(
+      "createClone",
+      "createClone(string,string,string,uint256,address[]):(address)",
+      [
+        ethereum.Value.fromString(name),
+        ethereum.Value.fromString(symbol),
+        ethereum.Value.fromString(uri),
+        ethereum.Value.fromUnsignedBigInt(cap),
+        ethereum.Value.fromAddressArray(_operators)
+      ]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_createClone(
+    name: string,
+    symbol: string,
+    uri: string,
+    cap: BigInt,
+    _operators: Array<Address>
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "createClone",
+      "createClone(string,string,string,uint256,address[]):(address)",
+      [
+        ethereum.Value.fromString(name),
+        ethereum.Value.fromString(symbol),
+        ethereum.Value.fromString(uri),
+        ethereum.Value.fromUnsignedBigInt(cap),
+        ethereum.Value.fromAddressArray(_operators)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   getApproved(tokenId: BigInt): Address {
     let result = super.call("getApproved", "getApproved(uint256):(address)", [
       ethereum.Value.fromUnsignedBigInt(tokenId)
@@ -324,6 +512,112 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
       "getApproved",
       "getApproved(uint256):(address)",
       [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getCurrentBlockNumber(): BigInt {
+    let result = super.call(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCurrentBlockNumber(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getHowManyMinted(): BigInt {
+    let result = super.call(
+      "getHowManyMinted",
+      "getHowManyMinted():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getHowManyMinted(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getHowManyMinted",
+      "getHowManyMinted():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getNFTAttributes(tokenId: BigInt): NFT721Upgradeable__getNFTAttributesResult {
+    let result = super.call(
+      "getNFTAttributes",
+      "getNFTAttributes(uint256):(bool,uint256,uint256,string)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+
+    return new NFT721Upgradeable__getNFTAttributesResult(
+      result[0].toBoolean(),
+      result[1].toBigInt(),
+      result[2].toBigInt(),
+      result[3].toString()
+    );
+  }
+
+  try_getNFTAttributes(
+    tokenId: BigInt
+  ): ethereum.CallResult<NFT721Upgradeable__getNFTAttributesResult> {
+    let result = super.tryCall(
+      "getNFTAttributes",
+      "getNFTAttributes(uint256):(bool,uint256,uint256,string)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new NFT721Upgradeable__getNFTAttributesResult(
+        value[0].toBoolean(),
+        value[1].toBigInt(),
+        value[2].toBigInt(),
+        value[3].toString()
+      )
+    );
+  }
+
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -351,6 +645,29 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   hasRole(role: Bytes, account: Address): boolean {
@@ -406,6 +723,67 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isContract(addr: Address): boolean {
+    let result = super.call("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isContract(addr: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isOperator(operator: Address): boolean {
+    let result = super.call("isOperator", "isOperator(address):(bool)", [
+      ethereum.Value.fromAddress(operator)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isOperator(operator: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isOperator", "isOperator(address):(bool)", [
+      ethereum.Value.fromAddress(operator)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   name(): string {
     let result = super.call("name", "name():(string)", []);
 
@@ -419,6 +797,36 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  nftType(): Bytes {
+    let result = super.call("nftType", "nftType():(bytes32)", []);
+
+    return result[0].toBytes();
+  }
+
+  try_nftType(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall("nftType", "nftType():(bytes32)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  nvmConfig(): Address {
+    let result = super.call("nvmConfig", "nvmConfig():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_nvmConfig(): ethereum.CallResult<Address> {
+    let result = super.tryCall("nvmConfig", "nvmConfig():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   owner(): Address {
@@ -556,36 +964,6 @@ export class NFT721Upgradeable extends ethereum.SmartContract {
   }
 }
 
-export class AddMinterCall extends ethereum.Call {
-  get inputs(): AddMinterCall__Inputs {
-    return new AddMinterCall__Inputs(this);
-  }
-
-  get outputs(): AddMinterCall__Outputs {
-    return new AddMinterCall__Outputs(this);
-  }
-}
-
-export class AddMinterCall__Inputs {
-  _call: AddMinterCall;
-
-  constructor(call: AddMinterCall) {
-    this._call = call;
-  }
-
-  get account(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class AddMinterCall__Outputs {
-  _call: AddMinterCall;
-
-  constructor(call: AddMinterCall) {
-    this._call = call;
-  }
-}
-
 export class ApproveCall extends ethereum.Call {
   get inputs(): ApproveCall__Inputs {
     return new ApproveCall__Inputs(this);
@@ -637,7 +1015,7 @@ export class BurnCall__Inputs {
     this._call = call;
   }
 
-  get id(): BigInt {
+  get tokenId(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
 }
@@ -646,6 +1024,86 @@ export class BurnCall__Outputs {
   _call: BurnCall;
 
   constructor(call: BurnCall) {
+    this._call = call;
+  }
+}
+
+export class CreateCloneCall extends ethereum.Call {
+  get inputs(): CreateCloneCall__Inputs {
+    return new CreateCloneCall__Inputs(this);
+  }
+
+  get outputs(): CreateCloneCall__Outputs {
+    return new CreateCloneCall__Outputs(this);
+  }
+}
+
+export class CreateCloneCall__Inputs {
+  _call: CreateCloneCall;
+
+  constructor(call: CreateCloneCall) {
+    this._call = call;
+  }
+
+  get name(): string {
+    return this._call.inputValues[0].value.toString();
+  }
+
+  get symbol(): string {
+    return this._call.inputValues[1].value.toString();
+  }
+
+  get uri(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get cap(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get _operators(): Array<Address> {
+    return this._call.inputValues[4].value.toAddressArray();
+  }
+}
+
+export class CreateCloneCall__Outputs {
+  _call: CreateCloneCall;
+
+  constructor(call: CreateCloneCall) {
+    this._call = call;
+  }
+
+  get value0(): Address {
+    return this._call.outputValues[0].value.toAddress();
+  }
+}
+
+export class GrantOperatorRoleCall extends ethereum.Call {
+  get inputs(): GrantOperatorRoleCall__Inputs {
+    return new GrantOperatorRoleCall__Inputs(this);
+  }
+
+  get outputs(): GrantOperatorRoleCall__Outputs {
+    return new GrantOperatorRoleCall__Outputs(this);
+  }
+}
+
+export class GrantOperatorRoleCall__Inputs {
+  _call: GrantOperatorRoleCall;
+
+  constructor(call: GrantOperatorRoleCall) {
+    this._call = call;
+  }
+
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class GrantOperatorRoleCall__Outputs {
+  _call: GrantOperatorRoleCall;
+
+  constructor(call: GrantOperatorRoleCall) {
     this._call = call;
   }
 }
@@ -700,6 +1158,30 @@ export class InitializeCall__Inputs {
   constructor(call: InitializeCall) {
     this._call = call;
   }
+
+  get owner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get didRegistryAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get name(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get symbol(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
+  get uri(): string {
+    return this._call.inputValues[4].value.toString();
+  }
+
+  get cap(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
 }
 
 export class InitializeCall__Outputs {
@@ -731,7 +1213,7 @@ export class MintCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get id(): BigInt {
+  get tokenId(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 }
@@ -740,6 +1222,62 @@ export class MintCall__Outputs {
   _call: MintCall;
 
   constructor(call: MintCall) {
+    this._call = call;
+  }
+}
+
+export class Mint1Call extends ethereum.Call {
+  get inputs(): Mint1Call__Inputs {
+    return new Mint1Call__Inputs(this);
+  }
+
+  get outputs(): Mint1Call__Outputs {
+    return new Mint1Call__Outputs(this);
+  }
+}
+
+export class Mint1Call__Inputs {
+  _call: Mint1Call;
+
+  constructor(call: Mint1Call) {
+    this._call = call;
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class Mint1Call__Outputs {
+  _call: Mint1Call;
+
+  constructor(call: Mint1Call) {
+    this._call = call;
+  }
+}
+
+export class RenounceOperatorRoleCall extends ethereum.Call {
+  get inputs(): RenounceOperatorRoleCall__Inputs {
+    return new RenounceOperatorRoleCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOperatorRoleCall__Outputs {
+    return new RenounceOperatorRoleCall__Outputs(this);
+  }
+}
+
+export class RenounceOperatorRoleCall__Inputs {
+  _call: RenounceOperatorRoleCall;
+
+  constructor(call: RenounceOperatorRoleCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOperatorRoleCall__Outputs {
+  _call: RenounceOperatorRoleCall;
+
+  constructor(call: RenounceOperatorRoleCall) {
     this._call = call;
   }
 }
@@ -800,6 +1338,36 @@ export class RenounceRoleCall__Outputs {
   _call: RenounceRoleCall;
 
   constructor(call: RenounceRoleCall) {
+    this._call = call;
+  }
+}
+
+export class RevokeOperatorRoleCall extends ethereum.Call {
+  get inputs(): RevokeOperatorRoleCall__Inputs {
+    return new RevokeOperatorRoleCall__Inputs(this);
+  }
+
+  get outputs(): RevokeOperatorRoleCall__Outputs {
+    return new RevokeOperatorRoleCall__Outputs(this);
+  }
+}
+
+export class RevokeOperatorRoleCall__Inputs {
+  _call: RevokeOperatorRoleCall;
+
+  constructor(call: RevokeOperatorRoleCall) {
+    this._call = call;
+  }
+
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class RevokeOperatorRoleCall__Outputs {
+  _call: RevokeOperatorRoleCall;
+
+  constructor(call: RevokeOperatorRoleCall) {
     this._call = call;
   }
 }
@@ -905,7 +1473,7 @@ export class SafeTransferFrom1Call__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _data(): Bytes {
+  get data(): Bytes {
     return this._call.inputValues[3].value.toBytes();
   }
 }
@@ -952,6 +1520,36 @@ export class SetApprovalForAllCall__Outputs {
   }
 }
 
+export class SetContractMetadataUriCall extends ethereum.Call {
+  get inputs(): SetContractMetadataUriCall__Inputs {
+    return new SetContractMetadataUriCall__Inputs(this);
+  }
+
+  get outputs(): SetContractMetadataUriCall__Outputs {
+    return new SetContractMetadataUriCall__Outputs(this);
+  }
+}
+
+export class SetContractMetadataUriCall__Inputs {
+  _call: SetContractMetadataUriCall;
+
+  constructor(call: SetContractMetadataUriCall) {
+    this._call = call;
+  }
+
+  get _uri(): string {
+    return this._call.inputValues[0].value.toString();
+  }
+}
+
+export class SetContractMetadataUriCall__Outputs {
+  _call: SetContractMetadataUriCall;
+
+  constructor(call: SetContractMetadataUriCall) {
+    this._call = call;
+  }
+}
+
 export class SetNFTMetadataCall extends ethereum.Call {
   get inputs(): SetNFTMetadataCall__Inputs {
     return new SetNFTMetadataCall__Inputs(this);
@@ -986,36 +1584,32 @@ export class SetNFTMetadataCall__Outputs {
   }
 }
 
-export class SetProxyApprovalCall extends ethereum.Call {
-  get inputs(): SetProxyApprovalCall__Inputs {
-    return new SetProxyApprovalCall__Inputs(this);
+export class SetNvmConfigAddressCall extends ethereum.Call {
+  get inputs(): SetNvmConfigAddressCall__Inputs {
+    return new SetNvmConfigAddressCall__Inputs(this);
   }
 
-  get outputs(): SetProxyApprovalCall__Outputs {
-    return new SetProxyApprovalCall__Outputs(this);
+  get outputs(): SetNvmConfigAddressCall__Outputs {
+    return new SetNvmConfigAddressCall__Outputs(this);
   }
 }
 
-export class SetProxyApprovalCall__Inputs {
-  _call: SetProxyApprovalCall;
+export class SetNvmConfigAddressCall__Inputs {
+  _call: SetNvmConfigAddressCall;
 
-  constructor(call: SetProxyApprovalCall) {
+  constructor(call: SetNvmConfigAddressCall) {
     this._call = call;
   }
 
-  get operator(): Address {
+  get _addr(): Address {
     return this._call.inputValues[0].value.toAddress();
-  }
-
-  get approved(): boolean {
-    return this._call.inputValues[1].value.toBoolean();
   }
 }
 
-export class SetProxyApprovalCall__Outputs {
-  _call: SetProxyApprovalCall;
+export class SetNvmConfigAddressCall__Outputs {
+  _call: SetNvmConfigAddressCall;
 
-  constructor(call: SetProxyApprovalCall) {
+  constructor(call: SetNvmConfigAddressCall) {
     this._call = call;
   }
 }

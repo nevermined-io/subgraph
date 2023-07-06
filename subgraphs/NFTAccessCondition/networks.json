@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTAccessCondition": {
+      "address": "0x1Fa1C4073903712d0cb1186146B6508363E66bC6",
+      "startBlock": 0
+    }
+  }
+}

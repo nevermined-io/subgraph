@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AccessDLEQTemplate": {
+      "address": "0xF02147853093CF7e643024F302a32836747C766E",
+      "startBlock": 0
+    }
+  }
+}

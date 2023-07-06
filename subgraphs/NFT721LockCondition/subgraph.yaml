@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT721LockCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0xC5E55dc50bfAf7116F50601802527F3B0807d535"
+      address: "0xF6874422FBBB51119a3D8d14627db2fB21013153"
       abi: NFT721LockCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/nft-721-lock-condition.ts

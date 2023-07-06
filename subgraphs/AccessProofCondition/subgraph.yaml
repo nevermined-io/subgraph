@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AccessProofCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0x32c79B039E4BC4Ad9272CA7D2A3DE5183D06Cd6B"
+      address: "0x2a3C700C127811C81A785B101228613B3F9ceCE9"
       abi: AccessProofCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/access-proof-condition.ts

@@ -23,7 +23,7 @@ export class ConditionCreated__Params {
     this._event = event;
   }
 
-  get id(): Bytes {
+  get _id(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 
@@ -49,7 +49,7 @@ export class ConditionUpdated__Params {
     this._event = event;
   }
 
-  get id(): Bytes {
+  get _id(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 
@@ -217,6 +217,26 @@ export class ConditionStoreManager__getConditionResult {
     map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
     return map;
   }
+
+  getTypeRef(): Address {
+    return this.value0;
+  }
+
+  getState(): i32 {
+    return this.value1;
+  }
+
+  getTimeLock(): BigInt {
+    return this.value2;
+  }
+
+  getTimeOut(): BigInt {
+    return this.value3;
+  }
+
+  getBlockNumber(): BigInt {
+    return this.value4;
+  }
 }
 
 export class ConditionStoreManager extends ethereum.SmartContract {
@@ -316,6 +336,21 @@ export class ConditionStoreManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  didRegistry(): Address {
+    let result = super.call("didRegistry", "didRegistry():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_didRegistry(): ethereum.CallResult<Address> {
+    let result = super.tryCall("didRegistry", "didRegistry():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   getCondition(_id: Bytes): ConditionStoreManager__getConditionResult {
@@ -512,6 +547,29 @@ export class ConditionStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   hasRole(role: Bytes, account: Address): boolean {
     let result = super.call("hasRole", "hasRole(bytes32,address):(bool)", [
       ethereum.Value.fromFixedBytes(role),
@@ -598,6 +656,29 @@ export class ConditionStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   owner(): Address {
     let result = super.call("owner", "owner():(address)", []);
 
@@ -611,45 +692,6 @@ export class ConditionStoreManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  provenanceSignatureIsCorrect(
-    _agentId: Address,
-    _hash: Bytes,
-    _signature: Bytes
-  ): boolean {
-    let result = super.call(
-      "provenanceSignatureIsCorrect",
-      "provenanceSignatureIsCorrect(address,bytes32,bytes):(bool)",
-      [
-        ethereum.Value.fromAddress(_agentId),
-        ethereum.Value.fromFixedBytes(_hash),
-        ethereum.Value.fromBytes(_signature)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_provenanceSignatureIsCorrect(
-    _agentId: Address,
-    _hash: Bytes,
-    _signature: Bytes
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "provenanceSignatureIsCorrect",
-      "provenanceSignatureIsCorrect(address,bytes32,bytes):(bool)",
-      [
-        ethereum.Value.fromAddress(_agentId),
-        ethereum.Value.fromFixedBytes(_hash),
-        ethereum.Value.fromBytes(_signature)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   supportsInterface(interfaceId: Bytes): boolean {
@@ -697,6 +739,53 @@ export class ConditionStoreManager extends ethereum.SmartContract {
       "updateConditionState(bytes32,uint8):(uint8)",
       [
         ethereum.Value.fromFixedBytes(_id),
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_newState))
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
+  updateConditionStateWithProvenance(
+    _id: Bytes,
+    _did: Bytes,
+    name: string,
+    user: Address,
+    _newState: i32
+  ): i32 {
+    let result = super.call(
+      "updateConditionStateWithProvenance",
+      "updateConditionStateWithProvenance(bytes32,bytes32,string,address,uint8):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_id),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromString(name),
+        ethereum.Value.fromAddress(user),
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_newState))
+      ]
+    );
+
+    return result[0].toI32();
+  }
+
+  try_updateConditionStateWithProvenance(
+    _id: Bytes,
+    _did: Bytes,
+    name: string,
+    user: Address,
+    _newState: i32
+  ): ethereum.CallResult<i32> {
+    let result = super.tryCall(
+      "updateConditionStateWithProvenance",
+      "updateConditionStateWithProvenance(bytes32,bytes32,string,address,uint8):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_id),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromString(name),
+        ethereum.Value.fromAddress(user),
         ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_newState))
       ]
     );
@@ -1138,6 +1227,36 @@ export class SetNvmConfigAddressCall__Outputs {
   }
 }
 
+export class SetProvenanceRegistryCall extends ethereum.Call {
+  get inputs(): SetProvenanceRegistryCall__Inputs {
+    return new SetProvenanceRegistryCall__Inputs(this);
+  }
+
+  get outputs(): SetProvenanceRegistryCall__Outputs {
+    return new SetProvenanceRegistryCall__Outputs(this);
+  }
+}
+
+export class SetProvenanceRegistryCall__Inputs {
+  _call: SetProvenanceRegistryCall;
+
+  constructor(call: SetProvenanceRegistryCall) {
+    this._call = call;
+  }
+
+  get _didAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetProvenanceRegistryCall__Outputs {
+  _call: SetProvenanceRegistryCall;
+
+  constructor(call: SetProvenanceRegistryCall) {
+    this._call = call;
+  }
+}
+
 export class TransferOwnershipCall extends ethereum.Call {
   get inputs(): TransferOwnershipCall__Inputs {
     return new TransferOwnershipCall__Inputs(this);
@@ -1274,6 +1393,56 @@ export class UpdateConditionStateCall__Outputs {
   _call: UpdateConditionStateCall;
 
   constructor(call: UpdateConditionStateCall) {
+    this._call = call;
+  }
+
+  get value0(): i32 {
+    return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class UpdateConditionStateWithProvenanceCall extends ethereum.Call {
+  get inputs(): UpdateConditionStateWithProvenanceCall__Inputs {
+    return new UpdateConditionStateWithProvenanceCall__Inputs(this);
+  }
+
+  get outputs(): UpdateConditionStateWithProvenanceCall__Outputs {
+    return new UpdateConditionStateWithProvenanceCall__Outputs(this);
+  }
+}
+
+export class UpdateConditionStateWithProvenanceCall__Inputs {
+  _call: UpdateConditionStateWithProvenanceCall;
+
+  constructor(call: UpdateConditionStateWithProvenanceCall) {
+    this._call = call;
+  }
+
+  get _id(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get name(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get user(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get _newState(): i32 {
+    return this._call.inputValues[4].value.toI32();
+  }
+}
+
+export class UpdateConditionStateWithProvenanceCall__Outputs {
+  _call: UpdateConditionStateWithProvenanceCall;
+
+  constructor(call: UpdateConditionStateWithProvenanceCall) {
     this._call = call;
   }
 

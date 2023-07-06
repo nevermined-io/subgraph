@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NeverminedConfig
-    network: spree
+    network: mainnet
     source:
       address: "0x61b8391902eB75D679F02E21bcBFffF6f0FA2416"
       abi: NeverminedConfig
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -36,4 +36,4 @@ dataSources:
           handler: handleRoleGranted
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
           handler: handleRoleRevoked
-      file: ./src/mapping.ts
+      file: ./src/nevermined-config.ts

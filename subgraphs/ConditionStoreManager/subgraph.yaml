@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: ConditionStoreManager
-    network: spree
+    network: mainnet
     source:
-      address: "0x9eD1050E0054C38Ad431109D04f0c4Be8424Bf7b"
+      address: "0x8f6865Bdb68735004aC1789bA49d0FA2877Ad057"
       abi: ConditionStoreManager
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - ConditionCreated
@@ -39,4 +39,4 @@ dataSources:
           handler: handleRoleGranted
         - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
           handler: handleRoleRevoked
-      file: ./src/mapping.ts
+      file: ./src/condition-store-manager.ts

@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "EscrowPaymentCondition": {
+      "address": "0xD6d19ed17Ec0893B6979FE6B0B19beeE07849Fec",
+      "startBlock": 0
+    }
+  }
+}

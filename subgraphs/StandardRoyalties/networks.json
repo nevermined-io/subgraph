@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "StandardRoyalties": {
+      "address": "0x459b553aBD0398429AE98F3C1B2769483bc46091",
+      "startBlock": 0
+    }
+  }
+}

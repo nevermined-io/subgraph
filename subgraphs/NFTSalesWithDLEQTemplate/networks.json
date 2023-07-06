@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTSalesWithDLEQTemplate": {
+      "address": "0x0003E25406C7Bec132EC07319690F3eE0ED420a4",
+      "startBlock": 0
+    }
+  }
+}

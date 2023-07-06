@@ -46,3 +46,6 @@ subgraphs/**/yarn.lock
 
 # graph generated files
 build/
+
+# ignore nested git folders
+subgraphs/**/.git/

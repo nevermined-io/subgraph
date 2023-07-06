@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AgreementStoreManager": {
+      "address": "0x3c85B859E8B4B67197AfcFB8F3a0D2A735258D55",
+      "startBlock": 0
+    }
+  }
+}

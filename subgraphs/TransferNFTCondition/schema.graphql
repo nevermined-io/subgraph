@@ -1,41 +1,64 @@
-type Fulfilled @entity {
-  id: ID!
+type Fulfilled @entity(immutable: true) {
+  id: Bytes!
   _agreementId: Bytes! # bytes32
   _did: Bytes! # bytes32
   _receiver: Bytes! # address
   _amount: BigInt! # uint256
   _conditionId: Bytes! # bytes32
   _contract: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type Initialized @entity {
-  id: ID!
+type Initialized @entity(immutable: true) {
+  id: Bytes!
   version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type OwnershipTransferred @entity {
-  id: ID!
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleAdminChanged @entity {
-  id: ID!
+type RoleAdminChanged @entity(immutable: true) {
+  id: Bytes!
   role: Bytes! # bytes32
   previousAdminRole: Bytes! # bytes32
   newAdminRole: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleGranted @entity {
-  id: ID!
+type RoleGranted @entity(immutable: true) {
+  id: Bytes!
   role: Bytes! # bytes32
   account: Bytes! # address
   sender: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleRevoked @entity {
-  id: ID!
+type RoleRevoked @entity(immutable: true) {
+  id: Bytes!
   role: Bytes! # bytes32
   account: Bytes! # address
   sender: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type FulfilledCounter @entity {
+  id: Bytes!
+  value: Int!
 }

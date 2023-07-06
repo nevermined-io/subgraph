@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NeverminedConfig": {
+      "address": "0x61b8391902eB75D679F02E21bcBFffF6f0FA2416",
+      "startBlock": 0
+    }
+  }
+}

@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: WhitelistingCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0x48A079061CA0de9D0BaccB56DC999b002699f86c"
+      address: "0x5C129d941A9E678630b189e146DAF20aD9F7b2c1"
       abi: WhitelistingCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -24,4 +24,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/whitelisting-condition.ts

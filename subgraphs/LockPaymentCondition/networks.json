@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "LockPaymentCondition": {
+      "address": "0xB4F43b80622Ca3AF6C5C6cCe5B25B31498F319B4",
+      "startBlock": 0
+    }
+  }
+}

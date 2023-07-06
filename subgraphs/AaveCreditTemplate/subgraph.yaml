@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AaveCreditTemplate
-    network: spree
+    network: mainnet
     source:
-      address: "0xCb2C20A0f8e8147389E97466306aC5C66B9feF74"
+      address: "0x5535177d8159E447B1F0f07733e6FC5FeF0abb2F"
       abi: AaveCreditTemplate
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
@@ -30,4 +30,4 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: VaultCreated(indexed address,indexed address,address,address)
           handler: handleVaultCreated
-      file: ./src/mapping.ts
+      file: ./src/aave-credit-template.ts

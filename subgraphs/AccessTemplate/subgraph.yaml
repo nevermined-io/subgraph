@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AccessTemplate
-    network: spree
+    network: mainnet
     source:
-      address: "0xb761bE571673A8f93DADe4D9D64618e3Eb989477"
+      address: "0x9ABC3B45B8a1f95dc45Ca4076E1D5485F9CD27a7"
       abi: AccessTemplate
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/access-template.ts

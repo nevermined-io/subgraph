@@ -85,31 +85,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "operator",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "approved",
-        "type": "bool"
-      }
-    ],
-    "name": "ProxyApproval",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": true,
         "internalType": "bytes32",
         "name": "role",
@@ -284,21 +259,47 @@
   },
   {
     "inputs": [],
-    "name": "MINTER_ROLE",
+    "name": "NVM_OPERATOR_ROLE",
     "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
     "stateMutability": "view",
     "type": "function",
-    "signature": "0xd5391393"
+    "signature": "0x85be5724"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
+      { "internalType": "address", "name": "owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "didRegistryAddress",
+        "type": "address"
+      },
+      { "internalType": "string", "name": "name_", "type": "string" },
+      { "internalType": "string", "name": "symbol_", "type": "string" },
+      { "internalType": "string", "name": "uri_", "type": "string" }
     ],
-    "name": "addMinter",
+    "name": "__NFT1155Upgradeable_init",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x983b2d56"
+    "signature": "0xf80795f8"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "didRegistryAddress",
+        "type": "address"
+      },
+      { "internalType": "string", "name": "name_", "type": "string" },
+      { "internalType": "string", "name": "symbol_", "type": "string" },
+      { "internalType": "string", "name": "uri_", "type": "string" }
+    ],
+    "name": "__NFT1155Upgradeable_unchained",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xd70cf7af"
   },
   {
     "inputs": [
@@ -333,6 +334,17 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x4e1273f4"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "id", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "burn",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xb390c0ab"
   },
   {
     "inputs": [
@@ -378,13 +390,14 @@
     "inputs": [
       { "internalType": "string", "name": "_name", "type": "string" },
       { "internalType": "string", "name": "_symbol", "type": "string" },
-      { "internalType": "string", "name": "_uri", "type": "string" }
+      { "internalType": "string", "name": "_uri", "type": "string" },
+      { "internalType": "address[]", "name": "_operators", "type": "address[]" }
     ],
     "name": "createClone",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x60ce69f5"
+    "signature": "0x1e5c2b34"
   },
   {
     "inputs": [],
@@ -393,6 +406,21 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x6fd902e1"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+    ],
+    "name": "getNFTAttributes",
+    "outputs": [
+      { "internalType": "bool", "name": "nftInitialized", "type": "bool" },
+      { "internalType": "uint256", "name": "nftSupply", "type": "uint256" },
+      { "internalType": "uint256", "name": "mintCap", "type": "uint256" },
+      { "internalType": "string", "name": "nftURI", "type": "string" }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x47c4ef25"
   },
   {
     "inputs": [],
@@ -422,6 +450,16 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "grantOperatorRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x27ac0c58"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "role", "type": "bytes32" },
       { "internalType": "address", "name": "account", "type": "address" }
     ],
@@ -443,24 +481,22 @@
     "signature": "0x91d14854"
   },
   {
-    "inputs": [{ "internalType": "string", "name": "uri_", "type": "string" }],
-    "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xf62d1888"
-  },
-  {
     "inputs": [
+      { "internalType": "address", "name": "owner", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "didRegistryAddress",
+        "type": "address"
+      },
       { "internalType": "string", "name": "name_", "type": "string" },
       { "internalType": "string", "name": "symbol_", "type": "string" },
       { "internalType": "string", "name": "uri_", "type": "string" }
     ],
-    "name": "initializeWithName",
+    "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x1187bc52"
+    "signature": "0x3f2f5ee2"
   },
   {
     "inputs": [
@@ -475,16 +511,6 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "operator", "type": "address" }
-    ],
-    "name": "isApprovedProxy",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0x3d54c447"
-  },
-  {
-    "inputs": [
       { "internalType": "address", "name": "addr", "type": "address" }
     ],
     "name": "isContract",
@@ -495,6 +521,16 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "operator", "type": "address" }
+    ],
+    "name": "isOperator",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6d70f7ae"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "forwarder", "type": "address" }
     ],
     "name": "isTrustedForwarder",
@@ -502,6 +538,17 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x572b6c05"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "id", "type": "uint256" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "mint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x1b2ef1ca"
   },
   {
     "inputs": [
@@ -526,6 +573,14 @@
   },
   {
     "inputs": [],
+    "name": "nftType",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x6fac889b"
+  },
+  {
+    "inputs": [],
     "name": "nvmConfig",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
@@ -539,6 +594,14 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOperatorRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x3d6d3598"
   },
   {
     "inputs": [],
@@ -563,11 +626,11 @@
     "inputs": [
       { "internalType": "address", "name": "account", "type": "address" }
     ],
-    "name": "revokeMinter",
+    "name": "revokeOperatorRole",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0xcfbd4885"
+    "signature": "0xb219f7d7"
   },
   {
     "inputs": [
@@ -644,6 +707,19 @@
   {
     "inputs": [
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+      { "internalType": "uint256", "name": "nftSupply", "type": "uint256" },
+      { "internalType": "uint256", "name": "mintCap", "type": "uint256" },
+      { "internalType": "string", "name": "nftURI", "type": "string" }
+    ],
+    "name": "setNFTAttributes",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x97cfb1a9"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
       { "internalType": "string", "name": "nftURI", "type": "string" }
     ],
     "name": "setNFTMetadata",
@@ -661,17 +737,6 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x02acb9a6"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "operator", "type": "address" },
-      { "internalType": "bool", "name": "approved", "type": "bool" }
-    ],
-    "name": "setProxyApproval",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xd416a27d"
   },
   {
     "inputs": [

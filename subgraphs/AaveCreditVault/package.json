@@ -4,13 +4,15 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node undefined neverminedio/AaveCreditVault",
-    "create-local": "graph create --node http://localhost:8020/ neverminedio/AaveCreditVault",
-    "remove-local": "graph remove --node http://localhost:8020/ neverminedio/AaveCreditVault",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/AaveCreditVault"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ nevermined-io/AaveCreditVault",
+    "create-local": "graph create --node http://localhost:8020/ nevermined-io/AaveCreditVault",
+    "remove-local": "graph remove --node http://localhost:8020/ nevermined-io/AaveCreditVault",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nevermined-io/AaveCreditVault",
+    "test": "graph test"
   },
   "dependencies": {
-    "@nevermined-io/graph-cli": "0.30.4",
-    "@graphprotocol/graph-ts": "0.24.1"
-  }
+    "@graphprotocol/graph-cli": "0.51.2",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
 }

@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTLockCondition": {
+      "address": "0xC94cFBb9E8f432228bCC153cd797eaA2279E282A",
+      "startBlock": 0
+    }
+  }
+}

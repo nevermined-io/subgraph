@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTHolderCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0xdAc3A1f400Cb0939C8e2caeF9136a66B8Ba5249c"
+      address: "0xe9bc51947fEFC5991FA26ba487ca913d5D892146"
       abi: NFTHolderCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/nft-holder-condition.ts

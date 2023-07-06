@@ -32,12 +32,58 @@
     "type": "event"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "addressToBytes32",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x82c947b7"
+  },
+  {
     "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
     "name": "approveTemplate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xa79cf51c"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_b32", "type": "bytes32" }
+    ],
+    "name": "bytes32ToAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ced058e"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" }
+    ],
+    "name": "calculateTotalAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function",
+    "signature": "0x5ea3ab85"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentBlockNumber",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x6fd902e1"
+  },
+  {
+    "inputs": [],
+    "name": "getNvmConfigAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xab9de230"
   },
   {
     "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
@@ -71,6 +117,14 @@
     "signature": "0x722e0b0e"
   },
   {
+    "inputs": [],
+    "name": "getTrustedForwarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xce1b815f"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "_owner", "type": "address" }
     ],
@@ -81,12 +135,40 @@
     "signature": "0xc4d66de8"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "addr", "type": "address" }
+    ],
+    "name": "isContract",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x16279055"
+  },
+  {
     "inputs": [{ "internalType": "address", "name": "_id", "type": "address" }],
     "name": "isTemplateApproved",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function",
     "signature": "0xb727a255"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "forwarder", "type": "address" }
+    ],
+    "name": "isTrustedForwarder",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x572b6c05"
+  },
+  {
+    "inputs": [],
+    "name": "nvmConfig",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xe9c1e045"
   },
   {
     "inputs": [],
@@ -121,6 +203,16 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xdb80bb9a"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_addr", "type": "address" }
+    ],
+    "name": "setNvmConfigAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x02acb9a6"
   },
   {
     "inputs": [

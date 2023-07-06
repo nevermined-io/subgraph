@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AccessTemplate": {
+      "address": "0x9ABC3B45B8a1f95dc45Ca4076E1D5485F9CD27a7",
+      "startBlock": 0
+    }
+  }
+}

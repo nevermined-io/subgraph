@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: AaveCollateralWithdrawCondition
-    network: spree
+    network: mainnet
     source:
-      address: "0xA687f430DC56473C0405100933e9790BC4c9DA96"
+      address: "0xBC45829a257D7E41924bb3638257bFA52591A3Cb"
       abi: AaveCollateralWithdrawCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/aave-collateral-withdraw-condition.ts

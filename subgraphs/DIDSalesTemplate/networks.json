@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "DIDSalesTemplate": {
+      "address": "0x6CCfDC4D5B0A60a384Bbd047A841d62CDcD83961",
+      "startBlock": 0
+    }
+  }
+}
