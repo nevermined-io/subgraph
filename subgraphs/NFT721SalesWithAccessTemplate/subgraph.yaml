@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT721SalesWithAccessTemplate
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x15AeDb4FaE1DB4318205059F5af4595bD534AF26"
+      address: "0xA4Fc971Eec0B6CD5b145c4D35c0E9378ba253cff"
       abi: NFT721SalesWithAccessTemplate
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/nft-721-sales-with-access-template.ts

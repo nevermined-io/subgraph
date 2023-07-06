@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTSalesTemplate": {
+      "address": "0xFE062b3d2bfc6Cd3319842f754703843cD301fe9",
+      "startBlock": 0
+    }
+  }
+}

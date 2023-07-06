@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AccessDLEQTemplate
+    network: geth-localnet
+    source:
+      address: "0xF02147853093CF7e643024F302a32836747C766E"
+      abi: AccessDLEQTemplate
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: AccessDLEQTemplate
+          file: ./abis/AccessDLEQTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/access-dleq-template.ts

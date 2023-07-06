@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NeverminedToken
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x168bc74Fd30D1559A0dF48cF61AC7dD4F23e1dA1"
+      address: "0xB4e92c6e1a1ad3f7b42463d11804BE6ca2be79D3"
       abi: NeverminedToken
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Approval
@@ -39,4 +39,4 @@ dataSources:
           handler: handleRoleRevoked
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/mapping.ts
+      file: ./src/nevermined-token.ts

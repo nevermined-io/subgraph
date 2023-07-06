@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "WhitelistingCondition": {
+      "address": "0x5C129d941A9E678630b189e146DAF20aD9F7b2c1",
+      "startBlock": 0
+    }
+  }
+}

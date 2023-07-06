@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTSalesWithAccessTemplate
-    network: spree
+    network: geth-localnet
     source:
-      address: "0xF02147853093CF7e643024F302a32836747C766E"
+      address: "0x3e4E4555bd6f2fb7f1BC1bDADF22638Ab5c99B84"
       abi: NFTSalesWithAccessTemplate
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/nft-sales-with-access-template.ts

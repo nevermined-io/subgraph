@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFTAccessProofTemplate
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x9ABC3B45B8a1f95dc45Ca4076E1D5485F9CD27a7"
+      address: "0x4DD4c877B347a29298CAc72AD2d041B18d5b34D3"
       abi: NFTAccessProofTemplate
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/nft-access-proof-template.ts

@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: DIDSalesTemplate
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x19d34AB38F83C96677564dF1f2cA695e6C7099ba"
+      address: "0x6CCfDC4D5B0A60a384Bbd047A841d62CDcD83961"
       abi: DIDSalesTemplate
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - AgreementCreated
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/did-sales-template.ts

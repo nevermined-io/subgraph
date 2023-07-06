@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFT721AccessDLEQTemplate
+    network: geth-localnet
+    source:
+      address: "0xCb2C20A0f8e8147389E97466306aC5C66B9feF74"
+      abi: NFT721AccessDLEQTemplate
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: NFT721AccessDLEQTemplate
+          file: ./abis/NFT721AccessDLEQTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/nft-721-access-dleq-template.ts

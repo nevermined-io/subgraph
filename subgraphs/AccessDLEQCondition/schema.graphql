@@ -1,0 +1,31 @@
+type Fulfilled @entity(immutable: true) {
+  id: Bytes!
+  _agreementId: Bytes! # bytes32
+  _cipher: BigInt! # uint256
+  _secretId: [BigInt!]! # uint256[2]
+  _buyer: [BigInt!]! # uint256[2]
+  _provider: [BigInt!]! # uint256[2]
+  _reencrypt: [BigInt!]! # uint256[2]
+  _proof: [BigInt!]! # uint256[2]
+  _conditionId: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Initialized @entity(immutable: true) {
+  id: Bytes!
+  version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

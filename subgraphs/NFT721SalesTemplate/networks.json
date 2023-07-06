@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFT721SalesTemplate": {
+      "address": "0x27EFE43c8Db2A212aBff0D1e96A2020424948f3c",
+      "startBlock": 0
+    }
+  }
+}

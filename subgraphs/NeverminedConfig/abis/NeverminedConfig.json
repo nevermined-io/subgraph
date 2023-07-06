@@ -166,6 +166,14 @@
     "signature": "0x26a7b37b"
   },
   {
+    "inputs": [],
+    "name": "getProvenanceStorage",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x3b7f8923"
+  },
+  {
     "inputs": [
       { "internalType": "bytes32", "name": "role", "type": "bytes32" }
     ],
@@ -174,6 +182,14 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x248a9ca3"
+  },
+  {
+    "inputs": [],
+    "name": "getTrustedForwarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xce1b815f"
   },
   {
     "inputs": [
@@ -200,13 +216,14 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_owner", "type": "address" },
-      { "internalType": "address", "name": "_governor", "type": "address" }
+      { "internalType": "address", "name": "_governor", "type": "address" },
+      { "internalType": "bool", "name": "_provenanceOff", "type": "bool" }
     ],
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
-    "signature": "0x485cc955"
+    "signature": "0xe4bbb5a8"
   },
   {
     "inputs": [
@@ -233,6 +250,14 @@
     "stateMutability": "view",
     "type": "function",
     "signature": "0x8da5cb5b"
+  },
+  {
+    "inputs": [],
+    "name": "provenanceOff",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x83859d57"
   },
   {
     "inputs": [],
@@ -291,6 +316,16 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "forwarder", "type": "address" }
+    ],
+    "name": "setTrustedForwarder",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xda742228"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
     ],
     "name": "supportsInterface",
@@ -308,5 +343,13 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0xf2fde38b"
+  },
+  {
+    "inputs": [],
+    "name": "trustedForwarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x7da0a877"
   }
 ]

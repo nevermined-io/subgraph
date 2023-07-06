@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "ThresholdCondition": {
+      "address": "0x89e292ae6e8A5ECaE023051e6Ae46B63B94Ee1B1",
+      "startBlock": 0
+    }
+  }
+}

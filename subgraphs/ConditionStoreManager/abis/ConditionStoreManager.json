@@ -257,6 +257,20 @@
     "signature": "0xdc936bb2"
   },
   {
+    "inputs": [],
+    "name": "didRegistry",
+    "outputs": [
+      {
+        "internalType": "contract IExternalRegistry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x577f9fb1"
+  },
+  {
     "inputs": [{ "internalType": "bytes32", "name": "_id", "type": "bytes32" }],
     "name": "getCondition",
     "outputs": [
@@ -342,6 +356,14 @@
     "signature": "0x248a9ca3"
   },
   {
+    "inputs": [],
+    "name": "getTrustedForwarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xce1b815f"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "_address", "type": "address" }
     ],
@@ -416,24 +438,22 @@
     "signature": "0x16279055"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "forwarder", "type": "address" }
+    ],
+    "name": "isTrustedForwarder",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x572b6c05"
+  },
+  {
     "inputs": [],
     "name": "owner",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function",
     "signature": "0x8da5cb5b"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_agentId", "type": "address" },
-      { "internalType": "bytes32", "name": "_hash", "type": "bytes32" },
-      { "internalType": "bytes", "name": "_signature", "type": "bytes" }
-    ],
-    "name": "provenanceSignatureIsCorrect",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "pure",
-    "type": "function",
-    "signature": "0xa190aff4"
   },
   {
     "inputs": [],
@@ -484,6 +504,16 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x02acb9a6"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_didAddress", "type": "address" }
+    ],
+    "name": "setProvenanceRegistry",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xfd3ff018"
   },
   {
     "inputs": [
@@ -549,5 +579,29 @@
     "stateMutability": "nonpayable",
     "type": "function",
     "signature": "0x52bc0e46"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "_id", "type": "bytes32" },
+      { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "address", "name": "user", "type": "address" },
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "_newState",
+        "type": "uint8"
+      }
+    ],
+    "name": "updateConditionStateWithProvenance",
+    "outputs": [
+      {
+        "internalType": "enum ConditionStoreLibrary.ConditionState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xd1a8ae81"
   }
 ]

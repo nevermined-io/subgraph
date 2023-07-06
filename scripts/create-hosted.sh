@@ -12,6 +12,8 @@ VERSION=$3
 COOKIE=$4
 ACCOUNT_ID=$5
 
+EXCLUDED_CONTRACTS="PlonkVerifier"
+
 generate_post_data()
 {
     cat <<EOF
@@ -34,10 +36,10 @@ generate_post_data()
 EOF
 }
 
-for d in ./subgraphs/*
+for artifact in ./artifacts/!($EXCLUDED_CONTRACTS).$NETWORK.json
 do
     # lower case name
-    BASENAME=$(basename "$d" | tr "[:upper:]" "[:lower:]")
+    BASENAME=$(jq .name < $artifact | tr -d '"' | tr "[:upper:]" "[:lower:]")
     echo "Creating $TAG$NETWORK$VERSION$BASENAME"
 
     curl -X POST \

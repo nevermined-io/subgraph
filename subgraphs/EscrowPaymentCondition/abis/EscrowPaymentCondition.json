@@ -292,6 +292,22 @@
     "signature": "0x6fd902e1"
   },
   {
+    "inputs": [],
+    "name": "getNvmConfigAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xab9de230"
+  },
+  {
+    "inputs": [],
+    "name": "getTrustedForwarder",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0xce1b815f"
+  },
+  {
     "inputs": [
       { "internalType": "bytes32", "name": "_did", "type": "bytes32" },
       { "internalType": "uint256[]", "name": "_amounts", "type": "uint256[]" },
@@ -409,24 +425,22 @@
     "signature": "0x16279055"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "forwarder", "type": "address" }
+    ],
+    "name": "isTrustedForwarder",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x572b6c05"
+  },
+  {
     "inputs": [],
     "name": "owner",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function",
     "signature": "0x8da5cb5b"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_agentId", "type": "address" },
-      { "internalType": "bytes32", "name": "_hash", "type": "bytes32" },
-      { "internalType": "bytes", "name": "_signature", "type": "bytes" }
-    ],
-    "name": "provenanceSignatureIsCorrect",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "pure",
-    "type": "function",
-    "signature": "0xa190aff4"
   },
   {
     "inputs": [],

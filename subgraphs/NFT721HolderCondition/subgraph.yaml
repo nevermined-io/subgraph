@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT721HolderCondition
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x7c6B4dd1B095386aeaD6e09502F5bcDB73E6aa8f"
+      address: "0xF3eb1Ab53142C2a57e6262e8eDfCB8bd8F9836Dc"
       abi: NFT721HolderCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Fulfilled
@@ -27,4 +27,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/nft-721-holder-condition.ts

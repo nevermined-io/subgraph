@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTHolderCondition": {
+      "address": "0xe9bc51947fEFC5991FA26ba487ca913d5D892146",
+      "startBlock": 0
+    }
+  }
+}

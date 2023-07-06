@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: NFT1155Upgradeable
-    network: spree
+    network: geth-localnet
     source:
       address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
       abi: NFT1155Upgradeable
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - ApprovalForAll
@@ -48,4 +48,4 @@ dataSources:
           handler: handleTransferSingle
         - event: URI(string,indexed uint256)
           handler: handleURI
-      file: ./src/mapping.ts
+      file: ./src/nft-1155-upgradeable.ts

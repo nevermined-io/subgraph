@@ -156,6 +156,29 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  addressToBytes32(_addr: Address): Bytes {
+    let result = super.call(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_addressToBytes32(_addr: Address): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
   agreementId(_agreementId: Bytes, _creator: Address): Bytes {
     let result = super.call(
       "agreementId",
@@ -186,6 +209,54 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  bytes32ToAddress(_b32: Bytes): Address {
+    let result = super.call(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_bytes32ToAddress(_b32: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  calculateTotalAmount(_amounts: Array<BigInt>): BigInt {
+    let result = super.call(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateTotalAmount(
+    _amounts: Array<BigInt>
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   fullConditionId(
@@ -250,6 +321,29 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  getCurrentBlockNumber(): BigInt {
+    let result = super.call(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCurrentBlockNumber(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   getDIDRegistryAddress(): Address {
     let result = super.call(
       "getDIDRegistryAddress",
@@ -264,6 +358,29 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     let result = super.tryCall(
       "getDIDRegistryAddress",
       "getDIDRegistryAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
       []
     );
     if (result.reverted) {
@@ -294,6 +411,29 @@ export class AgreementStoreManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   hasRole(role: Bytes, account: Address): boolean {
     let result = super.call("hasRole", "hasRole(bytes32,address):(bool)", [
       ethereum.Value.fromFixedBytes(role),
@@ -308,6 +448,48 @@ export class AgreementStoreManager extends ethereum.SmartContract {
       ethereum.Value.fromFixedBytes(role),
       ethereum.Value.fromAddress(account)
     ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isContract(addr: Address): boolean {
+    let result = super.call("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isContract(addr: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }

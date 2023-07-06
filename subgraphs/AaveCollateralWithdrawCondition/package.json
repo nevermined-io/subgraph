@@ -4,13 +4,15 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node undefined neverminedio/AaveCollateralWithdrawCondition",
-    "create-local": "graph create --node http://localhost:8020/ neverminedio/AaveCollateralWithdrawCondition",
-    "remove-local": "graph remove --node http://localhost:8020/ neverminedio/AaveCollateralWithdrawCondition",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/AaveCollateralWithdrawCondition"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ nevermined-io/AaveCollateralWithdrawCondition",
+    "create-local": "graph create --node http://localhost:8020/ nevermined-io/AaveCollateralWithdrawCondition",
+    "remove-local": "graph remove --node http://localhost:8020/ nevermined-io/AaveCollateralWithdrawCondition",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nevermined-io/AaveCollateralWithdrawCondition",
+    "test": "graph test"
   },
   "dependencies": {
-    "@nevermined-io/graph-cli": "0.30.4",
-    "@graphprotocol/graph-ts": "0.24.1"
-  }
+    "@graphprotocol/graph-cli": "0.51.2",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
 }

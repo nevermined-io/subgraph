@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: RewardsDistributor
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x9e478692Bce93FE0616aD97882cf6832FD9CB720"
+      address: "0xA99A4B00EA89948586fe07a4873407ACCE49789c"
       abi: RewardsDistributor
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -21,4 +21,4 @@ dataSources:
       eventHandlers:
         - event: Initialized(uint8)
           handler: handleInitialized
-      file: ./src/mapping.ts
+      file: ./src/rewards-distributor.ts

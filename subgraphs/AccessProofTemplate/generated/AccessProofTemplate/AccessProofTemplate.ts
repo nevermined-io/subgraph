@@ -107,17 +107,32 @@ export class OwnershipTransferred__Params {
 export class AccessProofTemplate__getAgreementDataResult {
   value0: Address;
   value1: Address;
+  value2: Bytes;
 
-  constructor(value0: Address, value1: Address) {
+  constructor(value0: Address, value1: Address, value2: Bytes) {
     this.value0 = value0;
     this.value1 = value1;
+    this.value2 = value2;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
     let map = new TypedMap<string, ethereum.Value>();
     map.set("value0", ethereum.Value.fromAddress(this.value0));
     map.set("value1", ethereum.Value.fromAddress(this.value1));
+    map.set("value2", ethereum.Value.fromFixedBytes(this.value2));
     return map;
+  }
+
+  getAccessConsumer(): Address {
+    return this.value0;
+  }
+
+  getAccessProvider(): Address {
+    return this.value1;
+  }
+
+  getDid(): Bytes {
+    return this.value2;
   }
 }
 
@@ -126,16 +141,88 @@ export class AccessProofTemplate extends ethereum.SmartContract {
     return new AccessProofTemplate("AccessProofTemplate", address);
   }
 
+  addressToBytes32(_addr: Address): Bytes {
+    let result = super.call(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_addressToBytes32(_addr: Address): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  bytes32ToAddress(_b32: Bytes): Address {
+    let result = super.call(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_bytes32ToAddress(_b32: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  calculateTotalAmount(_amounts: Array<BigInt>): BigInt {
+    let result = super.call(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateTotalAmount(
+    _amounts: Array<BigInt>
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   getAgreementData(_id: Bytes): AccessProofTemplate__getAgreementDataResult {
     let result = super.call(
       "getAgreementData",
-      "getAgreementData(bytes32):(address,address)",
+      "getAgreementData(bytes32):(address,address,bytes32)",
       [ethereum.Value.fromFixedBytes(_id)]
     );
 
     return new AccessProofTemplate__getAgreementDataResult(
       result[0].toAddress(),
-      result[1].toAddress()
+      result[1].toAddress(),
+      result[2].toBytes()
     );
   }
 
@@ -144,7 +231,7 @@ export class AccessProofTemplate extends ethereum.SmartContract {
   ): ethereum.CallResult<AccessProofTemplate__getAgreementDataResult> {
     let result = super.tryCall(
       "getAgreementData",
-      "getAgreementData(bytes32):(address,address)",
+      "getAgreementData(bytes32):(address,address,bytes32)",
       [ethereum.Value.fromFixedBytes(_id)]
     );
     if (result.reverted) {
@@ -154,7 +241,8 @@ export class AccessProofTemplate extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(
       new AccessProofTemplate__getAgreementDataResult(
         value[0].toAddress(),
-        value[1].toAddress()
+        value[1].toAddress(),
+        value[2].toBytes()
       )
     );
   }
@@ -180,6 +268,117 @@ export class AccessProofTemplate extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddressArray());
+  }
+
+  getCurrentBlockNumber(): BigInt {
+    let result = super.call(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCurrentBlockNumber(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  isContract(addr: Address): boolean {
+    let result = super.call("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isContract(addr: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   owner(): Address {

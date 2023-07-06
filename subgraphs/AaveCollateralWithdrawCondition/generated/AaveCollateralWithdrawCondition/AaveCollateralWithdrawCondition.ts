@@ -252,6 +252,52 @@ export class AaveCollateralWithdrawCondition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   hashValues(
     _did: Bytes,
     _vaultAddress: Address,
@@ -310,6 +356,29 @@ export class AaveCollateralWithdrawCondition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   owner(): Address {
     let result = super.call("owner", "owner():(address)", []);
 
@@ -323,45 +392,6 @@ export class AaveCollateralWithdrawCondition extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  provenanceSignatureIsCorrect(
-    _agentId: Address,
-    _hash: Bytes,
-    _signature: Bytes
-  ): boolean {
-    let result = super.call(
-      "provenanceSignatureIsCorrect",
-      "provenanceSignatureIsCorrect(address,bytes32,bytes):(bool)",
-      [
-        ethereum.Value.fromAddress(_agentId),
-        ethereum.Value.fromFixedBytes(_hash),
-        ethereum.Value.fromBytes(_signature)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_provenanceSignatureIsCorrect(
-    _agentId: Address,
-    _hash: Bytes,
-    _signature: Bytes
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "provenanceSignatureIsCorrect",
-      "provenanceSignatureIsCorrect(address,bytes32,bytes):(bool)",
-      [
-        ethereum.Value.fromAddress(_agentId),
-        ethereum.Value.fromFixedBytes(_hash),
-        ethereum.Value.fromBytes(_signature)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 }
 

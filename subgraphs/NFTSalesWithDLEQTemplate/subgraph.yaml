@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTSalesWithDLEQTemplate
+    network: geth-localnet
+    source:
+      address: "0x0003E25406C7Bec132EC07319690F3eE0ED420a4"
+      abi: NFTSalesWithDLEQTemplate
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: NFTSalesWithDLEQTemplate
+          file: ./abis/NFTSalesWithDLEQTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/nft-sales-with-dleq-template.ts

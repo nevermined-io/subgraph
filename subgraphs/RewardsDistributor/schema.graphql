@@ -1,4 +1,7 @@
-type Initialized @entity {
-  id: ID!
+type Initialized @entity(immutable: true) {
+  id: Bytes!
   version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }

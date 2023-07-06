@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AccessProofTemplate": {
+      "address": "0xA8d8Dd738462eb5c3122Cc456D6330AE414678B1",
+      "startBlock": 0
+    }
+  }
+}

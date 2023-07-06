@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "ConditionStoreManager": {
+      "address": "0x8f6865Bdb68735004aC1789bA49d0FA2877Ad057",
+      "startBlock": 0
+    }
+  }
+}

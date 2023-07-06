@@ -232,6 +232,77 @@ export class TransferNFT721Condition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toI32());
   }
 
+  addressToBytes32(_addr: Address): Bytes {
+    let result = super.call(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_addressToBytes32(_addr: Address): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "addressToBytes32",
+      "addressToBytes32(address):(bytes32)",
+      [ethereum.Value.fromAddress(_addr)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  bytes32ToAddress(_b32: Bytes): Address {
+    let result = super.call(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_bytes32ToAddress(_b32: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "bytes32ToAddress",
+      "bytes32ToAddress(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(_b32)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  calculateTotalAmount(_amounts: Array<BigInt>): BigInt {
+    let result = super.call(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_calculateTotalAmount(
+    _amounts: Array<BigInt>
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "calculateTotalAmount",
+      "calculateTotalAmount(uint256[]):(uint256)",
+      [ethereum.Value.fromUnsignedBigIntArray(_amounts)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   encodeParams(
     _did: Bytes,
     _nftHolder: Address,
@@ -397,6 +468,69 @@ export class TransferNFT721Condition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toI32());
   }
 
+  fulfillForDelegate1(
+    _agreementId: Bytes,
+    _did: Bytes,
+    _nftHolder: Address,
+    _nftReceiver: Address,
+    _nftAmount: BigInt,
+    _lockPaymentCondition: Bytes,
+    _transfer: boolean,
+    _nftContractAddress: Address,
+    _expirationBlock: BigInt
+  ): i32 {
+    let result = super.call(
+      "fulfillForDelegate",
+      "fulfillForDelegate(bytes32,bytes32,address,address,uint256,bytes32,bool,address,uint256):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_nftHolder),
+        ethereum.Value.fromAddress(_nftReceiver),
+        ethereum.Value.fromUnsignedBigInt(_nftAmount),
+        ethereum.Value.fromFixedBytes(_lockPaymentCondition),
+        ethereum.Value.fromBoolean(_transfer),
+        ethereum.Value.fromAddress(_nftContractAddress),
+        ethereum.Value.fromUnsignedBigInt(_expirationBlock)
+      ]
+    );
+
+    return result[0].toI32();
+  }
+
+  try_fulfillForDelegate1(
+    _agreementId: Bytes,
+    _did: Bytes,
+    _nftHolder: Address,
+    _nftReceiver: Address,
+    _nftAmount: BigInt,
+    _lockPaymentCondition: Bytes,
+    _transfer: boolean,
+    _nftContractAddress: Address,
+    _expirationBlock: BigInt
+  ): ethereum.CallResult<i32> {
+    let result = super.tryCall(
+      "fulfillForDelegate",
+      "fulfillForDelegate(bytes32,bytes32,address,address,uint256,bytes32,bool,address,uint256):(uint8)",
+      [
+        ethereum.Value.fromFixedBytes(_agreementId),
+        ethereum.Value.fromFixedBytes(_did),
+        ethereum.Value.fromAddress(_nftHolder),
+        ethereum.Value.fromAddress(_nftReceiver),
+        ethereum.Value.fromUnsignedBigInt(_nftAmount),
+        ethereum.Value.fromFixedBytes(_lockPaymentCondition),
+        ethereum.Value.fromBoolean(_transfer),
+        ethereum.Value.fromAddress(_nftContractAddress),
+        ethereum.Value.fromUnsignedBigInt(_expirationBlock)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
   generateId(_agreementId: Bytes, _valueHash: Bytes): Bytes {
     let result = super.call(
       "generateId",
@@ -429,6 +563,29 @@ export class TransferNFT721Condition extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  getCurrentBlockNumber(): BigInt {
+    let result = super.call(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCurrentBlockNumber(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCurrentBlockNumber",
+      "getCurrentBlockNumber():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   getNFTDefaultAddress(): Address {
     let result = super.call(
       "getNFTDefaultAddress",
@@ -443,6 +600,29 @@ export class TransferNFT721Condition extends ethereum.SmartContract {
     let result = super.tryCall(
       "getNFTDefaultAddress",
       "getNFTDefaultAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getNvmConfigAddress(): Address {
+    let result = super.call(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getNvmConfigAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getNvmConfigAddress",
+      "getNvmConfigAddress():(address)",
       []
     );
     if (result.reverted) {
@@ -471,6 +651,29 @@ export class TransferNFT721Condition extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   hasRole(role: Bytes, account: Address): boolean {
@@ -547,6 +750,48 @@ export class TransferNFT721Condition extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  isContract(addr: Address): boolean {
+    let result = super.call("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isContract(addr: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isContract", "isContract(address):(bool)", [
+      ethereum.Value.fromAddress(addr)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTrustedForwarder(forwarder: Address): boolean {
+    let result = super.call(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTrustedForwarder(forwarder: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTrustedForwarder",
+      "isTrustedForwarder(address):(bool)",
+      [ethereum.Value.fromAddress(forwarder)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   owner(): Address {
@@ -730,6 +975,72 @@ export class FulfillForDelegateCall__Outputs {
   _call: FulfillForDelegateCall;
 
   constructor(call: FulfillForDelegateCall) {
+    this._call = call;
+  }
+
+  get value0(): i32 {
+    return this._call.outputValues[0].value.toI32();
+  }
+}
+
+export class FulfillForDelegate1Call extends ethereum.Call {
+  get inputs(): FulfillForDelegate1Call__Inputs {
+    return new FulfillForDelegate1Call__Inputs(this);
+  }
+
+  get outputs(): FulfillForDelegate1Call__Outputs {
+    return new FulfillForDelegate1Call__Outputs(this);
+  }
+}
+
+export class FulfillForDelegate1Call__Inputs {
+  _call: FulfillForDelegate1Call;
+
+  constructor(call: FulfillForDelegate1Call) {
+    this._call = call;
+  }
+
+  get _agreementId(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _did(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get _nftHolder(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get _nftReceiver(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get _nftAmount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get _lockPaymentCondition(): Bytes {
+    return this._call.inputValues[5].value.toBytes();
+  }
+
+  get _transfer(): boolean {
+    return this._call.inputValues[6].value.toBoolean();
+  }
+
+  get _nftContractAddress(): Address {
+    return this._call.inputValues[7].value.toAddress();
+  }
+
+  get _expirationBlock(): BigInt {
+    return this._call.inputValues[8].value.toBigInt();
+  }
+}
+
+export class FulfillForDelegate1Call__Outputs {
+  _call: FulfillForDelegate1Call;
+
+  constructor(call: FulfillForDelegate1Call) {
     this._call = call;
   }
 

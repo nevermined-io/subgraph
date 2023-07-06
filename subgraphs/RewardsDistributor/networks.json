@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "RewardsDistributor": {
+      "address": "0xA99A4B00EA89948586fe07a4873407ACCE49789c",
+      "startBlock": 0
+    }
+  }
+}

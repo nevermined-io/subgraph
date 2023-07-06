@@ -254,6 +254,29 @@ export class NeverminedConfig extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  getProvenanceStorage(): boolean {
+    let result = super.call(
+      "getProvenanceStorage",
+      "getProvenanceStorage():(bool)",
+      []
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_getProvenanceStorage(): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "getProvenanceStorage",
+      "getProvenanceStorage():(bool)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   getRoleAdmin(role: Bytes): Bytes {
     let result = super.call("getRoleAdmin", "getRoleAdmin(bytes32):(bytes32)", [
       ethereum.Value.fromFixedBytes(role)
@@ -273,6 +296,29 @@ export class NeverminedConfig extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getTrustedForwarder(): Address {
+    let result = super.call(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getTrustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getTrustedForwarder",
+      "getTrustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   hasRole(role: Bytes, account: Address): boolean {
@@ -349,6 +395,21 @@ export class NeverminedConfig extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  provenanceOff(): boolean {
+    let result = super.call("provenanceOff", "provenanceOff():(bool)", []);
+
+    return result[0].toBoolean();
+  }
+
+  try_provenanceOff(): ethereum.CallResult<boolean> {
+    let result = super.tryCall("provenanceOff", "provenanceOff():(bool)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   supportsInterface(interfaceId: Bytes): boolean {
     let result = super.call(
       "supportsInterface",
@@ -370,6 +431,29 @@ export class NeverminedConfig extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  trustedForwarder(): Address {
+    let result = super.call(
+      "trustedForwarder",
+      "trustedForwarder():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_trustedForwarder(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "trustedForwarder",
+      "trustedForwarder():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 }
 
@@ -430,6 +514,10 @@ export class InitializeCall__Inputs {
 
   get _governor(): Address {
     return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _provenanceOff(): boolean {
+    return this._call.inputValues[2].value.toBoolean();
   }
 }
 
@@ -595,6 +683,36 @@ export class SetMarketplaceFeesCall__Outputs {
   _call: SetMarketplaceFeesCall;
 
   constructor(call: SetMarketplaceFeesCall) {
+    this._call = call;
+  }
+}
+
+export class SetTrustedForwarderCall extends ethereum.Call {
+  get inputs(): SetTrustedForwarderCall__Inputs {
+    return new SetTrustedForwarderCall__Inputs(this);
+  }
+
+  get outputs(): SetTrustedForwarderCall__Outputs {
+    return new SetTrustedForwarderCall__Outputs(this);
+  }
+}
+
+export class SetTrustedForwarderCall__Inputs {
+  _call: SetTrustedForwarderCall;
+
+  constructor(call: SetTrustedForwarderCall) {
+    this._call = call;
+  }
+
+  get forwarder(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetTrustedForwarderCall__Outputs {
+  _call: SetTrustedForwarderCall;
+
+  constructor(call: SetTrustedForwarderCall) {
     this._call = call;
   }
 }

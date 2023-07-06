@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTAccessSwapTemplate": {
+      "address": "0x99a9F881b4C3b03877d2058D14471ADb69991831",
+      "startBlock": 0
+    }
+  }
+}

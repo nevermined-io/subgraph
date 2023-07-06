@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "SignCondition": {
+      "address": "0x7eFBDb90869644522D7E005ceE6c800f92277457",
+      "startBlock": 0
+    }
+  }
+}

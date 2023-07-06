@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AaveBorrowCondition": {
+      "address": "0x5B1eE0B69f0e2789A0758E220F1B2f95D9F3a710",
+      "startBlock": 0
+    }
+  }
+}

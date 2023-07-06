@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: HashLockCondition
-    network: spree
+    network: geth-localnet
     source:
-      address: "0x8A3468746753001fad0811F369938ddac1a504Bb"
+      address: "0xFFE2cC964aF008a2D0670A1C97bc6e600B3d3722"
       abi: HashLockCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -24,4 +24,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/hash-lock-condition.ts

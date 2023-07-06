@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: spree
+    network: geth-localnet
     source:
       address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
       abi: DIDRegistry
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - ActedOnBehalf
@@ -84,4 +84,4 @@ dataSources:
           handler: handleWasDerivedFrom
         - event: WasGeneratedBy(indexed bytes32,indexed address,indexed bytes32,bytes32,string,uint256)
           handler: handleWasGeneratedBy
-      file: ./src/mapping.ts
+      file: ./src/did-registry.ts

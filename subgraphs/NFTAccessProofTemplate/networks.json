@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFTAccessProofTemplate": {
+      "address": "0x4DD4c877B347a29298CAc72AD2d041B18d5b34D3",
+      "startBlock": 0
+    }
+  }
+}

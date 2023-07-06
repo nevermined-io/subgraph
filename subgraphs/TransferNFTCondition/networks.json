@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "TransferNFTCondition": {
+      "address": "0x1F803BD077807fa223d9e846b6F431d39D320357",
+      "startBlock": 0
+    }
+  }
+}

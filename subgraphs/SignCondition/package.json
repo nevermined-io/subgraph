@@ -4,13 +4,15 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node undefined neverminedio/SignCondition",
-    "create-local": "graph create --node http://localhost:8020/ neverminedio/SignCondition",
-    "remove-local": "graph remove --node http://localhost:8020/ neverminedio/SignCondition",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 neverminedio/SignCondition"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ nevermined-io/SignCondition",
+    "create-local": "graph create --node http://localhost:8020/ nevermined-io/SignCondition",
+    "remove-local": "graph remove --node http://localhost:8020/ nevermined-io/SignCondition",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nevermined-io/SignCondition",
+    "test": "graph test"
   },
   "dependencies": {
-    "@nevermined-io/graph-cli": "0.30.4",
-    "@graphprotocol/graph-ts": "0.24.1"
-  }
+    "@graphprotocol/graph-cli": "0.51.2",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
 }

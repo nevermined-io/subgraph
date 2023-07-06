@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFT721AccessTemplate": {
+      "address": "0x91A362A6FC973647a6C7E54a5b8371228cD72661",
+      "startBlock": 0
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFT721SubscriptionUpgradeable": {
+      "address": "0x168bc74Fd30D1559A0dF48cF61AC7dD4F23e1dA1",
+      "startBlock": 0
+    }
+  }
+}

@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NFTAccessDLEQTemplate
+    network: geth-localnet
+    source:
+      address: "0xFD1200d9415F2c023541D98F97Ac22CEBF0ba37D"
+      abi: NFTAccessDLEQTemplate
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AgreementCreated
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: NFTAccessDLEQTemplate
+          file: ./abis/NFTAccessDLEQTemplate.json
+      eventHandlers:
+        - event: AgreementCreated(indexed bytes32,bytes32,indexed address,indexed address,uint256[],uint256[],bytes32[],bytes32[],bytes32,address)
+          handler: handleAgreementCreated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/nft-access-dleq-template.ts

@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFT721EscrowPaymentCondition": {
+      "address": "0x4FbD95bCb875F77deac1dDd9D8883C456f0a0B0B",
+      "startBlock": 0
+    }
+  }
+}

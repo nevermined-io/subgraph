@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: ThresholdCondition
-    network: spree
+    network: geth-localnet
     source:
-      address: "0xE911c4da793094b787D76CC24694cfE2e27C5362"
+      address: "0x89e292ae6e8A5ECaE023051e6Ae46B63B94Ee1B1"
       abi: ThresholdCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -24,4 +24,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/threshold-condition.ts

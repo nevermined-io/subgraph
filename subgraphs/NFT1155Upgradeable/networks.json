@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "NFT1155Upgradeable": {
+      "address": "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E",
+      "startBlock": 0
+    }
+  }
+}

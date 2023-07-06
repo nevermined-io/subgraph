@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "AccessProofCondition": {
+      "address": "0x2a3C700C127811C81A785B101228613B3F9ceCE9",
+      "startBlock": 0
+    }
+  }
+}

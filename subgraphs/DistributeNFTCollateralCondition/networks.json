@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "DistributeNFTCollateralCondition": {
+      "address": "0x37cB53b6e0224b03D2cD11b68ea5Df6141D95a1e",
+      "startBlock": 0
+    }
+  }
+}

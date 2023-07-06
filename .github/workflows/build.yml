@@ -14,35 +14,29 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: nevermined-io/nvm-tools-actions@v0.11.0
+      - uses: nevermined-io/nvm-tools-actions@v0.13.0
         with:
           token: ${{ secrets.API_TOKEN_GITHUB }}
-          contracts-version: "v3.2.1"
+          contracts-version: "v3.2.2"
 
       - name: Install dependencies
         run: yarn
 
       - name: Run graph-node
         run: |
-          docker-compose up -d
+          docker compose up -d
           ./scripts/wait_for_graph.sh
 
       - name: copy-artifacts
-        run: ./scripts/wait-nevermined.sh
+        run: nvm-tools copy-artifacts ./artifacts
 
-      - name: Test update-addresses
-        run: yarn nevermined:update-addresses geth-localnet
-      - name: Test update-startblock
-        run: OVERRIDE_SUBGRAPH_STARTING_BLOCK=10 yarn nevermined:update-startblock geth-localnet
-      - name: Test update-network
-        run: yarn nevermined:update-network spree
+      - name: Test update network
+        run: yarn graph:update-network geth-localnet
       - name: Test create
-        run: yarn nevermined:create development geth-localnet v3
+        run: yarn graph:create-local development geth-localnet v3
       - name: Test deploy
-        run: yarn nevermined:deploy development geth-localnet v3
+        run: yarn graph:deploy-local development geth-localnet v3
       - name: Unit tests
         env:
           SEED_WORDS: ${{ secrets.TEST_MNEMONIC }}
         run: yarn test
-      - name: Test the clients compile
-        run: yarn tsc

@@ -1,17 +1,17 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
     name: SignCondition
-    network: spree
+    network: geth-localnet
     source:
-      address: "0xF400b7e470866a2bcbaEE225bD1eCbF50A8660bf"
+      address: "0x7eFBDb90869644522D7E005ceE6c800f92277457"
       abi: SignCondition
-      startBlock: 10
+      startBlock: 0
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Initialized
@@ -24,4 +24,4 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-      file: ./src/mapping.ts
+      file: ./src/sign-condition.ts

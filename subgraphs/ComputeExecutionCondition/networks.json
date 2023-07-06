@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "ComputeExecutionCondition": {
+      "address": "0x30F5Ea1C8B89DD793C1b007B8FCb742C7f3C84a9",
+      "startBlock": 0
+    }
+  }
+}
