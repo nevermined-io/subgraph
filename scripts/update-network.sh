@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 shopt -s extglob
-set -ue
+set -u
 
 # This script requires the jq and yq clis
 NETWORK=$1
@@ -13,6 +13,7 @@ declare -A SCAN_URLS=( \
     ["matic"]=https://api.polygonscan.com/api \
     ["gnosis"]=https://api.gnosisscan.io/api \
     ["arbitrum-goerli"]=https://api-goerli.arbiscan.io/api \
+    ["arbitrum-one"]=https://api.arbiscan.io/api \
 )
 
 
@@ -50,7 +51,7 @@ update_start_block() {
         )
 
         # try not to trigger any rate-limits
-        sleep 0.5
+        sleep 5
     else
         block_number=0
     fi
