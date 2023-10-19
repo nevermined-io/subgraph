@@ -33,7 +33,7 @@ NETWORKS_MAP=(
   ["goerli"]="5" 
   ["arbitrum-goerli"]="421613" 
   ["gnosis"]="100"
-  ["arbitrum"]="42161"
+  ["arbitrum-one"]="42161"
 )
 
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
