@@ -13,6 +13,7 @@ declare -A SCAN_URLS=( \
     ["matic"]=https://api.polygonscan.com/api \
     ["gnosis"]=https://api.gnosisscan.io/api \
     ["arbitrum-goerli"]=https://api-goerli.arbiscan.io/api \
+    ["arbitrum-sepolia"]=https://api-sepolia.arbiscan.io/api \
     ["arbitrum-one"]=https://api.arbiscan.io/api \
 )
 
