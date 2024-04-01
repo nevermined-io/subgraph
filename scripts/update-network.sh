@@ -14,6 +14,9 @@ declare -A SCAN_URLS=( \
     ["gnosis"]=https://api.gnosisscan.io/api \
     ["arbitrum-goerli"]=https://api-goerli.arbiscan.io/api \
     ["arbitrum-one"]=https://api.arbiscan.io/api \
+    ["celo"]=https://api.celoscan.io/api \
+    ["base"]=https://api.basescan.io/api \
+    ["optimisim"]=https://api-optimistic.etherscan.io/api \
 )
 
 
