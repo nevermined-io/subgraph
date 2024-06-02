@@ -32,6 +32,7 @@ NETWORKS_MAP=(
   ["aurora-testnet"]="1313161555" 
   ["goerli"]="5" 
   ["arbitrum-goerli"]="421613" 
+  ["arbitrum-sepolia"]="421614" 
   ["gnosis"]="100"
   ["arbitrum-one"]="42161"
   ["base"]="8453"

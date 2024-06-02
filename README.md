@@ -13,6 +13,7 @@
   - [Deploying subgraphs to the hosted service](#deploying-subgraphs-to-the-hosted-service)
     - [Getting the cookie and account id](#getting-the-cookie-and-account-id)
   - [Custom Entities](#custom-entities)
+    - [FulfilledCounter](#fulfilledcounter)
   - [Testing](#testing)
   - [References](#references)
   - [License](#license)
