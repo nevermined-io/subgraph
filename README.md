@@ -13,6 +13,7 @@
   - [Deploying subgraphs to the hosted service](#deploying-subgraphs-to-the-hosted-service)
     - [Getting the cookie and account id](#getting-the-cookie-and-account-id)
   - [Custom Entities](#custom-entities)
+    - [FulfilledCounter](#fulfilledcounter)
   - [Testing](#testing)
   - [References](#references)
   - [License](#license)
@@ -77,6 +78,9 @@ $ yarn graph:deploy-local development geth-localnet v3
 # you need to get the access token from https://thegraph.com/hosted-service/dashboard and authenticate
 $ yarn graph auth --product hosted-service <access_token>
 
+// NEW WAY
+$ yarn graph auth --studio
+
 # download the artifacts
 $ yarn artifacts:download v3.2.1 mumbai public
 
@@ -89,6 +93,9 @@ $ yarn graph:create-hosted public mumbai v3 "explorerSession_v24=s%3A6zVr0-om...
 
 # deploy the subgraphs
 $ yarn graph:deploy-hosted public mumbai v3
+
+// NEW WAY
+$ yarn graph:deploy-studio public mumbai v3
 ```
 
 ### Getting the cookie and account id

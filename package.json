@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.4.16",
-    "@graphprotocol/graph-cli": "^0.51.2",
+    "@graphprotocol/graph-cli": "^0.78.0",
     "@nevermined-io/sdk": "1.5.4",
     "@types/chai": "^4.2.22",
     "@types/glob": "^7.2.0",
