@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum
     name: AaveBorrowCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x5B1eE0B69f0e2789A0758E220F1B2f95D9F3a710"
+      address: null
       abi: AaveBorrowCondition
       startBlock: 0
     mapping:

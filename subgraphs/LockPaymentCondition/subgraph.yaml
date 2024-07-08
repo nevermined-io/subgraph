@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: LockPaymentCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xB4F43b80622Ca3AF6C5C6cCe5B25B31498F319B4"
+      address: "0x2749DDEd394196835199471027713773736bffF2"
       abi: LockPaymentCondition
-      startBlock: 0
+      startBlock: 33993023
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

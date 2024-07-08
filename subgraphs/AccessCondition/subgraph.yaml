@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xC5268112c8EB4977E659F996F7443D9717320706"
+      address: "0xf4b6309e2604df2792FE9ee0ac269159d8029d4B"
       abi: AccessCondition
-      startBlock: 0
+      startBlock: 33993053
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

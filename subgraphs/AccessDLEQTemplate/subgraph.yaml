@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: AccessDLEQTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xF02147853093CF7e643024F302a32836747C766E"
+      address: "0x98dC2e02ebC7a74f86427013a8F7E0960c9f8873"
       abi: AccessDLEQTemplate
-      startBlock: 0
+      startBlock: 33993071
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

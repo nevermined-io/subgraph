@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: EscrowPaymentCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xD6d19ed17Ec0893B6979FE6B0B19beeE07849Fec"
+      address: "0x31B2D187d674C9ACBD2b25f6EDce3d2Db2B7f446"
       abi: EscrowPaymentCondition
-      startBlock: 0
+      startBlock: 33992979
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

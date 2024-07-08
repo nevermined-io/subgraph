@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTSalesTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xFE062b3d2bfc6Cd3319842f754703843cD301fe9"
+      address: "0x72201948087aE83f8Eac22cf7A9f2139e4cFA829"
       abi: NFTSalesTemplate
-      startBlock: 0
+      startBlock: 33993121
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

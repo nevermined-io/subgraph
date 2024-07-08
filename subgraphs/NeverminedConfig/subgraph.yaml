@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NeverminedConfig
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x61b8391902eB75D679F02E21bcBFffF6f0FA2416"
+      address: "0x6ed58E9770dcA880315a7C9DC45CD0c874411c53"
       abi: NeverminedConfig
-      startBlock: 0
+      startBlock: 30662786
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

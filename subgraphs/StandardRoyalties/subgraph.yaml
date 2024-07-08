@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: StandardRoyalties
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x459b553aBD0398429AE98F3C1B2769483bc46091"
+      address: "0xbb86D4AC4eFEe7e1Bee3d9b9B85E182DBDC84261"
       abi: StandardRoyalties
-      startBlock: 0
+      startBlock: 30662817
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTAccessCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x1Fa1C4073903712d0cb1186146B6508363E66bC6"
+      address: "0x8a939A5e8cEf226cB3601982191547Bd74Cc0F5c"
       abi: NFTAccessCondition
-      startBlock: 0
+      startBlock: 33993032
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

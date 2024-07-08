@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: DIDSalesTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x6CCfDC4D5B0A60a384Bbd047A841d62CDcD83961"
+      address: "0x7BfCfafB89e92e15B3b2C6bad6Bf5A9e1FE2C7B8"
       abi: DIDSalesTemplate
-      startBlock: 0
+      startBlock: 33992771
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

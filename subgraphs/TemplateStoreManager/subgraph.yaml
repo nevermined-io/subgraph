@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: TemplateStoreManager
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xCc26259119953158BD7656a990389CFDd769dBC7"
+      address: "0x1C008e32457Fc896cBc6814bfD855C06cA393338"
       abi: TemplateStoreManager
-      startBlock: 0
+      startBlock: 33992972
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

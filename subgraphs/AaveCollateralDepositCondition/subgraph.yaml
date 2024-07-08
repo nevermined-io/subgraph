@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum
     name: AaveCollateralDepositCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xB773D7389AF806560782c998E780AFC663ED1a05"
+      address: null
       abi: AaveCollateralDepositCondition
       startBlock: 0
     mapping:

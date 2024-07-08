@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721AccessTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x91A362A6FC973647a6C7E54a5b8371228cD72661"
+      address: "0x2E12E3c031313A0dc4F6156F61c73c9e5Fc5260A"
       abi: NFT721AccessTemplate
-      startBlock: 0
+      startBlock: 33993117
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

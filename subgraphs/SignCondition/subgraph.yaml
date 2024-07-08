@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: SignCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x7eFBDb90869644522D7E005ceE6c800f92277457"
+      address: "0x4e8ABBB9a0493296dd6D2F849F5B3bf007d5be3e"
       abi: SignCondition
-      startBlock: 0
+      startBlock: 33992983
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
