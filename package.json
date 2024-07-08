@@ -11,6 +11,7 @@
     "graph:update-network": "./scripts/update-network.sh",
     "graph:create-hosted": "./scripts/create-hosted.sh",
     "graph:deploy-hosted": "./scripts/deploy-hosted.sh",
+    "graph:deploy-studio": "./scripts/deploy-studio.sh",
     "artifacts:download": "./scripts/download-artifacts.sh"
   },
   "license": "Apache-2.0",

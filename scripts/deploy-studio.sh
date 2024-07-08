@@ -15,5 +15,5 @@ do
     CONTRACT_NAME=$(jq .name < $artifact | tr -d '"')
     BASENAME=$(jq .name < $artifact | tr -d '"' | tr "[:upper:]" "[:lower:]")
     echo "Deploying $TAG$NETWORK$VERSION$BASENAME"
-    (cd "subgraphs/$CONTRACT_NAME" && graph deploy --studio nevermined-io/$TAG$NETWORK$VERSION$BASENAME)
+    (cd "subgraphs/$CONTRACT_NAME" && graph deploy --studio $TAG$NETWORK$VERSION$BASENAME -l v3.5.7)
 done
