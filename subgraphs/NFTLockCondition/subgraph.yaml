@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTLockCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xC94cFBb9E8f432228bCC153cd797eaA2279E282A"
+      address: "0x1CEE8f54e6F70E04D724198179BbD7305C0C9EA8"
       abi: NFTLockCondition
-      startBlock: 0
+      startBlock: 33993047
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

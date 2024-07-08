@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum
     name: AaveCreditTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x5535177d8159E447B1F0f07733e6FC5FeF0abb2F"
+      address: null
       abi: AaveCreditTemplate
       startBlock: 0
     mapping:

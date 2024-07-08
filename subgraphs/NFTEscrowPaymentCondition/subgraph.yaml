@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTEscrowPaymentCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xA7e6631D03B8401a8c0F5076a41F12BFFe63B3CF"
+      address: "0x262869246fEd8d13D93e45842356b741f90a3483"
       abi: NFTEscrowPaymentCondition
-      startBlock: 0
+      startBlock: 33993009
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: DIDRegistry
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x56C010A3B179A4Ec1c03e975F72a104bC1dE3dc5"
+      address: "0xCB0A331cB1F57E01FF0FA2d664f2F100081cbc3b"
       abi: DIDRegistry
-      startBlock: 0
+      startBlock: 30662813
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

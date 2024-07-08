@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: RewardsDistributor
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xA99A4B00EA89948586fe07a4873407ACCE49789c"
+      address: "0xc145B35de00659BBfDfa95b2E4Fb33A6bAD23c75"
       abi: RewardsDistributor
-      startBlock: 0
+      startBlock: 33993019
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

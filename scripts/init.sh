@@ -14,7 +14,7 @@ do
         nevermined-io/$name \
         subgraphs/$name \
         --protocol ethereum \
-        --product hosted-service \
+        --product subgraph-studio \
         --contract-name $name \
         --from-contract $address \
         --index-events \

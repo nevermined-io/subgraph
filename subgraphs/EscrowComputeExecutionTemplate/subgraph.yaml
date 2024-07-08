@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: EscrowComputeExecutionTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xF474fC9C472A6Df8D01bd06376c794B22C51ea93"
+      address: "0x67ef0cb18de275FF83449B5F5abc5A2d2619182e"
       abi: EscrowComputeExecutionTemplate
-      startBlock: 0
+      startBlock: 33993110
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

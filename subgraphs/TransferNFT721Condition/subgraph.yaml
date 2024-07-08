@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: TransferNFT721Condition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xF841Ff2C8abF1751A83923755EbD2F66bBAa5BFE"
+      address: "0x94e5eD9099415A38A7ea321dD12BaF0A65302682"
       abi: TransferNFT721Condition
-      startBlock: 0
+      startBlock: 33993059
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

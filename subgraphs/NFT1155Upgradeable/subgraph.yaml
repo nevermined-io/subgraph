@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT1155Upgradeable
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xe6A3980DaF4060e4b7e98Fa0AEf156B5cd6cD99E"
+      address: "0xbb5388DBE86fbf07a4792AaA7e3fbF6A07f53C5E"
       abi: NFT1155Upgradeable
-      startBlock: 0
+      startBlock: 32297533
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

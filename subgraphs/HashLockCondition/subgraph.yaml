@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: HashLockCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xFFE2cC964aF008a2D0670A1C97bc6e600B3d3722"
+      address: "0xf964cE3a7D5B4BFe12216BfBC5e43dD124646Da7"
       abi: HashLockCondition
-      startBlock: 0
+      startBlock: 33992985
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

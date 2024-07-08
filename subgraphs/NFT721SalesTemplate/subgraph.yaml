@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFT721SalesTemplate
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x27EFE43c8Db2A212aBff0D1e96A2020424948f3c"
+      address: "0x5f0d72311B8a183ccA115aD91683CD4D65999D19"
       abi: NFT721SalesTemplate
-      startBlock: 0
+      startBlock: 33992768
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

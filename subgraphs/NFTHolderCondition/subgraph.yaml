@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NFTHolderCondition
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0xe9bc51947fEFC5991FA26ba487ca913d5D892146"
+      address: "0x30e25443BcF10C89AeEE310D4eb840F346Ac9fFe"
       abi: NFTHolderCondition
-      startBlock: 0
+      startBlock: 33993043
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

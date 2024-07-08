@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: ConditionStoreManager
-    network: geth-localnet
+    network: gnosis
     source:
-      address: "0x8f6865Bdb68735004aC1789bA49d0FA2877Ad057"
+      address: "0x5d6CFA8C2D9552ed94f82e75CC0c5520Ce63b900"
       abi: ConditionStoreManager
-      startBlock: 0
+      startBlock: 33992968
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

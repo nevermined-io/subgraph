@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NeverminedToken
-    network: geth-localnet
+    network: arbitrum-sepolia
     source:
-      address: "0xB4e92c6e1a1ad3f7b42463d11804BE6ca2be79D3"
+      address: "0x218cd130A50De6c06838EA0F059C0ACd042b4d6b"
       abi: NeverminedToken
-      startBlock: 0
+      startBlock: 1054857
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
